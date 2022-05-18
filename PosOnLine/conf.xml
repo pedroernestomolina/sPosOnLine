@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuracion>
+  <Servidor>
+    <Instancia>192.168.0.102</Instancia>
+    <Catalogo>00000001</Catalogo>
+  </Servidor>
+  <IdEquipo>1</IdEquipo>
+  <CodigoSucursalActiva>15</CodigoSucursalActiva>
+  <codigoDepositoActiva>23</codigoDepositoActiva>
+  <SerieFactura>1</SerieFactura>
+  <SerieNCredito>1D</SerieNCredito>
+  <SerieNEntrega>Nen</SerieNEntrega>
+  <ModoImpresionFactura>T80</ModoImpresionFactura>
+  <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
+  <ModoImpresionNCredito>T80</ModoImpresionNCredito>
+  <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
+  <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
+  <HabilitarAbrirDocPendOtrosUsuarios>Si</HabilitarAbrirDocPendOtrosUsuarios>
+  <DatosNegocioTicket>
+    <Rif>J30821934-7</Rif>
+    <Nombre>CORPORACION MUNDO SCALA, CA</Nombre>
+    <Direccion>VALENCIA, MERCADO MAYORISTA, LOCAL 21, SECTOR TOCUYITO, MERCADO DE MAYORISTA </Direccion>
+  </DatosNegocioTicket>
+</Configuracion>

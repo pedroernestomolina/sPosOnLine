@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS" targetNamespace="http://tempuri.org/DS.xsd" xmlns:mstns="http://tempuri.org/DS.xsd" xmlns="http://tempuri.org/DS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS" msprop:Generator_UserDSName="DS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Pago" msprop:Generator_TableClassName="PagoDataTable" msprop:Generator_TableVarName="tablePago" msprop:Generator_TablePropName="Pago" msprop:Generator_RowDeletingName="PagoRowDeleting" msprop:Generator_RowChangingName="PagoRowChanging" msprop:Generator_RowEvHandlerName="PagoRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoRowDeleted" msprop:Generator_UserTableName="Pago" msprop:Generator_RowChangedName="PagoRowChanged" msprop:Generator_RowEvArgName="PagoRowChangeEvent" msprop:Generator_RowClassName="PagoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="documento" msprop:Generator_ColumnVarNameInTable="columndocumento" msprop:Generator_ColumnPropNameInRow="documento" msprop:Generator_ColumnPropNameInTable="documentoColumn" msprop:Generator_UserColumnName="documento" type="xs:string" minOccurs="0" />
+              <xs:element name="nombreRazonSocial" msprop:Generator_ColumnVarNameInTable="columnnombreRazonSocial" msprop:Generator_ColumnPropNameInRow="nombreRazonSocial" msprop:Generator_ColumnPropNameInTable="nombreRazonSocialColumn" msprop:Generator_UserColumnName="nombreRazonSocial" type="xs:string" minOccurs="0" />
+              <xs:element name="fechaHora" msprop:Generator_ColumnVarNameInTable="columnfechaHora" msprop:Generator_ColumnPropNameInRow="fechaHora" msprop:Generator_ColumnPropNameInTable="fechaHoraColumn" msprop:Generator_UserColumnName="fechaHora" type="xs:string" minOccurs="0" />
+              <xs:element name="monto" msprop:Generator_ColumnVarNameInTable="columnmonto" msprop:Generator_ColumnPropNameInRow="monto" msprop:Generator_ColumnPropNameInTable="montoColumn" msprop:Generator_UserColumnName="monto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="dirFiscal" msprop:Generator_ColumnVarNameInTable="columndirFiscal" msprop:Generator_ColumnPropNameInRow="dirFiscal" msprop:Generator_ColumnPropNameInTable="dirFiscalColumn" msprop:Generator_UserColumnName="dirFiscal" type="xs:string" minOccurs="0" />
+              <xs:element name="telefono" msprop:Generator_ColumnVarNameInTable="columntelefono" msprop:Generator_ColumnPropNameInRow="telefono" msprop:Generator_ColumnPropNameInTable="telefonoColumn" msprop:Generator_UserColumnName="telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="id1" msprop:Generator_ColumnVarNameInTable="columnid1" msprop:Generator_ColumnPropNameInRow="id1" msprop:Generator_ColumnPropNameInTable="id1Column" msprop:Generator_UserColumnName="id1" type="xs:string" minOccurs="0" />
+              <xs:element name="montoRecibido" msprop:Generator_ColumnVarNameInTable="columnmontoRecibido" msprop:Generator_ColumnPropNameInRow="montoRecibido" msprop:Generator_ColumnPropNameInTable="montoRecibidoColumn" msprop:Generator_UserColumnName="montoRecibido" type="xs:decimal" minOccurs="0" />
+              <xs:element name="codigoMedioPago" msprop:Generator_ColumnVarNameInTable="columncodigoMedioPago" msprop:Generator_ColumnPropNameInRow="codigoMedioPago" msprop:Generator_ColumnPropNameInTable="codigoMedioPagoColumn" msprop:Generator_UserColumnName="codigoMedioPago" type="xs:string" minOccurs="0" />
+              <xs:element name="estatus" msprop:Generator_ColumnVarNameInTable="columnestatus" msprop:Generator_ColumnPropNameInRow="estatus" msprop:Generator_ColumnPropNameInTable="estatusColumn" msprop:Generator_UserColumnName="estatus" type="xs:string" minOccurs="0" />
+              <xs:element name="tasa" msprop:Generator_ColumnVarNameInTable="columntasa" msprop:Generator_ColumnPropNameInRow="tasa" msprop:Generator_ColumnPropNameInTable="tasaColumn" msprop:Generator_UserColumnName="tasa" type="xs:string" minOccurs="0" />
+              <xs:element name="importe" msprop:Generator_ColumnVarNameInTable="columnimporte" msprop:Generator_ColumnPropNameInRow="importe" msprop:Generator_ColumnPropNameInTable="importeColumn" msprop:Generator_UserColumnName="importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CambioDar" msprop:Generator_ColumnVarNameInTable="columnCambioDar" msprop:Generator_ColumnPropNameInRow="CambioDar" msprop:Generator_ColumnPropNameInTable="CambioDarColumn" msprop:Generator_UserColumnName="CambioDar" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lote" msprop:Generator_ColumnVarNameInTable="columnlote" msprop:Generator_ColumnPropNameInRow="lote" msprop:Generator_ColumnPropNameInTable="loteColumn" msprop:Generator_UserColumnName="lote" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PagoResumen" msprop:Generator_TableClassName="PagoResumenDataTable" msprop:Generator_TableVarName="tablePagoResumen" msprop:Generator_TablePropName="PagoResumen" msprop:Generator_RowDeletingName="PagoResumenRowDeleting" msprop:Generator_RowChangingName="PagoResumenRowChanging" msprop:Generator_RowEvHandlerName="PagoResumenRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoResumenRowDeleted" msprop:Generator_UserTableName="PagoResumen" msprop:Generator_RowChangedName="PagoResumenRowChanged" msprop:Generator_RowEvArgName="PagoResumenRowChangeEvent" msprop:Generator_RowClassName="PagoResumenRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" minOccurs="0" />
+              <xs:element name="medio" msprop:Generator_ColumnVarNameInTable="columnmedio" msprop:Generator_ColumnPropNameInRow="medio" msprop:Generator_ColumnPropNameInTable="medioColumn" msprop:Generator_UserColumnName="medio" type="xs:string" minOccurs="0" />
+              <xs:element name="lote" msprop:Generator_ColumnVarNameInTable="columnlote" msprop:Generator_ColumnPropNameInRow="lote" msprop:Generator_ColumnPropNameInTable="loteColumn" msprop:Generator_UserColumnName="lote" type="xs:string" minOccurs="0" />
+              <xs:element name="tasa" msprop:Generator_ColumnVarNameInTable="columntasa" msprop:Generator_ColumnPropNameInRow="tasa" msprop:Generator_ColumnPropNameInTable="tasaColumn" msprop:Generator_UserColumnName="tasa" type="xs:string" minOccurs="0" />
+              <xs:element name="cntDivisa" msprop:Generator_ColumnVarNameInTable="columncntDivisa" msprop:Generator_ColumnPropNameInRow="cntDivisa" msprop:Generator_ColumnPropNameInTable="cntDivisaColumn" msprop:Generator_UserColumnName="cntDivisa" type="xs:string" minOccurs="0" />
+              <xs:element name="cntMov" msprop:Generator_ColumnVarNameInTable="columncntMov" msprop:Generator_ColumnPropNameInRow="cntMov" msprop:Generator_ColumnPropNameInTable="cntMovColumn" msprop:Generator_UserColumnName="cntMov" type="xs:string" minOccurs="0" />
+              <xs:element name="importe" msprop:Generator_ColumnVarNameInTable="columnimporte" msprop:Generator_ColumnPropNameInRow="importe" msprop:Generator_ColumnPropNameInTable="importeColumn" msprop:Generator_UserColumnName="importe" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
