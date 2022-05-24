@@ -66,7 +66,7 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
         public void setData(List<OOB.Documento.Lista.Ficha> list)
         {
             _bl.Clear();
-            foreach (var it in list.OrderByDescending(o=>o.FechaEmision.Date).ThenByDescending(o=>o.HoraEmision).ThenByDescending(o=>o.DocNumero).ToList()) 
+            foreach (var it in list.OrderByDescending(o=>o.FechaEmision.Date).ThenByDescending(o=>o.DocNumero).ToList()) 
             {
                 _bl.Add(new data(it));
             }
@@ -238,14 +238,14 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                 xdata.metodoPago = new List<Helpers.Imprimir.data.MetodoPago>();
                 foreach (var mp in xr2.ListaD)
                 {
-                    if (mp.cntDivisa > 1)
+                    if (mp.cntDivisa >= 1)
                     {
                         var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo($"+mp.cntDivisa.ToString()+")", monto = mp.montoRecibido };
                         xdata.metodoPago.Add(pag);
                     }
                     else
                     {
-                        var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = mp.descMedioPago, monto = mp.montoRecibido };
+                        var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = mp.descMedioPago.Trim()+"(Bs)", monto = mp.montoRecibido };
                         xdata.metodoPago.Add(pag);
                     }
                 }

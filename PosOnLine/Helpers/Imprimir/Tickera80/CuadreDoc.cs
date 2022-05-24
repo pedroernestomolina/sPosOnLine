@@ -57,11 +57,11 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _lista.Add("Monto     : " + _ds.montoNEN.ToString("n2").PadLeft(18, ' '));
             _lista.Add("");
             _lista.Add("TOTAL VENTA");
-            _lista.Add("MONTO     : " + _ds.montoVenta.ToString("n0").PadLeft(18, ' '));
+            _lista.Add("MONTO     : " + _ds.montoVenta.ToString("n2").PadLeft(18, ' '));
             _lista.Add("");
             _lista.Add("CONTADO   :");
             _lista.Add("Cant      : " + _ds.cntDocContado.ToString("n0"));
-            _lista.Add("Monto     : " + _ds.montoVentaContado.ToString("n0").PadLeft(18, ' '));
+            _lista.Add("Monto     : " + _ds.montoVentaContado.ToString("n2").PadLeft(18, ' '));
             _lista.Add("");
             _lista.Add("CREDITO   :");
             _lista.Add("Cant      : " + _ds.cntDocCredito.ToString("n0"));

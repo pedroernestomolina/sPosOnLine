@@ -230,7 +230,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     {
                         var t = "";
                         //t = cantidad.ToString("n2") + " X " + precio.ToString("n2");
-                        t = cantidad.ToString("n2") + " ";
+                        t = cantidad.ToString("n0") + " ";
                         t+= empDesc.Trim() + "/" + empCont.ToString().Trim();
                         t += " X " + precio.ToString("n2");
                         t += " X $" + precioDivisa.ToString("n2");
@@ -359,6 +359,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             var fr = new Font("Arial", 7, FontStyle.Regular);
             var fb = new Font("Arial", 8, FontStyle.Bold);
+            var fc = new Font("Arial", 9, FontStyle.Bold);
 
 
             var dn = this.Negocio;
@@ -416,7 +417,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             }
 
             l += 10f;
-            eg.Graphics.DrawString(df.nombre, fb, Brushes.Black, centrar(df.nombre), l);
+            //eg.Graphics.DrawString(df.nombre, fb, Brushes.Black, centrar(df.nombre), l);
+            eg.Graphics.DrawString(df.nombre, fc, Brushes.Black, centrar(df.nombre), l);
             l += 10;
             eg.Graphics.DrawString(df.nombre+":", fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.numero, fr, Brushes.Black, dder2(df.numero,fr), l);
@@ -453,10 +455,16 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     //    l += 10;
                     //}
 
-                    eg.Graphics.DrawString(r.scantidadPrecio, fr, Brushes.Black, 0, l);
+                    //eg.Graphics.DrawString(r.scantidadPrecio, fr, Brushes.Black, 0, l);
+                    //l += 10;
+                    //eg.Graphics.DrawString(xdes, fr, Brushes.Black, 0, l);
+                    //eg.Graphics.DrawString(r.simporte, fr, Brushes.Black, dder2(r.simporte, fr), l);
+                    //l += 15;
+
+                    eg.Graphics.DrawString(r.scantidadPrecio, fb, Brushes.Black, 0, l);
                     l += 10;
-                    eg.Graphics.DrawString(xdes, fr, Brushes.Black, 0, l);
-                    eg.Graphics.DrawString(r.simporte, fr, Brushes.Black, dder2(r.simporte, fr), l);
+                    eg.Graphics.DrawString(xdes, fb, Brushes.Black, 0, l);
+                    eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
                     l += 15;
                 }
             }

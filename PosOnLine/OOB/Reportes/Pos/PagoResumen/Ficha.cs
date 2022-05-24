@@ -11,7 +11,23 @@ namespace PosOnLine.OOB.Reportes.Pos.PagoResumen
     public class Ficha
     {
 
-        public string loteCntDivisa { get; set; }
+
+        private string _loteCntDivisa ;
+        public string loteCntDivisa 
+        { 
+            get 
+            { 
+                if (_loteCntDivisa.Trim()=="")
+                {
+                    _loteCntDivisa="0";
+                }
+                return _loteCntDivisa;
+            }
+            set
+            {
+                _loteCntDivisa = value;
+            }
+        }
         public string refTasaDivisa { get; set; }
         public string mpCodigo { get; set; }
         public string mpDescripcion { get; set; }

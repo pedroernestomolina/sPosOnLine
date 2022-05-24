@@ -51,7 +51,7 @@ namespace PosOnLine.Src.Cierre
             L_MONTO_DOC_CREDITO.Text = _controlador.montoDocCredito.ToString("n2");
 
             L_CNT_EFECTIVO.Text = _controlador.cntEfecitvo.ToString("n0"); ;
-            L_CNT_DIVISA.Text = _controlador.cntDivisa.ToString("n0");
+            L_CNT_DIVISA.Text = _controlador.cntDivisa.ToString("n0")+" x "+_controlador.tasaPromedioDivisa.ToString("n2");
             L_CNT_TARJETAS.Text = _controlador.cntElectronico.ToString("n0");
             L_CNT_OTROS.Text = _controlador.cntOtros.ToString("n0");
             L_CNT_DEVOLUCION.Text = _controlador.cntNCredito.ToString("n0");
@@ -165,7 +165,6 @@ namespace PosOnLine.Src.Cierre
         {
             ReporteDetalle();
         }
-
         private void ReporteDetalle()
         {
            _controlador.ReporteDetalle();
@@ -178,7 +177,7 @@ namespace PosOnLine.Src.Cierre
 
         private void NCreditoDetalle()
         {
-          //  _controlador.NCreditoDetalle();
+            _controlador.NCreditoDetalle();
         }
 
         private void BT_PAGO_RESUMEN_Click(object sender, EventArgs e)

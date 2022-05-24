@@ -59,18 +59,36 @@ namespace PosOnLine.OOB.Pos.Resumen
         public int cntCambio_anu { get; set; }
 
 
+        public decimal CntDivisaTotal 
+        {
+            get
+            {
+                var rt = cntDivisa - cntDivisa_anu;
+                return rt;
+            }
+        }
         public decimal FactorCambio 
         {
             get 
             { 
                 var rt=0.0m;
-                if (cntDivisa>0.0m)
+                if ( CntDivisaTotal > 0.0m)
                 {
-                    rt=mDivisa/cntDivisa;
+                    rt=mDivisa/CntDivisaTotal;
+                    rt = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
                 }
                 return rt;
             } 
         }
+        public decimal mDivisaTotal 
+        { 
+            get 
+            {
+                var rt = CntDivisaTotal* FactorCambio;
+                return rt;
+            } 
+        }
+
 
 
         public Ficha()

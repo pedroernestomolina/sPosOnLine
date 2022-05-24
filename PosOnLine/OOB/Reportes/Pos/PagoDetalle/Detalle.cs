@@ -25,6 +25,10 @@ namespace PosOnLine.OOB.Reportes.Pos.PagoDetalle
                 var rt=0.0m;
                 if (medioPagIsDivisa)
                 {
+                    if (loteCntDivisa.Trim() == "") 
+                    {
+                        loteCntDivisa = "0";
+                    }
                     rt = Decimal.Parse(loteCntDivisa);
                 }
                 return rt;

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>192.168.0.102</Instancia>
-    <Catalogo>00000001</Catalogo>
+    <Instancia>localhost</Instancia>
+    <Catalogo>mscala</Catalogo>
   </Servidor>
-  <IdEquipo>1</IdEquipo>
+  <IdEquipo>2</IdEquipo>
   <CodigoSucursalActiva>15</CodigoSucursalActiva>
   <codigoDepositoActiva>23</codigoDepositoActiva>
   <SerieFactura>1</SerieFactura>

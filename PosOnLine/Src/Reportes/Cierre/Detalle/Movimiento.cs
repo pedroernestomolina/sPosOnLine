@@ -59,6 +59,7 @@ namespace PosOnLine.Src.Reportes.Cierre.Detalle
                     var _montoRecibido = pg.montoRecibido;
                     var _importe = pg.montoRecibido;
                     var _tasa = "";
+                    var loteRef = "";
 
                     if (pg.tasaDivisa > 1)
                     {
@@ -66,13 +67,20 @@ namespace PosOnLine.Src.Reportes.Cierre.Detalle
                         _montoRecibido = pg.cntDivisa;
                         _importe = _montoRecibido * pg.tasaDivisa;
                     }
+                    else 
+                    {
+                        if (!string.IsNullOrEmpty(pg.lote.Trim()) || !string.IsNullOrEmpty(pg.referencia.Trim())) 
+                        {
+                            loteRef += Environment.NewLine + "Lote: " + pg.lote.Trim() + "/ Ref: " + pg.referencia.Trim();
+                        }
+                    }
 
                     if (rg.isActivo)
                     {
                         p["estatus"] = "Activo";
                         p["monto"] = rg.docMonto;
                         p["montoRecibido"] = _montoRecibido;
-                        p["codigoMedioPago"] = pg.medioPagCodigo + "/ " + pg.medioPagDesc;
+                        p["codigoMedioPago"] = pg.medioPagCodigo + "/ " + pg.medioPagDesc + loteRef;
                         p["tasa"] = _tasa;
                         p["importe"] = _importe;
                     }

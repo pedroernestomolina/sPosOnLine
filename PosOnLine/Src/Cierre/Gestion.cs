@@ -43,8 +43,9 @@ namespace PosOnLine.Src.Cierre
         public int cntOtros { get { return _resumen.cntotros-_resumen.cntotros_anu; } }
 
         public decimal montoEfectivo { get { return _resumen.mEfectivo-_resumen.mEfectivo_anu; } }
-        public decimal montoDivisa { get { return _resumen.mDivisa-_resumen.mDivisa_anu; } }
-        public decimal montoElectronico { get { return _resumen.mElectronico-_resumen.mElectronico_anu; } }
+        //public decimal montoDivisa { get { return _resumen.mDivisa-_resumen.mDivisa_anu; } }
+        public decimal montoDivisa { get { return _resumen.mDivisaTotal; } }
+        public decimal montoElectronico { get { return _resumen.mElectronico - _resumen.mElectronico_anu; } }
         public decimal montoOtros { get { return _resumen.mOtros-_resumen.mOtros_anu; } }
 
         public int cntCambio { get { return _resumen.cnt_cambio-_resumen.cntCambio_anu; } }
@@ -340,6 +341,12 @@ namespace PosOnLine.Src.Cierre
             rp1.setMontoNtCredito(_resumen.mNCr - _resumen.m_anu_ncr);
             rp1.setMontoCambioDar(_resumen.m_cambio - _resumen.mCambio_anu);
             rp1.Generar();
+        }
+
+        public decimal tasaPromedioDivisa { get { return _factorCambio; } }
+
+        public void NCreditoDetalle()
+        {
         }
 
     }

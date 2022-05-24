@@ -244,6 +244,13 @@ namespace PosOnLine.Src.Pago.Procesar
         public void AddDivisa(decimal monto)
         {
             var it = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Divisa);
+            //
+            if (it != null)
+            {
+                _detalle.Remove(it);
+                it = null;
+            }
+            //
             if (it == null)
             {
                 it = new PagoDetalle()

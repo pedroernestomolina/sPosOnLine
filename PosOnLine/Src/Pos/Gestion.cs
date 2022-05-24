@@ -984,7 +984,7 @@ namespace PosOnLine.Src.Pos
                 };
 
                 var pM = new List<OOB.Documento.Agregar.Factura.FichaCxCMetodoPago>();
-                foreach (var it in _gestionProcesarPago.PagoDetalles) 
+                foreach (var it in _gestionProcesarPago.PagoDetalles.Where(w=>w.Monto>0m).ToList()) 
                 {
                     var autoMedioPago = "";
                     var codigoMedioPago = "";
@@ -1989,7 +1989,7 @@ namespace PosOnLine.Src.Pos
             xdata.metodoPago = new List<Helpers.Imprimir.data.MetodoPago>();
             foreach (var mp in xr2.ListaD)
             {
-                if (mp.cntDivisa > 1)
+                if (mp.cntDivisa >= 1)
                 {
                     var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo($" + mp.cntDivisa.ToString() + ")", monto = mp.montoRecibido };
                     xdata.metodoPago.Add(pag);

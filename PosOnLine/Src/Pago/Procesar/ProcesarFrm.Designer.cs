@@ -76,11 +76,11 @@
             this.panel27 = new System.Windows.Forms.Panel();
             this.L_TIT_TASA_CAMBIO = new System.Windows.Forms.Label();
             this.panel20 = new System.Windows.Forms.Panel();
+            this.TB_DIVISA_CNT = new PosOnLine.Lib.Controles.Numero.NumeroEntero();
             this.TB_OTRO = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.TB_ELECT_3 = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.TB_ELECT_2 = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.TB_ELECT_1 = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
-            this.TB_DIVISA_CNT = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.TB_EFECTIVO = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.BT_CALCULADORA = new System.Windows.Forms.Button();
             this.BT_LIMPIAR = new System.Windows.Forms.Button();
@@ -752,11 +752,11 @@
             // 
             // panel20
             // 
+            this.panel20.Controls.Add(this.TB_DIVISA_CNT);
             this.panel20.Controls.Add(this.TB_OTRO);
             this.panel20.Controls.Add(this.TB_ELECT_3);
             this.panel20.Controls.Add(this.TB_ELECT_2);
             this.panel20.Controls.Add(this.TB_ELECT_1);
-            this.panel20.Controls.Add(this.TB_DIVISA_CNT);
             this.panel20.Controls.Add(this.TB_EFECTIVO);
             this.panel20.Controls.Add(this.BT_CALCULADORA);
             this.panel20.Controls.Add(this.BT_LIMPIAR);
@@ -787,6 +787,21 @@
             this.panel20.Padding = new System.Windows.Forms.Padding(2);
             this.panel20.Size = new System.Drawing.Size(656, 278);
             this.panel20.TabIndex = 0;
+            // 
+            // TB_DIVISA_CNT
+            // 
+            this.TB_DIVISA_CNT.BackColor = System.Drawing.Color.Yellow;
+            this.TB_DIVISA_CNT.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_DIVISA_CNT.Location = new System.Drawing.Point(192, 76);
+            this.TB_DIVISA_CNT.MaxLength = 6;
+            this.TB_DIVISA_CNT.Name = "TB_DIVISA_CNT";
+            this.TB_DIVISA_CNT.Size = new System.Drawing.Size(83, 29);
+            this.TB_DIVISA_CNT.TabIndex = 1;
+            this.TB_DIVISA_CNT.Text = "0";
+            this.TB_DIVISA_CNT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TB_DIVISA_CNT.TextChanged += new System.EventHandler(this.TB_TextChanged);
+            this.TB_DIVISA_CNT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TB_KeyDown);
+            this.TB_DIVISA_CNT.Leave += new System.EventHandler(this.TB_Leave);
             // 
             // TB_OTRO
             // 
@@ -847,21 +862,6 @@
             this.TB_ELECT_1.TextChanged += new System.EventHandler(this.TB_TextChanged);
             this.TB_ELECT_1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TB_KeyDown);
             this.TB_ELECT_1.Leave += new System.EventHandler(this.TB_Leave);
-            // 
-            // TB_DIVISA_CNT
-            // 
-            this.TB_DIVISA_CNT.BackColor = System.Drawing.Color.Yellow;
-            this.TB_DIVISA_CNT.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_DIVISA_CNT.Location = new System.Drawing.Point(192, 73);
-            this.TB_DIVISA_CNT.MaxLength = 4;
-            this.TB_DIVISA_CNT.Name = "TB_DIVISA_CNT";
-            this.TB_DIVISA_CNT.Size = new System.Drawing.Size(67, 29);
-            this.TB_DIVISA_CNT.TabIndex = 1;
-            this.TB_DIVISA_CNT.Text = "0";
-            this.TB_DIVISA_CNT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TB_DIVISA_CNT.TextChanged += new System.EventHandler(this.TB_TextChanged);
-            this.TB_DIVISA_CNT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TB_KeyDown);
-            this.TB_DIVISA_CNT.Leave += new System.EventHandler(this.TB_Leave);
             // 
             // TB_EFECTIVO
             // 
@@ -1050,9 +1050,9 @@
             // 
             this.TB_DIVISA_MONTO.Enabled = false;
             this.TB_DIVISA_MONTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_DIVISA_MONTO.Location = new System.Drawing.Point(265, 76);
+            this.TB_DIVISA_MONTO.Location = new System.Drawing.Point(281, 76);
             this.TB_DIVISA_MONTO.Name = "TB_DIVISA_MONTO";
-            this.TB_DIVISA_MONTO.Size = new System.Drawing.Size(108, 26);
+            this.TB_DIVISA_MONTO.Size = new System.Drawing.Size(92, 26);
             this.TB_DIVISA_MONTO.TabIndex = 4;
             this.TB_DIVISA_MONTO.Text = "9999999999.99";
             this.TB_DIVISA_MONTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -1399,8 +1399,8 @@
         private Lib.Controles.Numero.NumeroDecimal TB_ELECT_3;
         private Lib.Controles.Numero.NumeroDecimal TB_ELECT_2;
         private Lib.Controles.Numero.NumeroDecimal TB_ELECT_1;
-        private Lib.Controles.Numero.NumeroDecimal TB_DIVISA_CNT;
         private Lib.Controles.Numero.NumeroDecimal TB_EFECTIVO;
         private Lib.Controles.Numero.NumeroDecimal TB_OTRO;
+        private Lib.Controles.Numero.NumeroEntero TB_DIVISA_CNT;
     }
 }
