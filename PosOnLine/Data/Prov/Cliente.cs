@@ -96,6 +96,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
+
+
         public OOB.Resultado.FichaAuto 
             Cliente_AgregarFicha(OOB.Cliente.Agregar.Ficha ficha)
         {

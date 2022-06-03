@@ -68,7 +68,6 @@ namespace PosOnLine.Src.PagoMovil
 
         private void PagoMovilFrm_Load(object sender, EventArgs e)
         {
-            IrFoco();
             _modoInicializar = true;
             L_MONTO.Text = _controlador.GetMontoPagoMovil.ToString("n2");
             TB_NOMBRE.Text = _controlador.GetNombrePersona;
@@ -77,6 +76,7 @@ namespace PosOnLine.Src.PagoMovil
             CB_AGENCIA.DataSource = _controlador.GetAgenciaSource;
             CB_AGENCIA.SelectedIndex = -1;
             _modoInicializar = false;
+            IrFoco();
         }
 
         public void setControlador(IPagoMovil ctrl)
@@ -122,6 +122,16 @@ namespace PosOnLine.Src.PagoMovil
         private void IrFoco()
         {
             TB_NOMBRE.Focus();
+            TB_NOMBRE.Select(0, 0);
+        }
+
+        private void L_AGENCIA_DoubleClick(object sender, EventArgs e)
+        {
+            AgregarAgencias();
+        }
+        private void AgregarAgencias()
+        {
+            _controlador.AgregarAgencias();
         }
    
     }

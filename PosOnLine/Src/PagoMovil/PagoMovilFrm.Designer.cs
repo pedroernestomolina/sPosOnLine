@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -39,7 +40,7 @@
             this.panel17 = new System.Windows.Forms.Panel();
             this.CB_AGENCIA = new System.Windows.Forms.ComboBox();
             this.panel16 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
+            this.L_AGENCIA = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
             this.TB_TELEFONO = new System.Windows.Forms.TextBox();
             this.panel13 = new System.Windows.Forms.Panel();
@@ -62,6 +63,7 @@
             this.BT_SALIR = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.BT_PROCESAR = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -227,7 +229,7 @@
             // 
             // panel16
             // 
-            this.panel16.Controls.Add(this.label6);
+            this.panel16.Controls.Add(this.L_AGENCIA);
             this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel16.Location = new System.Drawing.Point(1, 174);
             this.panel16.Margin = new System.Windows.Forms.Padding(1);
@@ -236,16 +238,20 @@
             this.panel16.Size = new System.Drawing.Size(164, 30);
             this.panel16.TabIndex = 8;
             // 
-            // label6
+            // L_AGENCIA
             // 
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(2, 2);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(160, 26);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Agencia Banco:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.L_AGENCIA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.L_AGENCIA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_AGENCIA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_AGENCIA.ForeColor = System.Drawing.Color.Navy;
+            this.L_AGENCIA.Location = new System.Drawing.Point(2, 2);
+            this.L_AGENCIA.Name = "L_AGENCIA";
+            this.L_AGENCIA.Size = new System.Drawing.Size(160, 26);
+            this.L_AGENCIA.TabIndex = 4;
+            this.L_AGENCIA.Text = "Agencia Banco:";
+            this.L_AGENCIA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.L_AGENCIA, "Doble Click Para Agregar Agencia");
+            this.L_AGENCIA.DoubleClick += new System.EventHandler(this.L_AGENCIA_DoubleClick);
             // 
             // panel15
             // 
@@ -584,7 +590,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel17;
         private System.Windows.Forms.Panel panel16;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label L_AGENCIA;
         private System.Windows.Forms.Panel panel15;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Label label5;
@@ -593,5 +599,6 @@
         private System.Windows.Forms.ComboBox CB_AGENCIA;
         private System.Windows.Forms.TextBox TB_TELEFONO;
         private System.Windows.Forms.TextBox TB_CI_RIF;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

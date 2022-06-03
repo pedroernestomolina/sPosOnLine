@@ -179,7 +179,6 @@ namespace PosOnLine.Src.Cierre
         {
             PagoResumen();
         }
-
         private void PagoResumen()
         {
            _controlador.PagoResumen();
@@ -220,6 +219,15 @@ namespace PosOnLine.Src.Cierre
             {
                 e.Cancel = false;
             }
+        }
+
+        private void BT_PagoMovil_Click(object sender, EventArgs e)
+        {
+            PagoMovil();
+        }
+        private void PagoMovil()
+        {
+            _controlador.PagoMovil();
         }
     
     }

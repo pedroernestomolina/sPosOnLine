@@ -35,6 +35,9 @@ namespace PosOnLine.Src.PagoMovil
         void setAgencia(string id);
         data Data();
 
+
+        void AgregarAgencias();
+
     }
 
 }

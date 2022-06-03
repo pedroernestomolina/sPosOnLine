@@ -119,6 +119,49 @@ namespace PosOnLine.Data.Prov
 
             return rt;
         }
+        public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoMovil.Ficha> 
+            ReportePos_PagoMovil(OOB.Reportes.Pos.Filtro filtro)
+        {
+            var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.PagoMovil.Ficha>();
+
+            var filtroDTO = new DtoLibPos.Reportes.POS.Filtro();
+            filtroDTO.IdCierre = filtro.idCierre;
+            var r01 = MyData.ReportePos_PagoMovil(filtroDTO);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                rt.Mensaje = r01.Mensaje;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return rt;
+            }
+
+            var list = new List<OOB.Reportes.Pos.PagoMovil.Ficha>();
+            if (r01.Lista != null)
+            {
+                if (r01.Lista.Count > 0)
+                {
+                    list = r01.Lista.Select(s =>
+                    {
+                        var rg = new OOB.Reportes.Pos.PagoMovil.Ficha()
+                        {
+                            agencia = s.agencia,
+                            docCiRif = s.docCiRif,
+                            docEstatusAnulado = s.docEstatusAnulado,
+                            docFecha = s.docFecha,
+                            docNro = s.docNro,
+                            docRazonSocial = s.docRazonSocial,
+                            pmCiRif = s.pmCiRif,
+                            pmMonto = s.pmMonto,
+                            pmNombre = s.pmNombre,
+                            pmTelefono = s.pmTelefono,
+                        };
+                        return rg;
+                    }).ToList();
+                }
+            }
+            rt.ListaD = list;
+
+            return rt;
+        }
 
     }
 

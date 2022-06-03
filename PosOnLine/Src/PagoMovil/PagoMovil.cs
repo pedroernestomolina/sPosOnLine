@@ -19,15 +19,16 @@ namespace PosOnLine.Src.PagoMovil
         private string _telefono;
         private decimal _monto;
         private Helpers.Opcion.IOpcion _gAgencia;
+        private Agencia.Agregar.IAgregar _gAgregarAgencia;
 
 
         public bool AbandonarIsOk { get { return _abandonarIsOk; } }
         public bool ProcesarIsOk { get { return _procesarIsOk; } }
         public bool IsOk { get { return _procesarIsOk; } }
         public decimal GetMontoPagoMovil { get { return _monto; } }
-        public string GetNombrePersona { get { return _nombre; } }
-        public string GetCiRifPersona { get { return _ciRif; } }
-        public string GetTelefonoPersona { get { return _telefono; } }
+        public string GetNombrePersona { get { return _nombre.Trim(); } }
+        public string GetCiRifPersona { get { return _ciRif.Trim(); } }
+        public string GetTelefonoPersona { get { return _telefono.Trim(); } }
         public BindingSource GetAgenciaSource { get { return _gAgencia.Source; } }
 
 
@@ -40,6 +41,7 @@ namespace PosOnLine.Src.PagoMovil
             _telefono = "";
             _monto = 0m;
             _gAgencia = new Helpers.Opcion.Gestion();
+            _gAgregarAgencia = new Agencia.Agregar.Agregar();
         }
 
         public void Inicializa()
@@ -164,6 +166,40 @@ namespace PosOnLine.Src.PagoMovil
                 telefono = _telefono,
                 monto= _monto,
             };
+        }
+
+
+        public void AgregarAgencias()
+        {
+            _gAgregarAgencia.Inicializa();
+            _gAgregarAgencia.Inicia();
+            if (_gAgregarAgencia.IsOk) 
+            {
+                var ficha = new OOB.Agencia.Agregar.Ficha()
+                {
+                    nombre = _gAgregarAgencia.GetAgencia,
+                    codSucursal = Sistema.Sucursal.codigo,
+                };
+                var r01 = Sistema.MyData.Agencia_Agregar(ficha);
+                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                {
+                    Helpers.Msg.Error(r01.Mensaje);
+                    return;
+                }
+                var filtro = new OOB.Agencia.Lista.Filtro();
+                var r02 = Sistema.MyData.Agencia_GetLista(filtro);
+                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02.Mensaje);
+                }
+                _gAgencia.Limpiar();
+                var lst = new List<Helpers.ficha>();
+                foreach (var rg in r02.ListaD.OrderBy(o => o.nombre).ToList())
+                {
+                    lst.Add(new Helpers.ficha() { id = rg.auto, codigo = "", desc = rg.nombre });
+                }
+                _gAgencia.setData(lst);
+            }
         }
 
     }

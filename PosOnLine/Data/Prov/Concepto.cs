@@ -12,7 +12,8 @@ namespace PosOnLine.Data.Prov
     public partial class DataPrv: IData
     {
 
-        public OOB.Resultado.FichaEntidad<OOB.Concepto.Entidad.Ficha> Concepto_GetFichaById(string id)
+        public OOB.Resultado.FichaEntidad<OOB.Concepto.Entidad.Ficha> 
+            Concepto_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Concepto.Entidad.Ficha>();
 
@@ -35,8 +36,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Concepto.Entidad.Ficha> Concepto_GetLista()
+        public OOB.Resultado.Lista<OOB.Concepto.Entidad.Ficha> 
+            Concepto_GetLista()
         {
             var result = new OOB.Resultado.Lista <OOB.Concepto.Entidad.Ficha>();
 

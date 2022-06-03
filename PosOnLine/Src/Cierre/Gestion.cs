@@ -360,6 +360,22 @@ namespace PosOnLine.Src.Cierre
         {
         }
 
+        public void PagoMovil()
+        {
+            var filtro = new OOB.Reportes.Pos.Filtro()
+            {
+                idCierre = Sistema.PosEnUso.idAutoArqueoCierre,
+            };
+            var r01 = Sistema.MyData.ReportePos_PagoMovil(filtro);
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r01.Mensaje);
+                return;
+            }
+            var rp1 = new Reportes.Cierre.PagoMovil.Movimiento(r01.ListaD);
+            rp1.Generar();
+        }
+
     }
 
 }

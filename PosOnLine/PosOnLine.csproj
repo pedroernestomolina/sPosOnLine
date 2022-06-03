@@ -164,6 +164,7 @@
     <Compile Include="Lib\Controles\Numero\NumeroEntero.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="OOB\Agencia\Agregar\Ficha.cs" />
     <Compile Include="OOB\Agencia\BaseFicha.cs" />
     <Compile Include="OOB\Agencia\Entidad\Ficha.cs" />
     <Compile Include="OOB\Agencia\Lista\Filtro.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="OOB\Reportes\Pos\Filtro.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoDetalle\Detalle.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoDetalle\Ficha.cs" />
+    <Compile Include="OOB\Reportes\Pos\PagoMovil\Ficha.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoResumen\Ficha.cs" />
     <Compile Include="OOB\Resultado\Enumerados.cs" />
     <Compile Include="OOB\Resultado\Ficha.cs" />
@@ -316,6 +318,14 @@
     <Compile Include="Src\AdministradorDoc\Visualizar\VerFrm.Designer.cs">
       <DependentUpon>VerFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Src\Agencia\Agregar\Agregar.cs" />
+    <Compile Include="Src\Agencia\Agregar\AgregarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Agencia\Agregar\AgregarFrm.Designer.cs">
+      <DependentUpon>AgregarFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Agencia\Agregar\IAgregar.cs" />
     <Compile Include="Src\Anular\AnularFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -494,6 +504,7 @@
       <DependentUpon>ListaFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Reportes\Cierre\Detalle\Movimiento.cs" />
+    <Compile Include="Src\Reportes\Cierre\PagoMovil\Movimiento.cs" />
     <Compile Include="Src\Reportes\Cierre\Resumen\Movimiento.cs" />
     <Compile Include="Src\Reportes\DS1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -548,6 +559,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\AdministradorDoc\Visualizar\VerFrm.resx">
       <DependentUpon>VerFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Agencia\Agregar\AgregarFrm.resx">
+      <DependentUpon>AgregarFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Anular\AnularFrm.resx">
       <DependentUpon>AnularFrm.cs</DependentUpon>
@@ -619,6 +633,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\PagoResumen.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Reportes\PagoMovil.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\ReporteFrm.resx">

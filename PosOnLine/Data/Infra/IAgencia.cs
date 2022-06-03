@@ -14,6 +14,10 @@ namespace PosOnLine.Data.Infra
         OOB.Resultado.Lista<OOB.Agencia.Entidad.Ficha>
             Agencia_GetLista(OOB.Agencia.Lista.Filtro filtro);
 
+
+        OOB.Resultado.FichaAuto
+            Agencia_Agregar(OOB.Agencia.Agregar.Ficha ficha);
+
     }
 
 }

@@ -15,6 +15,8 @@ namespace PosOnLine.Data.Infra
             ReportePos_PagoDetalle(OOB.Reportes.Pos.Filtro filtro);
         OOB.Resultado.Lista<OOB.Reportes.Pos.PagoResumen.Ficha> 
             ReportePos_PagoResumen(OOB.Reportes.Pos.Filtro filtro);
+        OOB.Resultado.Lista<OOB.Reportes.Pos.PagoMovil.Ficha>
+            ReportePos_PagoMovil(OOB.Reportes.Pos.Filtro filtro);
 
     }
 
