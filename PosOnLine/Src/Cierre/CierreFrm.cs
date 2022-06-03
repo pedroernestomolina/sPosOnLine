@@ -50,25 +50,17 @@ namespace PosOnLine.Src.Cierre
             L_MONTO_DOC_CONTADO.Text = _controlador.montoDocContado.ToString("n2");
             L_MONTO_DOC_CREDITO.Text = _controlador.montoDocCredito.ToString("n2");
 
-            L_CNT_EFECTIVO.Text = _controlador.cntEfecitvo.ToString("n0"); ;
             L_CNT_DIVISA.Text = _controlador.cntDivisa.ToString("n0")+" x "+_controlador.tasaPromedioDivisa.ToString("n2");
             L_CNT_TARJETAS.Text = _controlador.cntElectronico.ToString("n0");
             L_CNT_OTROS.Text = _controlador.cntOtros.ToString("n0");
-            L_CNT_DEVOLUCION.Text = _controlador.cntNCredito.ToString("n0");
-            L_CNT_CREDITO.Text = _controlador.cntDocCredito.ToString("n0");
 
             L_MONTO_EFECTIVO.Text = _controlador.montoEfectivo.ToString("n2");
             L_MONTO_DIVISA.Text = _controlador.montoDivisa.ToString("n2");
             L_MONTO_TARJETAS.Text = _controlador.montoElectronico.ToString("n2");
             L_MONTO_OTROS.Text = _controlador.montoOtros.ToString("n2");
-            L_MONTO_DEVOLUCION.Text = _controlador.montoNCredito.ToString("n2");
-            L_MONTO_CREDITO.Text = _controlador.montoDocCredito.ToString("n2");
 
             L_CNT_CAMBIO.Text = _controlador.cntCambio.ToString("n0");
-            L_MONTO_DEVOLUCION_2.Text=_controlador.montoNCredito.ToString("n2");
-            L_MONTO_CREDITO_2.Text=_controlador.montoDocCredito.ToString("n2");
             L_MONTO_CAMBIO.Text = _controlador.montoCambio.ToString("n2");
-            L_MONTO_CAMBIO_2.Text = _controlador.montoCambio.ToString("n2");
 
             L_MONTO_DESGLOZE.Text = _controlador.montoDesgloze.ToString("n2");
             L_TOTAL_ENTRADA.Text = _controlador.montoEntrada.ToString("n2");
@@ -80,6 +72,9 @@ namespace PosOnLine.Src.Cierre
             L_MONTO_DOC_NCREDITO_ANULADA.Text = _controlador.montoNCreditoAnulada.ToString("n2"); 
             L_CNT_DOC_NENTREGA_ANULADAS.Text = _controlador.cntNEntregaAnulada.ToString("n0"); 
             L_MONTO_DOC_NENTREGA_ANULADAS.Text = _controlador.montoNEntregaAnulada.ToString("n2"); 
+
+            //
+            L_DESGLOZE.Text ="DESGLOZE DINERO POR: "+_controlador.DesglozeDinero.ToString("n2"); 
 
             ActualizaDiferencia();
         }

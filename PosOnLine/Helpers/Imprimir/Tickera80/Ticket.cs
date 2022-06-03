@@ -308,7 +308,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 HayCargo = false;
                 Items = new List<Item>();
                 MediosPago = new List<MedioPago>();
+                ImageQR = null;
             }
+
+            public Bitmap ImageQR { get; set; }
         }
 
         public enum EnumModoTicket { Modo80mm = 1, Modo58mm };
@@ -513,6 +516,13 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             eg.Graphics.DrawString("CAMBIO", fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.cambio, fr, Brushes.Black, dder2(df.cambio,fr), l);
             l += 10;
+
+            if (df.ImageQR != null) 
+            {
+                l += 10;
+                PointF loc = new PointF(100, l);
+                eg.Graphics.DrawImage(df.ImageQR, loc);
+            }
         }
 
         private float centrar(string t)

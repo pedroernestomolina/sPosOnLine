@@ -174,6 +174,7 @@
             this.BT_SALIDA.Text = "Salida";
             this.BT_SALIDA.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.BT_SALIDA.UseVisualStyleBackColor = true;
+            this.BT_SALIDA.Click += new System.EventHandler(this.BT_SALIDA_Click);
             // 
             // panel2
             // 
@@ -259,6 +260,7 @@
             this.Name = "MultiplicarFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MultiplicarFrm_FormClosing);
             this.Load += new System.EventHandler(this.MultiplicarFrm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ctrl_KeyDown);
             this.panel1.ResumeLayout(false);

@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BDB3F3C6-8FF4-499D-8519-23E44C67D1CB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PosVerificador</RootNamespace>
+    <AssemblyName>PosVerificador</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\checkPoint.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DtoLib">
+      <HintPath>..\..\..\BackEnd\bPosOnline\ServicePos\bin\Debug\DtoLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DtoLibPos">
+      <HintPath>..\..\..\BackEnd\bPosOnline\ServicePos\bin\Debug\DtoLibPos.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="MySql.Data, Version=6.8.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.1\Assemblies\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.8.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.1\Assemblies\v4.5\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="ServicePos">
+      <HintPath>..\..\..\BackEnd\bPosOnline\ServicePos\bin\Debug\ServicePos.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Infra\IData.cs" />
+    <Compile Include="Data\Infra\IDocumento.cs" />
+    <Compile Include="Data\Infra\IReportes.cs" />
+    <Compile Include="Data\Infra\IUsuario.cs" />
+    <Compile Include="Data\Infra\IVerificador.cs" />
+    <Compile Include="Data\Prov\DataPrv.cs" />
+    <Compile Include="Data\Prov\Documento.cs" />
+    <Compile Include="Data\Prov\Reportes.cs" />
+    <Compile Include="Data\Prov\Usuario.cs" />
+    <Compile Include="Data\Prov\Verificador.cs" />
+    <Compile Include="Gestion.cs" />
+    <Compile Include="Helpers\Msg.cs" />
+    <Compile Include="Helpers\Sonido.cs" />
+    <Compile Include="Helpers\Utilitis.cs" />
+    <Compile Include="IGestion.cs" />
+    <Compile Include="OOB\Documento\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Reportes\DocVerificados\Ficha.cs" />
+    <Compile Include="OOB\Reportes\Filtro.cs" />
+    <Compile Include="OOB\Resultado\Enumerados.cs" />
+    <Compile Include="OOB\Resultado\Ficha.cs" />
+    <Compile Include="OOB\Resultado\FichaAuto.cs" />
+    <Compile Include="OOB\Resultado\FichaEntidad.cs" />
+    <Compile Include="OOB\Resultado\FichaId.cs" />
+    <Compile Include="OOB\Resultado\Lista.cs" />
+    <Compile Include="OOB\Usuario\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Usuario\Identificar\Ficha.cs" />
+    <Compile Include="OOB\Verificador\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Verificador\Verificar\Ficha.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sistema.cs" />
+    <Compile Include="Src\Identificacion\Identifica.cs" />
+    <Compile Include="Src\Identificacion\IdentificacionFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Identificacion\IdentificacionFrm.Designer.cs">
+      <DependentUpon>IdentificacionFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Identificacion\IIdentifica.cs" />
+    <Compile Include="Src\Principal\IPrincipal.cs" />
+    <Compile Include="Src\Principal\Principal.cs" />
+    <Compile Include="Src\Principal\PrincipalFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Principal\PrincipalFrm.Designer.cs">
+      <DependentUpon>PrincipalFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Reportes\DocVerificados\data.cs" />
+    <Compile Include="Src\Reportes\DocVerificados\IDocVerificados.cs" />
+    <Compile Include="Src\Reportes\DocVerificados\Movimiento.cs" />
+    <Compile Include="Src\Reportes\DS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Reportes\IReporte.cs" />
+    <Compile Include="Src\Reportes\ReporteFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Reportes\ReporteFrm.designer.cs">
+      <DependentUpon>ReporteFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\SolicitarPermiso\ISolicitarPermiso.cs" />
+    <Compile Include="Src\SolicitarPermiso\SolicitarPerm.cs" />
+    <Compile Include="Src\SolicitarPermiso\SolicitarPermisoFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\SolicitarPermiso\SolicitarPermisoFrm.Designer.cs">
+      <DependentUpon>SolicitarPermisoFrm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Src\Identificacion\IdentificacionFrm.resx">
+      <DependentUpon>IdentificacionFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Principal\PrincipalFrm.resx">
+      <DependentUpon>PrincipalFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Reportes\DocVerificados.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Reportes\ReporteFrm.resx">
+      <DependentUpon>ReporteFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\SolicitarPermiso\SolicitarPermisoFrm.resx">
+      <DependentUpon>SolicitarPermisoFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Src\Reportes\DS.xsc">
+      <DependentUpon>DS.xsd</DependentUpon>
+    </None>
+    <None Include="Src\Reportes\DS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Src\Reportes\DS.xss">
+      <DependentUpon>DS.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="conf.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\dedo_arriba.png" />
+    <None Include="Resources\dedo_abajo.png" />
+    <None Include="Resources\dedo_abajo_2.png" />
+    <None Include="Resources\dedo_arriba_2.png" />
+    <None Include="Resources\bt_usuario %282%29.png" />
+    <None Include="Resources\bt_enespera.png" />
+    <None Include="Resources\checkPoint.png" />
+    <None Include="Resources\checkPoint.ico" />
+    <None Include="Resources\bt_imprimir_3.png" />
+    <Content Include="Src\Imagenes\bt_buscar.png" />
+    <Content Include="Src\Imagenes\bt_enEspera.png" />
+    <Content Include="Src\Imagenes\bt_imprimir_3.png" />
+    <Content Include="Src\Imagenes\bt_usuario %282%29.png" />
+    <Content Include="Src\Imagenes\checkPoint.ico" />
+    <Content Include="Src\Imagenes\checkPoint.png" />
+    <Content Include="Src\Imagenes\dedo_abajo.png" />
+    <Content Include="Src\Imagenes\dedo_abajo_2.png" />
+    <Content Include="Src\Imagenes\dedo_arriba.png" />
+    <Content Include="Src\Imagenes\dedo_arriba_2.png" />
+    <Content Include="Src\Sonidos\alerta.wav" />
+    <Content Include="Src\Sonidos\error.wav" />
+    <Content Include="Src\Sonidos\paso.wav" />
+    <None Include="Resources\bt_salida_2.png" />
+    <None Include="Resources\bt_ok_3.png" />
+    <None Include="Resources\bt_consulta.png" />
+    <Content Include="Src\Imagenes\bt_consulta.png" />
+    <Content Include="Src\Imagenes\bt_ok_3.png" />
+    <Content Include="Src\Imagenes\bt_salida_2.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

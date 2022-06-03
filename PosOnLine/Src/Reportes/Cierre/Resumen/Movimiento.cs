@@ -41,10 +41,12 @@ namespace PosOnLine.Src.Reportes.Cierre.Resumen
 
             var xd = 0;
             var timporte = 0.0m;
+            var timporteCredito = 0m;
             foreach (var rg in gf.OrderBy(o => o.key.mpCodigo).ToList())
             {
                 xd += 1;
                 timporte += rg.data.Sum(r => r.montoRecibido);
+                timporteCredito += rg.data.Where(w=>w.esCredito).Sum(r => r.importeDoc);
                 foreach (var dt in rg.data)
                 {
                     var _tasa = "";
@@ -57,7 +59,14 @@ namespace PosOnLine.Src.Reportes.Cierre.Resumen
 
                     DataRow p = ds.Tables["PagoResumen"].NewRow();
                     p["id"] = xd.ToString();
-                    p["medio"] = dt.mpCodigo + "/ " + dt.mpDescripcion;
+                    if (dt.esCredito)
+                    {
+                        p["medio"] = "CREDITO Bs: " + timporteCredito.ToString("n2");
+                    }
+                    else
+                    {
+                        p["medio"] = dt.mpCodigo + "/ " + dt.mpDescripcion;
+                    }
                     p["tasa"] = _tasa;
                     p["lote"] = dt.lote;
                     p["cntDivisa"] = _cntDivisa;
@@ -71,7 +80,6 @@ namespace PosOnLine.Src.Reportes.Cierre.Resumen
             var pmt = new List<ReportParameter>();
             pmt.Add(new ReportParameter("tImporte", timporte.ToString("n2")));
             pmt.Add(new ReportParameter("tCambio", _montoCambioDar.ToString("n2")));
-            pmt.Add(new ReportParameter("tNCredito", _montoNCredito.ToString("n2")));
             Rds.Add(new ReportDataSource("PagoResumen", ds.Tables["PagoResumen"]));
 
             var frp = new ReporteFrm();

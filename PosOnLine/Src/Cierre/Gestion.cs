@@ -43,7 +43,6 @@ namespace PosOnLine.Src.Cierre
         public int cntOtros { get { return _resumen.cntotros-_resumen.cntotros_anu; } }
 
         public decimal montoEfectivo { get { return _resumen.mEfectivo-_resumen.mEfectivo_anu; } }
-        //public decimal montoDivisa { get { return _resumen.mDivisa-_resumen.mDivisa_anu; } }
         public decimal montoDivisa { get { return _resumen.mDivisaTotal; } }
         public decimal montoElectronico { get { return _resumen.mElectronico - _resumen.mElectronico_anu; } }
         public decimal montoOtros { get { return _resumen.mOtros-_resumen.mOtros_anu; } }
@@ -51,8 +50,8 @@ namespace PosOnLine.Src.Cierre
         public int cntCambio { get { return _resumen.cnt_cambio-_resumen.cntCambio_anu; } }
         public decimal montoCambio { get { return _resumen.m_cambio-_resumen.mCambio_anu; } }
 
-        public decimal montoDesgloze { get { return ((montoEfectivo + montoDivisa + montoElectronico + montoOtros + montoDocCredito) - (montoNCredito + montoCambio)); } }
-        public decimal montoEntrada { get { return ((_entradaEfectivo + _entradaTarjeta + _entradaDivisa + _entradaOtro + montoDocCredito) - (montoNCredito + montoCambio)); } }
+        public decimal montoDesgloze { get { return ((montoEfectivo + montoDivisa + montoElectronico + montoOtros) - (montoCambio)); } }
+        public decimal montoEntrada { get { return (_entradaEfectivo + _entradaTarjeta + _entradaDivisa + _entradaOtro); } }
         public decimal montoEntradaDivisa { get { return _entradaDivisa; } }
         public decimal Diferencia { get { return montoEntrada-montoDesgloze; } }
 
@@ -343,8 +342,20 @@ namespace PosOnLine.Src.Cierre
             rp1.Generar();
         }
 
-        public decimal tasaPromedioDivisa { get { return _factorCambio; } }
 
+        public decimal tasaPromedioDivisa { get { return _factorCambio; } }
+        //public decimal DesglozeDinero { get { return montoVenta - montoDocCredito; } }
+        public decimal DesglozeDinero 
+        { 
+            get 
+            {
+                var ef = (_resumen.mEfectivo - _resumen.mEfectivo_anu);
+                var dv = (_resumen.mDivisa - _resumen.mDivisa_anu);
+                var el = (_resumen.mElectronico - _resumen.mElectronico_anu);
+                var ot = (_resumen.mOtros - _resumen.mOtros_anu);
+                return (ef + dv + el + ot) - (_resumen.m_cambio - _resumen.mCambio_anu);
+            } 
+        }
         public void NCreditoDetalle()
         {
         }

@@ -142,13 +142,23 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                     Helpers.Msg.Error(xr1.Mensaje);
                     return;
                 }
-
                 var xr2 = Sistema.MyData.Documento_Get_MetodosPago_ByIdRecibo(xr1.Entidad.AutoReciboCxC);
                 if (xr2.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
                     Helpers.Msg.Error(xr2.Mensaje);
                     return;
                 }
+
+                var dat = new Helpers.Imprimir.dataQR()
+                {
+                    autoCierre = xr1.Entidad.Cierre,
+                    autoDoc = xr1.Entidad.Auto,
+                    codDoc = xr1.Entidad.Tipo,
+                    idVerificador = 0,
+                    montoDoc = xr1.Entidad.Total,
+                    numDoc = xr1.Entidad.DocumentoNro,
+                };
+                Sistema.ImprimirFactura.setImprimirQR(dat);
 
                 var _cirif= Sistema.DatosEmpresa.CiRif;
                 if (Sistema.DatosNegociTicket_Rif.Trim() != "")
@@ -238,7 +248,7 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                 xdata.metodoPago = new List<Helpers.Imprimir.data.MetodoPago>();
                 foreach (var mp in xr2.ListaD)
                 {
-                    if (mp.cntDivisa >= 1)
+                    if (Math.Abs(mp.cntDivisa) >= 1)
                     {
                         var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo($"+mp.cntDivisa.ToString()+")", monto = mp.montoRecibido };
                         xdata.metodoPago.Add(pag);

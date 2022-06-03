@@ -49,6 +49,10 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="MySql.Data, Version=6.8.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -76,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Infra\IAgencia.cs" />
     <Compile Include="Data\Infra\ICliente.cs" />
     <Compile Include="Data\Infra\IConcepto.cs" />
     <Compile Include="Data\Infra\IConfiguracion.cs" />
@@ -92,6 +97,7 @@
     <Compile Include="Data\Infra\IUsuario.cs" />
     <Compile Include="Data\Infra\IVendedor.cs" />
     <Compile Include="Data\Infra\IVenta.cs" />
+    <Compile Include="Data\Prov\Agencia.cs" />
     <Compile Include="Data\Prov\Cliente.cs" />
     <Compile Include="Data\Prov\Concepto.cs" />
     <Compile Include="Data\Prov\Configuracion.cs" />
@@ -109,8 +115,11 @@
     <Compile Include="Data\Prov\Vendedor.cs" />
     <Compile Include="Data\Prov\Venta.cs" />
     <Compile Include="Gestion.cs" />
+    <Compile Include="Helpers\ficha.cs" />
+    <Compile Include="Helpers\fichaSeleccion.cs" />
     <Compile Include="Helpers\Imprimir\data.cs" />
     <Compile Include="Helpers\Imprimir\dataCuadre.cs" />
+    <Compile Include="Helpers\Imprimir\dataQR.cs" />
     <Compile Include="Helpers\Imprimir\Fiscal\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Grafico\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Grafico\Documento.cs" />
@@ -134,6 +143,8 @@
     <Compile Include="Helpers\Imprimir\Tickera80\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Ticket.cs" />
     <Compile Include="Helpers\Msg.cs" />
+    <Compile Include="Helpers\Opcion\Gestion.cs" />
+    <Compile Include="Helpers\Opcion\IOpcion.cs" />
     <Compile Include="Helpers\PassWord.cs" />
     <Compile Include="Helpers\Sonido.cs" />
     <Compile Include="Helpers\Utilitis.cs" />
@@ -153,6 +164,9 @@
     <Compile Include="Lib\Controles\Numero\NumeroEntero.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="OOB\Agencia\BaseFicha.cs" />
+    <Compile Include="OOB\Agencia\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Agencia\Lista\Filtro.cs" />
     <Compile Include="OOB\Cliente\Agregar\Ficha.cs" />
     <Compile Include="OOB\Cliente\Editar\Ficha.cs" />
     <Compile Include="OOB\Cliente\Entidad\Enumerados.cs" />
@@ -167,6 +181,7 @@
     <Compile Include="OOB\Configuracion\Entidad\Ficha.cs" />
     <Compile Include="OOB\Deposito\Entidad\Ficha.cs" />
     <Compile Include="OOB\Deposito\Lista\Filtro.cs" />
+    <Compile Include="OOB\Documento\Agregar\BasePagoMovil.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\Ficha.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaCxC.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaCxCDocumento.cs" />
@@ -176,11 +191,21 @@
     <Compile Include="OOB\Documento\Agregar\Factura\FichaDeposito.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaDetalle.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaKardex.cs" />
+    <Compile Include="OOB\Documento\Agregar\Factura\FichaPagoMovil.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPosResumen.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPosVenta.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaSerie.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseCxCDocumento.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseCxCMetodoPago.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseCxcRecibo.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseCxC.cs" />
+    <Compile Include="OOB\Documento\Agregar\Factura\Result.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\Ficha.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxC.cs" />
+    <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxCDocumento.cs" />
+    <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxCMetodoPago.cs" />
+    <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxcPago.cs" />
+    <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxcRecibo.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaDeposito.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaDetalle.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaKardex.cs" />
@@ -387,6 +412,15 @@
     <Compile Include="Src\Multiplicar\MultiplicarFrm.Designer.cs">
       <DependentUpon>MultiplicarFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Src\PagoMovil\data.cs" />
+    <Compile Include="Src\PagoMovil\IPagoMovil.cs" />
+    <Compile Include="Src\PagoMovil\PagoMovil.cs" />
+    <Compile Include="Src\PagoMovil\PagoMovilFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\PagoMovil\PagoMovilFrm.Designer.cs">
+      <DependentUpon>PagoMovilFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Src\Pago\Descuento\DescuentoFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -427,6 +461,7 @@
     <Compile Include="Src\Pendiente\data.cs" />
     <Compile Include="Src\Pendiente\Gestion.cs" />
     <Compile Include="Src\Pos\Gestion.cs" />
+    <Compile Include="Src\Pos\IMultiplicar.cs" />
     <Compile Include="Src\Pos\PosFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -549,6 +584,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Multiplicar\MultiplicarFrm.resx">
       <DependentUpon>MultiplicarFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\PagoMovil\PagoMovilFrm.resx">
+      <DependentUpon>PagoMovilFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Pago\Descuento\DescuentoFrm.resx">
       <DependentUpon>DescuentoFrm.cs</DependentUpon>

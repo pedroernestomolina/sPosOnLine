@@ -75,10 +75,23 @@ namespace PosOnLine.Src.ValidarCambio
 
         private void ValidarCambioFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_controlador.ValidarIsOk || _controlador.AbandonarIsOk)
+            if (_controlador.ValidarIsOk || _controlador.AbandonarIsOk || _controlador.PagoMovilIsOk)
                 e.Cancel = false;
             else
                 e.Cancel = true;
+        }
+
+        private void BT_PAGO_MOVIL_Click(object sender, EventArgs e)
+        {
+            PagoMovil();
+        }
+        private void PagoMovil()
+        {
+            _controlador.PagoMovil();
+            if (_controlador.PagoMovilIsOk)
+            {
+                Salir();
+            }
         }
 
     }

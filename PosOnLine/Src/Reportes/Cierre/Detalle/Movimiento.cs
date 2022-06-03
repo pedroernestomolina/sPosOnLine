@@ -34,13 +34,16 @@ namespace PosOnLine.Src.Reportes.Cierre.Detalle
             var cambioDarTotal = 0.0m;
             var ncreditoTotal = _montoNtCredito;
 
-            foreach (var rg in _lista.OrderBy(o => o.idRecibo).ToList())
+            foreach (var rg in _lista.OrderBy(o=>o.docNumero).ThenBy(o => o.idRecibo).ToList())
             {
                 xid += 1;
-                if (rg.isActivo && rg.isFactura)
+                if (rg.isActivo && rg.isDocVenta)
                 {
-                    montoTotal += rg.docMonto;
-                    cambioDarTotal += rg.docCambioDar;
+                    if (!rg.isCredito)
+                    {
+                        montoTotal += rg.docMonto;
+                        cambioDarTotal += rg.docCambioDar;
+                    }
                 }
 
                 foreach (var pg in rg.pagos.ToList())
@@ -80,7 +83,16 @@ namespace PosOnLine.Src.Reportes.Cierre.Detalle
                         p["estatus"] = "Activo";
                         p["monto"] = rg.docMonto;
                         p["montoRecibido"] = _montoRecibido;
-                        p["codigoMedioPago"] = pg.medioPagCodigo + "/ " + pg.medioPagDesc + loteRef;
+                        if (rg.isCredito)
+                        {
+                            p["codigoMedioPago"] = "CREDITO";
+                            p["esCredito"] = "1";
+                        }
+                        else 
+                        {
+                            p["codigoMedioPago"] = pg.medioPagCodigo + "/ " + pg.medioPagDesc + loteRef;
+                            p["esCredito"] = "0";
+                        }
                         p["tasa"] = _tasa;
                         p["importe"] = _importe;
                     }
@@ -105,7 +117,6 @@ namespace PosOnLine.Src.Reportes.Cierre.Detalle
             var pmt = new List<ReportParameter>();
             pmt.Add(new ReportParameter("montoTotal", montoTotal.ToString("n2")));
             pmt.Add(new ReportParameter("cambioDarTotal", cambioDarTotal.ToString("n2")));
-            pmt.Add(new ReportParameter("ncreditoTotal", ncreditoTotal.ToString("n2")));
             Rds.Add(new ReportDataSource("Pago", ds.Tables["Pago"]));
 
             var frp = new ReporteFrm();

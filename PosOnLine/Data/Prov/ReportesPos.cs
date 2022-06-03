@@ -12,7 +12,8 @@ namespace PosOnLine.Data.Prov
     public partial class DataPrv: IData
     {
 
-        public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoDetalle.Ficha> ReportePos_PagoDetalle(OOB.Reportes.Pos.Filtro filtro)
+        public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoDetalle.Ficha> 
+            ReportePos_PagoDetalle(OOB.Reportes.Pos.Filtro filtro)
         {
             var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.PagoDetalle.Ficha>();
 
@@ -35,7 +36,7 @@ namespace PosOnLine.Data.Prov
                         new 
                         {
                             g.autoRecibo, g.documentoNro, g.documentoFecha, g.documentoTipo, g.hora, g.clienteNombre, 
-                            g.clienteCiRif, g.clienteDir, g.clienteTelf, g.cambioDar, g.estatus , g.importe 
+                            g.clienteCiRif, g.clienteDir, g.clienteTelf, g.cambioDar, g.estatus , g.importe , g.estatusCredito
                         }).Select(s => new { key = s.Key, data = s.ToList()}).ToList();
 
                     foreach (var it in gf)
@@ -48,6 +49,7 @@ namespace PosOnLine.Data.Prov
                             cliTelf = it.key.clienteTelf,
                             docCambioDar = it.key.cambioDar,
                             docEstatus = it.key.estatus,
+                            docEstatusCredito = it.key.estatusCredito,
                             docFecha = it.key.documentoFecha,
                             docHora = it.key.hora,
                             docMonto = it.key.importe,
@@ -77,8 +79,8 @@ namespace PosOnLine.Data.Prov
 
             return rt;
         }
-
-        public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoResumen.Ficha> ReportePos_PagoResumen(OOB.Reportes.Pos.Filtro filtro)
+        public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoResumen.Ficha> 
+            ReportePos_PagoResumen(OOB.Reportes.Pos.Filtro filtro)
         {
             var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.PagoResumen.Ficha>();
 
@@ -106,6 +108,8 @@ namespace PosOnLine.Data.Prov
                             mpCodigo = s.medioPagoCodigo,
                             mpDescripcion = s.medioPagoDesc,
                             refTasaDivisa = s.referenciaTasa,
+                            estatusCredito = s.estatusCredito,
+                            importeDoc = s.importe,
                         };
                         return rg;
                     }).ToList();

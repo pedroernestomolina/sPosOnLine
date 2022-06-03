@@ -335,7 +335,6 @@ namespace PosOnLine.Src.Pos
         {
             Multiplicar();
         }
-
         private void Multiplicar()
         {
             _controlador.Multiplicar();

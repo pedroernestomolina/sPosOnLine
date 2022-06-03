@@ -342,6 +342,8 @@ namespace PosOnLine.Src.Reportes {
             
             private global::System.Data.DataColumn columnlote;
             
+            private global::System.Data.DataColumn columnesCredito;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public PagoDataTable() {
@@ -489,6 +491,14 @@ namespace PosOnLine.Src.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn esCreditoColumn {
+                get {
+                    return this.columnesCredito;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -524,7 +534,7 @@ namespace PosOnLine.Src.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PagoRow AddPagoRow(string documento, string nombreRazonSocial, string fechaHora, decimal monto, string dirFiscal, string telefono, string id1, decimal montoRecibido, string codigoMedioPago, string estatus, string tasa, decimal importe, decimal CambioDar, string lote) {
+            public PagoRow AddPagoRow(string documento, string nombreRazonSocial, string fechaHora, decimal monto, string dirFiscal, string telefono, string id1, decimal montoRecibido, string codigoMedioPago, string estatus, string tasa, decimal importe, decimal CambioDar, string lote, string esCredito) {
                 PagoRow rowPagoRow = ((PagoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         documento,
@@ -540,7 +550,8 @@ namespace PosOnLine.Src.Reportes {
                         tasa,
                         importe,
                         CambioDar,
-                        lote};
+                        lote,
+                        esCredito};
                 rowPagoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPagoRow);
                 return rowPagoRow;
@@ -577,6 +588,7 @@ namespace PosOnLine.Src.Reportes {
                 this.columnimporte = base.Columns["importe"];
                 this.columnCambioDar = base.Columns["CambioDar"];
                 this.columnlote = base.Columns["lote"];
+                this.columnesCredito = base.Columns["esCredito"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -610,6 +622,8 @@ namespace PosOnLine.Src.Reportes {
                 base.Columns.Add(this.columnCambioDar);
                 this.columnlote = new global::System.Data.DataColumn("lote", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlote);
+                this.columnesCredito = new global::System.Data.DataColumn("esCredito", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnesCredito);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1307,6 +1321,22 @@ namespace PosOnLine.Src.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string esCredito {
+                get {
+                    try {
+                        return ((string)(this[this.tablePago.esCreditoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'esCredito\' in table \'Pago\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePago.esCreditoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsdocumentoNull() {
                 return this.IsNull(this.tablePago.documentoColumn);
             }
@@ -1471,6 +1501,18 @@ namespace PosOnLine.Src.Reportes {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetloteNull() {
                 this[this.tablePago.loteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsesCreditoNull() {
+                return this.IsNull(this.tablePago.esCreditoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetesCreditoNull() {
+                this[this.tablePago.esCreditoColumn] = global::System.Convert.DBNull;
             }
         }
         

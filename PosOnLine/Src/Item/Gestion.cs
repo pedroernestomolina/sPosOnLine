@@ -728,13 +728,13 @@ namespace PosOnLine.Src.Item
                 var pneto = it.PrecioItem;
                 var tarifa = it.Ficha.tarifaPrecio;
                 var pdivisa = it.Ficha.pfullDivisa;
-                var xcnt = Items.Where(f => f.Ficha.autoProducto == autoPrd).Sum(f => f.Cantidad);
-                if ((xcnt+cnt) >= t01.Entidad.contenido_5) 
-                {
-                    pneto = t01.Entidad.pneto_5;
-                    tarifa = "5";
-                    pdivisa = t01.Entidad.pdf_5;
-                }
+                //var xcnt = Items.Where(f => f.Ficha.autoProducto == autoPrd).Sum(f => f.Cantidad);
+                //if ((xcnt+cnt) >= t01.Entidad.contenido_5) 
+                //{
+                //    pneto = t01.Entidad.pneto_5;
+                //    tarifa = "5";
+                //    pdivisa = t01.Entidad.pdf_5;
+                //}
 
                 var ficha = new OOB.Venta.Item.ActualizarCantidad.Aumentar.Ficha()
                 {
@@ -1066,6 +1066,14 @@ namespace PosOnLine.Src.Item
         public void setHabilitarPrecio5VentaMayor(bool p)
         {
             _habilitarPos_precio_5_para_venta_mayor = p;
+        }
+
+
+        //
+        public data Item { get { return (data)_bsitems.Current; } }
+        public void SetCantIncrementar(data it, int cnt)
+        {
+            IncrementarItem(it, cnt);
         }
 
     }

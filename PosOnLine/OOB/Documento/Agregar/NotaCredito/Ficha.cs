@@ -111,6 +111,7 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
         public List<FichaKardex> MovKardex { get; set; }
         public List<FichaDeposito> ActDeposito { get; set; }
         public FichaCxC DocCxC { get; set; }
+        public FichaCxCPago DocCxCPago { get; set; }
         public FichaPosResumen Resumen { get; set; }
         public FichaSerie SerieFiscal { get; set; }
 
@@ -213,6 +214,7 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
             CierreFtp="";
 
             DocCxC = new  FichaCxC();
+            DocCxCPago = new FichaCxCPago();
             Detalles = new List<FichaDetalle>();
             MovKardex = new List<FichaKardex>();
             ActDeposito = new List<FichaDeposito>();

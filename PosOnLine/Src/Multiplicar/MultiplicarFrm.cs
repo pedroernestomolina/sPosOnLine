@@ -29,16 +29,6 @@ namespace PosOnLine.Src.Multiplicar
             TB_CANTIDAD.Text = "0";
         }
 
-        private void BT_SALIDA_Click(object sender, EventArgs e)
-        {
-            Salida();
-        }
-
-        private void Salida()
-        {
-            this.Close();
-        }
-
         private void MultiplicarFrm_Load(object sender, EventArgs e)
         {
             Limpiar();
@@ -72,8 +62,35 @@ namespace PosOnLine.Src.Multiplicar
         private void TB_OK_Click(object sender, EventArgs e)
         {
             _controlador.Procesar();
+            if (_controlador.ProcesarIsOk) 
+            {
+                Salir();
+            }
+        }
+        private void BT_SALIDA_Click(object sender, EventArgs e)
+        {
+            Abandonar();
+        }
+        private void Abandonar()
+        {
+            _controlador.Abandonar();
+            if (_controlador.AbandonarIsOk)
+            {
+                Salir();
+            }
+        }
+        private void Salir()
+        {
             IrFoco();
-            Salida();
+            this.Close();
+        }
+        private void MultiplicarFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (_controlador.AbandonarIsOk || _controlador.ProcesarIsOk) 
+            {
+                e.Cancel = false;
+            }
         }
 
     }

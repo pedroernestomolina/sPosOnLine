@@ -111,6 +111,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
             _tick.Negocio.setEmpresa(ficha);
         }
 
+        public void setImprimirQR(dataQR dat)
+        {
+        }
+
     }
 
 }

@@ -14,7 +14,8 @@ namespace PosOnLine.Helpers.Imprimir
         void setData(data ds);
         void ImprimirDoc();
         void ImprimirCopiaDoc();
-        
+        void setImprimirQR(dataQR dat);
+
     }
 
 }

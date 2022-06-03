@@ -26,6 +26,9 @@ namespace PosOnLine.Helpers.Imprimir.Fiscal
         public void setData(data ds)
         {
         }
+        public void setImprimirQR(dataQR dat)
+        {
+        }
 
     }
 

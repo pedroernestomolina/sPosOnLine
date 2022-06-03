@@ -12,9 +12,294 @@ namespace PosOnLine.Data.Prov
     public partial class DataPrv : IData
     {
 
-        public OOB.Resultado.FichaAuto Documento_Agregar_Factura(OOB.Documento.Agregar.Factura.Ficha ficha)
+
+        public OOB.Resultado.Lista<OOB.Documento.Lista.Ficha> 
+            Documento_Get_Lista(OOB.Documento.Lista.Filtro filtro)
         {
-            var result = new OOB.Resultado.FichaAuto();
+            var result = new OOB.Resultado.Lista<OOB.Documento.Lista.Ficha>();
+
+            var filtroDTO = new DtoLibPos.Documento.Lista.Filtro()
+            {
+                idArqueo = filtro.idArqueo,
+            };
+            var r01 = MyData.Documento_Get_Lista(filtroDTO);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+
+            var lst = new List<OOB.Documento.Lista.Ficha>();
+            if (r01.Lista != null)
+            {
+                if (r01.Lista.Count > 0)
+                {
+                    lst = r01.Lista.Select(s =>
+                    {
+                        var nr = new OOB.Documento.Lista.Ficha()
+                        {
+                            CiRif = s.CiRif,
+                            Control = s.Control,
+                            DocCodigo = s.DocCodigo,
+                            DocNombre = s.DocNombre,
+                            DocNumero = s.DocNumero,
+                            DocSigno = s.DocSigno,
+                            Estatus = s.Estatus,
+                            FechaEmision = s.FechaEmision,
+                            HoraEmision = s.HoraEmision,
+                            Id = s.Id,
+                            Monto = s.Monto,
+                            NombreRazonSocial = s.NombreRazonSocial,
+                            Renglones = s.Renglones,
+                            Serie = s.Serie,
+                            MontoDivisa=s.MontoDivisa,
+                        };
+                        return nr;
+                    }).ToList();
+                }
+            }
+            result.ListaD = lst;
+
+            return result;
+        }
+        public OOB.Resultado.FichaEntidad<OOB.Documento.Entidad.Ficha> 
+            Documento_GetById(string idAuto)
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Documento.Entidad.Ficha>();
+
+            var r01 = MyData.Documento_GetById (idAuto);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+            var s= r01.Entidad;
+            var nr = new OOB.Documento.Entidad.Ficha()
+            {
+                AnoRelacion = s.AnoRelacion,
+                AnticipoIva = s.AnticipoIva,
+                Aplica = s.Aplica,
+                Auto = s.Auto,
+                AutoCliente = s.AutoCliente,
+                AutoRemision = s.AutoRemision,
+                AutoTransporte = s.AutoTransporte,
+                AutoUsuario = s.AutoUsuario,
+                AutoVendedor = s.AutoVendedor,
+                Base1 = s.Base1,
+                Base2 = s.Base2,
+                Base3 = s.Base3,
+                Cambio = s.Cambio,
+                Cargos = s.Cargos,
+                Cargosp = s.Cargosp,
+                CiBeneficiario = s.CiBeneficiario,
+                Cierre = s.Cierre,
+                CierreFtp = s.CierreFtp,
+                CiRif = s.CiRif,
+                CiTitular = s.CiTitular,
+                Clave = s.Clave,
+                CodigoCliente = s.CodigoCliente,
+                CodigoSucursal = s.CodigoSucursal,
+                CodigoTransporte = s.CodigoTransporte,
+                CodigoUsuario = s.CodigoUsuario,
+                CodigoVendedor = s.CodigoVendedor,
+                Columna = s.Columna,
+                ComprobanteRetencion = s.ComprobanteRetencion,
+                ComprobanteRetencionIslr = s.ComprobanteRetencionIslr,
+                CondicionPago = s.CondicionPago,
+                Control = s.Control,
+                Costo = s.Costo,
+                DenominacionFiscal = s.DenominacionFiscal,
+                Descuento1 = s.Descuento1,
+                Descuento1p = s.Descuento1p,
+                Descuento2 = s.Descuento2,
+                Descuento2p = s.Descuento2p,
+                Despachado = s.Despachado,
+                Dias = s.Dias,
+                DiasValidez = s.DiasValidez,
+                DirDespacho = s.DirDespacho,
+                DirFiscal = s.DirFiscal,
+                DocumentoNombre = s.DocumentoNombre,
+                DocumentoNro = s.DocumentoNro,
+                DocumentoRemision = s.DocumentoRemision,
+                DocumentoTipo = s.DocumentoTipo,
+                Estacion = s.Estacion,
+                EstatusAnulado = s.EstatusAnulado,
+                EstatusCierreContable = s.EstatusCierreContable,
+                EstatusValidado = s.EstatusValidado,
+                Exento = s.Exento,
+                Expendiente = s.Expendiente,
+                FactorCambio = s.FactorCambio,
+                Fecha = s.Fecha,
+                FechaPedido = s.FechaPedido,
+                FechaVencimiento = s.FechaVencimiento,
+                Hora = s.Hora,
+                Impuesto = s.Impuesto,
+                Impuesto1 = s.Impuesto1,
+                Impuesto2 = s.Impuesto2,
+                Impuesto3 = s.Impuesto3,
+                MBase = s.MBase,
+                MesRelacion = s.MesRelacion,
+                MontoDivisa = s.MontoDivisa,
+                Neto = s.Neto,
+                NombreBeneficiario = s.NombreBeneficiario,
+                NombreTitular = s.NombreTitular,
+                Nota = s.Nota,
+                OrdenCompra = s.OrdenCompra,
+                Pedido = s.Pedido,
+                Planilla = s.Planilla,
+                Prefijo = s.Prefijo,
+                RazonSocial = s.RazonSocial,
+                Renglones = s.Renglones,
+                RetencionIslr = s.RetencionIslr,
+                RetencionIva = s.RetencionIva,
+                SaldoPendiente = s.SaldoPendiente,
+                Serie = s.Serie,
+                Signo = s.Signo,
+                Situacion = s.Situacion,
+                SubTotal = s.SubTotal,
+                SubTotalImpuesto = s.SubTotalImpuesto,
+                SubTotalNeto = s.SubTotalNeto,
+                Tarifa = s.Tarifa,
+                Tasa1 = s.Tasa1,
+                Tasa2 = s.Tasa2,
+                Tasa3 = s.Tasa3,
+                TasaRetencionIslr = s.TasaRetencionIslr,
+                TasaRetencionIva = s.TasaRetencionIva,
+                Telefono = s.Telefono,
+                TercerosIva = s.TercerosIva,
+                Tipo = s.Tipo,
+                TipoCliente = s.TipoCliente,
+                TipoRemision = s.TipoRemision,
+                Total = s.Total,
+                Transporte = s.Transporte,
+                Usuario = s.Usuario,
+                Utilidad = s.Utilidad,
+                Utilidadp = s.Utilidadp,
+                Vendedor = s.Vendedor,
+                AutoDocCxC=s.AutoDocCxC,
+                AutoReciboCxC=s.AutoReciboCxC,
+                items = s.items.Select(ss =>
+                {
+                    var xr = new OOB.Documento.Entidad.FichaItem()
+                    {
+                        EstatusPesado=ss.EstatusPesado,
+                        AutoCliente = ss.AutoCliente,
+                        AutoDepartamento = ss.AutoDepartamento,
+                        AutoDeposito = ss.AutoDeposito,
+                        AutoGrupo = ss.AutoGrupo,
+                        AutoProducto = ss.AutoProducto,
+                        AutoSubGrupo = ss.AutoSubGrupo,
+                        AutoTasa = ss.AutoTasa,
+                        AutoVendedor = ss.AutoVendedor,
+                        Cantidad = ss.Cantidad,
+                        CantidadUnd = ss.CantidadUnd,
+                        Categoria = ss.Categoria,
+                        CierreFtp = ss.CierreFtp,
+                        Cobranza = ss.Cobranza,
+                        Cobranzap = ss.Cobranzap,
+                        CobranzapVendedor = ss.CobranzapVendedor,
+                        CobranzaVendedor = ss.CobranzaVendedor,
+                        Codigo = ss.Codigo,
+                        CodigoDeposito = ss.CodigoDeposito,
+                        CodigoVendedor = ss.CodigoVendedor,
+                        ContenidoEmpaque = ss.ContenidoEmpaque,
+                        Corte = ss.Corte,
+                        CostoCompra = ss.CostoCompra,
+                        CostoPromedioUnd = ss.CostoPromedioUnd,
+                        CostoUnd = ss.CostoUnd,
+                        CostoVenta = ss.CostoVenta,
+                        Decimales = ss.Decimales,
+                        Deposito = ss.Deposito,
+                        Descuento1 = ss.Descuento1,
+                        Descuento1p = ss.Descuento1p,
+                        Descuento2 = ss.Descuento2,
+                        Descuento2p = ss.Descuento2p,
+                        Descuento3 = ss.Descuento3,
+                        Descuento3p = ss.Descuento3p,
+                        Detalle = ss.Detalle,
+                        DiasGarantia = ss.DiasGarantia,
+                        Empaque = ss.Empaque,
+                        EstatusAnulado = ss.EstatusAnulado,
+                        EstatusChecked = ss.EstatusChecked,
+                        EstatusCorte = ss.EstatusCorte,
+                        EstatusGarantia = ss.EstatusGarantia,
+                        EstatusSerial = ss.EstatusSerial,
+                        Impuesto = ss.Impuesto,
+                        Nombre = ss.Nombre,
+                        PrecioFinal = ss.PrecioFinal,
+                        PrecioItem = ss.PrecioItem,
+                        PrecioNeto = ss.PrecioNeto,
+                        PrecioSugerido = ss.PrecioSugerido,
+                        PrecioUnd = ss.PrecioUnd,
+                        Signo = ss.Signo,
+                        Tarifa = ss.Tarifa,
+                        Tasa = ss.Tasa,
+                        Tipo = ss.Tipo,
+                        Total = ss.Total,
+                        TotalDescuento = ss.TotalDescuento,
+                        TotalNeto = ss.TotalNeto,
+                        Utilidad = ss.Utilidad,
+                        Utilidadp = ss.Utilidadp,
+                        Ventas = ss.Ventas,
+                        Ventasp = ss.Ventasp,
+                        VentaspVendedor = ss.VentaspVendedor,
+                        VentasVendedor = ss.VentasVendedor,
+                        X = ss.X,
+                        Y = ss.Y,
+                        Z = ss.Z,
+                    };
+                    return xr;
+                }).ToList(),
+            };
+            result.Entidad = nr;
+
+            return result;
+        }
+        public OOB.Resultado.Lista<OOB.Documento.Entidad.FichaMetodoPago>
+            Documento_Get_MetodosPago_ByIdRecibo(string idRecibo)
+        {
+            var result = new OOB.Resultado.Lista<OOB.Documento.Entidad.FichaMetodoPago>();
+
+            var r01 = MyData.Documento_Get_MetodosPago_ByIdRecibo(idRecibo);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+
+            var lst = new List<OOB.Documento.Entidad.FichaMetodoPago>();
+            if (r01.Lista != null)
+            {
+                if (r01.Lista.Count > 0)
+                {
+                    lst = r01.Lista.Select(s =>
+                    {
+                        var nr = new OOB.Documento.Entidad.FichaMetodoPago()
+                        {
+                            autoMedioPago = s.autoMedioPago,
+                            codigoMedioPago = s.codigoMedioPago,
+                            descMedioPago = s.descMedioPago,
+                            lote = s.lote,
+                            montoRecibido = s.montoRecibido,
+                            referencia = s.referencia,
+                        };
+                        return nr;
+                    }).ToList();
+                }
+            }
+            result.ListaD = lst;
+
+            return result;
+        }
+
+
+        public OOB.Resultado.FichaEntidad<OOB.Documento.Agregar.Factura.Result>
+            Documento_Agregar_Factura(OOB.Documento.Agregar.Factura.Ficha ficha)
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Documento.Agregar.Factura.Result>();
 
             var fichaDTO = new DtoLibPos.Documento.Agregar.Factura.Ficha()
             {
@@ -256,6 +541,8 @@ namespace PosOnLine.Data.Prov
                 Serie = dc.Serie,
                 ImporteNeto = dc.ImporteNeto,
                 Dias = dc.Dias,
+                MontoDivisa = dc.MontoDivisa,
+                TasaDivisa = dc.TasaDivisa,
             };
             fichaDTO.DocCxC = docCxC;
 
@@ -294,6 +581,8 @@ namespace PosOnLine.Data.Prov
                     Dias = xp.Dias,
                     CastigoP = xp.CastigoP,
                     CierreFtp = xp.CierreFtp,
+                    MontoDivisa = dc.MontoDivisa,
+                    TasaDivisa = dc.TasaDivisa,
                 };
 
                 var xpR = ficha.DocCxCPago.Recibo;
@@ -406,9 +695,21 @@ namespace PosOnLine.Data.Prov
                 cntCambio = ficha.Resumen.cntCambio,
                 mCambio = ficha.Resumen.mCambio,
             };
-            if (ficha.SerieFiscal != null) 
+            if (ficha.SerieFiscal != null)
             {
                 fichaDTO.SerieFiscal = new DtoLibPos.Documento.Agregar.Factura.FichaSerie() { auto = ficha.SerieFiscal.auto };
+            }
+            if (ficha.PagoMovil != null)
+            {
+                var pm= ficha.PagoMovil;
+                fichaDTO.PagoMovil = new DtoLibPos.Documento.Agregar.Factura.FichaPagoMovil()
+                {
+                    autoAgencia = pm.autoAgencia,
+                    ciRif = pm.ciRif,
+                    monto = pm.monto,
+                    nombre = pm.nombre,
+                    telefono = pm.telefono,
+                };
             }
 
             var r01 = MyData.Documento_Agregar_Factura(fichaDTO);
@@ -418,256 +719,22 @@ namespace PosOnLine.Data.Prov
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
-            result.Auto = r01.Auto;
-
-            return result;
-        }
-
-        public OOB.Resultado.Lista<OOB.Documento.Lista.Ficha> Documento_Get_Lista(OOB.Documento.Lista.Filtro filtro)
-        {
-            var result = new OOB.Resultado.Lista<OOB.Documento.Lista.Ficha>();
-
-            var filtroDTO = new DtoLibPos.Documento.Lista.Filtro()
+            var rt= r01.Entidad;
+            var r1 = new OOB.Documento.Agregar.Factura.Result()
             {
-                idArqueo = filtro.idArqueo,
+                autoCierre = rt.autoCierre,
+                autoDoc = rt.autoDoc,
+                codDoc = rt.codDoc,
+                idVerificador = rt.idVerificador,
+                montoDoc = rt.montoDoc,
+                numDoc = rt.numDoc,
             };
-            var r01 = MyData.Documento_Get_Lista(filtroDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var lst = new List<OOB.Documento.Lista.Ficha>();
-            if (r01.Lista != null)
-            {
-                if (r01.Lista.Count > 0)
-                {
-                    lst = r01.Lista.Select(s =>
-                    {
-                        var nr = new OOB.Documento.Lista.Ficha()
-                        {
-                            CiRif = s.CiRif,
-                            Control = s.Control,
-                            DocCodigo = s.DocCodigo,
-                            DocNombre = s.DocNombre,
-                            DocNumero = s.DocNumero,
-                            DocSigno = s.DocSigno,
-                            Estatus = s.Estatus,
-                            FechaEmision = s.FechaEmision,
-                            HoraEmision = s.HoraEmision,
-                            Id = s.Id,
-                            Monto = s.Monto,
-                            NombreRazonSocial = s.NombreRazonSocial,
-                            Renglones = s.Renglones,
-                            Serie = s.Serie,
-                            MontoDivisa=s.MontoDivisa,
-                        };
-                        return nr;
-                    }).ToList();
-                }
-            }
-            result.ListaD = lst;
+            result.Entidad  = r1;
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Documento.Entidad.Ficha> Documento_GetById(string idAuto)
-        {
-            var result = new OOB.Resultado.FichaEntidad<OOB.Documento.Entidad.Ficha>();
-
-            var r01 = MyData.Documento_GetById (idAuto);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-            var s= r01.Entidad;
-            var nr = new OOB.Documento.Entidad.Ficha()
-            {
-                AnoRelacion = s.AnoRelacion,
-                AnticipoIva = s.AnticipoIva,
-                Aplica = s.Aplica,
-                Auto = s.Auto,
-                AutoCliente = s.AutoCliente,
-                AutoRemision = s.AutoRemision,
-                AutoTransporte = s.AutoTransporte,
-                AutoUsuario = s.AutoUsuario,
-                AutoVendedor = s.AutoVendedor,
-                Base1 = s.Base1,
-                Base2 = s.Base2,
-                Base3 = s.Base3,
-                Cambio = s.Cambio,
-                Cargos = s.Cargos,
-                Cargosp = s.Cargosp,
-                CiBeneficiario = s.CiBeneficiario,
-                Cierre = s.Cierre,
-                CierreFtp = s.CierreFtp,
-                CiRif = s.CiRif,
-                CiTitular = s.CiTitular,
-                Clave = s.Clave,
-                CodigoCliente = s.CodigoCliente,
-                CodigoSucursal = s.CodigoSucursal,
-                CodigoTransporte = s.CodigoTransporte,
-                CodigoUsuario = s.CodigoUsuario,
-                CodigoVendedor = s.CodigoVendedor,
-                Columna = s.Columna,
-                ComprobanteRetencion = s.ComprobanteRetencion,
-                ComprobanteRetencionIslr = s.ComprobanteRetencionIslr,
-                CondicionPago = s.CondicionPago,
-                Control = s.Control,
-                Costo = s.Costo,
-                DenominacionFiscal = s.DenominacionFiscal,
-                Descuento1 = s.Descuento1,
-                Descuento1p = s.Descuento1p,
-                Descuento2 = s.Descuento2,
-                Descuento2p = s.Descuento2p,
-                Despachado = s.Despachado,
-                Dias = s.Dias,
-                DiasValidez = s.DiasValidez,
-                DirDespacho = s.DirDespacho,
-                DirFiscal = s.DirFiscal,
-                DocumentoNombre = s.DocumentoNombre,
-                DocumentoNro = s.DocumentoNro,
-                DocumentoRemision = s.DocumentoRemision,
-                DocumentoTipo = s.DocumentoTipo,
-                Estacion = s.Estacion,
-                EstatusAnulado = s.EstatusAnulado,
-                EstatusCierreContable = s.EstatusCierreContable,
-                EstatusValidado = s.EstatusValidado,
-                Exento = s.Exento,
-                Expendiente = s.Expendiente,
-                FactorCambio = s.FactorCambio,
-                Fecha = s.Fecha,
-                FechaPedido = s.FechaPedido,
-                FechaVencimiento = s.FechaVencimiento,
-                Hora = s.Hora,
-                Impuesto = s.Impuesto,
-                Impuesto1 = s.Impuesto1,
-                Impuesto2 = s.Impuesto2,
-                Impuesto3 = s.Impuesto3,
-                MBase = s.MBase,
-                MesRelacion = s.MesRelacion,
-                MontoDivisa = s.MontoDivisa,
-                Neto = s.Neto,
-                NombreBeneficiario = s.NombreBeneficiario,
-                NombreTitular = s.NombreTitular,
-                Nota = s.Nota,
-                OrdenCompra = s.OrdenCompra,
-                Pedido = s.Pedido,
-                Planilla = s.Planilla,
-                Prefijo = s.Prefijo,
-                RazonSocial = s.RazonSocial,
-                Renglones = s.Renglones,
-                RetencionIslr = s.RetencionIslr,
-                RetencionIva = s.RetencionIva,
-                SaldoPendiente = s.SaldoPendiente,
-                Serie = s.Serie,
-                Signo = s.Signo,
-                Situacion = s.Situacion,
-                SubTotal = s.SubTotal,
-                SubTotalImpuesto = s.SubTotalImpuesto,
-                SubTotalNeto = s.SubTotalNeto,
-                Tarifa = s.Tarifa,
-                Tasa1 = s.Tasa1,
-                Tasa2 = s.Tasa2,
-                Tasa3 = s.Tasa3,
-                TasaRetencionIslr = s.TasaRetencionIslr,
-                TasaRetencionIva = s.TasaRetencionIva,
-                Telefono = s.Telefono,
-                TercerosIva = s.TercerosIva,
-                Tipo = s.Tipo,
-                TipoCliente = s.TipoCliente,
-                TipoRemision = s.TipoRemision,
-                Total = s.Total,
-                Transporte = s.Transporte,
-                Usuario = s.Usuario,
-                Utilidad = s.Utilidad,
-                Utilidadp = s.Utilidadp,
-                Vendedor = s.Vendedor,
-                AutoDocCxC=s.AutoDocCxC,
-                AutoReciboCxC=s.AutoReciboCxC,
-                items = s.items.Select(ss =>
-                {
-                    var xr = new OOB.Documento.Entidad.FichaItem()
-                    {
-                        EstatusPesado=ss.EstatusPesado,
-                        AutoCliente = ss.AutoCliente,
-                        AutoDepartamento = ss.AutoDepartamento,
-                        AutoDeposito = ss.AutoDeposito,
-                        AutoGrupo = ss.AutoGrupo,
-                        AutoProducto = ss.AutoProducto,
-                        AutoSubGrupo = ss.AutoSubGrupo,
-                        AutoTasa = ss.AutoTasa,
-                        AutoVendedor = ss.AutoVendedor,
-                        Cantidad = ss.Cantidad,
-                        CantidadUnd = ss.CantidadUnd,
-                        Categoria = ss.Categoria,
-                        CierreFtp = ss.CierreFtp,
-                        Cobranza = ss.Cobranza,
-                        Cobranzap = ss.Cobranzap,
-                        CobranzapVendedor = ss.CobranzapVendedor,
-                        CobranzaVendedor = ss.CobranzaVendedor,
-                        Codigo = ss.Codigo,
-                        CodigoDeposito = ss.CodigoDeposito,
-                        CodigoVendedor = ss.CodigoVendedor,
-                        ContenidoEmpaque = ss.ContenidoEmpaque,
-                        Corte = ss.Corte,
-                        CostoCompra = ss.CostoCompra,
-                        CostoPromedioUnd = ss.CostoPromedioUnd,
-                        CostoUnd = ss.CostoUnd,
-                        CostoVenta = ss.CostoVenta,
-                        Decimales = ss.Decimales,
-                        Deposito = ss.Deposito,
-                        Descuento1 = ss.Descuento1,
-                        Descuento1p = ss.Descuento1p,
-                        Descuento2 = ss.Descuento2,
-                        Descuento2p = ss.Descuento2p,
-                        Descuento3 = ss.Descuento3,
-                        Descuento3p = ss.Descuento3p,
-                        Detalle = ss.Detalle,
-                        DiasGarantia = ss.DiasGarantia,
-                        Empaque = ss.Empaque,
-                        EstatusAnulado = ss.EstatusAnulado,
-                        EstatusChecked = ss.EstatusChecked,
-                        EstatusCorte = ss.EstatusCorte,
-                        EstatusGarantia = ss.EstatusGarantia,
-                        EstatusSerial = ss.EstatusSerial,
-                        Impuesto = ss.Impuesto,
-                        Nombre = ss.Nombre,
-                        PrecioFinal = ss.PrecioFinal,
-                        PrecioItem = ss.PrecioItem,
-                        PrecioNeto = ss.PrecioNeto,
-                        PrecioSugerido = ss.PrecioSugerido,
-                        PrecioUnd = ss.PrecioUnd,
-                        Signo = ss.Signo,
-                        Tarifa = ss.Tarifa,
-                        Tasa = ss.Tasa,
-                        Tipo = ss.Tipo,
-                        Total = ss.Total,
-                        TotalDescuento = ss.TotalDescuento,
-                        TotalNeto = ss.TotalNeto,
-                        Utilidad = ss.Utilidad,
-                        Utilidadp = ss.Utilidadp,
-                        Ventas = ss.Ventas,
-                        Ventasp = ss.Ventasp,
-                        VentaspVendedor = ss.VentaspVendedor,
-                        VentasVendedor = ss.VentasVendedor,
-                        X = ss.X,
-                        Y = ss.Y,
-                        Z = ss.Z,
-                    };
-                    return xr;
-                }).ToList(),
-            };
-            result.Entidad = nr;
-
-            return result;
-        }
-
-        public OOB.Resultado.FichaAuto Documento_Agregar_NotaCredito(OOB.Documento.Agregar.NotaCredito.Ficha ficha)
+        public OOB.Resultado.FichaAuto
+            Documento_Agregar_NotaCredito(OOB.Documento.Agregar.NotaCredito.Ficha ficha)
         {
             var result = new OOB.Resultado.FichaAuto();
 
@@ -911,8 +978,121 @@ namespace PosOnLine.Data.Prov
                 Serie = dc.Serie,
                 ImporteNeto = dc.ImporteNeto,
                 Dias = dc.Dias,
+                MontoDivisa = dc.MontoDivisa,
+                TasaDivisa = dc.TasaDivisa,
             };
             fichaDTO.DocCxC = docCxC;
+
+
+            if (ficha.DocCxCPago == null)
+            {
+                fichaDTO.DocCxCPago = null;
+            }
+            else
+            {
+                var xp = ficha.DocCxCPago.Pago;
+                var p = new DtoLibPos.Documento.Agregar.NotaCredito.FichaCxC()
+                {
+                    CCobranza = xp.CCobranza,
+                    CCobranzap = xp.CCobranzap,
+                    TipoDocumento = xp.TipoDocumento,
+                    Nota = xp.Nota,
+                    Importe = xp.Importe,
+                    Acumulado = xp.Acumulado,
+                    AutoCliente = xp.AutoCliente,
+                    Cliente = xp.Cliente,
+                    CiRif = xp.CiRif,
+                    CodigoCliente = xp.CodigoCliente,
+                    EstatusCancelado = xp.EstatusCancelado,
+                    Resta = xp.Resta,
+                    EstatusAnulado = xp.EstatusAnulado,
+                    Numero = xp.Numero,
+                    AutoAgencia = xp.AutoAgencia,
+                    Agencia = xp.Agencia,
+                    Signo = xp.Signo,
+                    AutoVendedor = xp.AutoVendedor,
+                    CDepartamento = xp.CDepartamento,
+                    CVentas = xp.CVentas,
+                    CVentasp = xp.CVentasp,
+                    Serie = xp.Serie,
+                    ImporteNeto = xp.ImporteNeto,
+                    Dias = xp.Dias,
+                    CastigoP = xp.CastigoP,
+                    CierreFtp = xp.CierreFtp,
+                    MontoDivisa = dc.MontoDivisa,
+                    TasaDivisa = dc.TasaDivisa,
+                };
+
+                var xpR = ficha.DocCxCPago.Recibo;
+                var pR = new DtoLibPos.Documento.Agregar.NotaCredito.FichaCxCRecibo()
+                {
+                    AutoUsuario = xpR.AutoUsuario,
+                    Importe = xpR.Importe,
+                    Usuario = xpR.Usuario,
+                    MontoRecibido = xpR.MontoRecibido,
+                    Cobrador = xpR.Cobrador,
+                    AutoCliente = xpR.AutoCliente,
+                    Cliente = xpR.Cliente,
+                    CiRif = xpR.CiRif,
+                    Codigo = xpR.Codigo,
+                    EstatusAnulado = xpR.EstatusAnulado,
+                    Direccion = xpR.Direccion,
+                    Telefono = xpR.Telefono,
+                    AutoCobrador = xpR.AutoCobrador,
+                    Anticipos = xpR.Anticipos,
+                    Cambio = xpR.Cambio,
+                    Nota = xpR.Nota,
+                    CodigoCobrador = xpR.CodigoCobrador,
+                    Retenciones = xpR.Retenciones,
+                    Descuentos = xpR.Descuentos,
+                    Cierre = xpR.Cierre,
+                    CierreFtp = xpR.CierreFtp,
+                };
+
+                var xpD = ficha.DocCxCPago.Documento;
+                var pD = new DtoLibPos.Documento.Agregar.NotaCredito.FichaCxCDocumento()
+                {
+                    Id = xpD.Id,
+                    TipoDocumento = xpD.TipoDocumento,
+                    Importe = xpD.Importe,
+                    Operacion = xpD.Operacion,
+                    CastigoP = xpD.CastigoP,
+                    CierreFtp = xpD.CierreFtp,
+                    ComisionP = xpD.ComisionP,
+                    Dias = xpD.Dias,
+                };
+
+                var pM = ficha.DocCxCPago.MetodoPago.Select(s =>
+                {
+                    var nr = new DtoLibPos.Documento.Agregar.NotaCredito.FichaCxCMetodoPago()
+                    {
+                        AutoMedioPago = s.AutoMedioPago,
+                        AutoAgencia = s.AutoAgencia,
+                        Medio = s.Medio,
+                        Codigo = s.Codigo,
+                        MontoRecibido = s.MontoRecibido,
+                        EstatusAnulado = s.EstatusAnulado,
+                        Numero = s.Numero,
+                        Agencia = s.Agencia,
+                        AutoUsuario = s.AutoUsuario,
+                        AutoCobrador = s.AutoCobrador,
+                        Cierre = s.Cierre,
+                        CierreFtp = s.CierreFtp,
+                        Lote = s.Lote,
+                        Referencia = s.Referencia,
+                    };
+                    return nr;
+                }).ToList();
+
+                var dp = new DtoLibPos.Documento.Agregar.NotaCredito.FichaCxCPago()
+                {
+                    Pago = p,
+                    Recibo = pR,
+                    Documento = pD,
+                    MetodoPago = pM,
+                };
+                fichaDTO.DocCxCPago = dp;
+            }
 
             fichaDTO.Resumen = new DtoLibPos.Documento.Agregar.NotaCredito.FichaPosResumen()
             {
@@ -957,8 +1137,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaAuto Documento_Agregar_NotaEntrega(OOB.Documento.Agregar.NotaEntrega.Ficha ficha)
+        public OOB.Resultado.FichaAuto 
+            Documento_Agregar_NotaEntrega(OOB.Documento.Agregar.NotaEntrega.Ficha ficha)
         {
             var result = new OOB.Resultado.FichaAuto();
 
@@ -1229,13 +1409,8 @@ namespace PosOnLine.Data.Prov
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ficha"></param>
-        /// <returns></returns>
-        /// 
-        public OOB.Resultado.Ficha Documento_Anular_NotaEntrega(OOB.Documento.Anular.NotaEntrega.Ficha ficha)
+        public OOB.Resultado.Ficha 
+            Documento_Anular_NotaEntrega(OOB.Documento.Anular.NotaEntrega.Ficha ficha)
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -1280,14 +1455,16 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-        public OOB.Resultado.Ficha Documento_Anular_NotaCredito(OOB.Documento.Anular.NotaCredito.Ficha ficha)
+        public OOB.Resultado.Ficha 
+            Documento_Anular_NotaCredito(OOB.Documento.Anular.NotaCredito.Ficha ficha)
         {
             var result = new OOB.Resultado.Ficha();
 
             var fichaDTO = new DtoLibPos.Documento.Anular.NotaCredito.Ficha()
             {
                 autoDocumento = ficha.autoDocumento,
-                autoDocCxC=ficha.autoDocCxC,
+                autoDocCxC = ficha.autoDocCxC,
+                autoReciboCxC = ficha.autoReciboCxC,
                 CodigoDocumento = ficha.CodigoDocumento,
                 auditoria = new DtoLibPos.Documento.Anular.NotaCredito.FichaAuditoria()
                 {
@@ -1313,6 +1490,14 @@ namespace PosOnLine.Data.Prov
                 {
                     idResumen = ficha.resumen.idResumen,
                     monto = ficha.resumen.monto,
+                    cntDivisa = ficha.resumen.cntDivisa,
+                    cntEfectivo = ficha.resumen.cntEfectivo,
+                    cntElectronico = ficha.resumen.cntElectronico,
+                    cntOtros = ficha.resumen.cntOtros,
+                    mDivisa = ficha.resumen.mDivisa,
+                    mEfectivo = ficha.resumen.mEfectivo,
+                    mElectronico = ficha.resumen.mElectronico,
+                    mOtros = ficha.resumen.mOtros,
                 },
             };
 
@@ -1326,7 +1511,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-        public OOB.Resultado.Ficha Documento_Anular_Factura(OOB.Documento.Anular.Factura.Ficha ficha)
+        public OOB.Resultado.Ficha 
+            Documento_Anular_Factura(OOB.Documento.Anular.Factura.Ficha ficha)
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -1384,49 +1570,6 @@ namespace PosOnLine.Data.Prov
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
-
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="idRecibo"></param>
-        /// <returns></returns>
-
-        public OOB.Resultado.Lista<OOB.Documento.Entidad.FichaMetodoPago> Documento_Get_MetodosPago_ByIdRecibo(string idRecibo)
-        {
-            var result = new OOB.Resultado.Lista<OOB.Documento.Entidad.FichaMetodoPago>();
-
-            var r01 = MyData.Documento_Get_MetodosPago_ByIdRecibo(idRecibo);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var lst = new List<OOB.Documento.Entidad.FichaMetodoPago>();
-            if (r01.Lista != null)
-            {
-                if (r01.Lista.Count > 0)
-                {
-                    lst = r01.Lista.Select(s =>
-                    {
-                        var nr = new OOB.Documento.Entidad.FichaMetodoPago()
-                        {
-                            autoMedioPago = s.autoMedioPago,
-                            codigoMedioPago = s.codigoMedioPago,
-                            descMedioPago = s.descMedioPago,
-                            lote = s.lote,
-                            montoRecibido = s.montoRecibido,
-                            referencia = s.referencia,
-                        };
-                        return nr;
-                    }).ToList();
-                }
-            }
-            result.ListaD = lst;
 
             return result;
         }

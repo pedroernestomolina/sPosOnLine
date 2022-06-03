@@ -21,11 +21,20 @@ namespace PosOnLine.OOB.Reportes.Pos.PagoDetalle
         public string cliTelf { get; set; }
         public decimal docMonto { get; set; }
         public string docEstatus { get; set; }
+        public string docEstatusCredito { get; set; }
         public string docTipo { get; set; }
         public decimal docCambioDar { get; set; }
         public List<Detalle> pagos { get; set; }
         public bool isActivo { get { return docEstatus.Trim().ToUpper() == "0"; } }
-        public bool isFactura { get { return docTipo.Trim().ToUpper() == "FAC"; } }
+        public bool isCredito { get { return docEstatusCredito.Trim().ToUpper() == "1"; } }
+        public bool isDocVenta
+        {
+            get 
+            {
+                return (docTipo.Trim().ToUpper() == "FAC" || docTipo.Trim().ToUpper() == "NCR");
+            }
+        }
+
 
 
         public Ficha()
@@ -41,6 +50,7 @@ namespace PosOnLine.OOB.Reportes.Pos.PagoDetalle
             docMonto = 0.0m;
             docCambioDar = 0.0m;
             docEstatus = "";
+            docEstatusCredito = "";
             docTipo= "";
             pagos = new List<Detalle>();
         }

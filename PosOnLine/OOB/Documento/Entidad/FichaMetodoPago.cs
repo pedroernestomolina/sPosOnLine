@@ -25,7 +25,7 @@ namespace PosOnLine.OOB.Documento.Entidad
                 var rt=0;
                 if (codigoMedioPago.Trim().ToUpper() == "02")
                 {
-                    var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                    var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands | NumberStyles.AllowLeadingSign;
                     var culture = CultureInfo.CreateSpecificCulture("es-ES");
                     //var culture = CultureInfo.CreateSpecificCulture("en-EN");
                     int.TryParse(lote, style, culture, out rt);

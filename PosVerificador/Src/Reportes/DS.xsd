@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS" targetNamespace="http://tempuri.org/DS.xsd" xmlns:mstns="http://tempuri.org/DS.xsd" xmlns="http://tempuri.org/DS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS" msprop:Generator_UserDSName="DS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DocVerificados" msprop:Generator_TableClassName="DocVerificadosDataTable" msprop:Generator_TableVarName="tableDocVerificados" msprop:Generator_RowChangedName="DocVerificadosRowChanged" msprop:Generator_TablePropName="DocVerificados" msprop:Generator_RowDeletingName="DocVerificadosRowDeleting" msprop:Generator_RowChangingName="DocVerificadosRowChanging" msprop:Generator_RowEvHandlerName="DocVerificadosRowChangeEventHandler" msprop:Generator_RowDeletedName="DocVerificadosRowDeleted" msprop:Generator_RowClassName="DocVerificadosRow" msprop:Generator_UserTableName="DocVerificados" msprop:Generator_RowEvArgName="DocVerificadosRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="docNro" msprop:Generator_ColumnVarNameInTable="columndocNro" msprop:Generator_ColumnPropNameInRow="docNro" msprop:Generator_ColumnPropNameInTable="docNroColumn" msprop:Generator_UserColumnName="docNro" type="xs:string" minOccurs="0" />
+              <xs:element name="docFecha" msprop:Generator_ColumnVarNameInTable="columndocFecha" msprop:Generator_ColumnPropNameInRow="docFecha" msprop:Generator_ColumnPropNameInTable="docFechaColumn" msprop:Generator_UserColumnName="docFecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="docMonto" msprop:Generator_ColumnVarNameInTable="columndocMonto" msprop:Generator_ColumnPropNameInRow="docMonto" msprop:Generator_ColumnPropNameInTable="docMontoColumn" msprop:Generator_UserColumnName="docMonto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docMontoDivisa" msprop:Generator_ColumnVarNameInTable="columndocMontoDivisa" msprop:Generator_ColumnPropNameInRow="docMontoDivisa" msprop:Generator_ColumnPropNameInTable="docMontoDivisaColumn" msprop:Generator_UserColumnName="docMontoDivisa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docCliente" msprop:Generator_ColumnVarNameInTable="columndocCliente" msprop:Generator_ColumnPropNameInRow="docCliente" msprop:Generator_ColumnPropNameInTable="docClienteColumn" msprop:Generator_UserColumnName="docCliente" type="xs:string" minOccurs="0" />
+              <xs:element name="verificado" msprop:Generator_ColumnVarNameInTable="columnverificado" msprop:Generator_ColumnPropNameInRow="verificado" msprop:Generator_ColumnPropNameInTable="verificadoColumn" msprop:Generator_UserColumnName="verificado" type="xs:string" minOccurs="0" />
+              <xs:element name="docIsAnulado" msprop:Generator_ColumnVarNameInTable="columndocIsAnulado" msprop:Generator_ColumnPropNameInRow="docIsAnulado" msprop:Generator_ColumnPropNameInTable="docIsAnuladoColumn" msprop:Generator_UserColumnName="docIsAnulado" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

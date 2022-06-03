@@ -20,6 +20,7 @@ namespace PosOnLine.Src.Pago.Procesar
         private LoteReferencia.Gestion _gestionLoteRef;
         private Descuento.Gestion _gestionDescuento;
         private ValidarCambio.Gestion _gestionValidarCambio;
+        private OOB.Cliente.Entidad.Ficha _entCliente;
 
 
         public List<PagoDetalle> Detalle 
@@ -200,6 +201,7 @@ namespace PosOnLine.Src.Pago.Procesar
             _dsctoPorct = 0.0m;
             _detalle = new List<PagoDetalle>();
             _gestionValidarCambio = new ValidarCambio.Gestion();
+            _entCliente = null;
         }
 
 
@@ -339,6 +341,7 @@ namespace PosOnLine.Src.Pago.Procesar
             _isCredito = false;
             _dsctoPorct = 0.0m;
             _detalle.Clear();
+            _gestionValidarCambio.Inicializa();
         }
 
         public void setDescuento(decimal porct)
@@ -350,6 +353,15 @@ namespace PosOnLine.Src.Pago.Procesar
         {
             var rt = false;
 
+            if (_isNotaCredito)
+            {
+                if (MontoRecibido > MontoPagar) 
+                {
+                    Helpers.Msg.Alerta("MONTO RECIBIDO DEBE SER IGUAL AL MONTO DE LA NOTA DE CREDITO");
+                    return false;
+                }
+            }
+
             if (MontoRecibido >= MontoPagar) 
             {
                 var msg = MessageBox.Show("Procesar Pago ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
@@ -360,6 +372,7 @@ namespace PosOnLine.Src.Pago.Procesar
                     {
                         _gestionValidarCambio.Inicializa();
                         _gestionValidarCambio.setMontoValidar(MontoCambioDar_MonedaNacional);
+                        _gestionValidarCambio.setDatosPagoMovil(_entCliente);
                         _gestionValidarCambio.Inicia();
                         return _gestionValidarCambio.ValidarIsOk;
                     }
@@ -415,6 +428,18 @@ namespace PosOnLine.Src.Pago.Procesar
             }
         }
 
+        private bool _isNotaCredito;
+        public void setNotaCredito(bool estatus)
+        {
+            _isNotaCredito = estatus;
+        }
+        public void setDataCliente(OOB.Cliente.Entidad.Ficha ent)
+        {
+            _entCliente = ent;
+        }
+
+        public bool PagoMovilIsOk { get { return _gestionValidarCambio.PagoMovilIsOk; } }
+        public PagoMovil.data PagoMovilData { get { return _gestionValidarCambio.PagoMovilData; } }
 
     }
 

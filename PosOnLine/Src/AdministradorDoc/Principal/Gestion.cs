@@ -186,17 +186,72 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
         private bool AnularNotaCredito(string idDoc, string mtv)
         {
+            var _cntEfectivo = 0;
+            var _cntDivisa = 0;
+            var _cntElectronico = 0;
+            var _cntOtros = 0;
+            var _mDivisa = 0.0m;
+            var _mElectronico = 0.0m;
+            var _mEfectivo = 0.0m;
+            var _mOtros = 0.0m;
+            var _autoReciboCxC = "";
+
             var r01 = Sistema.MyData.Documento_GetById(idDoc);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
                 Helpers.Msg.Error(r01.Mensaje);
                 return false;
             }
+            _autoReciboCxC = r01.Entidad.AutoReciboCxC;
+            var metPago = new List<OOB.Documento.Entidad.FichaMetodoPago>();
+            if (r01.Entidad.CondicionPago.Trim().ToUpper() == "CONTADO")
+            {
+                if (r01.Entidad.AutoReciboCxC != "")
+                {
+                    var r04 = Sistema.MyData.Documento_Get_MetodosPago_ByIdRecibo(r01.Entidad.AutoReciboCxC);
+                    if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                    {
+                        Helpers.Msg.Error(r04.Mensaje);
+                        return false;
+                    }
+                    if (r04.ListaD.Count > 0) //DOCUMENTO TIENE MEDIOS DE PAGO, DOCUMENTO ORIGEN ES DE CONTADO
+                    {
+                        foreach (var rg in r04.ListaD)
+                        {
+                            if (rg.descMedioPago.Trim().ToUpper() == "EFECTIVO")
+                            {
+                                _cntEfectivo += 1;
+                                _mEfectivo += Math.Abs(rg.montoRecibido);
+                            }
+                            else if (rg.descMedioPago.Trim().ToUpper() == "DIVISA")
+                            {
+                                _cntDivisa += Math.Abs(rg.cntDivisa);
+                                _mDivisa += Math.Abs(rg.montoRecibido);
+                            }
+                            else if (rg.descMedioPago.Trim().ToUpper() == "TARJETA DEBITO")
+                            {
+                                _cntElectronico += 1;
+                                _mElectronico += Math.Abs(rg.montoRecibido);
+                            }
+                            else
+                            {
+                                _cntOtros += 1;
+                                _mOtros += Math.Abs(rg.montoRecibido);
+                            }
+                        }
+                    }
+                    else 
+                    {
+                        _autoReciboCxC = ""; //DOCUMENTO NO TIENE MEDIOS DE PAGO, DOCUMENTO ORIGEN ES CREDITO
+                    }
+                }
+            }
 
             var ficha = new OOB.Documento.Anular.NotaCredito.Ficha()
             {
                 autoDocumento = idDoc,
                 autoDocCxC = r01.Entidad.AutoDocCxC,
+                autoReciboCxC =  _autoReciboCxC,
                 CodigoDocumento = r01.Entidad.Tipo,
                 auditoria = new OOB.Documento.Anular.NotaCredito.FichaAuditoria
                 {
@@ -222,6 +277,14 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                 {
                     idResumen = Sistema.PosEnUso.idResumen,
                     monto = r01.Entidad.Total,
+                    cntDivisa = _cntDivisa,
+                    cntEfectivo = _cntEfectivo,
+                    cntElectronico = _cntElectronico,
+                    cntOtros = _cntOtros,
+                    mDivisa = _mDivisa,
+                    mEfectivo = _mEfectivo,
+                    mElectronico = _mElectronico,
+                    mOtros = _mOtros,
                 },
             };
             var r03 = Sistema.MyData.Documento_Anular_NotaCredito(ficha);

@@ -74,7 +74,7 @@ namespace PosOnLine.OOB.Pos.Resumen
                 var rt=0.0m;
                 if ( CntDivisaTotal > 0.0m)
                 {
-                    rt=mDivisa/CntDivisaTotal;
+                    rt=(mDivisa-mDivisa_anu)/CntDivisaTotal;
                     rt = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
                 }
                 return rt;

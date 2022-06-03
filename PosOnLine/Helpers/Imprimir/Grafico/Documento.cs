@@ -95,6 +95,9 @@ namespace PosOnLine.Helpers.Imprimir.Grafico
         {
             _ds = ds;
         }
+        public void setImprimirQR(dataQR dat)
+        {
+        }
 
     }
 

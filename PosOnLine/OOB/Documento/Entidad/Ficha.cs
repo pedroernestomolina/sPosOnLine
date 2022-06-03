@@ -220,6 +220,9 @@ namespace PosOnLine.OOB.Documento.Entidad
             items = new List<FichaItem>();
         }
 
+
+        public bool isContado { get { return CondicionPago.Trim().ToUpper() == "CONTADO"; } }
+
     }
 
 }

@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Gma.QrCodeNet.Encoding;
+using Gma.QrCodeNet.Encoding.Windows.Render;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +18,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
         private data _ds;
         private Ticket _tick;
+        private string _data;
+        private Bitmap _imagenQR;
 
 
         public Documento()
@@ -66,7 +72,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _tick.Documento.HayDescuento = _ds.encabezado.DescuentoPorc > 0.0m;
             _tick.Documento.HayCargo = _ds.encabezado.CargoPorc > 0.0m;
             _tick.Documento.factorCambio = _ds.encabezado.FactorCambio;
-            _tick.Documento.totalDivisa = "($) " + totDivisa.ToString("n2");  
+            _tick.Documento.totalDivisa = "($) " + totDivisa.ToString("n2");
+            _tick.Documento.ImageQR = _imagenQR;
 
             foreach (var r in _ds.item)
             {
@@ -95,7 +102,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 _tick.Documento.MediosPago.Add(it);
             }
 
-
             _tick.Imrpimir();
         }
 
@@ -112,6 +118,25 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         public void setEmpresa(OOB.Sistema.Empresa.Ficha ficha)
         {
             _tick.Negocio.setEmpresa(ficha);
+        }
+        public void setImprimirQR(dataQR dat)
+        {
+            var _id= dat.idVerificador.ToString().Trim().PadLeft(6, '0');
+            _data = _id + "-" + dat.autoDoc + "-" + dat.codDoc + "-" + dat.numDoc + "-" + dat.montoDoc.ToString("n2") + "-" + dat.autoCierre;
+            generarQR(_data);
+        }
+
+        private void generarQR(string dat)
+        {
+            var _url = dat;
+            QrEncoder qrencoder = new QrEncoder(ErrorCorrectionLevel.H);
+            QrCode qrcode = new QrCode();
+            qrencoder.TryEncode(_url, out qrcode);
+            GraphicsRenderer render = new GraphicsRenderer(new FixedCodeSize(400, QuietZoneModules.Zero), Brushes.Black, Brushes.White);
+            MemoryStream ms = new MemoryStream();
+            render.WriteToStream(qrcode.Matrix, System.Drawing.Imaging.ImageFormat.Png, ms);
+            var _imagenTemporal = new Bitmap(ms);
+            _imagenQR = new Bitmap(_imagenTemporal, new Size(new Point(100, 100)));
         }
 
     }

@@ -12,13 +12,14 @@ namespace PosOnLine.Src.Pago.Procesar
     public class Gestion
     {
 
-
         private string _cliente;
         private bool _limpiarPagosIsOk;
         private bool _pagoIsOk;
         private Pago _pago;
         private LoteReferencia.Gestion _gestionLoteReferencia;
         private Descuento.Gestion _gestionDescuento;
+        private bool _isNotaCredito;
+        private OOB.Cliente.Entidad.Ficha _entCliente;
 
 
         public string ClienteData { get { return _cliente; } }
@@ -49,6 +50,8 @@ namespace PosOnLine.Src.Pago.Procesar
 
         public Gestion()
         {
+            _isNotaCredito = false;
+            _entCliente = null;
             _gestionLoteReferencia = new LoteReferencia.Gestion();
             _gestionDescuento = new Descuento.Gestion();
             _pago = new Pago();
@@ -59,10 +62,12 @@ namespace PosOnLine.Src.Pago.Procesar
 
         public void Inicializar()
         {
+            _isNotaCredito = false;
             _cliente = "";
             _pagoIsOk = false;
             _limpiarPagosIsOk = false;
             _pago.Limpiar();
+            _entCliente = null;
         }
 
         ProcesarFrm frm;
@@ -135,23 +140,41 @@ namespace PosOnLine.Src.Pago.Procesar
 
         public void Procesar()
         {
+            _pago.setDataCliente(_entCliente);
+            _pago.setNotaCredito(_isNotaCredito);
             _pagoIsOk = _pago.Procesar();
         }
 
         public void DarDescuento()
         {
-            if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaDescuento))
+            if (_isNotaCredito)
             {
-                _pago.DarDescuento();
+                Helpers.Msg.Alerta("OPCION NO PERMITIDA PARA TIPO DE DOCUMENTO EN PROCESO");
+                return;
+            }
+            else 
+            {
+                if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaDescuento))
+                {
+                    _pago.DarDescuento();
+                }
             }
         }
 
         public void DarCredito()
         {
-            if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaCredito))
+            if (_isNotaCredito)
             {
-                _pago.DarCredito();
-                _pagoIsOk = _pago.IsCredito;
+                Helpers.Msg.Alerta("OPCION NO PERMITIDA PARA TIPO DE DOCUMENTO EN PROCESO");
+                return;
+            }
+            else 
+            {
+                if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaCredito))
+                {
+                    _pago.DarCredito();
+                    _pagoIsOk = _pago.IsCredito;
+                }
             }
         }
 
@@ -159,6 +182,18 @@ namespace PosOnLine.Src.Pago.Procesar
         {
             _pago.setDescuento(dsctoFinal);
         }
+        public void setNotaCredito(bool estatus)
+        {
+            _isNotaCredito = estatus;
+        }
+        public void setDataCliente(OOB.Cliente.Entidad.Ficha ent)
+        {
+            _entCliente = ent;
+        }
+
+        public bool PagoMovilIsOk { get { return _pago.PagoMovilIsOk; } }
+        public PagoMovil.data PagoMovilData { get { return _pago.PagoMovilData; } }
+
 
     }
 

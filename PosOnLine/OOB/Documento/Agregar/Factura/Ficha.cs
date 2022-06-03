@@ -115,6 +115,7 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public FichaPosResumen Resumen { get; set; }
         public List<FichaPosVenta> PosVenta { get; set; }
         public FichaSerie SerieFiscal { get; set; }
+        public FichaPagoMovil PagoMovil { get; set; }
 
 
         public Ficha()
@@ -222,6 +223,7 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             Resumen = new FichaPosResumen();
             PosVenta = new List<FichaPosVenta>();
             SerieFiscal = null;
+            PagoMovil = null;
         }
 
     }
