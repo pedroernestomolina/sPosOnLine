@@ -38,6 +38,19 @@ namespace PosVerificador.Data.Prov
                 CiRif = s.CiRif,
                 DirFiscal = s.DirFiscal,
                 RazonSocial = s.RazonSocial,
+                estacionEquipo = s.Estacion,
+                Items = s.items.Select(ss => 
+                {
+                    var it = new OOB.Documento.Entidad.FichaItem()
+                    {
+                        cnt = ss.Cantidad,
+                        empaque = ss.Empaque,
+                        empCont = ss.ContenidoEmpaque,
+                        prdCod = ss.Codigo,
+                        prdDesc = ss.Nombre,
+                    };
+                    return it;
+                }).ToList(),
             };
             result.Entidad = nr;
 

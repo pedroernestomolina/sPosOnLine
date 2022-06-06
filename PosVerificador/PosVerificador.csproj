@@ -92,6 +92,7 @@
     <Compile Include="Helpers\Utilitis.cs" />
     <Compile Include="IGestion.cs" />
     <Compile Include="OOB\Documento\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Documento\Entidad\FichaItem.cs" />
     <Compile Include="OOB\Reportes\DocVerificados\Ficha.cs" />
     <Compile Include="OOB\Reportes\Filtro.cs" />
     <Compile Include="OOB\Resultado\Enumerados.cs" />
@@ -115,6 +116,7 @@
       <DependentUpon>IdentificacionFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Identificacion\IIdentifica.cs" />
+    <Compile Include="Src\Principal\dataItem.cs" />
     <Compile Include="Src\Principal\IPrincipal.cs" />
     <Compile Include="Src\Principal\Principal.cs" />
     <Compile Include="Src\Principal\PrincipalFrm.cs">
@@ -211,6 +213,9 @@
     <None Include="Resources\checkPoint.png" />
     <None Include="Resources\checkPoint.ico" />
     <None Include="Resources\bt_imprimir_3.png" />
+    <None Include="Resources\error_red.png" />
+    <None Include="Resources\ok_green.png" />
+    <None Include="Resources\ok_black.png" />
     <Content Include="Src\Imagenes\bt_buscar.png" />
     <Content Include="Src\Imagenes\bt_enEspera.png" />
     <Content Include="Src\Imagenes\bt_imprimir_3.png" />
@@ -221,6 +226,9 @@
     <Content Include="Src\Imagenes\dedo_abajo_2.png" />
     <Content Include="Src\Imagenes\dedo_arriba.png" />
     <Content Include="Src\Imagenes\dedo_arriba_2.png" />
+    <Content Include="Src\Imagenes\error_red.png" />
+    <Content Include="Src\Imagenes\ok_black.png" />
+    <Content Include="Src\Imagenes\ok_green.png" />
     <Content Include="Src\Sonidos\alerta.wav" />
     <Content Include="Src\Sonidos\error.wav" />
     <Content Include="Src\Sonidos\paso.wav" />

@@ -24,7 +24,69 @@ namespace PosVerificador.Src.Principal
         public PrincipalFrm()
         {
             InitializeComponent();
+            InicializarGrid();
         }
+
+
+        private void InicializarGrid()
+        {
+            var f = new Font("Serif", 8, FontStyle.Bold);
+            var f1 = new Font("Serif", 10, FontStyle.Regular);
+            var f2 = new Font("Serif", 8, FontStyle.Regular);
+
+            DGV_1.AllowUserToAddRows = false;
+            DGV_1.AllowUserToDeleteRows = false;
+            DGV_1.AutoGenerateColumns = false;
+            DGV_1.AllowUserToResizeRows = false;
+            DGV_1.AllowUserToResizeColumns = false;
+            DGV_1.AllowUserToOrderColumns = false;
+            DGV_1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DGV_1.MultiSelect = false;
+            DGV_1.ReadOnly = true;
+
+            var c0 = new DataGridViewTextBoxColumn();
+            c0.DataPropertyName = "PrdCod";
+            c0.HeaderText = "Codigo";
+            c0.Visible = true;
+            c0.Width = 100;
+            c0.HeaderCell.Style.Font = f;
+            c0.DefaultCellStyle.Font = f2;
+
+            var c1 = new DataGridViewTextBoxColumn();
+            c1.DataPropertyName = "PrdDesc";
+            c1.HeaderText = "Descripcion";
+            c1.Visible = true;
+            c1.MinimumWidth = 140;
+            c1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            c1.HeaderCell.Style.Font = f;
+            c1.DefaultCellStyle.Font = f2;
+
+            var c2 = new DataGridViewTextBoxColumn();
+            c2.DataPropertyName = "Cnt";
+            c2.HeaderText = "Cant";
+            c2.Visible = true;
+            c2.Width = 60;
+            c2.HeaderCell.Style.Font = f;
+            c2.DefaultCellStyle.Font = f1;
+            c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            c2.DefaultCellStyle.Format = "n0";
+
+            var c3 = new DataGridViewTextBoxColumn();
+            c3.DataPropertyName = "EmpaqueCont";
+            c3.HeaderText = "Empaque";
+            c3.Visible = true;
+            c3.Width = 120;
+            c3.HeaderCell.Style.Font = f;
+            c3.DefaultCellStyle.Font = f1;
+            c3.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+            DGV_1.Columns.Add(c0);
+            DGV_1.Columns.Add(c1);
+            DGV_1.Columns.Add(c2);
+            DGV_1.Columns.Add(c3);
+        }
+
 
         public void setControlador(IPrincipal ctr)
         {
@@ -38,25 +100,44 @@ namespace PosVerificador.Src.Principal
         }
         private void LeerCodigo()
         {
-            _contrtolador.LeerCodigo();
-            if (_contrtolador.LeerCodigoIsOk)
-            {
-                L_MSG_ERROR.Text = _contrtolador.MsgError;
-                PB_RESULT.Image = Properties.Resources.dedo_arriba_2;
-            }
-            else 
-            {
-                L_MSG_ERROR.Text = _contrtolador.MsgError;
-                PB_RESULT.Image = Properties.Resources.dedo_abajo_2;
-            }
-            this.Refresh();
-            Thread.Sleep(3000);
-
             _modoInicializar = true;
             TB_CODIGO.Text = "";
             PB_RESULT.Image = null;
             L_MSG_ERROR.Text = "";
+            L_DOCUMENTO.Text = "";
+            L_CLIENTE.Text = "";
+            P_DATA.Visible = false;
             _modoInicializar = false;
+            this.Refresh();
+
+            _contrtolador.LeerCodigo();
+            if (_contrtolador.LeerCodigoIsOk)
+            {
+                P_DATA.Visible = true;
+                L_MSG_ERROR.Text = _contrtolador.MsgError;
+                PB_RESULT.Image = Properties.Resources.ok_black;
+                L_DOCUMENTO.Text = _contrtolador.GetDocumento;
+                L_CLIENTE.Text = _contrtolador.GetCliente;
+                Helpers.Sonido.SonidoOk();
+                this.Refresh();
+            }
+            else 
+            {
+                P_DATA.Visible = false;
+                L_MSG_ERROR.Text = _contrtolador.MsgError;
+                PB_RESULT.Image = Properties.Resources.error_red;
+                Helpers.Sonido.Error();
+
+                this.Refresh();
+                Thread.Sleep(3000);
+
+                _modoInicializar = true;
+                TB_CODIGO.Text = "";
+                PB_RESULT.Image = null;
+                L_MSG_ERROR.Text = "";
+                _modoInicializar = false;
+                this.Refresh();
+            }
         }
 
         private void TB_CODIGO_Leave(object sender, EventArgs e)
@@ -82,12 +163,16 @@ namespace PosVerificador.Src.Principal
         {
             IrFocoPrincipal();
             _modoInicializar = true;
+            P_DATA.Visible = false;
+            DGV_1.DataSource = _contrtolador.Data;
             L_TITULO.Text = "VERIFICADOR DE DOCUMENTOS";
             L_TITULO_2.Text = "Version: " + Environment.NewLine + Application.ProductVersion;
             TB_CODIGO.Text = "";
             L_MSG_ERROR.Text = "";
             L_USUARIO.Text = _contrtolador.GetUsuario;
-            //TB_CODIGO.Text = "000002-1520000596-01-0000000588-330,31-1502000014";
+            L_DOCUMENTO.Text = "";
+            L_CLIENTE.Text = "";
+            //TB_CODIGO.Text = "000000-1520001118-01-0000001098-343,69-1502000020";
             _modoInicializar = false; ;
         }
         private void IrFocoPrincipal()

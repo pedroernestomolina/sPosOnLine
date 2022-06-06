@@ -22,7 +22,9 @@ namespace PosVerificador.OOB.Documento.Entidad
         public decimal MontoDoc { get; set; }
         public string EstatusAnuladoDoc { get; set; }
         public string HoraDoc { get; set; }
+        public string estacionEquipo { get; set; }
         public bool Isnulado { get { return EstatusAnuladoDoc.Trim().ToUpper() == "1" ? true : false; } }
+        public List<FichaItem> Items { get; set; }
 
 
         public Ficha()
@@ -38,6 +40,8 @@ namespace PosVerificador.OOB.Documento.Entidad
             MontoDoc = 0m;
             EstatusAnuladoDoc = "";
             HoraDoc = "";
+            estacionEquipo = "";
+            Items = new List<FichaItem>();
         }
 
     }

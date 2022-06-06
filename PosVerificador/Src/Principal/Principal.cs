@@ -19,6 +19,10 @@ namespace PosVerificador.Src.Principal
         private string _msgError;
         private Identificacion.IIdentifica _gLogin;
         private SolicitarPermiso.ISolicitarPermiso _gPermiso;
+        private BindingSource _bs;
+        private List<dataItem> _lstData;
+        private string _documento;
+        private string _cliente;
 
 
         public bool IsAbandonarOk { get { return _abandonarIsOk; } }
@@ -36,6 +40,9 @@ namespace PosVerificador.Src.Principal
                 return rt;
             }
         }
+        public BindingSource Data { get { return _bs; } }
+        public string GetDocumento { get { return _documento; } }
+        public string GetCliente { get { return _cliente; } }
 
 
         public Principal() 
@@ -44,6 +51,11 @@ namespace PosVerificador.Src.Principal
             _msgError = "";
             _abandonarIsOk = false;
             _verificacionIsOk = false;
+            _lstData = new List<dataItem>();
+            _documento = "";
+            _cliente = "";
+            _bs = new BindingSource();
+            _bs.DataSource = _lstData;
             _gLogin = new Identificacion.Identifica();
             _gPermiso = new SolicitarPermiso.SolicitarPerm();
         }
@@ -80,6 +92,8 @@ namespace PosVerificador.Src.Principal
         {
             _verificacionIsOk = false;
             _msgError = "";
+            _documento = "";
+            _cliente = "";
             if (!string.IsNullOrEmpty(_codigo))
             {
                 if (_codigo.Trim().Length >= 17)
@@ -240,6 +254,21 @@ namespace PosVerificador.Src.Principal
                     return;
                 }
                 _verificacionIsOk = true;
+                _lstData.Clear();
+                foreach (var rg in r02.Entidad.Items) 
+                {
+                    var it = new dataItem()
+                    {
+                        cnt = rg.cnt,
+                        empaqueCont = rg.empaque.Trim() + "/" + rg.empCont.ToString(),
+                        prdCod = rg.prdCod,
+                        prdDesc = rg.prdDesc,
+                    };
+                    _lstData.Add(it);
+                }
+                _documento = r02.Entidad.FechaDoc.ToShortDateString()+", Hora: "+r02.Entidad.HoraDoc+Environment.NewLine+r02.Entidad.NroDoc+Environment.NewLine+"Por Bs: "+r02.Entidad.MontoDoc.ToString("n2")+Environment.NewLine+r02.Entidad.estacionEquipo;
+                _cliente = r02.Entidad.CiRif+Environment.NewLine+r02.Entidad.RazonSocial+Environment.NewLine+r02.Entidad.DirFiscal;
+                _bs.CurrencyManager.Refresh();
             }
         }
 

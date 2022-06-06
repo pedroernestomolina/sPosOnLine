@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
 namespace PosVerificador.Src.Principal
@@ -21,6 +22,12 @@ namespace PosVerificador.Src.Principal
         void setCodigo(string cod);
         void Abandonar();
         void ReporteDocumentosVerificados();
+
+
+        BindingSource  Data { get; }
+        string GetDocumento { get; }
+        string GetCliente { get; }
+
 
     }
 
