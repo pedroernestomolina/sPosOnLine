@@ -138,7 +138,7 @@ namespace PosOnLine.Src.Item
         public decimal Impuesto { get { return TotalNeto * _it.tasaIva / 100; } }
         public decimal Total { get { return TotalNeto + Impuesto; } }
         public decimal PrecioFinal { get { return _it.pneto - (_it.pneto * _dsctoFinal / 100); } }
-        public decimal PrecioUnd { get { return PrecioFinal; } }
+        public decimal PrecioUnd { get { return _it.empaqueContenido == 0 ? 0 : PrecioFinal / _it.empaqueContenido; } }
         public decimal Utilidad { get { return (PrecioUnd - _it.costoUnd) * TotalUnd; } }
         public decimal UtilidadP { get { return 100 - ((_it.costoUnd / PrecioUnd) * 100); } }
         public decimal PrecioItem { get { return _it.pneto; } }

@@ -30,9 +30,9 @@ namespace PosVerificador.Src.Principal
 
         private void InicializarGrid()
         {
-            var f = new Font("Serif", 8, FontStyle.Bold);
-            var f1 = new Font("Serif", 10, FontStyle.Regular);
-            var f2 = new Font("Serif", 8, FontStyle.Regular);
+            var f = new Font("Serif", 18, FontStyle.Bold);
+            var f1 = new Font("Serif", 18, FontStyle.Regular);
+            var f2 = new Font("Serif", 18, FontStyle.Regular);
 
             DGV_1.AllowUserToAddRows = false;
             DGV_1.AllowUserToDeleteRows = false;
@@ -65,7 +65,7 @@ namespace PosVerificador.Src.Principal
             c2.DataPropertyName = "Cnt";
             c2.HeaderText = "Cant";
             c2.Visible = true;
-            c2.Width = 60;
+            c2.Width = 100;
             c2.HeaderCell.Style.Font = f;
             c2.DefaultCellStyle.Font = f1;
             c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -75,13 +75,13 @@ namespace PosVerificador.Src.Principal
             c3.DataPropertyName = "EmpaqueCont";
             c3.HeaderText = "Empaque";
             c3.Visible = true;
-            c3.Width = 120;
+            c3.Width = 160;
             c3.HeaderCell.Style.Font = f;
             c3.DefaultCellStyle.Font = f1;
             c3.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
 
-            DGV_1.Columns.Add(c0);
+            //DGV_1.Columns.Add(c0);
             DGV_1.Columns.Add(c1);
             DGV_1.Columns.Add(c2);
             DGV_1.Columns.Add(c3);
@@ -102,8 +102,8 @@ namespace PosVerificador.Src.Principal
         {
             _modoInicializar = true;
             TB_CODIGO.Text = "";
-            PB_RESULT.Image = null;
-            L_MSG_ERROR.Text = "";
+            TL_OK.Visible = false;
+            P_FONDO.BackgroundImage = null;
             L_DOCUMENTO.Text = "";
             L_CLIENTE.Text = "";
             P_DATA.Visible = false;
@@ -113,9 +113,9 @@ namespace PosVerificador.Src.Principal
             _contrtolador.LeerCodigo();
             if (_contrtolador.LeerCodigoIsOk)
             {
+                TL_OK.Visible = true;
+                P_FONDO.BackgroundImage = null;
                 P_DATA.Visible = true;
-                L_MSG_ERROR.Text = _contrtolador.MsgError;
-                PB_RESULT.Image = Properties.Resources.ok_black;
                 L_DOCUMENTO.Text = _contrtolador.GetDocumento;
                 L_CLIENTE.Text = _contrtolador.GetCliente;
                 Helpers.Sonido.SonidoOk();
@@ -123,19 +123,9 @@ namespace PosVerificador.Src.Principal
             }
             else 
             {
-                P_DATA.Visible = false;
-                L_MSG_ERROR.Text = _contrtolador.MsgError;
-                PB_RESULT.Image = Properties.Resources.error_red;
+                TL_OK.Visible = false;
+                P_FONDO.BackgroundImage = Properties.Resources.error_red;
                 Helpers.Sonido.Error();
-
-                this.Refresh();
-                Thread.Sleep(3000);
-
-                _modoInicializar = true;
-                TB_CODIGO.Text = "";
-                PB_RESULT.Image = null;
-                L_MSG_ERROR.Text = "";
-                _modoInicializar = false;
                 this.Refresh();
             }
         }
@@ -163,16 +153,17 @@ namespace PosVerificador.Src.Principal
         {
             IrFocoPrincipal();
             _modoInicializar = true;
+            TL_OK.Visible = false;
             P_DATA.Visible = false;
+            P_FONDO.BackgroundImage = null;
             DGV_1.DataSource = _contrtolador.Data;
             L_TITULO.Text = "VERIFICADOR DE DOCUMENTOS";
             L_TITULO_2.Text = "Version: " + Environment.NewLine + Application.ProductVersion;
             TB_CODIGO.Text = "";
-            L_MSG_ERROR.Text = "";
             L_USUARIO.Text = _contrtolador.GetUsuario;
             L_DOCUMENTO.Text = "";
             L_CLIENTE.Text = "";
-            //TB_CODIGO.Text = "000000-1520001118-01-0000001098-343,69-1502000020";
+            //TB_CODIGO.Text = "000437-1520001447-01-0000001427-1.919,61-1502000020";
             _modoInicializar = false; ;
         }
         private void IrFocoPrincipal()

@@ -283,7 +283,7 @@ namespace PosOnLine.Src.Pos
                     e.Handled = true;
                 }
             }
-            //if (e.KeyChar == (char)42)
+            //if (e.KeyChar == (char)42)  //*
             //{
             //    if (TB_BUSCAR.Text == "")
             //    {

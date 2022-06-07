@@ -189,7 +189,6 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
         {
             AnularDocumento();
         }
-
         private void AnularDocumento()
         {
             _controlador.AnularDocumento();

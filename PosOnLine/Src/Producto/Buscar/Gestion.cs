@@ -90,7 +90,7 @@ namespace PosOnLine.Src.Producto.Buscar
                                 return ;
                             }
                             _gestionListar.Inicializa();
-                            _gestionListar.setData(r04.ListaD);
+                            _gestionListar.setData(r04.ListaD.Where(w=>w.ExDisponible>0).ToList());
                             _gestionListar.Inicia();
                             if (_gestionListar.ItemSeleccionIsOk) 
                             {

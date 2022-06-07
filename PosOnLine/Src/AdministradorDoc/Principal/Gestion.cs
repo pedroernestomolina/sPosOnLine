@@ -365,7 +365,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                 CodigoDocumento = r01.Entidad.Tipo,
                 auditoria = new OOB.Documento.Anular.Factura.FichaAuditoria
                 {
-                    autoSistemaDocumento = Sistema.ConfiguracionActual.idTipoDocumentoDevVenta,
+                    autoSistemaDocumento = Sistema.ConfiguracionActual.idTipoDocumentoVenta,
                     autoUsuario = Sistema.Usuario.id,
                     codigo = Sistema.Usuario.codigo,
                     estacion = Sistema.EquipoEstacion,

@@ -216,6 +216,7 @@
     <None Include="Resources\error_red.png" />
     <None Include="Resources\ok_green.png" />
     <None Include="Resources\ok_black.png" />
+    <None Include="Resources\OK_GREEN_256.png" />
     <Content Include="Src\Imagenes\bt_buscar.png" />
     <Content Include="Src\Imagenes\bt_enEspera.png" />
     <Content Include="Src\Imagenes\bt_imprimir_3.png" />
@@ -229,6 +230,7 @@
     <Content Include="Src\Imagenes\error_red.png" />
     <Content Include="Src\Imagenes\ok_black.png" />
     <Content Include="Src\Imagenes\ok_green.png" />
+    <Content Include="Src\Imagenes\OK_GREEN_256.png" />
     <Content Include="Src\Sonidos\alerta.wav" />
     <Content Include="Src\Sonidos\error.wav" />
     <Content Include="Src\Sonidos\paso.wav" />

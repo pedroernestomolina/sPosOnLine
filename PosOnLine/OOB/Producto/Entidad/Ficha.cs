@@ -72,11 +72,40 @@ namespace PosOnLine.OOB.Producto.Entidad
         public string decimales_4 { get; set; }
         public string decimales_5 { get; set; }
 
+        public int ContenidoEmpaqueCompra { get; set; }
         public decimal Costo { get; set; }
-        public decimal CostoUnidad { get; set; }
         public decimal CostoPromedio { get; set; }
-        public decimal CostoPromedioUnidad { get; set; }
+        public decimal CostoDivisa { get; set; }
+        //public decimal CostoUnidad { get; set; }
+        //public decimal CostoPromedioUnidad { get; set; }
 
+        //
+        public decimal CostoUnidad
+        {
+            get
+            {
+                var rt = 0m;
+                if (ContenidoEmpaqueCompra > 0)
+                {
+                    rt = Costo / ContenidoEmpaqueCompra;
+                }
+                return rt;
+            }
+        }
+        public decimal CostoPromedioUnidad
+        {
+            get
+            {
+                var rt = 0m;
+                if (ContenidoEmpaqueCompra > 0)
+                {
+                    rt = CostoPromedio / ContenidoEmpaqueCompra;
+                }
+                return rt;
+            }
+        }
+
+        //
         public bool IsActivo { get { return Estatus.Trim().ToUpper() == "ACTIVO"; } }
         public bool IsDivisa { get { return EstatusDivisa.Trim().ToUpper() == "1"; } }
         public bool IsPesado { get { return EstatusPesado.Trim().ToUpper() == "1"; } }
@@ -212,10 +241,13 @@ namespace PosOnLine.OOB.Producto.Entidad
             decimales_4 = "";
             decimales_5 = "";
 
+            //
+            ContenidoEmpaqueCompra = 0;
             Costo = 0.0m;
             CostoPromedio = 0.0m;
-            CostoPromedioUnidad = 0.0m;
-            CostoUnidad = 0.0m;
+            CostoDivisa = 0m;
+            //CostoPromedioUnidad = 0.0m;
+            //CostoUnidad = 0.0m;
 
             //
             AutoMedidaEmpaqueMay_1 = "";

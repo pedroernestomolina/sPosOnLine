@@ -130,10 +130,11 @@ namespace PosOnLine.Data.Prov
                 decimales_3 = ent.decimales_3,
                 decimales_4 = ent.decimales_4,
                 decimales_5 = ent.decimales_5,
+                //
+                CostoDivisa=ent.CostoDivisa,
+                ContenidoEmpaqueCompra=ent.ContenidoEmpaqueCompra,
                 Costo = ent.Costo,
                 CostoPromedio = ent.CostoPromedio,
-                CostoPromedioUnidad = ent.CostoPromedioUnidad,
-                CostoUnidad = ent.CostoUnidad,
                 //
                 AutoMedidaEmpaqueMay_1=ent.AutoMedidaEmpaqueMay_1,
                 AutoMedidaEmpaqueMay_2=ent.AutoMedidaEmpaqueMay_2,
