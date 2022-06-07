@@ -266,8 +266,8 @@ namespace PosVerificador.Src.Principal
                     };
                     _lstData.Add(it);
                 }
-                _documento = r02.Entidad.FechaDoc.ToShortDateString()+", Hora: "+r02.Entidad.HoraDoc+Environment.NewLine+r02.Entidad.NroDoc+Environment.NewLine+"Por Bs: "+r02.Entidad.MontoDoc.ToString("n2")+Environment.NewLine+r02.Entidad.estacionEquipo;
-                _cliente = r02.Entidad.CiRif+Environment.NewLine+r02.Entidad.RazonSocial+Environment.NewLine+r02.Entidad.DirFiscal;
+                _documento = r02.Entidad.FechaDoc.ToShortDateString()+", Hora: "+r02.Entidad.HoraDoc+Environment.NewLine+r02.Entidad.NroDoc+", Por Bs: "+r02.Entidad.MontoDoc.ToString("n2");
+                _cliente = r02.Entidad.CiRif+Environment.NewLine+r02.Entidad.RazonSocial;
                 _bs.CurrencyManager.Refresh();
             }
         }

@@ -78,6 +78,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.TL_OK = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.L_MSG_ERROR = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -111,6 +113,7 @@
             this.panel17.SuspendLayout();
             this.panel14.SuspendLayout();
             this.TL_OK.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -253,6 +256,7 @@
             this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.panel7, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel8, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.panel2, 0, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
@@ -722,6 +726,28 @@
             this.TL_OK.Size = new System.Drawing.Size(953, 365);
             this.TL_OK.TabIndex = 0;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.L_MSG_ERROR);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(1, 70);
+            this.panel2.Margin = new System.Windows.Forms.Padding(1);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(2);
+            this.panel2.Size = new System.Drawing.Size(657, 50);
+            this.panel2.TabIndex = 3;
+            // 
+            // L_MSG_ERROR
+            // 
+            this.L_MSG_ERROR.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_MSG_ERROR.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_MSG_ERROR.Location = new System.Drawing.Point(2, 2);
+            this.L_MSG_ERROR.Name = "L_MSG_ERROR";
+            this.L_MSG_ERROR.Size = new System.Drawing.Size(653, 46);
+            this.L_MSG_ERROR.TabIndex = 0;
+            this.L_MSG_ERROR.Text = "label5";
+            this.L_MSG_ERROR.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PrincipalFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -770,6 +796,7 @@
             this.panel17.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
             this.TL_OK.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,6 +854,8 @@
         private System.Windows.Forms.Label L_CLIENTE;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.DataGridView DGV_1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label L_MSG_ERROR;
 
 
     }

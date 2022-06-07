@@ -108,6 +108,7 @@ namespace PosVerificador.Src.Principal
             L_CLIENTE.Text = "";
             P_DATA.Visible = false;
             _modoInicializar = false;
+            L_MSG_ERROR.Text = "";
             this.Refresh();
 
             _contrtolador.LeerCodigo();
@@ -123,6 +124,7 @@ namespace PosVerificador.Src.Principal
             }
             else 
             {
+                L_MSG_ERROR.Text = _contrtolador.MsgError;
                 TL_OK.Visible = false;
                 P_FONDO.BackgroundImage = Properties.Resources.error_red;
                 Helpers.Sonido.Error();
@@ -156,6 +158,7 @@ namespace PosVerificador.Src.Principal
             TL_OK.Visible = false;
             P_DATA.Visible = false;
             P_FONDO.BackgroundImage = null;
+            L_MSG_ERROR.Text = "";
             DGV_1.DataSource = _contrtolador.Data;
             L_TITULO.Text = "VERIFICADOR DE DOCUMENTOS";
             L_TITULO_2.Text = "Version: " + Environment.NewLine + Application.ProductVersion;
