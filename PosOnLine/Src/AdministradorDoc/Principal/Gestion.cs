@@ -318,12 +318,13 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                 return false;
             }
             var metPago = new List<OOB.Documento.Entidad.FichaMetodoPago>();
-            if (r01.Entidad.CondicionPago.Trim().ToUpper() == "CONTADO") 
+            OOB.Documento.Anular.Factura.FichaClienteSaldo _clienteSaldo=null;
+            if (!r01.Entidad.IsDocumentoCredito)
             {
-                _mCambio=r01.Entidad.Cambio;
-                _cntCambio=_mCambio>0?1:0;
-                _condPagoIsContado=true;
-                if (r01.Entidad.AutoReciboCxC != "") 
+                _mCambio = r01.Entidad.Cambio;
+                _cntCambio = _mCambio > 0 ? 1 : 0;
+                _condPagoIsContado = true;
+                if (r01.Entidad.AutoReciboCxC != "")
                 {
                     var r04 = Sistema.MyData.Documento_Get_MetodosPago_ByIdRecibo(r01.Entidad.AutoReciboCxC);
                     if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
@@ -331,16 +332,16 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                         Helpers.Msg.Error(r04.Mensaje);
                         return false;
                     }
-                    foreach (var rg in r04.ListaD) 
+                    foreach (var rg in r04.ListaD)
                     {
-                        if (rg.descMedioPago.Trim().ToUpper() == "EFECTIVO") 
+                        if (rg.descMedioPago.Trim().ToUpper() == "EFECTIVO")
                         {
                             _cntEfectivo += 1;
                             _mEfectivo += rg.montoRecibido;
                         }
                         else if (rg.descMedioPago.Trim().ToUpper() == "DIVISA")
                         {
-                            _cntDivisa+= rg.cntDivisa;
+                            _cntDivisa += rg.cntDivisa;
                             _mDivisa += rg.montoRecibido;
                         }
                         else if (rg.descMedioPago.Trim().ToUpper() == "TARJETA DEBITO")
@@ -348,13 +349,21 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                             _cntElectronico += 1;
                             _mElectronico += rg.montoRecibido;
                         }
-                        else 
+                        else
                         {
                             _cntOtros += 1;
-                            _mOtros+= rg.montoRecibido;
+                            _mOtros += rg.montoRecibido;
                         }
                     }
                 }
+            }
+            else 
+            {
+                _clienteSaldo = new OOB.Documento.Anular.Factura.FichaClienteSaldo()
+                {
+                    autoCliente = r01.Entidad.AutoCliente,
+                    monto = r01.Entidad.MontoDivisa,
+                };
             }
 
             var ficha = new OOB.Documento.Anular.Factura.Ficha()
@@ -363,6 +372,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                 autoDocCxC = r01.Entidad.AutoDocCxC,
                 autoReciboCxC = r01.Entidad.AutoReciboCxC,
                 CodigoDocumento = r01.Entidad.Tipo,
+                clienteSaldo = _clienteSaldo,
                 auditoria = new OOB.Documento.Anular.Factura.FichaAuditoria
                 {
                     autoSistemaDocumento = Sistema.ConfiguracionActual.idTipoDocumentoVenta,

@@ -182,8 +182,10 @@
     <Compile Include="OOB\Configuracion\Entidad\Ficha.cs" />
     <Compile Include="OOB\Deposito\Entidad\Ficha.cs" />
     <Compile Include="OOB\Deposito\Lista\Filtro.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Agregar\BasePagoMovil.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\Ficha.cs" />
+    <Compile Include="OOB\Documento\Agregar\Factura\FichaClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaCxC.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaCxCDocumento.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaCxCMetodoPago.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="OOB\Documento\Agregar\BaseCxC.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\Result.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\Ficha.cs" />
+    <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxC.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxCDocumento.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaCxCMetodoPago.cs" />
@@ -220,9 +223,11 @@
     <Compile Include="OOB\Documento\Agregar\NotaEntrega\FichaPosVenta.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaEntrega\FichaSerie.cs" />
     <Compile Include="OOB\Documento\Anular\Auditoria.cs" />
+    <Compile Include="OOB\Documento\Anular\ClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Anular\Deposito.cs" />
     <Compile Include="OOB\Documento\Anular\Factura\Ficha.cs" />
     <Compile Include="OOB\Documento\Anular\Factura\FichaAuditoria.cs" />
+    <Compile Include="OOB\Documento\Anular\Factura\FichaClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Anular\Factura\FichaDeposito.cs" />
     <Compile Include="OOB\Documento\Anular\Factura\FichaResumen.cs" />
     <Compile Include="OOB\Documento\Anular\NotaCredito\Ficha.cs" />

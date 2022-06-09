@@ -18,8 +18,10 @@ namespace PosOnLine.OOB.Cliente.Entidad
         public string DireccionFiscal { get; set; }
         public string Telefono { get; set; }
         public string Estatus { get; set; }
+        public string EstatusCredito { get; set; }
         public string Tarifa { get; set; }
         public bool IsActivo { get { return Estatus.Trim().ToUpper() == "ACTIVO" ? true : false; } }
+        public bool IsClienteCredito { get { return EstatusCredito.Trim().ToUpper() == "1" ? true : false; } }
         public string Data { get { return CiRif.Trim() + Environment.NewLine + Nombre.Trim(); } }
         public string TarifaPrecio 
         { 
@@ -42,6 +44,7 @@ namespace PosOnLine.OOB.Cliente.Entidad
             DireccionFiscal = "";
             Telefono = "";
             Estatus = "";
+            EstatusCredito = "";
             Tarifa = "";
         }
 

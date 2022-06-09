@@ -34,6 +34,7 @@ namespace PosOnLine.Data.Prov
                 nombre = ent.nombre,
                 nombreGrupo = ent.nombreGrupo,
                 estatusVentaMayor = ent.estatusVentaMayor,
+                estatusVentaCredito = ent.estatusVentaCredito,
                 autoDepositoPrincipal = ent.autoDepositoPrincipal,
                 estatus = ent.estatus,
             };
@@ -76,7 +77,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-        public OOB.Resultado.FichaEntidad<string> Sucursal_GetFicha_ByCodigo(string codigo)
+        public OOB.Resultado.FichaEntidad<string> 
+            Sucursal_GetFicha_ByCodigo(string codigo)
         {
             var result = new OOB.Resultado.FichaEntidad<string>();
 

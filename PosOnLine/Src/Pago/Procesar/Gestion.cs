@@ -170,10 +170,26 @@ namespace PosOnLine.Src.Pago.Procesar
             }
             else 
             {
-                if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaCredito))
+                if (Sistema.Sucursal.HabilitarVentaCredito)
                 {
-                    _pago.DarCredito();
-                    _pagoIsOk = _pago.IsCredito;
+                    if (_entCliente.IsClienteCredito)
+                    {
+                        if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaCredito))
+                        {
+                            _pago.DarCredito();
+                            _pagoIsOk = _pago.IsCredito;
+                        }
+                    }
+                    else 
+                    {
+                        Helpers.Msg.Error("CLIENTE NO HABILITADO PARA CREDITO");
+                        return;
+                    }
+                }
+                else 
+                {
+                    Helpers.Msg.Error("SUCURSAL NO HABILITADA PARA GENERAR VENTA A CREDITO");
+                    return;
                 }
             }
         }

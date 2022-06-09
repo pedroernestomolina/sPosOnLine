@@ -316,23 +316,6 @@ namespace PosOnLine.Src.Pago.Procesar
             Procesar();
         }
 
-        private void BT_CREDITO_Click(object sender, EventArgs e)
-        {
-            DarCredito();
-        }
-
-        private void DarCredito()
-        {
-            IrFocoPrincipal();
-            _controlador.DarCredito();
-            if (_controlador.IsCreditoOk)
-            {
-                LimpiarPago();
-                ActualizaMontoResta();
-                this.Close();
-            }
-        }
-
         private void Procesar()
         {
             _controlador.Procesar();
@@ -370,6 +353,22 @@ namespace PosOnLine.Src.Pago.Procesar
         public void setControlador(Gestion ctr)
         {
             _controlador = ctr;
+        }
+
+        private void BT_CREDITO_Click(object sender, EventArgs e)
+        {
+            DarCredito();
+        }
+        private void DarCredito()
+        {
+            IrFocoPrincipal();
+            _controlador.DarCredito();
+            if (_controlador.IsCreditoOk)
+            {
+                LimpiarPago();
+                ActualizaMontoResta();
+                this.Close();
+            }
         }
 
     }

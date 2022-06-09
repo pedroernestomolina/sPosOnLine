@@ -115,6 +115,7 @@ namespace PosOnLine.OOB.Documento.Entidad
         public string AutoReciboCxC { get; set; }
         public decimal Descuento { get { return Descuento1 + Descuento2; } }
         public List<FichaItem> items;
+        public bool IsDocumentoCredito { get { return CondicionPago.Trim().ToUpper()=="CREDITO"; } }
 
 
         public Ficha()

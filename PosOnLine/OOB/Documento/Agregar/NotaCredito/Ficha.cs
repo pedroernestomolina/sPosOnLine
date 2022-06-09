@@ -114,6 +114,7 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
         public FichaCxCPago DocCxCPago { get; set; }
         public FichaPosResumen Resumen { get; set; }
         public FichaSerie SerieFiscal { get; set; }
+        public FichaClienteSaldo ClienteSaldo { get; set; }
 
 
         public Ficha()
@@ -220,6 +221,7 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
             ActDeposito = new List<FichaDeposito>();
             Resumen = new FichaPosResumen();
             SerieFiscal = null;
+            ClienteSaldo = null;
         }
 
     }

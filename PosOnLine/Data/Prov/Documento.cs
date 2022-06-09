@@ -546,6 +546,19 @@ namespace PosOnLine.Data.Prov
             };
             fichaDTO.DocCxC = docCxC;
 
+            if (ficha.ClienteSaldo == null)
+            {
+                fichaDTO.ClienteSaldo = null;
+            }
+            else
+            {
+                fichaDTO.ClienteSaldo = new DtoLibPos.Documento.Agregar.Factura.FichaClienteSaldo()
+                {
+                    autoCliente = ficha.ClienteSaldo.AutoCliente,
+                    montoActualizar = Math.Round(ficha.ClienteSaldo.MontoActualizar, 2, MidpointRounding.AwayFromZero),
+                };
+            }
+
             if (ficha.DocCxCPago == null)
             {
                 fichaDTO.DocCxCPago = null;
@@ -835,6 +848,19 @@ namespace PosOnLine.Data.Prov
                 FechaPedido = ficha.FechaPedido,
                 Prefijo = ficha.Prefijo,
             };
+
+            if (ficha.ClienteSaldo == null)
+            {
+                fichaDTO.ClienteSaldo = null;
+            }
+            else
+            {
+                fichaDTO.ClienteSaldo = new DtoLibPos.Documento.Agregar.NotaCredito.FichaClienteSaldo()
+                {
+                    autoCliente = ficha.ClienteSaldo.AutoCliente,
+                    montoActualizar = Math.Round(ficha.ClienteSaldo.MontoActualizar, 2, MidpointRounding.AwayFromZero),
+                };
+            }
 
             var detalles = ficha.Detalles.Select(s =>
             {
@@ -1516,12 +1542,23 @@ namespace PosOnLine.Data.Prov
         {
             var result = new OOB.Resultado.Ficha();
 
+            DtoLibPos.Documento.Anular.Factura.FichaClienteSaldo _clienteSaldo = null;
+            if (ficha.clienteSaldo!=null)
+            {
+                _clienteSaldo = new DtoLibPos.Documento.Anular.Factura.FichaClienteSaldo()
+                {
+                    autoCliente = ficha.clienteSaldo.autoCliente,
+                    monto = ficha.clienteSaldo.monto,
+                };
+            }
+
             var fichaDTO = new DtoLibPos.Documento.Anular.Factura.Ficha()
             {
                 autoDocumento = ficha.autoDocumento,
                 autoDocCxC = ficha.autoDocCxC,
                 autoReciboCxC = ficha.autoReciboCxC,
                 CodigoDocumento = ficha.CodigoDocumento,
+                clienteSaldo = _clienteSaldo,
                 auditoria = new DtoLibPos.Documento.Anular.Factura.FichaAuditoria()
                 {
                     autoSistemaDocumento = ficha.auditoria.autoSistemaDocumento,

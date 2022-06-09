@@ -17,8 +17,10 @@ namespace PosOnLine.OOB.Sucursal.Entidad
         public string nombreGrupo { get; set; }
         public int idPrecioManejar { get; set; }
         public string estatusVentaMayor { get; set; }
+        public string estatusVentaCredito { get; set; }
         public string estatus { get; set; }
         public string autoDepositoPrincipal { get; set; }
+        public bool HabilitarVentaCredito { get { return estatusVentaCredito.Trim() == "1"; } }
         public bool HabilitarVentaMayor { get { return estatusVentaMayor.Trim() == "1"; } }
         public bool isActivo { get { return estatus.Trim().ToUpper() == "1"; } }
 
@@ -31,6 +33,7 @@ namespace PosOnLine.OOB.Sucursal.Entidad
             nombre = "";
             nombreGrupo = "";
             estatusVentaMayor = "";
+            estatusVentaCredito = "";
             estatus = "";
             autoDepositoPrincipal = "";
         }

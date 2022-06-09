@@ -73,6 +73,7 @@ namespace PosOnLine.Data.Prov
                 Id = ent.id,
                 Nombre = ent.razonSocial,
                 Estatus = ent.estatus,
+                EstatusCredito = ent.estatusCredito,
                 DireccionFiscal = ent.dirFiscal,
                 Telefono = ent.telefono1,
                 Tarifa = ent.tarifa,
