@@ -246,13 +246,23 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                     }
                 }
             }
+            OOB.Documento.Anular.NotaCredito.FichaClienteSaldo _clienteSaldo=null;
+            if (_autoReciboCxC == "") 
+            {
+                _clienteSaldo = new OOB.Documento.Anular.NotaCredito.FichaClienteSaldo()
+                {
+                    autoCliente = r01.Entidad.AutoCliente,
+                    monto = r01.Entidad.MontoDivisa,
+                };
+            }
 
             var ficha = new OOB.Documento.Anular.NotaCredito.Ficha()
             {
                 autoDocumento = idDoc,
                 autoDocCxC = r01.Entidad.AutoDocCxC,
-                autoReciboCxC =  _autoReciboCxC,
+                autoReciboCxC = _autoReciboCxC,
                 CodigoDocumento = r01.Entidad.Tipo,
+                clienteSaldo = _clienteSaldo,
                 auditoria = new OOB.Documento.Anular.NotaCredito.FichaAuditoria
                 {
                     autoSistemaDocumento = Sistema.ConfiguracionActual.idTipoDocumentoDevVenta,

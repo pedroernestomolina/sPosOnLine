@@ -232,6 +232,7 @@
     <Compile Include="OOB\Documento\Anular\Factura\FichaResumen.cs" />
     <Compile Include="OOB\Documento\Anular\NotaCredito\Ficha.cs" />
     <Compile Include="OOB\Documento\Anular\NotaCredito\FichaAuditoria.cs" />
+    <Compile Include="OOB\Documento\Anular\NotaCredito\FichaClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Anular\NotaCredito\FichaDeposito.cs" />
     <Compile Include="OOB\Documento\Anular\NotaCredito\FichaResumen.cs" />
     <Compile Include="OOB\Documento\Anular\NotaEntrega\Ficha.cs" />

@@ -1486,12 +1486,22 @@ namespace PosOnLine.Data.Prov
         {
             var result = new OOB.Resultado.Ficha();
 
+            DtoLibPos.Documento.Anular.NotaCredito.FichaClienteSaldo _clienteSaldo = null; 
+            if (ficha.clienteSaldo != null)
+            {
+                _clienteSaldo = new DtoLibPos.Documento.Anular.NotaCredito.FichaClienteSaldo()
+                {
+                    autoCliente = ficha.clienteSaldo.autoCliente,
+                    monto = ficha.clienteSaldo.monto,
+                };
+            }
             var fichaDTO = new DtoLibPos.Documento.Anular.NotaCredito.Ficha()
             {
                 autoDocumento = ficha.autoDocumento,
                 autoDocCxC = ficha.autoDocCxC,
                 autoReciboCxC = ficha.autoReciboCxC,
                 CodigoDocumento = ficha.CodigoDocumento,
+                clienteSaldo = _clienteSaldo,
                 auditoria = new DtoLibPos.Documento.Anular.NotaCredito.FichaAuditoria()
                 {
                     autoSistemaDocumento = ficha.auditoria.autoSistemaDocumento,
@@ -1526,7 +1536,6 @@ namespace PosOnLine.Data.Prov
                     mOtros = ficha.resumen.mOtros,
                 },
             };
-
             var r01 = MyData.Documento_Anular_NotaCredito(fichaDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
