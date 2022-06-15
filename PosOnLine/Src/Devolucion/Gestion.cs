@@ -15,10 +15,12 @@ namespace PosOnLine.Src.Devolucion
 
         public event EventHandler<int> EliminarItemHnd;
         public event EventHandler<int> DevolverItemHnd;
+        public event EventHandler<dataDev> CntDevItemHnd;
 
 
         private BindingList<Item.data> _bl;
         private BindingSource _bs;
+        private Multiplicar.Gestion _gMult;
 
 
         public decimal MontoSubTotal { get { return _bl.Sum(f => f.MontoTotal()); } }
@@ -30,11 +32,13 @@ namespace PosOnLine.Src.Devolucion
             _bl = new BindingList<Item.data>();
             _bs = new BindingSource();
             _bs.DataSource = _bl;
+            _gMult = new Multiplicar.Gestion();
         }
 
 
         public void Inicializa()
         {
+            _gMult.Inicializa();
         }
 
         DevolucionFrm frm;
@@ -123,6 +127,35 @@ namespace PosOnLine.Src.Devolucion
                     _bl.Remove(it);
                 }
                 _bs.CurrencyManager.Refresh();
+            }
+        }
+
+        public void CantidadDevolver()
+        {
+            if (_bs.Current != null)
+            {
+                var it = (Item.data)_bs.Current;
+                _gMult.Inicializa();
+                _gMult.Inicia();
+                if (_gMult.MultiplicarIsOk) 
+                {
+                    if (_gMult.Cantidad >= it.Cantidad)
+                    {
+                        Helpers.Msg.Alerta("CANTIDAD A DEVOLVER SOBRE PASA LA CANTIDAD INGRESADA");
+                        return;
+                    }
+                }
+
+                var dtDev = new dataDev()
+                {
+                    idItem = it.Ficha.id,
+                    cnt = _gMult.Cantidad,
+                };
+                EventHandler<dataDev> hnd = CntDevItemHnd;
+                if (hnd != null)
+                {
+                    hnd(this, dtDev);
+                }
             }
         }
 

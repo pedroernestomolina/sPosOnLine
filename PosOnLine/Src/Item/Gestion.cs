@@ -70,6 +70,26 @@ namespace PosOnLine.Src.Item
             _gestionDevolucion = new Devolucion.Gestion();
             _gestionDevolucion.EliminarItemHnd+=_gestionDevolucion_EliminarItemHnd;
             _gestionDevolucion.DevolverItemHnd+=_gestionDevolucion_DevolverItemHnd;
+            _gestionDevolucion.CntDevItemHnd += _gestionDevolucion_CntDevItemHnd;
+        }
+
+        private void _gestionDevolucion_CntDevItemHnd(object sender, Devolucion.dataDev e)
+        {
+            if (DevolverItem(e.idItem, e.cnt))
+            {
+                _gestionDevolucion.DevolverItem(e.idItem);
+                if (1==1) 
+                {
+                    var _it = _blitems.FirstOrDefault(f => f.Id == e.idItem);
+                    if (_it != null) 
+                    {
+                        if (_it.Cantidad == 0m) 
+                        {
+                            _blitems.Remove(_it);
+                        }
+                    }
+                }
+            }
         }
 
         private void _gestionDevolucion_DevolverItemHnd(object sender, int e)
@@ -80,7 +100,7 @@ namespace PosOnLine.Src.Item
             }
         }
 
-        private bool DevolverItem(int id)
+        private bool DevolverItem(int id, int cnt=1)
         {
             var rt = false;
 
@@ -164,8 +184,8 @@ namespace PosOnLine.Src.Item
                             idItem = it.Ficha.id,
                             autoProducto = it.Ficha.autoProducto,
                             autoDeposito = it.Ficha.autoDeposito,
-                            cantUndBloq = it.ContenidoEmp,
-                            cantidad = 1,
+                            cantUndBloq = it.ContenidoEmp*cnt,
+                            cantidad = cnt,
                             precioNeto = pneto,
                             precioDivisa = pdivisa,
                             tarifaVenta = tarifa,
@@ -177,7 +197,7 @@ namespace PosOnLine.Src.Item
                             return false;
                         }
                     }
-                    it.setDisminuyeCantidad(1);
+                    it.setDisminuyeCantidad(cnt);
                     it.setPrecioTarifa(pneto, tarifa, pdivisa);
                     Helpers.Sonido.SonidoOk();
                     _bsitems.CurrencyManager.Refresh();
@@ -829,12 +849,13 @@ namespace PosOnLine.Src.Item
 
         public void Decrementar()
         {
-            if (ItemActual != null)
+            if (ItemActual != null) { }
+            if (1==1)
             {
                 if (_bsitems.Current != null)
                 {
                     var it = (data)_bsitems.Current;
-                    if (it.Ficha.id == ItemActual.id)
+                    if (1==1)
                     {
                         if (it.EsPesado) 
                         {

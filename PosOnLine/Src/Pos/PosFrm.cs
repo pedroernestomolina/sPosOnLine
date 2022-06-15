@@ -549,6 +549,22 @@ namespace PosOnLine.Src.Pos
             Actualizar();
         }
 
+        private void DGV_DETALLE_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 106)
+            {
+                Multiplicar();
+            }
+            if (e.KeyValue == 107) 
+            {
+                IncrementarItem();
+            }
+            if (e.KeyValue == 109)
+            {
+                Restar();
+            }
+        }
+
     }
 
 }

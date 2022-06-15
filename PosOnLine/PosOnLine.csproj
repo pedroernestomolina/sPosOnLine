@@ -404,6 +404,7 @@
     <Compile Include="Src\Consultor\Existencia.cs" />
     <Compile Include="Src\Consultor\Gestion.cs" />
     <Compile Include="Src\Consultor\Precio.cs" />
+    <Compile Include="Src\Devolucion\dataDev.cs" />
     <Compile Include="Src\Devolucion\DevolucionFrm.cs">
       <SubType>Form</SubType>
     </Compile>

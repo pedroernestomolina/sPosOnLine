@@ -132,7 +132,6 @@ namespace PosOnLine.Src.Devolucion
         {
             EliminarItem();
         }
-
         private void EliminarItem()
         {
             _controlador.EliminarItem();
@@ -196,6 +195,16 @@ namespace PosOnLine.Src.Devolucion
         public void setControlador(Gestion ctr)
         {
             _controlador = ctr;
+        }
+
+        private void BT_MULTIPLICAR_Click(object sender, EventArgs e)
+        {
+            CantidadDevolver();
+        }
+        private void CantidadDevolver()
+        {
+            _controlador.CantidadDevolver();
+            ActualizarSubTotal();
         }
 
     }
