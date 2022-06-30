@@ -219,12 +219,8 @@ namespace PosOnLine.Src.Cliente.Buscar
                         autoGrupo = "0000000001",
                         autoZona = "0000000001",
                         autoEstado = "0000000001",
-                        autoAgencia = "0000000001",
                         autoCobrador = "0000000001",
                         autoVendedor = "0000000001",
-                        autoCodigoAnticipos = "0000000001",
-                        autoCodigoCobrar = "0000000001",
-                        autoCodigoIngreso = "0000000001",
                         ciRif = _dataNewCliente.CiRif ,
                         razonSocial = _dataNewCliente.Nombre ,
                         dirFiscal = _dataNewCliente.DirFiscal ,
@@ -235,14 +231,7 @@ namespace PosOnLine.Src.Cliente.Buscar
                         pais = "VZLA",
                         tarifa="0",
                         denominacionFiscal  = "No Contribuyente",
-                        estatusMorosidad = "0",
-                        estatusLunes = "0",
-                        estatusMartes = "0",
-                        estatusMiercoles = "0",
-                        estatusJueves = "0",
-                        estatusViernes = "0",
-                        estatusSabado = "0",
-                        estatusDomingo = "0",
+                        codigoSucursal=Sistema.Sucursal.codigo,
                     };
                     var r01 = Sistema.MyData.Cliente_AgregarFicha(fichaOOb);
                     if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)

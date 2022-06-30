@@ -211,27 +211,53 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
 
                 public string simporte { get { return "Bs " + importe.ToString("n2"); } }
-                public string sdescripcion
+                public List<string> sdescripcion
                 {
                     get
                     {
+                        //var t = descripcion.Trim();
+                        //if (t.Length >= 30)
+                        //{
+                        //    t = t.Substring(0, 30);
+                        //}
+                        //if (isExento) { t = t + " (E)"; }
+
+                        var lst = new List<string>();
                         var t = descripcion.Trim();
-                        if (t.Length >= 30)
+                        var l = (int)t.Length / 30;
+                        var sw = 0;
+                        for (var x = 0; x < l; x++) 
                         {
-                            t = t.Substring(0, 30);
+                            var xt = t.Substring(30*x, 30*(x+1));
+                            if (isExento && sw==0)
+                            {
+                                sw = 1;
+                                xt = xt + " (E)";
+                            }
+                            lst.Add(xt);
                         }
-                        if (isExento) { t = t + " (E)"; }
-                        return t;
+                        if (t.Length > (30 * l)) 
+                        {
+                            var xt = t.Substring(30*l);
+                            lst.Add(xt);
+                        }
+
+                        return lst;
                     }
                 }
                 public string scantidadPrecio
                 {
                     get
                     {
+                        var c = (int)cantidad;
+                        var cx = cantidad.ToString("n3");
+                        if ((cantidad - c) == 0)
+                        {
+                            cx = cantidad.ToString("n0");
+                        }
                         var t = "";
-                        //t = cantidad.ToString("n2") + " X " + precio.ToString("n2");
-                        t = cantidad.ToString("n0") + " ";
-                        t+= empDesc.Trim() + "/" + empCont.ToString().Trim();
+                        t += cx + " ";
+                        t += empDesc.Trim() + "/" + empCont.ToString().Trim();
                         t += " X " + precio.ToString("n2");
                         t += " X $" + precioDivisa.ToString("n2");
                         return t;
@@ -420,7 +446,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             }
 
             l += 10f;
-            //eg.Graphics.DrawString(df.nombre, fb, Brushes.Black, centrar(df.nombre), l);
             eg.Graphics.DrawString(df.nombre, fc, Brushes.Black, centrar(df.nombre), l);
             l += 10;
             eg.Graphics.DrawString(df.nombre+":", fr, Brushes.Black, 0, l);
@@ -434,42 +459,21 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             foreach (var r in df.Items)
             {
-                if (r.isPesado)
+                var sw = 0;
+                var xdes2 = r.sdescripcion;
+                eg.Graphics.DrawString(r.scantidadPrecio, fb, Brushes.Black, 0, l);
+                l += 10;
+                foreach (var xl in xdes2)
                 {
-                }
-                else
-                {
-                    var xdes = r.sdescripcion.Trim();
-                    if (_modoTicket == EnumModoTicket.Modo58mm)
+                    eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
+                    if (sw == 0)
                     {
-                        if (xdes.Length > 15)
-                            xdes = xdes.Substring(0, 15);
+                        eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
+                        sw = 1;
                     }
-
-                    //if (r.cantidad != 1.0m)
-                    //{
-                    //    eg.Graphics.DrawString(r.scantidadPrecio, fr, Brushes.Black, 0, l);
-                    //    l += 10;
-                    //}
-                    //if (r.empCont > 1)
-                    //{
-                    //    var empCont = r.empDesc.Trim() + "/" + r.empCont.ToString().Trim();
-                    //    eg.Graphics.DrawString(empCont, fr, Brushes.Black, 0, l);
-                    //    l += 10;
-                    //}
-
-                    //eg.Graphics.DrawString(r.scantidadPrecio, fr, Brushes.Black, 0, l);
-                    //l += 10;
-                    //eg.Graphics.DrawString(xdes, fr, Brushes.Black, 0, l);
-                    //eg.Graphics.DrawString(r.simporte, fr, Brushes.Black, dder2(r.simporte, fr), l);
-                    //l += 15;
-
-                    eg.Graphics.DrawString(r.scantidadPrecio, fb, Brushes.Black, 0, l);
                     l += 10;
-                    eg.Graphics.DrawString(xdes, fb, Brushes.Black, 0, l);
-                    eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
-                    l += 15;
                 }
+                l += 5;
             }
 
             eg.Graphics.DrawString("-".PadRight(85, '-'), fb, Brushes.Black, 0, l);

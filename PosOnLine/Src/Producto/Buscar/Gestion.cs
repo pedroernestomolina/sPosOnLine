@@ -89,27 +89,34 @@ namespace PosOnLine.Src.Producto.Buscar
                                 Helpers.Msg.Error(r04.Mensaje);
                                 return ;
                             }
+                            var _lst = r04.ListaD.ToList();
                             _gestionListar.Inicializa();
-                            _gestionListar.setData(r04.ListaD.Where(w=>w.ExDisponible>0).ToList());
+                            if (Sistema.ConfiguracionActual.ValidarExistencia_Activa) 
+                            {
+                                _lst = _lst.Where(w => w.ExDisponible > 0).ToList();
+                            }
+                            _gestionListar.setData(_lst);
                             _gestionListar.Inicia();
                             if (_gestionListar.ItemSeleccionIsOk) 
                             {
-                                if (_habilitarVentaMayor)
-                                {
-                                    _gestionMayor.Inicializa();
-                                    _gestionMayor.setAutoProducto(_gestionListar.ItemSeleccionado.Auto);
-                                    _gestionMayor.setTarifaPrecio(_tarifaPrecio);
-                                    _gestionMayor.Inicia();
-                                    if (_gestionMayor.PrecioSeleccionadoIsOk)
-                                    {
-                                        _autoPrd = _gestionMayor.AutoProducto;
-                                        _tarifaPrecio = _gestionMayor.TarifaSeleccionada;
-                                    }
-                                }
-                                else 
-                                {
-                                    _autoPrd = _gestionListar.ItemSeleccionado.Auto;
-                                }
+                                //if (_habilitarVentaMayor)
+                                //{
+                                //    _gestionMayor.Inicializa();
+                                //    _gestionMayor.setAutoProducto(_gestionListar.ItemSeleccionado.Auto);
+                                //    _gestionMayor.setTarifaPrecio(_tarifaPrecio);
+                                //    _gestionMayor.Inicia();
+                                //    if (_gestionMayor.PrecioSeleccionadoIsOk)
+                                //    {
+                                //        _autoPrd = _gestionMayor.AutoProducto;
+                                //        _tarifaPrecio = _gestionMayor.TarifaSeleccionada;
+                                //    }
+                                //}
+                                //else 
+                                //{
+                                //    _autoPrd = _gestionListar.ItemSeleccionado.Auto;
+                                //}
+
+                                _autoPrd = _gestionListar.ItemSeleccionado.Auto;
                             }
                         }
                     }
@@ -121,6 +128,27 @@ namespace PosOnLine.Src.Producto.Buscar
             }
             else
                 _autoPrd = r01.Auto;
+
+
+            if (!string.IsNullOrEmpty(_autoPrd))
+            {
+                if (_habilitarVentaMayor)
+                {
+                    _gestionMayor.Inicializa();
+                    _gestionMayor.setAutoProducto(_autoPrd);
+                    _gestionMayor.setTarifaPrecio(_tarifaPrecio);
+                    _gestionMayor.Inicia();
+                    if (_gestionMayor.PrecioSeleccionadoIsOk)
+                    {
+                        _autoPrd = _gestionMayor.AutoProducto;
+                        _tarifaPrecio = _gestionMayor.TarifaSeleccionada;
+                    }
+                    else 
+                    {
+                        _autoPrd = "";
+                    }
+                }
+            }
         }
 
         public void setDepositoAsignado(OOB.Deposito.Entidad.Ficha _depositoAsignado)

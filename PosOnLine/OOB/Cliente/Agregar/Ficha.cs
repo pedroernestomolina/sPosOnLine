@@ -71,6 +71,7 @@ namespace PosOnLine.OOB.Cliente.Agregar
         public string celular { get; set; }
         public string abc { get; set; }
         public decimal montoClasificacion { get; set; }
+        public string codigoSucursal { get; set; }
 
 
         public Ficha()
@@ -101,14 +102,14 @@ namespace PosOnLine.OOB.Cliente.Agregar
             diasCredito = 0;
             limiteCredito = 0.0m;
             docPendientes = 0;
-            estatusMorosidad = "";
-            estatusLunes = "";
-            estatusMartes = "";
-            estatusMiercoles = "";
-            estatusJueves = "";
-            estatusViernes = "";
-            estatusSabado = "";
-            estatusDomingo = "";
+            estatusMorosidad = "0";
+            estatusLunes = "0";
+            estatusMartes = "0";
+            estatusMiercoles = "0";
+            estatusJueves = "0";
+            estatusViernes = "0";
+            estatusSabado = "0";
+            estatusDomingo = "0";
             autoCobrador = "";
             anticipos = 0.0m;
             debitos = 0.0m;
@@ -121,11 +122,11 @@ namespace PosOnLine.OOB.Cliente.Agregar
             cuenta = "";
             iban = "";
             swit = "";
-            autoAgencia = "";
+            autoAgencia = "0000000001";
             dirBanco = "";
-            autoCodigoCobrar = "";
-            autoCodigoIngreso = "";
-            autoCodigoAnticipos = "";
+            autoCodigoCobrar = "0000000001";
+            autoCodigoIngreso = "0000000001";
+            autoCodigoAnticipos = "0000000001";
             categoria = "";
             descuentoProntoPago = 0.0m;
             importeUltPago = 0.0m;
@@ -135,6 +136,7 @@ namespace PosOnLine.OOB.Cliente.Agregar
             celular = "";
             abc = "";
             montoClasificacion = 0.0m;
+            codigoSucursal = "";
         }
 
     }

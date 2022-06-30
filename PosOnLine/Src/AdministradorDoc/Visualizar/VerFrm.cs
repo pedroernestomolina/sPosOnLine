@@ -62,7 +62,6 @@ namespace PosOnLine.Src.AdministradorDoc.Visualizar
             c2.HeaderCell.Style.Font = f;
             c2.DefaultCellStyle.Font = f1;
             c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            c2.DefaultCellStyle.Format = "n0";
 
             var c6 = new DataGridViewTextBoxColumn();
             c6.DataPropertyName = "EmpaqueCont";

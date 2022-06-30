@@ -169,6 +169,7 @@ namespace PosOnLine.Data.Prov
 
                 abc = ficha.abc,
                 montoClasificacion = ficha.montoClasificacion,
+                codigoSucursal=ficha.codigoSucursal,
             };
             var r01 = MyData.Cliente_Agregar (fichaDTO);
             if (r01.Result ==  DtoLib.Enumerados.EnumResult.isError)
