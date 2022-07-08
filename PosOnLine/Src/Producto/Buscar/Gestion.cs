@@ -84,20 +84,20 @@ namespace PosOnLine.Src.Producto.Buscar
                                 idPrecioManejar = _tarifaPrecio,
                             };
                             var r04 = Sistema.MyData.Producto_GetLista(filtro);
-                            if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError )
+                            if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                             {
                                 Helpers.Msg.Error(r04.Mensaje);
-                                return ;
+                                return;
                             }
                             var _lst = r04.ListaD.ToList();
                             _gestionListar.Inicializa();
-                            if (Sistema.ConfiguracionActual.ValidarExistencia_Activa) 
+                            if (Sistema.ConfiguracionActual.ValidarExistencia_Activa)
                             {
                                 _lst = _lst.Where(w => w.ExDisponible > 0).ToList();
                             }
                             _gestionListar.setData(_lst);
                             _gestionListar.Inicia();
-                            if (_gestionListar.ItemSeleccionIsOk) 
+                            if (_gestionListar.ItemSeleccionIsOk)
                             {
                                 //if (_habilitarVentaMayor)
                                 //{
@@ -127,8 +127,13 @@ namespace PosOnLine.Src.Producto.Buscar
                     _autoPrd = r02.Auto;
             }
             else
+            {
                 _autoPrd = r01.Auto;
-
+                if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
+                {
+                    return;
+                }
+            }
 
             if (!string.IsNullOrEmpty(_autoPrd))
             {

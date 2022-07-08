@@ -49,6 +49,8 @@ namespace PosOnLine.Helpers.Imprimir
         //
         public int cntDocContado { get; set; }
         public int cntDocCredito { get; set; }
+        //
+        public string nroCierre { get; set; }
 
 
         public dataCuadre()
@@ -95,6 +97,8 @@ namespace PosOnLine.Helpers.Imprimir
             //
             cuadre_s = 0.0m;
             cuadre_u = 0.0m;
+            //
+            nroCierre = "";
         }
 
     }

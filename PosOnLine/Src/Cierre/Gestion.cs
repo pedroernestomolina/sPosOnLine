@@ -262,6 +262,7 @@ namespace PosOnLine.Src.Cierre
                     Helpers.Msg.Error(r02.Mensaje);
                     return;
                 }
+                dat.nroCierre = r02.Entidad.ToString().Trim().PadLeft(8, '0');
                 Sistema.ImprimirCuadreCaja.setData(dat);
                 if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera58.CuadreDoc))
                 {

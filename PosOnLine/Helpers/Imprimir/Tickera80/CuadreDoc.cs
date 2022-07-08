@@ -38,6 +38,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         {
             _lista.Add("REPORTE CAJA");
             _lista.Add("");
+            _lista.Add("NUMERO: " + _ds.nroCierre);
             _lista.Add("EQUIPO: " + Sistema.EquipoEstacion);
             _lista.Add("OPERAD: " + _ds.Usuario);
             _lista.Add("FECHA : " + DateTime.Now.ToShortDateString());

@@ -12,36 +12,8 @@ namespace PosOnLine.Data.Prov
     public partial class DataPrv: IData
     {
 
-        public OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha> Jornada_EnUso_GetByIdEquipo(string idEquipo)
-        {
-            var result = new OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha>();
-
-            var r01 = MyData.Jornada_EnUso_GetByIdEquipo(idEquipo);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError) 
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var ent=r01.Entidad;
-            var nr = new OOB.Pos.EnUso.Ficha()
-            {
-                codUsuario = ent.codUsuario,
-                fechaApertura = ent.fechaApertura,
-                horaApertura = ent.horaApertura,
-                id = ent.id,
-                idUsuario = ent.idUsuario,
-                nomUsuario = ent.nomUsuario,
-                idAutoArqueoCierre=ent.idArqueoCierre,
-                idResumen=ent.idResumen,
-            };
-            result.Entidad=nr;
-
-            return result;
-        }
-
-        public OOB.Resultado.FichaId Jornada_Abrir(OOB.Pos.Abrir.Ficha ficha)
+        public OOB.Resultado.FichaId 
+            Jornada_Abrir(OOB.Pos.Abrir.Ficha ficha)
         {
             var result = new OOB.Resultado.FichaId();
 
@@ -133,8 +105,101 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
+        public OOB.Resultado.FichaEntidad<int>
+            Jornada_Cerrar(OOB.Pos.Cerrar.Ficha ficha)
+        {
+            var result = new OOB.Resultado.FichaEntidad<int>();
 
-        public OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha> Jornada_EnUso_GetById(int id)
+            var fichaDTO = new DtoLibPos.Pos.Cerrar.Ficha()
+            {
+                idOperador = ficha.idOperador,
+                estatus = ficha.estatus,
+                arqueoCerrar = new DtoLibPos.Pos.Cerrar.Arqueo()
+                {
+                    autoArqueo = ficha.arqueo.autoArqueo,
+                    cheque = ficha.arqueo.cheque,
+                    cierreFtp = ficha.arqueo.cierreFtp,
+                    cntDivisaUsuario = ficha.arqueo.cntDivisaUsuario,
+                    cntDivisia = ficha.arqueo.cntDivisia,
+                    cntDoc = ficha.arqueo.cntDoc,
+                    cntDocFac = ficha.arqueo.cntDocFac,
+                    cntDocNCr = ficha.arqueo.cntDocNCr,
+                    cobranza = ficha.arqueo.cobranza,
+                    credito = ficha.arqueo.credito,
+                    debito = ficha.arqueo.debito,
+                    devolucion = ficha.arqueo.devolucion,
+                    diferencia = ficha.arqueo.diferencia,
+                    efectivo = ficha.arqueo.efectivo,
+                    firma = ficha.arqueo.firma,
+                    mbanco1 = ficha.arqueo.mbanco1,
+                    mbanco2 = ficha.arqueo.mbanco2,
+                    mbanco3 = ficha.arqueo.mbanco3,
+                    mbanco4 = ficha.arqueo.mbanco4,
+                    mcheque = ficha.arqueo.mcheque,
+                    mefectivo = ficha.arqueo.mefectivo,
+                    mfirma = ficha.arqueo.mfirma,
+                    mgastos = ficha.arqueo.mgastos,
+                    montoFac = ficha.arqueo.montoFac,
+                    montoNCr = ficha.arqueo.montoNCr,
+                    motros = ficha.arqueo.motros,
+                    mretenciones = ficha.arqueo.mretenciones,
+                    mretiro = ficha.arqueo.mretiro,
+                    msubtotal = ficha.arqueo.msubtotal,
+                    mtarjeta = ficha.arqueo.mtarjeta,
+                    mticket = ficha.arqueo.mticket,
+                    mtotal = ficha.arqueo.mtotal,
+                    mtrans = ficha.arqueo.mtrans,
+                    otros = ficha.arqueo.otros,
+                    retiro = ficha.arqueo.retiro,
+                    subTotal = ficha.arqueo.subTotal,
+                    ticket = ficha.arqueo.ticket,
+                    total = ficha.arqueo.total,
+                },
+            };
+            var r01 = MyData.Jornada_Cerrar(fichaDTO);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+            result.Entidad = r01.Entidad;
+
+            return result;
+        }
+
+
+        public OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha> 
+            Jornada_EnUso_GetByIdEquipo(string idEquipo)
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha>();
+
+            var r01 = MyData.Jornada_EnUso_GetByIdEquipo(idEquipo);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+
+            var ent = r01.Entidad;
+            var nr = new OOB.Pos.EnUso.Ficha()
+            {
+                codUsuario = ent.codUsuario,
+                fechaApertura = ent.fechaApertura,
+                horaApertura = ent.horaApertura,
+                id = ent.id,
+                idUsuario = ent.idUsuario,
+                nomUsuario = ent.nomUsuario,
+                idAutoArqueoCierre = ent.idArqueoCierre,
+                idResumen = ent.idResumen,
+            };
+            result.Entidad = nr;
+
+            return result;
+        }
+        public OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha> 
+            Jornada_EnUso_GetById(int id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha>();
 
@@ -162,8 +227,39 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
+        public OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha> 
+            Jornada_EnUso_GetBy_EquipoSucursal(string idEquipo, string codSucursal)
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha>();
 
-        public OOB.Resultado.FichaEntidad<OOB.Pos.Resumen.Ficha> Jornada_Resumen_GetByIdResumen(int id)
+            var r01 = MyData.Jornada_EnUso_GetBy_EquipoSucursal(idEquipo, codSucursal);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+
+            var ent = r01.Entidad;
+            var nr = new OOB.Pos.EnUso.Ficha()
+            {
+                codUsuario = ent.codUsuario,
+                fechaApertura = ent.fechaApertura,
+                horaApertura = ent.horaApertura,
+                id = ent.id,
+                idUsuario = ent.idUsuario,
+                nomUsuario = ent.nomUsuario,
+                idAutoArqueoCierre = ent.idArqueoCierre,
+                idResumen = ent.idResumen,
+            };
+            result.Entidad = nr;
+
+            return result;
+        }
+
+
+        public OOB.Resultado.FichaEntidad<OOB.Pos.Resumen.Ficha> 
+            Jornada_Resumen_GetByIdResumen(int id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Pos.Resumen.Ficha>();
 
@@ -225,96 +321,6 @@ namespace PosOnLine.Data.Prov
                 //
                 cntCambio_anu=ent.cnt_cambio_anulado,
                 mCambio_anu=ent.mcambio_anulado,
-            };
-            result.Entidad = nr;
-
-            return result;
-        }
-
-        public OOB.Resultado.Ficha Jornada_Cerrar(OOB.Pos.Cerrar.Ficha ficha)
-        {
-            var result = new OOB.Resultado.Ficha();
-
-            var fichaDTO = new DtoLibPos.Pos.Cerrar.Ficha()
-            {
-                idOperador = ficha.idOperador,
-                estatus = ficha.estatus,
-                arqueoCerrar = new DtoLibPos.Pos.Cerrar.Arqueo()
-                {
-                    autoArqueo = ficha.arqueo.autoArqueo,
-                    cheque = ficha.arqueo.cheque,
-                    cierreFtp = ficha.arqueo.cierreFtp,
-                    cntDivisaUsuario = ficha.arqueo.cntDivisaUsuario,
-                    cntDivisia = ficha.arqueo.cntDivisia,
-                    cntDoc = ficha.arqueo.cntDoc,
-                    cntDocFac = ficha.arqueo.cntDocFac,
-                    cntDocNCr = ficha.arqueo.cntDocNCr,
-                    cobranza = ficha.arqueo.cobranza,
-                    credito = ficha.arqueo.credito,
-                    debito = ficha.arqueo.debito,
-                    devolucion = ficha.arqueo.devolucion,
-                    diferencia = ficha.arqueo.diferencia,
-                    efectivo = ficha.arqueo.efectivo,
-                    firma = ficha.arqueo.firma,
-                    mbanco1 = ficha.arqueo.mbanco1,
-                    mbanco2 = ficha.arqueo.mbanco2,
-                    mbanco3 = ficha.arqueo.mbanco3,
-                    mbanco4 = ficha.arqueo.mbanco4,
-                    mcheque = ficha.arqueo.mcheque,
-                    mefectivo = ficha.arqueo.mefectivo,
-                    mfirma = ficha.arqueo.mfirma,
-                    mgastos = ficha.arqueo.mgastos,
-                    montoFac = ficha.arqueo.montoFac,
-                    montoNCr = ficha.arqueo.montoNCr,
-                    motros = ficha.arqueo.motros,
-                    mretenciones = ficha.arqueo.mretenciones,
-                    mretiro = ficha.arqueo.mretiro,
-                    msubtotal = ficha.arqueo.msubtotal,
-                    mtarjeta = ficha.arqueo.mtarjeta,
-                    mticket = ficha.arqueo.mticket,
-                    mtotal = ficha.arqueo.mtotal,
-                    mtrans = ficha.arqueo.mtrans,
-                    otros = ficha.arqueo.otros,
-                    retiro = ficha.arqueo.retiro,
-                    subTotal = ficha.arqueo.subTotal,
-                    ticket = ficha.arqueo.ticket,
-                    total = ficha.arqueo.total,
-                },
-            };
-            var r01 = MyData.Jornada_Cerrar(fichaDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError) 
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            return result;
-        }
-
-        public OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha> Jornada_EnUso_GetBy_EquipoSucursal(string idEquipo, string codSucursal)
-        {
-            var result = new OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha>();
-
-            var r01 = MyData.Jornada_EnUso_GetBy_EquipoSucursal(idEquipo, codSucursal);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var ent = r01.Entidad;
-            var nr = new OOB.Pos.EnUso.Ficha()
-            {
-                codUsuario = ent.codUsuario,
-                fechaApertura = ent.fechaApertura,
-                horaApertura = ent.horaApertura,
-                id = ent.id,
-                idUsuario = ent.idUsuario,
-                nomUsuario = ent.nomUsuario,
-                idAutoArqueoCierre = ent.idArqueoCierre,
-                idResumen = ent.idResumen,
             };
             result.Entidad = nr;
 
