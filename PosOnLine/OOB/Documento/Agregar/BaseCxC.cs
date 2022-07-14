@@ -40,6 +40,11 @@ namespace PosOnLine.OOB.Documento.Agregar
         public string CierreFtp { get; set; }
         public decimal MontoDivisa { get; set; }
         public decimal  TasaDivisa { get; set; }
+        //CAMPOS NUEVOS
+        public decimal AcumuladoDivisa { get; set; }
+        public string CodigoSucursal { get; set; }
+        public decimal RestaDivisa { get; set; }
+        public decimal ImporteNetoDivisa { get; set; }
 
     }
 

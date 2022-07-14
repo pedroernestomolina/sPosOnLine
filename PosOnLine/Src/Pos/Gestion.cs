@@ -646,6 +646,11 @@ namespace PosOnLine.Src.Pos
             var subTotalNeto = _gestionItem.Items.Sum(s => s.TotalNeto);
             var subTotal = _gestionItem.Importe - dsctoMonto;
             var netoMonto = _gestionItem.Items.Sum(s => s.VentaNeta);
+            var netoMontoDivisa = 0m;
+            if (_tasaCambioActual > 0) 
+            {
+                netoMontoDivisa = netoMonto / _tasaCambioActual;
+            }
 
             var importeDocumento = _gestionProcesarPago.MontoPagar;
             var importeDocumentoDivisa = _gestionProcesarPago.MontoPagarDivisa;
@@ -896,6 +901,11 @@ namespace PosOnLine.Src.Pos
                 CierreFtp = "",
                 MontoDivisa = importeDocumentoDivisa,
                 TasaDivisa = factorCambio,
+                //
+                AcumuladoDivisa = isCredito ? 0.0m : importeDocumentoDivisa,
+                CodigoSucursal = _sucursalAsignada.codigo,
+                RestaDivisa = isCredito ? importeDocumentoDivisa : 0.0m,
+                ImporteNetoDivisa = Math.Round(netoMontoDivisa, 2, MidpointRounding.AwayFromZero),
             };
 
             var PMontoEfectivo = 0.0m;
@@ -949,7 +959,19 @@ namespace PosOnLine.Src.Pos
                     CierreFtp = "",
                     MontoDivisa = importeDocumentoDivisa,
                     TasaDivisa = factorCambio,
+                    //
+                    AcumuladoDivisa = 0m,
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                    RestaDivisa = 0m,
+                    ImporteNetoDivisa = 0m,
                 };
+                var _montoRecibidoDivisa=0m;
+                var _cambioDivisa=0m;
+                if (factorCambio >0)
+                {
+                    _montoRecibidoDivisa= Math.Round(montoRecibido / factorCambio, 2, MidpointRounding.AwayFromZero);
+                    _cambioDivisa=Math.Round(montoCambio/ factorCambio, 2, MidpointRounding.AwayFromZero);
+                }
                 var pR = new OOB.Documento.Agregar.Factura.FichaCxCRecibo()
                 {
                     AutoUsuario = Sistema.Usuario.id,
@@ -973,6 +995,11 @@ namespace PosOnLine.Src.Pos
                     Descuentos = 0.0m,
                     Cierre = Sistema.PosEnUso.idAutoArqueoCierre,
                     CierreFtp = "",
+                    //
+                    ImporteDivisa = importeDocumentoDivisa,
+                    MontoRecibidoDivisa = _montoRecibidoDivisa,
+                    CambioDivisa = _cambioDivisa,
+                    CodigoSucursal = _sucursalAsignada.codigo,
                 };
                 var pD = new OOB.Documento.Agregar.Factura.FichaCxCDocumento()
                 {
@@ -984,6 +1011,10 @@ namespace PosOnLine.Src.Pos
                     CastigoP = 0.0m,
                     ComisionP = 0.0m,
                     CierreFtp = "",
+                    //
+                    ImporteDivisa = importeDocumentoDivisa,
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                    Notas = "",
                 };
 
                 var pM = new List<OOB.Documento.Agregar.Factura.FichaCxCMetodoPago>();
@@ -995,6 +1026,8 @@ namespace PosOnLine.Src.Pos
                     var lote = "";
                     var referencia = "";
                     var montoRecibe = it.MontoRecibido;
+                    var _montoRecibeDivisa = 0m;
+                    var _aplicaFactorConversion="";
 
                     switch (it.Modo)
                     {
@@ -1004,7 +1037,14 @@ namespace PosOnLine.Src.Pos
                             descMedioPago = _medioPagoEfectivo.nombre;
                             PMontoEfectivo += montoRecibe;
                             CntEfectivo += 1;
+                            //
+                            if (factorCambio>0)
+                            {
+                                _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                            }
+                            _aplicaFactorConversion="1";
                             break;
+
                         case Pago.Procesar.Enumerados.ModoPago.Divisa:
                             montoRecibe = it.Monto;
                             autoMedioPago = _medioPagoDivisa.id;
@@ -1014,7 +1054,11 @@ namespace PosOnLine.Src.Pos
                             referencia = TasaCambioActual.ToString("n2").Replace(".", "");
                             PMontoDivisa += montoRecibe;
                             CntDivisa = (int)it.Cantidad;
+                            //
+                            _montoRecibeDivisa = it.Cantidad;
+                            _aplicaFactorConversion="0";
                             break;
+
                         case Pago.Procesar.Enumerados.ModoPago.Electronico:
                             if (it.Id != 4) //DEBITO
                             {
@@ -1025,6 +1069,12 @@ namespace PosOnLine.Src.Pos
                                 referencia = it.Referencia;
                                 PMontoElectronico += montoRecibe;
                                 CntElectronico += 1;
+                                //
+                                if (factorCambio>0)
+                                {
+                                    _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                                }
+                                _aplicaFactorConversion="1";
                             }
                             else //OTROS
                             {
@@ -1035,6 +1085,12 @@ namespace PosOnLine.Src.Pos
                                 referencia = it.Referencia;
                                 PMontoOtro += montoRecibe;
                                 CntOtro += 1;
+                                //
+                                if (factorCambio>0)
+                                {
+                                    _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                                }
+                                _aplicaFactorConversion="1";
                             }
                             break;
                     }
@@ -1055,6 +1111,16 @@ namespace PosOnLine.Src.Pos
                         AutoCobrador = _cobradorAsignado.id,
                         Cierre = Sistema.PosEnUso.idAutoArqueoCierre,
                         CierreFtp = "",
+                        //
+                        OpBanco = "",
+                        OpNroCta = "",
+                        OpNroRef = "",
+                        OpFecha = DateTime.Now.Date,
+                        OpDetalle = "",
+                        OpMonto = _montoRecibeDivisa,
+                        OpTasa = factorCambio,
+                        OpAplicaConversion = _aplicaFactorConversion,
+                        CodigoSucursal = _sucursalAsignada.codigo,
                     });
                 }
                 fichaOOB.DocCxCPago.Pago = p;
@@ -1249,6 +1315,11 @@ namespace PosOnLine.Src.Pos
             var subTotalNeto = _gestionItem.Items.Sum(s => s.TotalNeto);
             var subTotal = _gestionItem.Importe - dsctoMonto;
             var netoMonto = _gestionItem.Items.Sum(s => s.VentaNeta);
+            var netoMontoDivisa = 0m;
+            if (_tasaCambioActual > 0) 
+            {
+                netoMontoDivisa = Math.Round(netoMonto / _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
+            }
             var importeDocumento = _gestionProcesarPago.MontoPagar;
             var importeDocumentoDivisa = _gestionProcesarPago.MontoPagarDivisa;
             var documento = "";
@@ -1511,6 +1582,11 @@ namespace PosOnLine.Src.Pos
                 CierreFtp = "",
                 MontoDivisa = importeDocumentoDivisa,
                 TasaDivisa = factorCambio,
+                //
+                AcumuladoDivisa = isCredito ? 0.0m : importeDocumentoDivisa,
+                CodigoSucursal = _sucursalAsignada.codigo,
+                RestaDivisa = isCredito ? importeDocumentoDivisa : 0.0m,
+                ImporteNetoDivisa = Math.Round(netoMontoDivisa, 2, MidpointRounding.AwayFromZero),
             };
 
 
@@ -1557,7 +1633,19 @@ namespace PosOnLine.Src.Pos
                     CierreFtp = "",
                     MontoDivisa = importeDocumentoDivisa,
                     TasaDivisa = factorCambio,
+                    //
+                    AcumuladoDivisa = 0m,
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                    RestaDivisa = 0m,
+                    ImporteNetoDivisa = 0m,
                 };
+                var _montoRecibidoDivisa = 0m;
+                var _cambioDivisa = 0m;
+                if (factorCambio > 0)
+                {
+                    _montoRecibidoDivisa = Math.Round(montoRecibido / factorCambio, 2, MidpointRounding.AwayFromZero);
+                    _cambioDivisa = Math.Round(montoCambio / factorCambio, 2, MidpointRounding.AwayFromZero);
+                }
                 var pR = new OOB.Documento.Agregar.NotaCredito.FichaCxCRecibo()
                 {
                     AutoUsuario = Sistema.Usuario.id,
@@ -1581,6 +1669,11 @@ namespace PosOnLine.Src.Pos
                     Descuentos = 0.0m,
                     Cierre = Sistema.PosEnUso.idAutoArqueoCierre,
                     CierreFtp = "",
+                    //
+                    ImporteDivisa = (-1) * importeDocumentoDivisa,
+                    MontoRecibidoDivisa = (-1) * _montoRecibidoDivisa,
+                    CambioDivisa = _cambioDivisa,
+                    CodigoSucursal = _sucursalAsignada.codigo,
                 };
                 var pD = new OOB.Documento.Agregar.NotaCredito.FichaCxCDocumento()
                 {
@@ -1592,6 +1685,10 @@ namespace PosOnLine.Src.Pos
                     CastigoP = 0.0m,
                     ComisionP = 0.0m,
                     CierreFtp = "",
+                    //
+                    ImporteDivisa = importeDocumentoDivisa,
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                    Notas = "",
                 };
 
                 var pM = new List<OOB.Documento.Agregar.NotaCredito.FichaCxCMetodoPago>();
@@ -1603,6 +1700,8 @@ namespace PosOnLine.Src.Pos
                     var lote = "";
                     var referencia = "";
                     var montoRecibe = (-1) * it.MontoRecibido;
+                    var _montoRecibeDivisa = 0m;
+                    var _aplicaFactorConversion = "";
 
                     switch (it.Modo)
                     {
@@ -1612,7 +1711,14 @@ namespace PosOnLine.Src.Pos
                             descMedioPago = _medioPagoEfectivo.nombre;
                             PMontoEfectivo += montoRecibe;
                             CntEfectivo += 1;
+                            //
+                            if (factorCambio > 0)
+                            {
+                                _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                            }
+                            _aplicaFactorConversion = "1";
                             break;
+
                         case Pago.Procesar.Enumerados.ModoPago.Divisa:
                             montoRecibe = (-1) * it.Monto;
                             autoMedioPago = _medioPagoDivisa.id;
@@ -1622,7 +1728,14 @@ namespace PosOnLine.Src.Pos
                             referencia = TasaCambioActual.ToString("n2").Replace(".", "");
                             PMontoDivisa += montoRecibe;
                             CntDivisa = (int)it.Cantidad;
+                            //
+                            if (factorCambio > 0)
+                            {
+                                _montoRecibeDivisa = (-1) * it.Cantidad;
+                            }
+                            _aplicaFactorConversion = "1";
                             break;
+
                         case Pago.Procesar.Enumerados.ModoPago.Electronico:
                             if (it.Id != 4) //DEBITO
                             {
@@ -1633,6 +1746,12 @@ namespace PosOnLine.Src.Pos
                                 referencia = it.Referencia;
                                 PMontoElectronico += montoRecibe;
                                 CntElectronico += 1;
+                                //
+                                if (factorCambio > 0)
+                                {
+                                    _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                                }
+                                _aplicaFactorConversion = "1";
                             }
                             else //OTROS
                             {
@@ -1643,6 +1762,12 @@ namespace PosOnLine.Src.Pos
                                 referencia = it.Referencia;
                                 PMontoOtro += montoRecibe;
                                 CntOtro += 1;
+                                //
+                                if (factorCambio > 0)
+                                {
+                                    _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                                }
+                                _aplicaFactorConversion = "1";
                             }
                             break;
                     }
@@ -1663,6 +1788,16 @@ namespace PosOnLine.Src.Pos
                         AutoCobrador = _cobradorAsignado.id,
                         Cierre = Sistema.PosEnUso.idAutoArqueoCierre,
                         CierreFtp = "",
+                        //
+                        OpBanco = "",
+                        OpNroCta = "",
+                        OpNroRef = "",
+                        OpFecha = DateTime.Now.Date,
+                        OpDetalle = "",
+                        OpMonto = _montoRecibeDivisa,
+                        OpTasa = factorCambio,
+                        OpAplicaConversion = _aplicaFactorConversion,
+                        CodigoSucursal = _sucursalAsignada.codigo,
                     });
                 }
                 fichaOOB.DocCxCPago.Pago = p;

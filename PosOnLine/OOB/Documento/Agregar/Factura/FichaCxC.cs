@@ -43,6 +43,11 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             CierreFtp = "";
             MontoDivisa = 0m;
             TasaDivisa = 0m;
+            //
+            AcumuladoDivisa = 0m;
+            CodigoSucursal = "";
+            RestaDivisa = 0m;
+            ImporteNetoDivisa = 0m;
         }
 
     }

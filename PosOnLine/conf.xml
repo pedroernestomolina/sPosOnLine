@@ -4,7 +4,7 @@
     <Instancia>localhost</Instancia>
     <Catalogo>mscala</Catalogo>
   </Servidor>
-  <IdEquipo>3</IdEquipo>
+  <IdEquipo>2</IdEquipo>
   <CodigoSucursalActiva>15</CodigoSucursalActiva>
   <codigoDepositoActiva>23</codigoDepositoActiva>
   <SerieFactura>1</SerieFactura>
@@ -15,7 +15,7 @@
   <ModoImpresionNCredito>T80</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
-  <HabilitarAbrirDocPendOtrosUsuarios>Si</HabilitarAbrirDocPendOtrosUsuarios>
+  <HabilitarAbrirDocPendOtrosUsuarios>no</HabilitarAbrirDocPendOtrosUsuarios>
   <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>no</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>
     <Rif>J30821934-7</Rif>

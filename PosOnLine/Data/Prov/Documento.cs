@@ -543,6 +543,11 @@ namespace PosOnLine.Data.Prov
                 Dias = dc.Dias,
                 MontoDivisa = dc.MontoDivisa,
                 TasaDivisa = dc.TasaDivisa,
+                //
+                AcumuladoDivisa = dc.AcumuladoDivisa,
+                CodigoSucursal = dc.CodigoSucursal,
+                RestaDivisa = dc.RestaDivisa,
+                ImporteNetoDivisa = dc.ImporteNetoDivisa,
             };
             fichaDTO.DocCxC = docCxC;
 
@@ -596,6 +601,11 @@ namespace PosOnLine.Data.Prov
                     CierreFtp = xp.CierreFtp,
                     MontoDivisa = dc.MontoDivisa,
                     TasaDivisa = dc.TasaDivisa,
+                    //
+                    AcumuladoDivisa = xp.AcumuladoDivisa,
+                    CodigoSucursal = xp.CodigoSucursal,
+                    RestaDivisa = xp.RestaDivisa,
+                    ImporteNetoDivisa = xp.ImporteNetoDivisa,
                 };
 
                 var xpR = ficha.DocCxCPago.Recibo;
@@ -622,6 +632,11 @@ namespace PosOnLine.Data.Prov
                     Descuentos = xpR.Descuentos,
                     Cierre = xpR.Cierre,
                     CierreFtp = xpR.CierreFtp,
+                    //
+                    ImporteDivisa = xpR.ImporteDivisa,
+                    MontoRecibidoDivisa = xpR.MontoRecibidoDivisa,
+                    CambioDivisa = xpR.CambioDivisa,
+                    CodigoSucursal = xpR.CodigoSucursal,
                 };
 
                 var xpD = ficha.DocCxCPago.Documento;
@@ -635,6 +650,10 @@ namespace PosOnLine.Data.Prov
                     CierreFtp = xpD.CierreFtp,
                     ComisionP = xpD.ComisionP,
                     Dias = xpD.Dias,
+                    //
+                    ImporteDivisa = xpD.ImporteDivisa,
+                    CodigoSucursal = xpD.CodigoSucursal,
+                    Notas = xpD.Notas,
                 };
 
                 var pM = ficha.DocCxCPago.MetodoPago.Select(s =>
@@ -655,6 +674,16 @@ namespace PosOnLine.Data.Prov
                         CierreFtp = s.CierreFtp,
                         Lote = s.Lote,
                         Referencia = s.Referencia,
+                        //
+                        OpBanco = s.OpBanco,
+                        OpNroCta = s.OpNroCta,
+                        OpNroRef = s.OpNroRef,
+                        OpFecha = s.OpFecha,
+                        OpDetalle = s.OpDetalle,
+                        OpMonto = s.OpMonto,
+                        OpTasa = s.OpTasa,
+                        OpAplicaConversion = s.OpAplicaConversion,
+                        CodigoSucursal = s.CodigoSucursal,
                     };
                     return nr;
                 }).ToList();
@@ -1006,6 +1035,11 @@ namespace PosOnLine.Data.Prov
                 Dias = dc.Dias,
                 MontoDivisa = dc.MontoDivisa,
                 TasaDivisa = dc.TasaDivisa,
+                //
+                AcumuladoDivisa = dc.AcumuladoDivisa,
+                CodigoSucursal = dc.CodigoSucursal,
+                RestaDivisa = dc.RestaDivisa,
+                ImporteNetoDivisa = dc.ImporteNetoDivisa,
             };
             fichaDTO.DocCxC = docCxC;
 
@@ -1047,6 +1081,11 @@ namespace PosOnLine.Data.Prov
                     CierreFtp = xp.CierreFtp,
                     MontoDivisa = dc.MontoDivisa,
                     TasaDivisa = dc.TasaDivisa,
+                    //
+                    AcumuladoDivisa = xp.AcumuladoDivisa,
+                    CodigoSucursal = xp.CodigoSucursal,
+                    RestaDivisa = xp.RestaDivisa,
+                    ImporteNetoDivisa = xp.ImporteNetoDivisa,
                 };
 
                 var xpR = ficha.DocCxCPago.Recibo;
@@ -1073,6 +1112,11 @@ namespace PosOnLine.Data.Prov
                     Descuentos = xpR.Descuentos,
                     Cierre = xpR.Cierre,
                     CierreFtp = xpR.CierreFtp,
+                    //
+                    ImporteDivisa = xpR.ImporteDivisa,
+                    MontoRecibidoDivisa = xpR.MontoRecibidoDivisa,
+                    CambioDivisa = xpR.CambioDivisa,
+                    CodigoSucursal = xpR.CodigoSucursal,
                 };
 
                 var xpD = ficha.DocCxCPago.Documento;
@@ -1086,6 +1130,10 @@ namespace PosOnLine.Data.Prov
                     CierreFtp = xpD.CierreFtp,
                     ComisionP = xpD.ComisionP,
                     Dias = xpD.Dias,
+                    //
+                    ImporteDivisa = xpD.ImporteDivisa,
+                    CodigoSucursal = xpD.CodigoSucursal,
+                    Notas = xpD.Notas,
                 };
 
                 var pM = ficha.DocCxCPago.MetodoPago.Select(s =>
@@ -1106,6 +1154,16 @@ namespace PosOnLine.Data.Prov
                         CierreFtp = s.CierreFtp,
                         Lote = s.Lote,
                         Referencia = s.Referencia,
+                        //
+                        OpBanco = s.OpBanco,
+                        OpNroCta = s.OpNroCta,
+                        OpNroRef = s.OpNroRef,
+                        OpFecha = s.OpFecha,
+                        OpDetalle = s.OpDetalle,
+                        OpMonto = s.OpMonto,
+                        OpTasa = s.OpTasa,
+                        OpAplicaConversion = s.OpAplicaConversion,
+                        CodigoSucursal = s.CodigoSucursal,
                     };
                     return nr;
                 }).ToList();
