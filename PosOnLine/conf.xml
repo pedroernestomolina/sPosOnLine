@@ -22,4 +22,7 @@
     <Nombre>CORPORACION MUNDO SCALA, CA</Nombre>
     <Direccion>VALENCIA, MERCADO MAYORISTA, LOCAL 21, SECTOR TOCUYITO, MERCADO DE MAYORISTA </Direccion>
   </DatosNegocioTicket>
+  <VentaAdm>
+    <Activar>Si</Activar>
+  </VentaAdm>
 </Configuracion>
