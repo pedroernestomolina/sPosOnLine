@@ -177,12 +177,15 @@
     <Compile Include="OOB\Cliente\Lista\Filtro.cs" />
     <Compile Include="OOB\Concepto\Entidad\Ficha.cs" />
     <Compile Include="OOB\Configuracion\Actualizar\Ficha.cs" />
+    <Compile Include="OOB\Configuracion\BusquedaCliente\Ficha.cs" />
     <Compile Include="OOB\Configuracion\CambioSucursalDeposito\Ficha.cs" />
     <Compile Include="OOB\Configuracion\Entidad\Enumerados.cs" />
     <Compile Include="OOB\Configuracion\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Configuracion\Enumerados.cs" />
     <Compile Include="OOB\Deposito\Entidad\Ficha.cs" />
     <Compile Include="OOB\Deposito\Lista\Filtro.cs" />
     <Compile Include="OOB\Documento\Agregar\BaseClienteSaldo.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseMedida.cs" />
     <Compile Include="OOB\Documento\Agregar\BasePagoMovil.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\Ficha.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaClienteSaldo.cs" />
@@ -194,6 +197,7 @@
     <Compile Include="OOB\Documento\Agregar\Factura\FichaDeposito.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaDetalle.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaKardex.cs" />
+    <Compile Include="OOB\Documento\Agregar\Factura\FichaMedida.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPagoMovil.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPosResumen.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPosVenta.cs" />
@@ -242,6 +246,7 @@
     <Compile Include="OOB\Documento\Anular\Resumen.cs" />
     <Compile Include="OOB\Documento\Entidad\Ficha.cs" />
     <Compile Include="OOB\Documento\Entidad\FichaItem.cs" />
+    <Compile Include="OOB\Documento\Entidad\FichaMedida.cs" />
     <Compile Include="OOB\Documento\Entidad\FichaMetodoPago.cs" />
     <Compile Include="OOB\Documento\Lista\Ficha.cs" />
     <Compile Include="OOB\Documento\Lista\Filtro.cs" />
@@ -354,6 +359,39 @@
       <DependentUpon>CierreFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Cierre\Gestion.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.Designer.cs">
+      <DependentUpon>AgregarEditarFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\Agregar\Class1.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\Agregar\data.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\Agregar\Gestion.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\Editar\data.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\Editar\Gestion.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\Gestion.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\IGestion.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\Buscar\BuscarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\VentaAdm\ClienteAdm\Buscar\BuscarFrm.designer.cs">
+      <DependentUpon>BuscarFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\VentaAdm\ClienteAdm\Buscar\Buscar.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\Buscar\data.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\Buscar\Lista.cs" />
+    <Compile Include="Src\VentaAdm\ClienteAdm\Buscar\IBuscar.cs" />
+    <Compile Include="Src\VentaAdm\DatosDoc\CargarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\VentaAdm\DatosDoc\CargarFrm.designer.cs">
+      <DependentUpon>CargarFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\VentaAdm\DatosDoc\Carga.cs" />
+    <Compile Include="Src\VentaAdm\DatosDoc\dataConf.cs" />
+    <Compile Include="Src\VentaAdm\DatosDoc\ICarga.cs" />
+    <Compile Include="Src\VentaAdm\Gestion.cs" />
     <Compile Include="Src\Cliente\Buscar\BuscarAgregarFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -478,6 +516,7 @@
     <Compile Include="Src\Pendiente\data.cs" />
     <Compile Include="Src\Pendiente\Gestion.cs" />
     <Compile Include="Src\Pos\Gestion.cs" />
+    <Compile Include="Src\Pos\ICliente.cs" />
     <Compile Include="Src\Pos\IMultiplicar.cs" />
     <Compile Include="Src\Pos\PosFrm.cs">
       <SubType>Form</SubType>
@@ -578,6 +617,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Cierre\CierreFrm.resx">
       <DependentUpon>CierreFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.resx">
+      <DependentUpon>AgregarEditarFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\VentaAdm\ClienteAdm\Buscar\BuscarFrm.resx">
+      <DependentUpon>BuscarFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\VentaAdm\DatosDoc\CargarFrm.resx">
+      <DependentUpon>CargarFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Cliente\Buscar\BuscarAgregarFrm.resx">
       <DependentUpon>BuscarAgregarFrm.cs</DependentUpon>
@@ -705,6 +753,7 @@
     <None Include="Resources\administrador_2_48.png" />
     <None Include="Resources\bt_editar.png" />
     <None Include="Resources\bt_editar_2.png" />
+    <None Include="Resources\bt_buscar.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -714,6 +763,7 @@
     <Content Include="Src\Imagenes\bt_anular.png" />
     <Content Include="Src\Imagenes\bt_bajar.png" />
     <Content Include="Src\Imagenes\bt_borrar_todo.png" />
+    <Content Include="Src\Imagenes\bt_buscar.png" />
     <Content Include="Src\Imagenes\bt_cajero.png" />
     <Content Include="Src\Imagenes\bt_calculadora.png" />
     <Content Include="Src\Imagenes\bt_cesta.png" />

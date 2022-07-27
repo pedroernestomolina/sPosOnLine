@@ -2,9 +2,9 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>mscala</Catalogo>
+    <Catalogo>pita</Catalogo>
   </Servidor>
-  <IdEquipo>2</IdEquipo>
+  <IdEquipo>6</IdEquipo>
   <CodigoSucursalActiva>15</CodigoSucursalActiva>
   <codigoDepositoActiva>23</codigoDepositoActiva>
   <SerieFactura>1</SerieFactura>
@@ -22,7 +22,7 @@
     <Nombre>CORPORACION MUNDO SCALA, CA</Nombre>
     <Direccion>VALENCIA, MERCADO MAYORISTA, LOCAL 21, SECTOR TOCUYITO, MERCADO DE MAYORISTA </Direccion>
   </DatosNegocioTicket>
-  <VentaAdm>
+  <Venta_Adm>
     <Activar>Si</Activar>
-  </VentaAdm>
+  </Venta_Adm>
 </Configuracion>

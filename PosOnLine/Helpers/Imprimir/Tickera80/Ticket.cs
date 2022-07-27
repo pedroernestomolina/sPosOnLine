@@ -271,6 +271,11 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 public string monto { get; set; }
             }
 
+            public class MedidaEmp 
+            {
+                public string nombre { get; set; }
+            }
+
             public string nombre { get; set; }
             public string aplicaA { get; set; }
             public string numero { get; set; }
@@ -290,6 +295,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             public string totalDivisa { get; set; }
             public List<Item> Items { get; set; }
             public List<MedioPago> MediosPago { get; set; }
+            public List<MedidaEmp > MedidasEmp { get; set; }
 
 
             public string descuento
@@ -334,6 +340,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 HayCargo = false;
                 Items = new List<Item>();
                 MediosPago = new List<MedioPago>();
+                MedidasEmp = new List<MedidaEmp>();
                 ImageQR = null;
             }
 
@@ -519,7 +526,15 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             }
             eg.Graphics.DrawString("CAMBIO", fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.cambio, fr, Brushes.Black, dder2(df.cambio,fr), l);
+            l += 15;
+
+            eg.Graphics.DrawString("EMPAQUE              CANT      PESO     VOLUMEN", fr, Brushes.Black, 0, l);
             l += 10;
+            foreach (var mp in df.MedidasEmp)
+            {
+                eg.Graphics.DrawString(mp.nombre, fr, Brushes.Black, 0, l);
+                l += 10;
+            }
 
             if (df.ImageQR != null) 
             {

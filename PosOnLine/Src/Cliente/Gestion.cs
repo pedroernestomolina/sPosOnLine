@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PosOnLine.Src.Cliente
 {
     
-    public class Gestion
+    public class Gestion: Pos.ICliente
     {
 
 
@@ -18,7 +18,6 @@ namespace PosOnLine.Src.Cliente
 
         public bool IsClienteOk { get { return _isClienteOk; } }
         public OOB.Cliente.Entidad.Ficha Cliente { get { return _gestionBuscar.Cliente; } }
-        //public string ClienteData { get { return _gestionBuscar.Cliente != null ? _gestionBuscar.Cliente.Data : ""; } }
         public string ClienteData { get { return _gestionBuscar.GetClienteData; } }
 
 
@@ -52,6 +51,25 @@ namespace PosOnLine.Src.Cliente
         {
             _gestionBuscar.CargarCliente(autoId);
             _isClienteOk = true;
+        }
+
+
+
+        //
+        public string GetSucursalId { get { return ""; } }
+        public string GetDepositoId { get { return ""; } }
+        public string GetVendedorId { get { return ""; } }
+        public void setHabilitarBusqueda(bool _habilitar)
+        {
+        }
+        public void setVendedor(string id)
+        {
+        }
+        public void setSucursal(string id)
+        {
+        }
+        public void setDeposito(string id)
+        {
         }
 
     }

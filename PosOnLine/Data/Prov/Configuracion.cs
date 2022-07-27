@@ -13,7 +13,8 @@ namespace PosOnLine.Data.Prov
     public partial class DataPrv: IData
     {
 
-        public OOB.Resultado.FichaEntidad<OOB.Configuracion.Entidad.Ficha> Configuracion_Pos_GetFicha()
+        public OOB.Resultado.FichaEntidad<OOB.Configuracion.Entidad.Ficha> 
+            Configuracion_Pos_GetFicha()
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Configuracion.Entidad.Ficha>();
 
@@ -63,8 +64,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<decimal> Configuracion_FactorDivisa()
+        public OOB.Resultado.FichaEntidad<decimal> 
+            Configuracion_FactorDivisa()
         {
             var result = new OOB.Resultado.FichaEntidad<decimal>();
 
@@ -89,8 +90,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-        
-        public OOB.Resultado.Ficha Configuracion_Pos_Actualizar(OOB.Configuracion.Actualizar.Ficha ficha)
+        public OOB.Resultado.Ficha 
+            Configuracion_Pos_Actualizar(OOB.Configuracion.Actualizar.Ficha ficha)
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -134,8 +135,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Ficha Configuracion_Pos_CambioDepositoSucursalFrio()
+        public OOB.Resultado.Ficha 
+            Configuracion_Pos_CambioDepositoSucursalFrio()
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -149,8 +150,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Ficha Configuracion_Pos_CambioDepositoSucursalViveres()
+        public OOB.Resultado.Ficha 
+            Configuracion_Pos_CambioDepositoSucursalViveres()
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -164,8 +165,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Ficha Configuracion_Pos_CambioSucursalDeposito(OOB.Configuracion.CambioSucursalDeposito.Ficha ficha)
+        public OOB.Resultado.Ficha 
+            Configuracion_Pos_CambioSucursalDeposito(OOB.Configuracion.CambioSucursalDeposito.Ficha ficha)
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -184,8 +185,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<bool> Configuracion_Habilitar_Precio5_VentaMayor()
+        public OOB.Resultado.FichaEntidad<bool> 
+            Configuracion_Habilitar_Precio5_VentaMayor()
         {
             var result = new OOB.Resultado.FichaEntidad<bool>();
 
@@ -204,6 +205,27 @@ namespace PosOnLine.Data.Prov
             result.Entidad = rt;
 
             return result;
+        }
+        public OOB.Resultado.FichaEntidad<OOB.Configuracion.BusquedaCliente.Ficha> 
+            Configuracion_BusquedaCliente()
+        {
+            var rt = new OOB.Resultado.FichaEntidad<OOB.Configuracion.BusquedaCliente.Ficha>();
+
+            var r01 = MyData.ConfiguracionAdm_BusquedaCliente();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                rt.Mensaje = r01.Mensaje;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return rt;
+            }
+
+            var nr = new OOB.Configuracion.BusquedaCliente.Ficha()
+            {
+                PrefUsuario = r01.Entidad.Usuario,
+            };
+            rt.Entidad = nr;
+
+            return rt;
         }
 
     }

@@ -102,6 +102,15 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 _tick.Documento.MediosPago.Add(it);
             }
 
+            foreach (var r in _ds.medidaEmp)
+            {
+                var it = new Ticket.DatosDocumento.MedidaEmp()
+                {
+                    nombre= r.desc.PadRight(20,' ')+ ", "+ r.cant.ToString("n0").PadLeft(10,' ')+", "+r.peso.ToString("n3").PadLeft(10,' ')+", "+r.volumen.ToString("n3").PadLeft(10,' '),
+                };
+                _tick.Documento.MedidasEmp.Add(it);
+            }
+
             _tick.Imrpimir();
         }
 

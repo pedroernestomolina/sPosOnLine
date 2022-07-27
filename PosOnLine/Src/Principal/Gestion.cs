@@ -20,6 +20,7 @@ namespace PosOnLine.Src.Principal
         private Cierre.Gestion _gestionCierre;
         private Configuracion.Gestion _gestionCnf;
         private Configuracion.SucursalDeposito.Gestion _gestionCnfSucDeposito;
+        private Pos.ICliente _gCliente;
 
 
         public string BD_Ruta { get { return Sistema.Instancia; } }
@@ -231,7 +232,16 @@ namespace PosOnLine.Src.Principal
 
             if (Sistema.PosEnUso.IsEnUso) 
             {
+                if (Sistema.Activar_VentasAdm)
+                {
+                    _gCliente = new VentaAdm.Gestion();
+                }
+                else
+                {
+                    _gCliente = new Cliente.Gestion();
+                }
                 frm.setVisibilidad(false);
+                _gestionPos.setCtrlCliente(_gCliente);
                 _gestionPos.Inicializa();
                 _gestionPos.Inicia();
                 frm.setVisibilidad(true);

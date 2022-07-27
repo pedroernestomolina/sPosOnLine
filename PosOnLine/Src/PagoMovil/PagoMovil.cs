@@ -161,6 +161,7 @@ namespace PosOnLine.Src.PagoMovil
             return new data()
             {
                 autoAgencia = _gAgencia.GetId,
+                nombreAgencia = _gAgencia.Item.desc,
                 ciRif = _ciRif,
                 nombre = _nombre,
                 telefono = _telefono,

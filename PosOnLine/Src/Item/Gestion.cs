@@ -579,6 +579,13 @@ namespace PosOnLine.Src.Item
             }
 
             cnt *= cant;
+            var _fPeso = 0m;
+            var _fVolumen = 0m;
+            if (empaqueCont == prd.ContenidoEmpaqueCompra)
+            {
+                _fPeso = prd.FPeso;
+                _fVolumen = prd.FVolumen;
+            }
             var ficha = new OOB.Venta.Item.Registrar.Ficha()
             {
                 validarExistencia = _validarExistencia,
@@ -614,6 +621,8 @@ namespace PosOnLine.Src.Item
                     tasaIva = prd.TasaImpuesto,
                     tipoIva = "",
                     autoDeposito = _autoDeposito,
+                    fPeso= _fPeso,
+                    fVolumen=_fVolumen,
                 },
             };
             var r01 = Sistema.MyData.Venta_Item_Registrar(ficha);
@@ -1014,7 +1023,7 @@ namespace PosOnLine.Src.Item
             }
         }
 
-        public void DejarCtaPendiente(OOB.Cliente.Entidad.Ficha cliente)
+        public void DejarCtaPendiente(OOB.Cliente.Entidad.Ficha cliente, string _idSucursal, string _idDeposito, string _idVendedor)
         {
             _dejarPendienteIsOk = false;
             if (_gestionPendiente.DejarPendiente()) 
@@ -1028,6 +1037,9 @@ namespace PosOnLine.Src.Item
                     montoDivisa = ImporteDivisa,
                     nombreCliente = cliente.Nombre,
                     renglones = CantRenglones,
+                    idSucursal = _idSucursal,
+                    idDeposito = _idDeposito,
+                    idVendedor = _idVendedor,
                 };
                 agregar.items = _blitems.Select(s =>
                 {

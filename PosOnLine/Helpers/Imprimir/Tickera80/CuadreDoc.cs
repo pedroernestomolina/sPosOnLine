@@ -81,7 +81,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _lista.Add("Devoluc   : " + _ds.cntNCR.ToString("n0"));
             _lista.Add("Monto     : " + _ds.montoNCR.ToString("n2").PadLeft(18, ' '));
             _lista.Add("A Credito : " + _ds.cntDocCredito.ToString("n0"));
-            _lista.Add("Monto     : " + _ds.credito_s.ToString("n2").PadLeft(18, ' '));
+            _lista.Add("Monto x   : ");
+            _lista.Add("Cambio    : " + _ds.cambio_s.ToString("n2").PadLeft(18, ' '));
+            _lista.Add("Monto     : " + (-1*_ds.credito_s).ToString("n2").PadLeft(18, ' '));
             _lista.Add("TOTAL     :");
             _lista.Add("Monto     : " + _ds.cuadre_s.ToString("n2").PadLeft(18, ' '));
 

@@ -212,6 +212,19 @@ namespace PosOnLine.Helpers
                                     }
                                 }
 
+                                if (nv.LocalName.ToUpper().Trim() == "VENTA_ADM") 
+                                {
+                                    foreach (XmlNode mi in nv.ChildNodes)
+                                    {
+                                        if (mi.LocalName.Trim().ToUpper() == "ACTIVAR")
+                                        {
+                                            if (mi.InnerText.Trim().ToUpper() == "SI") 
+                                            {
+                                                Sistema.Activar_VentasAdm = true;
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

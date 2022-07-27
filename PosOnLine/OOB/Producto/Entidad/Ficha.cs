@@ -300,7 +300,21 @@ namespace PosOnLine.OOB.Producto.Entidad
             decimalesDsp_2 = "";
             decimalesDsp_3 = "";
             decimalesDsp_4 = "";
+            //
+            FPeso = 0m;
+            FAlto = 0m;
+            FAncho = 0m;
+            FLargo = 0m;
+            FVolumen = 0m;
         }
+
+
+        //
+        public decimal FPeso { get; set; }
+        public decimal FAlto { get; set; }
+        public decimal FLargo { get; set; }
+        public decimal FAncho { get; set; }
+        public decimal FVolumen { get; set; }
 
     }
 

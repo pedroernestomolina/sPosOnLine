@@ -252,6 +252,17 @@ namespace PosOnLine.Data.Prov
                     };
                     return xr;
                 }).ToList(),
+                medidas =  s.medidas.Select(ss =>
+                {
+                    var mnr = new OOB.Documento.Entidad.FichaMedida()
+                    {
+                        cant = ss.cant,
+                        desc = ss.nombre,
+                        peso = ss.peso,
+                        volumen = ss.volumen,
+                    };
+                    return mnr;
+                }).ToList(),
             };
             result.Entidad = nr;
 
@@ -497,6 +508,7 @@ namespace PosOnLine.Data.Prov
                     CodigoSucursal = s.CodigoSucursal,
                     NombreConcepto = s.NombreConcepto,
                     NombreDeposito = s.NombreDeposito,
+                    FactorCambio= s.FactorCambio,
                 };
                 return nr;
             }).ToList();
@@ -751,8 +763,33 @@ namespace PosOnLine.Data.Prov
                     monto = pm.monto,
                     nombre = pm.nombre,
                     telefono = pm.telefono,
+                    //
+                    codigoDocumento = pm.codigoDocumento,
+                    tipoDocumento = pm.tipoDocumento,
+                    montoDocumento = pm.montoDocumento,
+                    clienteDirFiscal = pm.clienteDirFiscal,
+                    clienteNombre = pm.clienteNombre,
+                    clienteRif = pm.clienteRif,
+                    codigoSucursal = pm.codigoSucursal,
+                    nombreAgencia = pm.nombreAgencia,
                 };
             }
+            var medidas = new List<DtoLibPos.Documento.Agregar.Factura.FichaMedida>();
+            if (ficha.Medidas != null)
+            {
+                medidas = ficha.Medidas.Select(s =>
+                {
+                    var nr = new DtoLibPos.Documento.Agregar.Factura.FichaMedida()
+                    {
+                        descMedida = s.descMedida,
+                        cnt = s.cnt,
+                        peso = s.peso,
+                        volumen = s.volumen,
+                    };
+                    return nr;
+                }).ToList();
+            }
+            fichaDTO.Medidas = medidas;
 
             var r01 = MyData.Documento_Agregar_Factura(fichaDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
@@ -989,6 +1026,7 @@ namespace PosOnLine.Data.Prov
                     CodigoSucursal = s.CodigoSucursal,
                     NombreConcepto = s.NombreConcepto,
                     NombreDeposito = s.NombreDeposito,
+                    FactorCambio = s.FactorCambio,
                 };
                 return nr;
             }).ToList();

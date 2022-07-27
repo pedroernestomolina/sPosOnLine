@@ -170,10 +170,29 @@ namespace PosOnLine.Helpers.Imprimir
             }
         }
 
+        public class MedidaEmp 
+        {
+            public string desc { get; set; }
+            public decimal cant { get; set; }
+            public decimal peso { get; set; }
+            public decimal volumen { get; set; }
+
+
+            public MedidaEmp() 
+            {
+                desc = "";
+                cant = 0m;
+                peso = 0m;
+                volumen = 0m;
+            }
+        }
+
+
         public Negocio negocio { get; set; }
         public Encabezado encabezado { get; set; }
         public List<Item> item { get; set; }
         public List<MetodoPago> metodoPago { get; set; }
+        public List<MedidaEmp> medidaEmp { get; set; }
 
     }
 

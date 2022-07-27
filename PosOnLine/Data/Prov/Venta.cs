@@ -52,6 +52,8 @@ namespace PosOnLine.Data.Prov
                     tasaIva = ficha.item.tasaIva,
                     tipoIva = ficha.item.tipoIva,
                     autoDeposito=ficha.item.autoDeposito,
+                    fPeso=ficha.item.fPeso,
+                    fVolumen=ficha.item.fVolumen,
                 },
             };
             var r01 = MyData.Venta_Item_Registrar (fichaDTO);
@@ -105,6 +107,8 @@ namespace PosOnLine.Data.Prov
                 tasaIva = s.tasaIva,
                 tipoIva = s.tipoIva,
                 autoDeposito = s.autoDeposito,
+                peso=s.fPeso,
+                volumen=s.fVolumen,
             };
             result.Entidad=nr;
 
@@ -134,7 +138,7 @@ namespace PosOnLine.Data.Prov
                 {
                     lst = r01.Lista.Select(s =>
                     {
-                        var nr=new OOB.Venta.Item.Entidad.Ficha()
+                        var nr = new OOB.Venta.Item.Entidad.Ficha()
                         {
                             autoDepartamento = s.autoDepartamento,
                             autoGrupo = s.autoGrupo,
@@ -160,7 +164,9 @@ namespace PosOnLine.Data.Prov
                             tarifaPrecio = s.tarifaPrecio,
                             tasaIva = s.tasaIva,
                             tipoIva = s.tipoIva,
-                            autoDeposito=s.autoDeposito,
+                            autoDeposito = s.autoDeposito,
+                            peso = s.fPeso,
+                            volumen = s.fVolumen
                         };
                         return nr;
                     }).ToList();

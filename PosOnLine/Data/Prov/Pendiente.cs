@@ -12,7 +12,8 @@ namespace PosOnLine.Data.Prov
     public partial class DataPrv: IData
     {
 
-        public OOB.Resultado.Ficha Pendiente_DejarCta(OOB.Pendiente.DejarCta.Ficha ficha)
+        public OOB.Resultado.Ficha 
+            Pendiente_DejarCta(OOB.Pendiente.DejarCta.Ficha ficha)
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -25,6 +26,9 @@ namespace PosOnLine.Data.Prov
                 montoDivisa = ficha.montoDivisa,
                 nombreCliente = ficha.nombreCliente,
                 renglones = ficha.renglones,
+                idSucursal= ficha.idSucursal,
+                idDeposito=ficha.idDeposito,
+                idVendedor=ficha.idVendedor,
                 items = ficha.items.Select(s => 
                 {
                     var nr= new DtoLibPos.Pendiente.Dejar.FichaItem()
@@ -44,8 +48,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<int> Pendiente_CtasPendientes(int idOperador)
+        public OOB.Resultado.FichaEntidad<int> 
+            Pendiente_CtasPendientes(int idOperador)
         {
             var result = new OOB.Resultado.FichaEntidad<int>();
 
@@ -64,8 +68,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Pendiente.Lista.Ficha> Pendiente_Lista(OOB.Pendiente.Lista.Filtro filtro)
+        public OOB.Resultado.Lista<OOB.Pendiente.Lista.Ficha> 
+            Pendiente_Lista(OOB.Pendiente.Lista.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Pendiente.Lista.Ficha>();
 
@@ -97,8 +101,12 @@ namespace PosOnLine.Data.Prov
                             montoDivisa = s.montoDivisa,
                             nombreCliente = s.nombreCliente,
                             renglones = s.renglones,
-                            fecha=s.fecha,
-                            hora=s.hora,
+                            fecha = s.fecha,
+                            hora = s.hora,
+                            //
+                            idSucursal = s.idSucursal,
+                            idDeposito = s.idDeposito,
+                            idVendedor = s.idVendedor,
                         };
                         return nr;
                     }).ToList();
@@ -108,8 +116,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Ficha Pendiente_AbrirCta(int idCta, int idOperador)
+        public OOB.Resultado.Ficha 
+            Pendiente_AbrirCta(int idCta, int idOperador)
         {
             var result = new OOB.Resultado.Ficha();
 

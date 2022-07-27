@@ -78,6 +78,10 @@ namespace PosOnLine
         public static string DatosNegociTicket_Rif;
         public static string DatosNegociTicket_Nombre;
         public static string DatosNegociTicket_Direccion;
+
+        //PARA OPCION VENTAS ADMINITRATIVA
+        public static bool Activar_VentasAdm;
+
     }
 
 }

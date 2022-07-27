@@ -131,13 +131,13 @@ namespace PosOnLine.Data.Prov
                 decimales_4 = ent.decimales_4,
                 decimales_5 = ent.decimales_5,
                 //
-                CostoDivisa=ent.CostoDivisa,
-                ContenidoEmpaqueCompra=ent.ContenidoEmpaqueCompra,
+                CostoDivisa = ent.CostoDivisa,
+                ContenidoEmpaqueCompra = ent.ContenidoEmpaqueCompra,
                 Costo = ent.Costo,
                 CostoPromedio = ent.CostoPromedio,
                 //
-                AutoMedidaEmpaqueMay_1=ent.AutoMedidaEmpaqueMay_1,
-                AutoMedidaEmpaqueMay_2=ent.AutoMedidaEmpaqueMay_2,
+                AutoMedidaEmpaqueMay_1 = ent.AutoMedidaEmpaqueMay_1,
+                AutoMedidaEmpaqueMay_2 = ent.AutoMedidaEmpaqueMay_2,
                 AutoMedidaEmpaqueMay_3 = ent.AutoMedidaEmpaqueMay_3,
                 AutoMedidaEmpaqueMay_4 = ent.AutoMedidaEmpaqueMay_4,
                 contenidoMay_1 = ent.contenidoMay_1,
@@ -185,6 +185,12 @@ namespace PosOnLine.Data.Prov
                 pnetoDsp_2 = ent.pnetoDsp_2,
                 pnetoDsp_3 = ent.pnetoDsp_3,
                 pnetoDsp_4 = ent.pnetoDsp_4,
+                //
+                FPeso = ent.FPeso,
+                FAlto = ent.FAlto,
+                FLargo = ent.FLargo,
+                FAncho = ent.FAncho,
+                FVolumen = ent.FVolumen,
             };
             result.Entidad = nr;
 

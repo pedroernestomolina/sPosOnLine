@@ -45,7 +45,7 @@ namespace PosOnLine.Src.Pos
         private bool _permitirBusquedaPorDescripcion;
         private Producto.Lista.Gestion _gestionListar;
         private Producto.Buscar.Gestion _gestionBuscar;
-        private Cliente.Gestion _gestionCliente;
+        private ICliente _gestionCliente;
         private Consultor.Gestion _gestionConsultor;
         private Item.Gestion _gestionItem;
         private Multiplicar.Gestion _gestionMultiplicar;
@@ -104,7 +104,6 @@ namespace PosOnLine.Src.Pos
             _gestionBuscar = new Producto.Buscar.Gestion();
             _gestionBuscar.setGestionLista(_gestionListar);
             _gestionBuscar.setGestionPrecioMayor(_gestionMayor);
-            _gestionCliente = new Cliente.Gestion();
             _gestionConsultor = new Consultor.Gestion();
             _gestionConsultor.setGestionBuscar(_gestionBuscar);
             _gestionMultiplicar = new Multiplicar.Gestion();
@@ -116,7 +115,6 @@ namespace PosOnLine.Src.Pos
             _gestionProcesarPago = new Pago.Procesar.Gestion();
             _gCambioPrecio = new CambioPrecio.CambioPrecio();
             _gSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
-
             //
             _gMultiplicar = _gestionMultiplicar;
         }
@@ -368,6 +366,16 @@ namespace PosOnLine.Src.Pos
             if (!IsNotaCredito)
             {
                 //_gestionCliente.Inicializa();
+
+                if (Sistema.Activar_VentasAdm)
+                {
+                    var _habilitar = !(_gestionItem.Items.Count() > 0);
+                    if (_gestionCliente.Cliente == null)
+                    {
+                        _habilitar = true;
+                    }
+                    _gestionCliente.setHabilitarBusqueda(_habilitar);
+                }
                 _gestionCliente.Inicia();
                 _gestionItem.setItemActualInicializar();
             }
@@ -392,6 +400,14 @@ namespace PosOnLine.Src.Pos
         public void BuscarProducto(string cadena)
         {
             if (cadena == "") { return; }
+
+            if (Sistema.Activar_VentasAdm)
+                if (!_gestionCliente.IsClienteOk) 
+                {
+                    Helpers.Msg.Alerta("POR FAVOR, DEBES PRIMERO SELECCIONAR UN CLIENTE PRIMERO");
+                    return;
+                }
+
             if (_precioManejar == "") //MODO LIBRE, debe indicar un cliente, para mostrar precio
             {
                 if (!_gestionCliente.IsClienteOk)
@@ -488,7 +504,16 @@ namespace PosOnLine.Src.Pos
                 {
                     if (PassWIsOk(Sistema.FuncionPosTeclaPendiente))
                     {
-                        _gestionItem.DejarCtaPendiente(_gestionCliente.Cliente);
+                        var _idSucursal = Sistema.ConfiguracionActual.idSucursal;
+                        var _idDeposito = Sistema.ConfiguracionActual.idDeposito;
+                        var _idVendedor= Sistema.ConfiguracionActual.idVendedor;
+                        if (Sistema.Activar_VentasAdm) 
+                        {
+                            _idSucursal = _gestionCliente.GetSucursalId;
+                            _idDeposito= _gestionCliente.GetDepositoId;
+                            _idVendedor = _gestionCliente.GetVendedorId;
+                        }
+                        _gestionItem.DejarCtaPendiente(_gestionCliente.Cliente, _idSucursal, _idDeposito, _idVendedor);
                         if (_gestionItem.DejarCtaPendienteIsOk)
                         {
                             _gestionCliente.Limpiar();
@@ -516,6 +541,9 @@ namespace PosOnLine.Src.Pos
                             if (_gestionPendiente.CtaPediente.Ficha != null)
                             {
                                 _gestionCliente.CargarCliente(_gestionPendiente.CtaPediente.Ficha.idCliente);
+                                _gestionCliente.setSucursal(_gestionPendiente.CtaPediente.Ficha.idSucursal);
+                                _gestionCliente.setDeposito(_gestionPendiente.CtaPediente.Ficha.idDeposito);
+                                _gestionCliente.setVendedor(_gestionPendiente.CtaPediente.Ficha.idVendedor);
                             }
                         }
                     }
@@ -622,6 +650,20 @@ namespace PosOnLine.Src.Pos
 
         private void ProcesarFactura()
         {
+
+            if (Sistema.Activar_VentasAdm)
+            {
+                
+                var t01 = Sistema.MyData.Vendedor_GetFichaById(_gestionCliente.GetVendedorId);
+                if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(t01.Mensaje);
+                    return;
+                }
+                _vendedorAsignado = t01.Entidad;
+            }
+
+
             _isTickeraOk = false;
             _ImprimirDoc = null;
 
@@ -755,6 +797,19 @@ namespace PosOnLine.Src.Pos
                 CierreFtp = "",
                 Prefijo = _sucursalAsignada.codigo + Sistema.IdEquipo,
             };
+
+            var medidas = _gestionItem.Items.
+                            GroupBy(g => g.Ficha.empaqueDescripcion).
+                            Select(s => new OOB.Documento.Agregar.Factura.FichaMedida()
+                            {
+                                descMedida = s.Key,
+                                cnt = s.ToList().Sum(ss => ss.Cantidad),
+                                peso = s.ToList().Sum(ss => ss.Cantidad * ss.Ficha.peso),
+                                volumen = s.ToList().Sum(ss => ss.Cantidad * ss.Ficha.volumen),
+                            }).
+                            ToList();
+            fichaOOB.Medidas = medidas;
+            
             var detalles = _gestionItem.Items.Select(s =>
             {
                 var nr = new OOB.Documento.Agregar.Factura.FichaDetalle()
@@ -854,10 +909,10 @@ namespace PosOnLine.Src.Pos
                     Cantidad = s.Cantidad,
                     CantidadBono = 0.0m,
                     CantidadUnd = s.TotalUnd,
-                    CostoUnd = s.Ficha.costoPromedioUnd,
+                    CostoUnd = s.Ficha.costoUnd,
                     EstatusAnulado = "0",
                     Nota = "",
-                    PrecioUnd = s.PrecioFinal,
+                    PrecioUnd = s.PrecioFinalUnd,
                     Codigo = _tipoDocumentoVenta.codigo,
                     Siglas = _tipoDocumentoVenta.siglas,
                     CierreFtp = "",
@@ -866,6 +921,7 @@ namespace PosOnLine.Src.Pos
                     NombreDeposito = _depositoAsignado.nombre,
                     CodigoConcepto = _conceptoVenta.codigo,
                     NombreConcepto = _conceptoVenta.nombre,
+                    FactorCambio = factorCambio,
                 };
                 return nr;
             }).ToList();
@@ -1180,6 +1236,15 @@ namespace PosOnLine.Src.Pos
                     monto = pm.monto,
                     nombre = pm.nombre,
                     telefono = pm.telefono,
+                    //
+                    clienteDirFiscal = _gestionCliente.Cliente.DireccionFiscal,
+                    clienteNombre = _gestionCliente.Cliente.Nombre,
+                    clienteRif = _gestionCliente.Cliente.CiRif,
+                    codigoDocumento = _tipoDocumentoDevVenta.codigo,
+                    tipoDocumento = _tipoDocumentoDevVenta.tipo,
+                    montoDocumento = importeDocumento,
+                    codigoSucursal = _sucursalAsignada.codigo,
+                    nombreAgencia = pm.nombreAgencia,
                 };
             }
 
@@ -1288,6 +1353,16 @@ namespace PosOnLine.Src.Pos
         /// </summary>
         private void ProcesarNotaCredito()
         {
+
+            var t01 = Sistema.MyData.Vendedor_GetFichaById(_docAplicarNotaCredito.AutoVendedor);
+            if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(t01.Mensaje);
+                return;
+            }
+            _vendedorAsignado = t01.Entidad;
+
+
             _ImprimirDoc = null;
             _isTickeraOk = false;
 
@@ -1380,7 +1455,7 @@ namespace PosOnLine.Src.Pos
                 SubTotalNeto = subTotalNeto,
                 Telefono = _gestionCliente.Cliente.Telefono,
                 FactorCambio = factorCambio,
-                CodigoVendedor = _vendedorAsignado.codigo,
+                CodigoVendedor =  _vendedorAsignado.codigo,
                 Vendedor = _vendedorAsignado.nombre,
                 AutoVendedor = _vendedorAsignado.id,
                 FechaPedido = DateTime.Now.Date,
@@ -1535,10 +1610,10 @@ namespace PosOnLine.Src.Pos
                     Cantidad = s.Cantidad,
                     CantidadBono = 0.0m,
                     CantidadUnd = s.TotalUnd,
-                    CostoUnd = s.Ficha.costoPromedioUnd,
+                    CostoUnd = s.Ficha.costoUnd,
                     EstatusAnulado = "0",
                     Nota = "",
-                    PrecioUnd = s.PrecioFinal,
+                    PrecioUnd = s.PrecioFinalUnd,
                     Codigo = _tipoDocumentoDevVenta.codigo,
                     Siglas = _tipoDocumentoDevVenta.siglas,
                     CierreFtp = "",
@@ -1547,6 +1622,7 @@ namespace PosOnLine.Src.Pos
                     NombreDeposito = _depositoAsignado.nombre,
                     CodigoConcepto = _conceptoDevVenta.codigo,
                     NombreConcepto = _conceptoDevVenta.nombre,
+                    FactorCambio = factorCambio,
                 };
                 return nr;
             }).ToList();
@@ -2430,6 +2506,11 @@ namespace PosOnLine.Src.Pos
             }
         }
 
+
+        public void setCtrlCliente(ICliente ctr)
+        {
+            _gestionCliente = ctr;
+        }
     }
 
 }

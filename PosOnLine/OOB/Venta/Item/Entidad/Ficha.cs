@@ -67,6 +67,9 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
             autoProducto = "";
             idOperador = -1;
             id = -1;
+            //
+            peso = 0m;
+            volumen = 0m;
         }
 
 
@@ -97,7 +100,15 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
             autoProducto = it.AutoProducto;
             idOperador = -1;
             id = -1;
+            //
+            peso = 0m;
+            volumen = 0m;
         }
+
+
+        //
+        public decimal peso { get; set; }
+        public decimal volumen { get; set; }
 
     }
 

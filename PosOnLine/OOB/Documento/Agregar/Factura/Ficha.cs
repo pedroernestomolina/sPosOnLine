@@ -117,6 +117,7 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public FichaSerie SerieFiscal { get; set; }
         public FichaPagoMovil PagoMovil { get; set; }
         public FichaClienteSaldo ClienteSaldo { get; set; }
+        public List<FichaMedida> Medidas { get; set; }
 
 
         public Ficha()
@@ -226,6 +227,7 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             SerieFiscal = null;
             PagoMovil = null;
             ClienteSaldo = null;
+            Medidas = new List<FichaMedida>();
         }
 
     }

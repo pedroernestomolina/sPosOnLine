@@ -116,6 +116,8 @@ namespace PosOnLine.OOB.Documento.Entidad
         public decimal Descuento { get { return Descuento1 + Descuento2; } }
         public List<FichaItem> items;
         public bool IsDocumentoCredito { get { return CondicionPago.Trim().ToUpper()=="CREDITO"; } }
+        //
+        public List<FichaMedida> medidas;
 
 
         public Ficha()
@@ -219,6 +221,8 @@ namespace PosOnLine.OOB.Documento.Entidad
             AutoDocCxC = "";
             AutoReciboCxC = "";
             items = new List<FichaItem>();
+            //
+            medidas = new List<FichaMedida>();
         }
 
 
