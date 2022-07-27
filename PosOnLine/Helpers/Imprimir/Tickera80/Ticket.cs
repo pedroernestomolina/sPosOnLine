@@ -528,11 +528,11 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             eg.Graphics.DrawString(df.cambio, fr, Brushes.Black, dder2(df.cambio,fr), l);
             l += 15;
 
-            eg.Graphics.DrawString("EMPAQUE              CANT      PESO     VOLUMEN", fr, Brushes.Black, 0, l);
+            eg.Graphics.DrawString("EMPAQUE              CANT      PESO     VOLUMEN", fb, Brushes.Black, 0, l);
             l += 10;
             foreach (var mp in df.MedidasEmp)
             {
-                eg.Graphics.DrawString(mp.nombre, fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString(mp.nombre, fb, Brushes.Black, 0, l);
                 l += 10;
             }
 

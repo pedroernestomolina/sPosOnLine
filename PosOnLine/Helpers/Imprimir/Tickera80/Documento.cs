@@ -104,9 +104,13 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             foreach (var r in _ds.medidaEmp)
             {
+                var _desc = r.desc.Trim().PadRight(20,' ')+", ";
+                var _cnt = r.cant.ToString("n0").Trim().PadLeft(10, ' ')+", ";
+                var _peso = r.peso.ToString("n3").Trim().PadLeft(10, ' ')+", ";
+                var _volumen = r.volumen.ToString("n3").Trim().PadLeft(10, ' ');
                 var it = new Ticket.DatosDocumento.MedidaEmp()
                 {
-                    nombre= r.desc.PadRight(20,' ')+ ", "+ r.cant.ToString("n0").PadLeft(10,' ')+", "+r.peso.ToString("n3").PadLeft(10,' ')+", "+r.volumen.ToString("n3").PadLeft(10,' '),
+                    nombre= _desc+_cnt+_peso+_volumen,
                 };
                 _tick.Documento.MedidasEmp.Add(it);
             }

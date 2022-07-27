@@ -271,7 +271,6 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                     return med;
                 }).ToList();
 
-
                 switch (it.DocTipo)
                 { 
                     case data.enumTipoDoc.Factura:

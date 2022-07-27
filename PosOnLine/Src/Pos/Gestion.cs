@@ -2405,6 +2405,18 @@ namespace PosOnLine.Src.Pos
                     xdata.metodoPago.Add(pag);
                 }
             }
+            xdata.medidaEmp = xr1.Entidad.medidas.Select(s =>
+            {
+                var med = new Helpers.Imprimir.data.MedidaEmp()
+                {
+                    cant = s.cant,
+                    desc = s.desc,
+                    peso = s.peso,
+                    volumen = s.volumen,
+                };
+                return med;
+            }).ToList();
+
             return xdata;
         }
 
