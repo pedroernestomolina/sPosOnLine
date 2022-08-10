@@ -156,6 +156,15 @@ namespace PosOnLine.Src.Principal
             ActualizarJornadaOperadorUsuario();
         }
 
+        private void MenuItem_Historico_Cierres_Click(object sender, EventArgs e)
+        {
+            CierreHistorico();
+        }
+        private void CierreHistorico()
+        {
+            _controlador.CierreHistorico();
+        }
+
     }
 
 }

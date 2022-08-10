@@ -43,7 +43,7 @@ namespace PosOnLine.Src.Cierre
         public int cntOtros { get { return _resumen.cntotros-_resumen.cntotros_anu; } }
 
         public decimal montoEfectivo { get { return _resumen.mEfectivo-_resumen.mEfectivo_anu; } }
-        public decimal montoDivisa { get { return _resumen.mDivisaTotal; } }
+        public decimal montoDivisa { get { return _resumen.mDivisa; } }//_resumen.mDivisaTotal; 
         public decimal montoElectronico { get { return _resumen.mElectronico - _resumen.mElectronico_anu; } }
         public decimal montoOtros { get { return _resumen.mOtros-_resumen.mOtros_anu; } }
 

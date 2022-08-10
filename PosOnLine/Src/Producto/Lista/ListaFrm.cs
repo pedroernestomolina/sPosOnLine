@@ -129,13 +129,37 @@ namespace PosOnLine.Src.Producto.Lista
             this.Close();
         }
 
+        private BindingSource _source;
         private void ListaFrm_Load(object sender, EventArgs e)
         {
-            DGV.DataSource = _controlador.Source;
+            _source = _controlador.Source;
+            _source.CurrentChanged += _source_CurrentChanged;
+            DGV.DataSource = _source;
             DGV.Columns[3].Visible = _controlador.IsCantidadVisible;
             DGV.Columns[4].Visible = _controlador.IsPrecioVisible;
             DGV.Focus();
             DGV.Refresh();
+            L_EMP_1.Text = _controlador.GetEmp_1;
+            L_PRECIO_1.Text = _controlador.GetPrecio_1;
+            L_EMPAQUE_2.Text = _controlador.GetEmp_2;
+            L_PRECIO_2.Text = _controlador.GetPrecio_2;
+            L_EMPAQUE_3.Text = _controlador.GetEmp_3;
+            L_PRECIO_3.Text = _controlador.GetPrecio_3;
+        }
+
+        void _source_CurrentChanged(object sender, EventArgs e)
+        {
+            ActualizarPanelInformativo();
+        }
+
+        private void ActualizarPanelInformativo()
+        {
+            L_EMP_1.Text = _controlador.GetEmp_1;
+            L_PRECIO_1.Text = _controlador.GetPrecio_1;
+            L_EMPAQUE_2.Text = _controlador.GetEmp_2;
+            L_PRECIO_2.Text = _controlador.GetPrecio_2;
+            L_EMPAQUE_3.Text = _controlador.GetEmp_3;
+            L_PRECIO_3.Text = _controlador.GetPrecio_3;
         }
 
         private void DGV_KeyDown(object sender, KeyEventArgs e)

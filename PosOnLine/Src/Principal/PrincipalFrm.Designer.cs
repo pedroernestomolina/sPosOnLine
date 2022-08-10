@@ -55,6 +55,9 @@
             this.MenuItem_Herramientas_TestBD = new System.Windows.Forms.ToolStripMenuItem();
             this.testFiscalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.historicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItem_Historico_Cierres = new System.Windows.Forms.ToolStripMenuItem();
+            this.productosPreciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -371,7 +374,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.configuracionToolStripMenuItem,
-            this.herramientasToolStripMenuItem});
+            this.herramientasToolStripMenuItem,
+            this.historicoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(574, 24);
@@ -471,6 +475,29 @@
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(164, 6);
+            // 
+            // historicoToolStripMenuItem
+            // 
+            this.historicoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuItem_Historico_Cierres,
+            this.productosPreciosToolStripMenuItem});
+            this.historicoToolStripMenuItem.Name = "historicoToolStripMenuItem";
+            this.historicoToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.historicoToolStripMenuItem.Text = "Histórico";
+            // 
+            // MenuItem_Historico_Cierres
+            // 
+            this.MenuItem_Historico_Cierres.Name = "MenuItem_Historico_Cierres";
+            this.MenuItem_Historico_Cierres.Size = new System.Drawing.Size(181, 22);
+            this.MenuItem_Historico_Cierres.Text = "Cierres";
+            this.MenuItem_Historico_Cierres.Click += new System.EventHandler(this.MenuItem_Historico_Cierres_Click);
+            // 
+            // productosPreciosToolStripMenuItem
+            // 
+            this.productosPreciosToolStripMenuItem.Name = "productosPreciosToolStripMenuItem";
+            this.productosPreciosToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.productosPreciosToolStripMenuItem.Text = "Cambios de Precios ";
+            this.productosPreciosToolStripMenuItem.Visible = false;
             // 
             // panel1
             // 
@@ -1550,6 +1577,9 @@
         private System.Windows.Forms.Button BT_ABRIR_POS;
         private System.Windows.Forms.Button BT_ADM_DOCUMENTOS;
         private System.Windows.Forms.Button BT_CERRAR_POS;
+        private System.Windows.Forms.ToolStripMenuItem historicoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuItem_Historico_Cierres;
+        private System.Windows.Forms.ToolStripMenuItem productosPreciosToolStripMenuItem;
 
     }
 }

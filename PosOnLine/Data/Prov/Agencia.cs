@@ -47,8 +47,6 @@ namespace PosOnLine.Data.Prov
 
             return rt;
         }
-
-
         public OOB.Resultado.FichaAuto 
             Agencia_Agregar(OOB.Agencia.Agregar.Ficha ficha)
         {

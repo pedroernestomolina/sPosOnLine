@@ -244,6 +244,19 @@ namespace PosOnLine.Data.Prov
                             DecimalesMay = s.decimalesMay,
                             EmpaqueMay = s.empaqueMay,
                             PrecioFullDivisaMay = s.precioFullDivisaMay,
+                            //
+                            contEmp_1=s.contEmp_1,
+                            contEmp_2 = s.contEmp_2,
+                            contEmp_3 = s.contEmp_3,
+                            descEmp_1= s.descEmp_1,
+                            descEmp_2 = s.descEmp_2,
+                            descEmp_3 = s.descEmp_3,
+                            pnetoEmp_1= s.pnetoEmp_1,
+                            pnetoEmp_2 = s.pnetoEmp_2,
+                            pnetoEmp_3 = s.pnetoEmp_3,
+                            pfullDivEmp_1= s.pfullDivEmp_1,
+                            pfullDivEmp_2 = s.pfullDivEmp_2,
+                            pfullDivEmp_3 = s.pfullDivEmp_3,
                         };
                         return nr;
                     }).ToList();

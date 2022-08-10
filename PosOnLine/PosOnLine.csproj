@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Infra\IAgencia.cs" />
+    <Compile Include="Data\Infra\ICierre.cs" />
     <Compile Include="Data\Infra\ICliente.cs" />
     <Compile Include="Data\Infra\IConcepto.cs" />
     <Compile Include="Data\Infra\IConfiguracion.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Data\Infra\IVendedor.cs" />
     <Compile Include="Data\Infra\IVenta.cs" />
     <Compile Include="Data\Prov\Agencia.cs" />
+    <Compile Include="Data\Prov\Cierre.cs" />
     <Compile Include="Data\Prov\Cliente.cs" />
     <Compile Include="Data\Prov\Concepto.cs" />
     <Compile Include="Data\Prov\Configuracion.cs" />
@@ -168,6 +170,9 @@
     <Compile Include="OOB\Agencia\BaseFicha.cs" />
     <Compile Include="OOB\Agencia\Entidad\Ficha.cs" />
     <Compile Include="OOB\Agencia\Lista\Filtro.cs" />
+    <Compile Include="OOB\Cierre\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Cierre\Lista\Ficha.cs" />
+    <Compile Include="OOB\Cierre\Lista\Filtro.cs" />
     <Compile Include="OOB\Cliente\Agregar\Ficha.cs" />
     <Compile Include="OOB\Cliente\Editar\Ficha.cs" />
     <Compile Include="OOB\Cliente\Entidad\Enumerados.cs" />
@@ -359,6 +364,15 @@
       <DependentUpon>CierreFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Cierre\Gestion.cs" />
+    <Compile Include="Src\Cierre\Historico\data.cs" />
+    <Compile Include="Src\Cierre\Historico\Historia.cs" />
+    <Compile Include="Src\Cierre\Historico\HistoriaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Cierre\Historico\HistoriaFrm.Designer.cs">
+      <DependentUpon>HistoriaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
     <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -617,6 +631,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Cierre\CierreFrm.resx">
       <DependentUpon>CierreFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Cierre\Historico\HistoriaFrm.resx">
+      <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.resx">
       <DependentUpon>AgregarEditarFrm.cs</DependentUpon>

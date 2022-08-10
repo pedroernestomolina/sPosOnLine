@@ -85,7 +85,7 @@ namespace PosOnLine.Src.Cierre
             if (_controlador.Diferencia > 0)
             {
                 L_DIFERENCIA_TEXTO.Text = "Diferencia (SOBRANTE)";
-                L_DIFERENCIA.ForeColor = Color.Blue;
+                L_DIFERENCIA.ForeColor = Color.White;
             }
             else if (_controlador.Diferencia < 0)
             {

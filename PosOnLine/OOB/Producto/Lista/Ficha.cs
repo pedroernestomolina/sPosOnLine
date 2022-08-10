@@ -30,6 +30,19 @@ namespace PosOnLine.OOB.Producto.Lista
         public int ContenidoMay { get; set; }
         public string DecimalesMay { get; set; }
         public string EmpaqueMay { get; set; }
+        //
+        public int contEmp_1 { get; set; }
+        public int contEmp_2 { get; set; }
+        public int contEmp_3 { get; set; }
+        public string descEmp_1 { get; set; }
+        public string descEmp_2 { get; set; }
+        public string descEmp_3 { get; set; }
+        public decimal pnetoEmp_1 { get; set; }
+        public decimal pnetoEmp_2 { get; set; }
+        public decimal pnetoEmp_3 { get; set; }
+        public decimal pfullDivEmp_1 { get; set; }
+        public decimal pfullDivEmp_2 { get; set; }
+        public decimal pfullDivEmp_3 { get; set; }
 
 
         public Ficha()
@@ -53,6 +66,19 @@ namespace PosOnLine.OOB.Producto.Lista
             ContenidoMay = 0;
             DecimalesMay = "";
             EmpaqueMay = "";
+            //
+            contEmp_1 = 0;
+            contEmp_2 = 0;
+            contEmp_3 = 0;
+            descEmp_1 = "";
+            descEmp_2 = "";
+            descEmp_3 = "";
+            pnetoEmp_1 = 0m;
+            pnetoEmp_2 = 0m;
+            pnetoEmp_3 = 0m;
+            pfullDivEmp_1 = 0m;
+            pfullDivEmp_2 = 0m;
+            pfullDivEmp_3 = 0m;
         }
 
     }

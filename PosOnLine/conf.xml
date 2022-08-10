@@ -2,9 +2,9 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>pita</Catalogo>
+    <Catalogo>mscala</Catalogo>
   </Servidor>
-  <IdEquipo>6</IdEquipo>
+  <IdEquipo>2</IdEquipo>
   <CodigoSucursalActiva>15</CodigoSucursalActiva>
   <codigoDepositoActiva>23</codigoDepositoActiva>
   <SerieFactura>1</SerieFactura>
@@ -23,6 +23,6 @@
     <Direccion>VALENCIA, MERCADO MAYORISTA, LOCAL 21, SECTOR TOCUYITO, MERCADO DE MAYORISTA </Direccion>
   </DatosNegocioTicket>
   <Venta_Adm>
-    <Activar>Si</Activar>
+    <Activar>No</Activar>
   </Venta_Adm>
 </Configuracion>

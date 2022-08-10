@@ -21,6 +21,7 @@ namespace PosOnLine.Src.Principal
         private Configuracion.Gestion _gestionCnf;
         private Configuracion.SucursalDeposito.Gestion _gestionCnfSucDeposito;
         private Pos.ICliente _gCliente;
+        private Cierre.Historico.IHistoria _gCierreHist;
 
 
         public string BD_Ruta { get { return Sistema.Instancia; } }
@@ -92,6 +93,7 @@ namespace PosOnLine.Src.Principal
             _gestionPassW = new PassWord.Gestion();
             _gestionPos = new Pos.Gestion();
             _gestionPos.setGestionPassW(_gestionPassW);
+            _gCierreHist = new Cierre.Historico.Historia();
             Helpers.PassWord.setGestion(_gestionPassW);
         }
 
@@ -436,6 +438,12 @@ namespace PosOnLine.Src.Principal
                     return;
                 }
             }
+        }
+
+        public void CierreHistorico()
+        {
+            _gCierreHist.Inicializa();
+            _gCierreHist.Inicia();
         }
 
     }

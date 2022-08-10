@@ -33,7 +33,6 @@ namespace PosOnLine.Src.Producto.Lista
                 return rt;
             } 
         }
-
         public decimal cantidadEx 
         { 
             get 
@@ -48,6 +47,13 @@ namespace PosOnLine.Src.Producto.Lista
             } 
         }
 
+        public string Empaque_1 { get { return _item.descEmp_1 + "/ (" + _item.contEmp_1.ToString("n0") + ")"; } }
+        public string Empaque_2 { get { return _item.descEmp_2 + "/ (" + _item.contEmp_2.ToString("n0") + ")"; } }
+        public string Empaque_3 { get { return _item.descEmp_3 + "/ (" + _item.contEmp_3.ToString("n0") + ")"; } }
+        public string Precio_1 { get { return full(_item.pnetoEmp_1).ToString("n2") + "/ ( $ " + _item.pfullDivEmp_1.ToString("n2") + ")"; } }
+        public string Precio_2 { get { return full(_item.pnetoEmp_2).ToString("n2") + "/ ( $ " + _item.pfullDivEmp_2.ToString("n2") + ")"; } }
+        public string Precio_3 { get { return full(_item.pnetoEmp_3).ToString("n2") + "/ ( $ " + _item.pfullDivEmp_3.ToString("n2") + ")"; } }
+
 
         public data()
         {
@@ -57,6 +63,17 @@ namespace PosOnLine.Src.Producto.Lista
         public data(OOB.Producto.Lista.Ficha it)
         {
             _item = it;
+        }
+
+
+        private decimal full(decimal p)
+        {
+            var rt = p;
+            if (_item.TasaIva > 0) 
+            {
+                rt = rt + (p * _item.TasaIva / 100);
+            }
+            return rt;
         }
 
     }

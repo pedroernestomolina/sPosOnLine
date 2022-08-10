@@ -110,6 +110,80 @@ namespace PosOnLine.Src.Producto.Lista
             _isPrecioVisible = valor;
         }
 
+
+        public string GetEmp_1 
+        {
+            get 
+            { 
+                var rt="";
+                if (_bs.Current != null) 
+                {
+                    rt = ((data)_bs.Current).Empaque_1;
+                }
+                return rt;
+            }
+        }
+        public string GetPrecio_1
+        {
+            get
+            {
+                var rt = "";
+                if (_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).Precio_1;
+                }
+                return rt;
+            }
+        }
+        public string GetEmp_2
+        {
+            get
+            {
+                var rt = "";
+                if (_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).Empaque_2;
+                }
+                return rt;
+            }
+        }
+        public string GetPrecio_2 
+        {
+            get
+            {
+                var rt = "";
+                if (_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).Precio_2;
+                }
+                return rt;
+            }
+        }
+        public string GetEmp_3         
+        {            
+            get
+            {
+                var rt = "";
+                if (_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).Empaque_3;
+                }
+                return rt;
+            }
+        }
+        public string GetPrecio_3
+        {
+            get
+            {
+                var rt = "";
+                if (_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).Precio_3;
+                }
+                return rt;
+            }
+        }
+
     }
 
 }
