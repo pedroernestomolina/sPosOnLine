@@ -227,6 +227,51 @@ namespace PosOnLine.Data.Prov
 
             return rt;
         }
+        public OOB.Resultado.FichaEntidad<decimal> 
+            Configuracion_ValorMaximoPorcentajeDescuento()
+        {
+            var result = new OOB.Resultado.FichaEntidad<decimal>();
+
+            var r01 = MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+            var m1 = 0.0m;
+            var cnf = r01.Entidad;
+            if (cnf.Trim() != "")
+            {
+                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                Decimal.TryParse(cnf, style, culture, out m1);
+            }
+            result.Entidad = m1;
+
+            return result;
+        }
+        public OOB.Resultado.FichaEntidad<bool> 
+            Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa()
+        {
+            var result = new OOB.Resultado.FichaEntidad<bool>();
+
+            var r01 = MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+            var rt = false;
+            if (r01.Entidad != null)
+            {
+                rt = r01.Entidad.Trim().ToUpper() == "SI" ? true : false;
+            }
+            result.Entidad = rt;
+
+            return result;
+        }
 
     }
 

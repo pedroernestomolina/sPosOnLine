@@ -343,6 +343,7 @@
             this.L_PASILLO.Size = new System.Drawing.Size(128, 19);
             this.L_PASILLO.TabIndex = 17;
             this.L_PASILLO.Text = "123456789012345";
+            this.L_PASILLO.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lpasillo
             // 
@@ -361,6 +362,7 @@
             this.L_REFERENCIA.Size = new System.Drawing.Size(118, 37);
             this.L_REFERENCIA.TabIndex = 15;
             this.L_REFERENCIA.Text = "123456789012345 123456789012345 \r\n123456789012345 123456789012345 ";
+            this.L_REFERENCIA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // L_MODELO
             // 
@@ -370,6 +372,7 @@
             this.L_MODELO.Size = new System.Drawing.Size(128, 37);
             this.L_MODELO.TabIndex = 14;
             this.L_MODELO.Text = "123456789012345 123456789012345 \r\n123456789012345 123456789012345 ";
+            this.L_MODELO.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // L_MARCA
             // 
@@ -379,6 +382,7 @@
             this.L_MARCA.Size = new System.Drawing.Size(225, 37);
             this.L_MARCA.TabIndex = 13;
             this.L_MARCA.Text = "123456789012345 123456789012345 \r\n123456789012345 123456789012345 ";
+            this.L_MARCA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // L_GRUPO
             // 
@@ -388,6 +392,7 @@
             this.L_GRUPO.Size = new System.Drawing.Size(228, 35);
             this.L_GRUPO.TabIndex = 12;
             this.L_GRUPO.Text = "123456789012345 123456789012345 \r\n123456789012345 123456789012345 ";
+            this.L_GRUPO.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // L_DEPARTAMENTO
             // 
@@ -397,6 +402,7 @@
             this.L_DEPARTAMENTO.Size = new System.Drawing.Size(231, 35);
             this.L_DEPARTAMENTO.TabIndex = 9;
             this.L_DEPARTAMENTO.Text = "123456789012345 123456789012345 \r\n123456789012345 123456789012345 ";
+            this.L_DEPARTAMENTO.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
             // 

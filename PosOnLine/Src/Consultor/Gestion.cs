@@ -86,7 +86,7 @@ namespace PosOnLine.Src.Consultor
                 }
 
                 _busquedaIsOk = true;
-                _dataPrd.setData(r01.Entidad,_tarifaPrecio, r02.Entidad);
+                _dataPrd.setData(r01.Entidad,_tarifaPrecio, r02.Entidad, FactorCambio);
             }
         }
 

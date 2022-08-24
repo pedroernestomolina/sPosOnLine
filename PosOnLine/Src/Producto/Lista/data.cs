@@ -12,6 +12,13 @@ namespace PosOnLine.Src.Producto.Lista
     {
 
         private OOB.Producto.Lista.Ficha _item;
+        private decimal tasaCambio;
+        private decimal _p1;
+        private decimal _p2;
+        private decimal _p3;
+        private decimal _p1Divisa;
+        private decimal _p2Divisa;
+        private decimal _p3Divisa; 
 
 
         public OOB.Producto.Lista.Ficha Item { get { return _item; } }
@@ -41,7 +48,6 @@ namespace PosOnLine.Src.Producto.Lista
                 if (_item.Contenido > 0) 
                 {
                     x = _item.ExDisponible;
-                        // / _item.Contenido;
                 }
                 return x;
             } 
@@ -50,19 +56,24 @@ namespace PosOnLine.Src.Producto.Lista
         public string Empaque_1 { get { return _item.descEmp_1 + "/ (" + _item.contEmp_1.ToString("n0") + ")"; } }
         public string Empaque_2 { get { return _item.descEmp_2 + "/ (" + _item.contEmp_2.ToString("n0") + ")"; } }
         public string Empaque_3 { get { return _item.descEmp_3 + "/ (" + _item.contEmp_3.ToString("n0") + ")"; } }
-        public string Precio_1 { get { return full(_item.pnetoEmp_1).ToString("n2") + "/ ( $ " + _item.pfullDivEmp_1.ToString("n2") + ")"; } }
-        public string Precio_2 { get { return full(_item.pnetoEmp_2).ToString("n2") + "/ ( $ " + _item.pfullDivEmp_2.ToString("n2") + ")"; } }
-        public string Precio_3 { get { return full(_item.pnetoEmp_3).ToString("n2") + "/ ( $ " + _item.pfullDivEmp_3.ToString("n2") + ")"; } }
+        public string Precio_1 { get { return _p1.ToString("n2") + "/ ( $ " + _p1Divisa.ToString("n2") + ")"; } }
+        public string Precio_2 { get { return _p2.ToString("n2") + "/ ( $ " + _p2Divisa.ToString("n2") + ")"; } }
+        public string Precio_3 { get { return _p3.ToString("n2") + "/ ( $ " + _p3Divisa.ToString("n2") + ")"; } }
 
 
         public data()
         {
         }
-
-
-        public data(OOB.Producto.Lista.Ficha it)
+        public data(OOB.Producto.Lista.Ficha it, decimal tasaCambio)
         {
             _item = it;
+            _p1 = full(it.pnetoEmp_1);
+            _p2 = full(it.pnetoEmp_2);
+            _p3 = full(it.pnetoEmp_3);
+            _p1Divisa = _p1 / tasaCambio;
+            _p2Divisa = _p2 / tasaCambio;
+            _p3Divisa = _p3 / tasaCambio;
+            this.tasaCambio = tasaCambio;
         }
 
 

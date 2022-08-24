@@ -19,6 +19,7 @@ namespace PosOnLine.Src.Producto.Lista
         private List<data> _lData;
         private bool _isCantidadVisible;
         private bool _isPrecioVisible;
+        private decimal _tasaCambioActual;
 
 
         public BindingSource Source { get { return _bs; } }
@@ -37,6 +38,7 @@ namespace PosOnLine.Src.Producto.Lista
             _lData = new List<data>();
             _bs = new BindingSource();
             _bs.DataSource = _lData;
+            _tasaCambioActual = 0m;
         }
 
 
@@ -69,12 +71,12 @@ namespace PosOnLine.Src.Producto.Lista
             _itemSeleccionado = null;
         }
 
-        public void setData(List<OOB.Producto.Lista.Ficha> lst)
+        internal void setData(List<OOB.Producto.Lista.Ficha> lst, decimal tasaCambio)
         {
             _lData.Clear();
             foreach (var it in lst.OrderBy(o=>o.Nombre).ToList())
             {
-                _lData.Add(new data(it));
+                _lData.Add(new data(it, tasaCambio));
             }
             _bs.Position = 0;
             _bs.CurrencyManager.Refresh();

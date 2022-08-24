@@ -89,13 +89,19 @@ namespace PosOnLine.Src.Producto.Buscar
                                 Helpers.Msg.Error(r04.Mensaje);
                                 return;
                             }
+                            var r05 = Sistema.MyData.Configuracion_FactorDivisa();
+                            if (r05.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                            {
+                                Helpers.Msg.Error(r05.Mensaje);
+                                return;
+                            }
                             var _lst = r04.ListaD.ToList();
                             _gestionListar.Inicializa();
                             if (Sistema.ConfiguracionActual.ValidarExistencia_Activa)
                             {
                                 _lst = _lst.Where(w => w.ExDisponible > 0).ToList();
                             }
-                            _gestionListar.setData(_lst);
+                            _gestionListar.setData(_lst, r05.Entidad);
                             _gestionListar.Inicia();
                             if (_gestionListar.ItemSeleccionIsOk)
                             {

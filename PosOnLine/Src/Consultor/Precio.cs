@@ -16,6 +16,7 @@ namespace PosOnLine.Src.Consultor
         private int _cont;
         private string _empaque;
         private decimal _fullDivisa;
+        private decimal _factorCambio;
 
 
         public decimal Neto
@@ -53,7 +54,11 @@ namespace PosOnLine.Src.Consultor
         {
             get 
             {
-                return _fullDivisa;
+                //return _fullDivisa;
+                var rt = 0m;
+                if (_factorCambio > 0m)
+                    rt = Full / _factorCambio;
+                return rt;
             }
         }
 
@@ -90,13 +95,14 @@ namespace PosOnLine.Src.Consultor
             Limpiar();
         }
 
-        public void setData(decimal neto, decimal tasa, int cont, string empaque, decimal pfd)
+        public void setData(decimal neto, decimal tasa, int cont, string empaque, decimal pfd, decimal factorCambio)
         {
             _tasa = tasa;
             _neto= neto;
             _cont = cont;
             _empaque = empaque;
             _fullDivisa = pfd;
+            _factorCambio = factorCambio;
         }
 
         public void Limpiar()

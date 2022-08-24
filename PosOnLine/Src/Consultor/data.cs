@@ -55,7 +55,7 @@ namespace PosOnLine.Src.Consultor
             _existencia = new Existencia();
         }
 
-        public void setData(OOB.Producto.Entidad.Ficha fichaPrd, string _tarifaPrecio, OOB.Producto.Existencia.Entidad.Ficha fichaEx)
+        public void setData(OOB.Producto.Entidad.Ficha fichaPrd, string _tarifaPrecio, OOB.Producto.Existencia.Entidad.Ficha fichaEx, decimal factorCambio)
         {
             _ficha = fichaPrd;
             _precio_1.Limpiar();
@@ -66,27 +66,27 @@ namespace PosOnLine.Src.Consultor
             switch (_tarifaPrecio)
             {
                 case "1":
-                    _precio_1.setData(_ficha.pneto_1, _ficha.TasaImpuesto, _ficha.contenido_1, _ficha.empaque_1, _ficha.pdf_1);
-                    _precio_2.setData(_ficha.pnetoMay_1, _ficha.TasaImpuesto, _ficha.contenidoMay_1, _ficha.empaqueMay_1, _ficha.pdfMay_1);
-                    _precio_3.setData(_ficha.pnetoDsp_1, _ficha.TasaImpuesto, _ficha.contenidoDsp_1, _ficha.empaqueDsp_1, _ficha.pdfDsp_1);
+                    _precio_1.setData(_ficha.pneto_1, _ficha.TasaImpuesto, _ficha.contenido_1, _ficha.empaque_1, _ficha.pdf_1, factorCambio);
+                    _precio_2.setData(_ficha.pnetoMay_1, _ficha.TasaImpuesto, _ficha.contenidoMay_1, _ficha.empaqueMay_1, _ficha.pdfMay_1, factorCambio);
+                    _precio_3.setData(_ficha.pnetoDsp_1, _ficha.TasaImpuesto, _ficha.contenidoDsp_1, _ficha.empaqueDsp_1, _ficha.pdfDsp_1, factorCambio);
                     break;
                 case "2":
-                    _precio_1.setData(_ficha.pneto_2, _ficha.TasaImpuesto, _ficha.contenido_2, _ficha.empaque_2, _ficha.pdf_2);
-                    _precio_2.setData(_ficha.pnetoMay_2, _ficha.TasaImpuesto, _ficha.contenidoMay_2, _ficha.empaqueMay_2, _ficha.pdfMay_2);
-                    _precio_3.setData(_ficha.pnetoDsp_2, _ficha.TasaImpuesto, _ficha.contenidoDsp_2, _ficha.empaqueDsp_2, _ficha.pdfDsp_2);
+                    _precio_1.setData(_ficha.pneto_2, _ficha.TasaImpuesto, _ficha.contenido_2, _ficha.empaque_2, _ficha.pdf_2, factorCambio);
+                    _precio_2.setData(_ficha.pnetoMay_2, _ficha.TasaImpuesto, _ficha.contenidoMay_2, _ficha.empaqueMay_2, _ficha.pdfMay_2, factorCambio);
+                    _precio_3.setData(_ficha.pnetoDsp_2, _ficha.TasaImpuesto, _ficha.contenidoDsp_2, _ficha.empaqueDsp_2, _ficha.pdfDsp_2, factorCambio);
                     break;
                 case "3":
-                    _precio_1.setData(_ficha.pneto_3, _ficha.TasaImpuesto, _ficha.contenido_3, _ficha.empaque_3, _ficha.pdf_3);
-                    _precio_2.setData(_ficha.pnetoMay_3, _ficha.TasaImpuesto, _ficha.contenidoMay_3, _ficha.empaqueMay_3, _ficha.pdfMay_3);
-                    _precio_3.setData(_ficha.pnetoDsp_3, _ficha.TasaImpuesto, _ficha.contenidoDsp_3, _ficha.empaqueDsp_3, _ficha.pdfDsp_3);
+                    _precio_1.setData(_ficha.pneto_3, _ficha.TasaImpuesto, _ficha.contenido_3, _ficha.empaque_3, _ficha.pdf_3, factorCambio);
+                    _precio_2.setData(_ficha.pnetoMay_3, _ficha.TasaImpuesto, _ficha.contenidoMay_3, _ficha.empaqueMay_3, _ficha.pdfMay_3, factorCambio);
+                    _precio_3.setData(_ficha.pnetoDsp_3, _ficha.TasaImpuesto, _ficha.contenidoDsp_3, _ficha.empaqueDsp_3, _ficha.pdfDsp_3, factorCambio);
                     break;
                 case "4":
-                    _precio_1.setData(_ficha.pneto_4, _ficha.TasaImpuesto, _ficha.contenido_4, _ficha.empaque_4, _ficha.pdf_4);
-                    _precio_2.setData(_ficha.pnetoMay_4, _ficha.TasaImpuesto, _ficha.contenidoMay_4, _ficha.empaqueMay_4, _ficha.pdfMay_4);
-                    _precio_3.setData(_ficha.pnetoDsp_4, _ficha.TasaImpuesto, _ficha.contenidoDsp_4, _ficha.empaqueDsp_4, _ficha.pdfDsp_4);
+                    _precio_1.setData(_ficha.pneto_4, _ficha.TasaImpuesto, _ficha.contenido_4, _ficha.empaque_4, _ficha.pdf_4, factorCambio);
+                    _precio_2.setData(_ficha.pnetoMay_4, _ficha.TasaImpuesto, _ficha.contenidoMay_4, _ficha.empaqueMay_4, _ficha.pdfMay_4, factorCambio);
+                    _precio_3.setData(_ficha.pnetoDsp_4, _ficha.TasaImpuesto, _ficha.contenidoDsp_4, _ficha.empaqueDsp_4, _ficha.pdfDsp_4, factorCambio);
                     break;
                 case "5":
-                    _precio_1.setData(_ficha.pneto_5, _ficha.TasaImpuesto, _ficha.contenido_5, _ficha.empaque_5, _ficha.pdf_5);
+                    _precio_1.setData(_ficha.pneto_5, _ficha.TasaImpuesto, _ficha.contenido_5, _ficha.empaque_5, _ficha.pdf_5, factorCambio);
                     break;
             }
             _existencia.setData(fichaEx, 1);

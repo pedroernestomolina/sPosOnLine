@@ -1315,7 +1315,7 @@ namespace PosOnLine.Src.Pos
                     return;
                 }
                 _gestionListar.Inicializa();
-                _gestionListar.setData(r04.ListaD);
+                _gestionListar.setData(r04.ListaD, _tasaCambioActual);
                 _gestionListar.Inicia();
                 if (_gestionListar.ItemSeleccionIsOk)
                 {

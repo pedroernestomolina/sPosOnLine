@@ -13,6 +13,7 @@ namespace PosOnLine.Src.Pago.Descuento
 
         private decimal _descuento;
         private bool _isOk;
+        private decimal _valorMaximoDescuentoPermitido;
 
 
         public decimal Descuento { get { return _descuento; } }
@@ -21,6 +22,7 @@ namespace PosOnLine.Src.Pago.Descuento
 
         public Gestion()
         {
+            _valorMaximoDescuentoPermitido = 0m;
             _descuento = 0.0m;
         }
 
@@ -29,6 +31,7 @@ namespace PosOnLine.Src.Pago.Descuento
         {
             _isOk = false;
             _descuento = 0.0m;
+            _valorMaximoDescuentoPermitido = 0m;
         }
 
         DescuentoFrm frm;
@@ -48,6 +51,14 @@ namespace PosOnLine.Src.Pago.Descuento
         private bool CargarData()
         {
             var rt = true;
+
+            var r01 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r01.Mensaje);
+                return false;
+            }
+            _valorMaximoDescuentoPermitido = r01.Entidad;
             return rt;
         }
 
@@ -59,7 +70,22 @@ namespace PosOnLine.Src.Pago.Descuento
 
         public void Aceptar()
         {
-            _isOk = (_descuento >= 0.0m && _descuento <= 99.99m);
+            _isOk = false;
+            if (_descuento >= 0m)
+            {
+                if (_valorMaximoDescuentoPermitido > 0m)
+                {
+                    _isOk = _descuento <= _valorMaximoDescuentoPermitido;
+                    if (!_isOk) 
+                    {
+                        Helpers.Msg.Alerta("VALOR MAXIMO PERMITIDO PARA EL DESCUENTO SUPERADO");
+                    }
+                }
+                else 
+                {
+                    _isOk = _descuento <= 99.99m;
+                }
+            }
         }
 
         public void setDescuento(decimal p)

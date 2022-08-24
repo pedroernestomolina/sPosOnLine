@@ -349,6 +349,7 @@ namespace PosOnLine.Src.Pago.Procesar
             _dsctoPorct= porct;
         }
 
+        private bool _habilitarDsctoPorPagoEnDivisaTotal=true;
         public bool Procesar() 
         {
             var rt = false;
@@ -367,6 +368,35 @@ namespace PosOnLine.Src.Pago.Procesar
                 var msg = MessageBox.Show("Procesar Pago ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (msg == DialogResult.Yes)
                 {
+                    var r01 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+                    if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                    {
+                        Helpers.Msg.Error(r01.Mensaje);
+                        return false;
+                    }
+                    var _habilitarDsctoUnicamentoConPagoDivisa = r01.Entidad;
+                    if (_habilitarDsctoUnicamentoConPagoDivisa)
+                    {
+                        if (_dsctoPorct > 0m) 
+                        {
+                            var ent = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Divisa);
+                            if (ent == null) 
+                            {
+                                Helpers.Msg.Alerta("PROBLEMA CON DESCUENTO EN VENTA, NO CUMPLE CON LA REGLA: PAGO DEBE SER EN DIVISA");
+                                return false;
+                            }
+                            if (ent.Monto==0M)
+                            {
+                                Helpers.Msg.Alerta("PROBLEMA CON DESCUENTO EN VENTA, NO CUMPLE CON LA REGLA: PAGO DEBE SER EN DIVISA");
+                                return false;
+                            }
+                            if (ent.Monto < MontoPagar)
+                            {
+                                Helpers.Msg.Alerta("PROBLEMA CON DESCUENTO EN VENTA, NO CUMPLE CON LA REGLA: LA TOTALIDAD DEL MONTO DEBE SER PAGADO EN DIVISA");
+                                return false;
+                            }
+                        }
+                    }
 
                     if (MontoRecibido > MontoPagar)
                     {

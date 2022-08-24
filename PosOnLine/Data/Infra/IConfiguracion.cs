@@ -27,6 +27,10 @@ namespace PosOnLine.Data.Infra
             Configuracion_Habilitar_Precio5_VentaMayor();
         OOB.Resultado.FichaEntidad<OOB.Configuracion.BusquedaCliente.Ficha>
             Configuracion_BusquedaCliente();
+        OOB.Resultado.FichaEntidad<decimal>
+            Configuracion_ValorMaximoPorcentajeDescuento();
+        OOB.Resultado.FichaEntidad<bool>
+            Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
 
     }
 

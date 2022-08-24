@@ -36,6 +36,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
         private void Imprimir()
         {
+            _lista.Clear();
             _lista.Add("REPORTE CAJA");
             _lista.Add("");
             _lista.Add("NUMERO: " + _ds.nroCierre);
