@@ -672,7 +672,8 @@ namespace PosOnLine.Src.Pos
 
             var isCredito = _gestionProcesarPago.IsCreditoOk;
             var montoRecibido = _gestionProcesarPago.MontoRecibido;
-            var montoCambio = _gestionProcesarPago.MontoCambioDar_MonedaNacional;
+            //var montoCambio = _gestionProcesarPago.MontoCambioDar_MonedaNacional;
+            var montoCambio = _gestionProcesarPago.MontoCambioDar;
             var BaseExenta = _gestionItem.Items.Sum(s => s.BaseExenta);
             var MontoBase = _gestionItem.Items.Sum(s => s.MontoBase);
             var MontoImpuesto = _gestionItem.Items.Sum(s => s.MontoImpuesto);
@@ -1102,7 +1103,8 @@ namespace PosOnLine.Src.Pos
                             break;
 
                         case Pago.Procesar.Enumerados.ModoPago.Divisa:
-                            montoRecibe = it.Monto;
+                            //montoRecibe = it.Monto;
+                            montoRecibe = it.MontoPagoDivisaSinBono;
                             autoMedioPago = _medioPagoDivisa.id;
                             codigoMedioPago = _medioPagoDivisa.codigo;
                             descMedioPago = _medioPagoDivisa.nombre;

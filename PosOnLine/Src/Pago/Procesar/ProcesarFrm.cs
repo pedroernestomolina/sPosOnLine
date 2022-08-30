@@ -48,7 +48,7 @@ namespace PosOnLine.Src.Pago.Procesar
 
             L_CLIENTE.Text = _controlador.ClienteData;
             L_SUBTOTAL_MONTO_PAGAR.Text = _controlador.SubTotalMontoPagar.ToString("n2");
-            L_TASA_CAMBIO.Text = _controlador.TasaCambio.ToString("n2");
+            L_TASA_CAMBIO.Text = _controlador.TasaCambio.ToString("n3");
             L_VENTA_MONEDA_NACIONAL.Text = _controlador.MontoPagar.ToString("n2");
             L_VENTA_DIVISA.Text = "$" + _controlador.MontoPagarDivisa.ToString("n2");
             L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoResta_MonedaNacional.ToString("n2");
@@ -149,6 +149,9 @@ namespace PosOnLine.Src.Pago.Procesar
                         if (monto >= 0)
                         {
                             _controlador.AddDivisa(monto);
+                            TB_OTRO.Text = Math.Round(_controlador.GetPagoOtro, 2, MidpointRounding.AwayFromZero).ToString();
+                            L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
+                            L_REF_4.Text = _controlador.PagoElectronico_REF_4;
                         }
                         _divisaChanged = false;
                     }

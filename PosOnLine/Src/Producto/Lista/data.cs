@@ -87,6 +87,14 @@ namespace PosOnLine.Src.Producto.Lista
             return rt;
         }
 
+
+        public decimal P1 { get { return _p1; } }
+        public decimal P1Divisa { get { return _p1Divisa; } }
+        public decimal P2 { get { return _p2; } }
+        public decimal P2Divisa { get { return _p2Divisa; } }
+        public decimal P3 { get { return _p3; } }
+        public decimal P3Divisa { get { return _p3Divisa; } }
+
     }
 
 }

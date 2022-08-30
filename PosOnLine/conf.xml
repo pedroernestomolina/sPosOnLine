@@ -16,10 +16,10 @@
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>no</HabilitarAbrirDocPendOtrosUsuarios>
-  <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>no</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
+  <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>
     <Rif>J30821934-7</Rif>
-    <Nombre>CORPORACION MUNDO SCALA, CA</Nombre>
+    <Nombre>PITA MARKET, CA</Nombre>
     <Direccion>VALENCIA, MERCADO MAYORISTA, LOCAL 21, SECTOR TOCUYITO, MERCADO DE MAYORISTA </Direccion>
   </DatosNegocioTicket>
   <Venta_Adm>

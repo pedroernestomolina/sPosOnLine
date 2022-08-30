@@ -97,9 +97,29 @@ namespace PosOnLine.Src.Producto.Lista
             }
         }
 
+        private decimal _porctBonoDivisa;
+        private bool _habilitarBonoDivisa; 
         private bool CargarData()
         {
-            return true;
+            var rt = true;
+
+            _porctBonoDivisa = 0m;
+            var r01 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r01.Mensaje);
+                return false;
+            }
+            _habilitarBonoDivisa = r01.Entidad;
+            var r02 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento ();
+            if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r02.Mensaje);
+                return false;
+            }
+            _porctBonoDivisa = r02.Entidad;
+
+            return rt;
         }
 
         public void setCantidadVisible(bool valor) 
@@ -184,6 +204,77 @@ namespace PosOnLine.Src.Producto.Lista
                 }
                 return rt;
             }
+        }
+
+        public string GetPrecio_1_Bono 
+        {
+            get 
+            {
+                var rt = "";
+                if ((data)_bs.Current != null)
+                {
+                    var _p = ((data)_bs.Current).P1;
+                    var _pDivisa = Math.Round(((data)_bs.Current).P1Divisa, 2, MidpointRounding.AwayFromZero);
+                    rt=PrecioBono(_p, _pDivisa);
+                }
+                return rt;
+            }
+        }
+        public string GetPrecio_2_Bono 
+        { 
+            get
+            {
+                var rt = "";
+                if ((data)_bs.Current != null)
+                {
+                    var _p = ((data)_bs.Current).P2;
+                    var _pDivisa = Math.Round(((data)_bs.Current).P2Divisa, 2, MidpointRounding.AwayFromZero);
+                    rt=PrecioBono(_p, _pDivisa);
+                }
+                return rt;
+            } 
+        }
+        public string GetPrecio_3_Bono
+        {
+            get
+            {
+                var rt = "";
+                if ((data)_bs.Current != null)
+                {
+                    var _p = ((data)_bs.Current).P3;
+                    var _pDivisa = Math.Round(((data)_bs.Current).P3Divisa, 2, MidpointRounding.AwayFromZero);
+                    rt = PrecioBono(_p, _pDivisa);
+                }
+                return rt;
+            }
+        }
+        public string GetTituloPrecioBono 
+        {
+            get 
+            {
+                var rt = "";
+                if (_habilitarBonoDivisa)
+                {
+                    rt = "Bono " + _porctBonoDivisa.ToString("n2") + "%";
+                }
+                return rt; 
+            }
+        }
+
+
+        private string PrecioBono(decimal montoLocal, decimal montoDivisa) 
+        {
+            var rt = "";
+            if (_habilitarBonoDivisa)
+            {
+                var _factor = ((_porctBonoDivisa / 100) + 1);
+                if (_factor > 0m)
+                {
+                    rt += (montoLocal / _factor).ToString("n2") + "/ ( $ ";
+                    rt += (montoDivisa / _factor).ToString("n2") + " )";
+                }
+            }
+            return rt;
         }
 
     }

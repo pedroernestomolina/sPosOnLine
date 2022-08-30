@@ -21,6 +21,7 @@ namespace PosOnLine.Src.Pago.Procesar
         public string TarjetaNro { get; set; }
         public decimal Importe { get; set; }
         public decimal MontoRecibido { get; set; }
+        public decimal MontoPagoDivisaSinBono { get { return Cantidad * Tasa; } }
 
     }
 

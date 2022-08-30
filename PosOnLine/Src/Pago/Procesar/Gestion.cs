@@ -46,6 +46,8 @@ namespace PosOnLine.Src.Pago.Procesar
         public bool PagoIsOk { get { return _pagoIsOk; } }
         public List<PagoDetalle> PagoDetalles { get { return _pago.Detalle; } }
         public bool IsCreditoOk { get { return _pago.IsCredito; } }
+        //
+        public decimal MontoCambioDar { get { return _pago.MontoCambioDar; } }
         
 
         public Gestion()
@@ -87,6 +89,21 @@ namespace PosOnLine.Src.Pago.Procesar
         private bool CargarData()
         {
             var rt = true;
+
+            var r01 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r01.Mensaje);
+                return false;
+            }
+            var r02 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+            if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r01.Mensaje);
+                return false;
+            }
+            _pago.setActivarBonoPorPagoDivisa(r01.Entidad);
+            _pago.setPorctBonoPorPagoDivisa(r02.Entidad);
 
             return rt;
         }
@@ -209,7 +226,7 @@ namespace PosOnLine.Src.Pago.Procesar
 
         public bool PagoMovilIsOk { get { return _pago.PagoMovilIsOk; } }
         public PagoMovil.data PagoMovilData { get { return _pago.PagoMovilData; } }
-
+        public decimal GetPagoOtro { get { return _pago.GetPagoOtro; } }
 
     }
 

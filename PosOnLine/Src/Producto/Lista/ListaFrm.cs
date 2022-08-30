@@ -145,6 +145,10 @@ namespace PosOnLine.Src.Producto.Lista
             L_PRECIO_2.Text = _controlador.GetPrecio_2;
             L_EMPAQUE_3.Text = _controlador.GetEmp_3;
             L_PRECIO_3.Text = _controlador.GetPrecio_3;
+            L_PRECIO_1_BONO.Text = _controlador.GetPrecio_1_Bono;
+            L_PRECIO_2_BONO.Text = _controlador.GetPrecio_2_Bono;
+            L_PRECIO_3_BONO.Text = _controlador.GetPrecio_3_Bono;
+            L_TITULO_PRECIO_BONO.Text = _controlador.GetTituloPrecioBono;
         }
 
         void _source_CurrentChanged(object sender, EventArgs e)
@@ -156,10 +160,15 @@ namespace PosOnLine.Src.Producto.Lista
         {
             L_EMP_1.Text = _controlador.GetEmp_1;
             L_PRECIO_1.Text = _controlador.GetPrecio_1;
+            L_PRECIO_1_BONO.Text = _controlador.GetPrecio_1_Bono;
+
             L_EMPAQUE_2.Text = _controlador.GetEmp_2;
             L_PRECIO_2.Text = _controlador.GetPrecio_2;
+            L_PRECIO_2_BONO.Text = _controlador.GetPrecio_2_Bono;
+
             L_EMPAQUE_3.Text = _controlador.GetEmp_3;
             L_PRECIO_3.Text = _controlador.GetPrecio_3;
+            L_PRECIO_3_BONO.Text = _controlador.GetPrecio_3_Bono;
         }
 
         private void DGV_KeyDown(object sender, KeyEventArgs e)

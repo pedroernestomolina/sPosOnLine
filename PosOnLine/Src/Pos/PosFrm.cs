@@ -197,7 +197,7 @@ namespace PosOnLine.Src.Pos
         {
             printDialog1.Document = printDocument1;
 
-            L_MONTO_DIVISA.Text = _controlador.TasaCambioActual.ToString("n2");
+            L_MONTO_DIVISA.Text = _controlador.TasaCambioActual.ToString("n3");
             L_FECHA.Text = "Hoy : "+DateTime.Now.ToShortDateString();
             L_HORA.Text = "";
             L_USUARIO.Text = _controlador.UsuarioActual;
