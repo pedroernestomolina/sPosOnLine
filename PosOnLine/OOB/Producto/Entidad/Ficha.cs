@@ -46,11 +46,96 @@ namespace PosOnLine.OOB.Producto.Entidad
         public string EstatusDivisa { get; set; }
         public string EstatusOferta { get; set; }
 
-        public decimal pneto_1 { get; set; }
-        public decimal pneto_2 { get; set; }
-        public decimal pneto_3 { get; set; }
-        public decimal pneto_4 { get; set; }
-        public decimal pneto_5 { get; set; }
+        private decimal _pNeto1;
+        public decimal pneto_1
+        {
+            get
+            {
+                var r = _pNeto1;
+                if (IsDivisa)
+                {
+                    r = neto(pdf_1) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPneto_1(decimal v)
+        {
+            _pNeto1 = v;
+        }
+
+        private decimal _pNeto2;
+        public decimal pneto_2
+        {
+            get
+            {
+                var r = _pNeto2;
+                if (IsDivisa)
+                {
+                    r = neto(pdf_2) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPneto_2(decimal v)
+        {
+            _pNeto2 = v;
+        }
+
+        private decimal _pNeto3;
+        public decimal pneto_3 
+        {
+            get
+            {
+                var r = _pNeto3;
+                if (IsDivisa)
+                {
+                    r = neto(pdf_3) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPneto_3(decimal v)
+        {
+            _pNeto3 = v;
+        }
+
+        private decimal _pNeto4;
+        public decimal pneto_4
+        {
+            get
+            {
+                var r = _pNeto4;
+                if (IsDivisa)
+                {
+                    r = neto(pdf_4) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPneto_4(decimal v)
+        {
+            _pNeto4 = v;
+        }
+
+        private decimal _pNeto5;
+        public decimal pneto_5
+        {
+            get
+            {
+                var r = _pNeto5;
+                if (IsDivisa)
+                {
+                    r = neto(pdf_5) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPneto_5(decimal v)
+        {
+            _pNeto5 = v;
+        }
+
         public decimal pdf_1 { get; set; }
         public decimal pdf_2 { get; set; }
         public decimal pdf_3 { get; set; }
@@ -116,10 +201,84 @@ namespace PosOnLine.OOB.Producto.Entidad
         public string AutoMedidaEmpaqueMay_2 { get; set; }
         public string AutoMedidaEmpaqueMay_3 { get; set; }
         public string AutoMedidaEmpaqueMay_4 { get; set; }
-        public decimal pnetoMay_1 { get; set; }
-        public decimal pnetoMay_2 { get; set; }
-        public decimal pnetoMay_3 { get; set; }
-        public decimal pnetoMay_4 { get; set; }
+
+        private decimal neto(decimal p)
+        {
+            return p / (1 + (TasaImpuesto / 100));
+        }
+
+        private decimal _pMay1;
+        public decimal pnetoMay_1 
+        {
+            get 
+            {
+                var r = _pMay1;
+                if (IsDivisa) 
+                {
+                    r = neto(pdfMay_1) * _factorCambio;
+                }
+                return r; 
+            } 
+        }
+        public void setPnetoMay_1(decimal v)
+        {
+            _pMay1 = v;
+        }
+
+        private decimal _pMay2;
+        public decimal pnetoMay_2
+        {
+            get
+            {
+                var r = _pMay2;
+                if (IsDivisa)
+                {
+                    r = neto(pdfMay_2) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPnetoMay_2(decimal v)
+        {
+            _pMay2 = v;
+        }
+
+        private decimal _pMay3;
+        public decimal pnetoMay_3
+        {
+            get
+            {
+                var r = _pMay3;
+                if (IsDivisa)
+                {
+                    r = neto(pdfMay_3) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPnetoMay_3(decimal v)
+        {
+            _pMay3 = v;
+        }
+
+        private decimal _pMay4;
+        public decimal pnetoMay_4 
+        {
+            get
+            {
+                var r = _pMay4;
+                if (IsDivisa)
+                {
+                    r = neto(pdfMay_4) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPnetoMay_4(decimal v)
+        {
+            _pMay4 = v;
+        }
+
         public decimal pdfMay_1 { get; set; }
         public decimal pdfMay_2 { get; set; }
         public decimal pdfMay_3 { get; set; }
@@ -142,10 +301,79 @@ namespace PosOnLine.OOB.Producto.Entidad
         public string AutoMedidaEmpaqueDsp_2 { get; set; }
         public string AutoMedidaEmpaqueDsp_3 { get; set; }
         public string AutoMedidaEmpaqueDsp_4 { get; set; }
-        public decimal pnetoDsp_1 { get; set; }
-        public decimal pnetoDsp_2 { get; set; }
-        public decimal pnetoDsp_3 { get; set; }
-        public decimal pnetoDsp_4 { get; set; }
+
+        private decimal _pDsp1;
+        public decimal pnetoDsp_1 
+        {
+            get 
+            {
+                var r = _pDsp1;
+                if (IsDivisa) 
+                {
+                    r = neto(pdfDsp_1) * _factorCambio;
+                }
+                return r; 
+            } 
+        }
+        public void setPnetoDsp_1(decimal v)
+        {
+            _pDsp1 = v;
+        }
+
+        private decimal _pDsp2;
+        public decimal pnetoDsp_2
+        {
+            get
+            {
+                var r = _pDsp2;
+                if (IsDivisa)
+                {
+                    r = neto(pdfDsp_2) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPnetoDsp_2(decimal v)
+        {
+            _pDsp2 = v;
+        }
+
+        private decimal _pDsp3;
+        public decimal pnetoDsp_3
+        {
+            get
+            {
+                var r = _pDsp3;
+                if (IsDivisa)
+                {
+                    r = neto(pdfDsp_3) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPnetoDsp_3(decimal v)
+        {
+            _pDsp3 = v;
+        }
+
+        private decimal _pDsp4;
+        public decimal pnetoDsp_4
+        {
+            get
+            {
+                var r = _pDsp4;
+                if (IsDivisa)
+                {
+                    r = neto(pdfDsp_4) * _factorCambio;
+                }
+                return r;
+            }
+        }
+        public void setPnetoDsp_4(decimal v)
+        {
+            _pDsp4 = v;
+        }
+
         public decimal pdfDsp_1 { get; set; }
         public decimal pdfDsp_2 { get; set; }
         public decimal pdfDsp_3 { get; set; }
@@ -215,11 +443,11 @@ namespace PosOnLine.OOB.Producto.Entidad
             EstatusPesado = "";
             EstatusOferta = "";
 
-            pneto_1 = 0.0m;
-            pneto_2 = 0.0m;
-            pneto_3 = 0.0m;
-            pneto_4 = 0.0m;
-            pneto_5 = 0.0m;
+            //pneto_1 = 0.0m;
+            //pneto_2 = 0.0m;
+            //pneto_3 = 0.0m;
+            //pneto_4 = 0.0m;
+            //pneto_5 = 0.0m;
             pdf_1 = 0.0m;
             pdf_2 = 0.0m;
             pdf_3 = 0.0m;
@@ -254,10 +482,10 @@ namespace PosOnLine.OOB.Producto.Entidad
             AutoMedidaEmpaqueMay_2 = "";
             AutoMedidaEmpaqueMay_3 = "";
             AutoMedidaEmpaqueMay_4 = "";
-            pnetoMay_1 = 0.0m;
-            pnetoMay_2 = 0.0m;
-            pnetoMay_3 = 0.0m;
-            pnetoMay_4 = 0.0m;
+            //pnetoMay_1 = 0.0m;
+            //pnetoMay_2 = 0.0m;
+            //pnetoMay_3 = 0.0m;
+            //pnetoMay_4 = 0.0m;
             pdfMay_1 = 0.0m;
             pdfMay_2 = 0.0m;
             pdfMay_3 = 0.0m;
@@ -280,10 +508,10 @@ namespace PosOnLine.OOB.Producto.Entidad
             AutoMedidaEmpaqueDsp_2 = "";
             AutoMedidaEmpaqueDsp_3 = "";
             AutoMedidaEmpaqueDsp_4 = "";
-            pnetoDsp_1 = 0.0m;
-            pnetoDsp_2 = 0.0m;
-            pnetoDsp_3 = 0.0m;
-            pnetoDsp_4 = 0.0m;
+            //pnetoDsp_1 = 0.0m;
+            //pnetoDsp_2 = 0.0m;
+            //pnetoDsp_3 = 0.0m;
+            //pnetoDsp_4 = 0.0m;
             pdfDsp_1 = 0.0m;
             pdfDsp_2 = 0.0m;
             pdfDsp_3 = 0.0m;
@@ -306,6 +534,8 @@ namespace PosOnLine.OOB.Producto.Entidad
             FAncho = 0m;
             FLargo = 0m;
             FVolumen = 0m;
+            //
+            _pMay1 = 0m;
         }
 
 
@@ -315,6 +545,14 @@ namespace PosOnLine.OOB.Producto.Entidad
         public decimal FLargo { get; set; }
         public decimal FAncho { get; set; }
         public decimal FVolumen { get; set; }
+
+
+        //
+        private decimal _factorCambio;
+        public void setFactorCambio(decimal factor) 
+        {
+            _factorCambio = factor;
+        }
 
     }
 

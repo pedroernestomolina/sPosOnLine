@@ -299,6 +299,22 @@ namespace PosOnLine.Src.Pos
                 return false;
             }
 
+            var r05 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+            if (r05.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r05.Mensaje);
+                return false;
+            }
+            var r06 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+            if (r06.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r06.Mensaje);
+                return false;
+            }
+            _habilitarBonoPagoDivisa = r05.Entidad;
+            _dsctoBonoPagoDivisa = r06.Entidad;
+
+
             _permitirBusquedaPorDescripcion = Sistema.ConfiguracionActual.BusquedaPorDescripcion_Activa;
             _tasaCambioActual = r01.Entidad;
             _depositoAsignado = r02.Entidad;
@@ -2525,6 +2541,26 @@ namespace PosOnLine.Src.Pos
         {
             _gestionCliente = ctr;
         }
+
+
+        public string PagoImporteDivisaBono { get { return pagoDivisaConBonoDscto(); } }
+        private bool _habilitarBonoPagoDivisa;
+        private decimal _dsctoBonoPagoDivisa;
+        private string pagoDivisaConBonoDscto()
+        {
+            var rt = "";
+            if (_habilitarBonoPagoDivisa) 
+            {
+                rt += "Con Bono ("+_dsctoBonoPagoDivisa.ToString("n2")+"%): ";
+                var _pagoDivisa = (int) (ImporteDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
+                var _pago = (_pagoDivisa * _tasaCambioActual);
+                var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
+                var _resta = Importe - (_pago + _bono);
+                rt += _pagoDivisa.ToString("n0")+"$, con " + _resta.ToString("n2") + "Bs";
+            }
+            return rt;
+        }
+
     }
 
 }

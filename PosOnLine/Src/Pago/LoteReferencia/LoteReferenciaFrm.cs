@@ -15,7 +15,7 @@ namespace PosOnLine.Src.Pago.LoteReferencia
     public partial class LoteReferenciaFrm : Form
     {
 
-        private Gestion _controlador;
+        private ILoteRef _controlador;
 
 
         public LoteReferenciaFrm()
@@ -23,31 +23,6 @@ namespace PosOnLine.Src.Pago.LoteReferencia
             InitializeComponent();
         }
 
-
-        private void BT_SALIDA_Click(object sender, EventArgs e)
-        {
-            Salir();
-        }
-
-        private void Salir()
-        {
-            this.Close();
-        }
-
-        private void BT_ACEPTAR_Click(object sender, EventArgs e)
-        {
-            Aceptar();
-        }
-
-        private void Aceptar()
-        {
-            _controlador.Aceptar();
-            if (_controlador.IsOk)
-            {
-                IrFoco();
-                Salir();
-            }
-        }
 
         private void TB_KeyDown(object sender, KeyEventArgs e)
         {
@@ -57,15 +32,15 @@ namespace PosOnLine.Src.Pago.LoteReferencia
             }
         }
 
-        public void setControlador(Gestion ctr)
+        public void setControlador(ILoteRef ctr)
         {
             _controlador = ctr;
         }
 
         private void LoteReferenciaFrm_Load(object sender, EventArgs e)
         {
-            TB_LOTE.Text = _controlador.Lote;
-            TB_REFERENCIA.Text = _controlador.Referencia;
+            TB_LOTE.Text = _controlador.GetNroLote;
+            TB_REFERENCIA.Text = _controlador.GetNroReferencia;
             IrFoco();
         }
 
@@ -77,12 +52,46 @@ namespace PosOnLine.Src.Pago.LoteReferencia
 
         private void TB_LOTE_Leave(object sender, EventArgs e)
         {
-            _controlador.setLote(TB_LOTE.Text.Trim().ToUpper());
+            _controlador.setNroLote(TB_LOTE.Text.Trim().ToUpper());
         }
-
         private void TB_REFERENCIA_Leave(object sender, EventArgs e)
         {
-            _controlador.setReferencia(TB_REFERENCIA.Text.Trim().ToUpper());
+            _controlador.setNroReferencia(TB_REFERENCIA.Text.Trim().ToUpper());
+        }
+
+
+        private void BT_ACEPTAR_Click(object sender, EventArgs e)
+        {
+            Aceptar();
+        }
+        private void Aceptar()
+        {
+            _controlador.Procesar();
+            if (_controlador.ProcesarIsOK)
+            {
+                IrFoco();
+                Salir();
+            }
+        }
+        private void BT_SALIDA_Click(object sender, EventArgs e)
+        {
+            _controlador.AbandonarFicha();
+            if (_controlador.AbandonarIsOK)
+            {
+                Salir();
+            }
+        }
+        private void Salir()
+        {
+            this.Close();
+        }
+        private void LoteReferenciaFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (_controlador.AbandonarIsOK || _controlador.ProcesarIsOK) 
+            {
+                e.Cancel = false;
+            }
         }
 
     }

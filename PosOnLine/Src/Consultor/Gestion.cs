@@ -73,6 +73,7 @@ namespace PosOnLine.Src.Consultor
                     Helpers.Msg.Error(r01.Mensaje);
                     return;
                 }
+                r01.Entidad.setFactorCambio(_factorCambio);
                 var ficha = new OOB.Producto.Existencia.Buscar.Ficha()
                 {
                     autoDeposito = _gestionBuscar.AutoDeposito,

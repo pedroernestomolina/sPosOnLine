@@ -276,6 +276,9 @@ namespace PosOnLine.Src.Principal
                 _gestionDoc.Inicia();
                 if (_gestionDoc.NotaCreditoIsOk)
                 {
+                    _gCliente = new Cliente.Gestion();
+                    _gestionPos.setCtrlCliente(_gCliente);
+
                     _gestionPos.Inicializa();
                     _gestionPos.setNotaCredito(_gestionDoc.DocAplicaNotaCredito);
                     _gestionPos.Inicia();

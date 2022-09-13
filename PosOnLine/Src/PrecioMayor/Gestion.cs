@@ -201,6 +201,7 @@ namespace PosOnLine.Src.PrecioMayor
                 return false;
             }
             _factorCambio = r02.Entidad;
+            _ficha.setFactorCambio(r02.Entidad);
 
             return rt;
         }

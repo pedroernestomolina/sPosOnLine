@@ -105,11 +105,11 @@ namespace PosOnLine.Data.Prov
                 Pasillo = ent.Pasillo,
                 Referencia = ent.Referencia,
                 TasaImpuesto = ent.TasaImpuesto,
-                pneto_1 = ent.pneto_1,
-                pneto_2 = ent.pneto_2,
-                pneto_3 = ent.pneto_3,
-                pneto_4 = ent.pneto_4,
-                pneto_5 = ent.pneto_5,
+                //pneto_1 = ent.pneto_1,
+                //pneto_2 = ent.pneto_2,
+                //pneto_3 = ent.pneto_3,
+                //pneto_4 = ent.pneto_4,
+                //pneto_5 = ent.pneto_5,
                 pdf_1 = ent.pdf_1,
                 pdf_2 = ent.pdf_2,
                 pdf_3 = ent.pdf_3,
@@ -156,10 +156,10 @@ namespace PosOnLine.Data.Prov
                 pdfMay_2 = ent.pdfMay_2,
                 pdfMay_3 = ent.pdfMay_3,
                 pdfMay_4 = ent.pdfMay_4,
-                pnetoMay_1 = ent.pnetoMay_1,
-                pnetoMay_2 = ent.pnetoMay_2,
-                pnetoMay_3 = ent.pnetoMay_3,
-                pnetoMay_4 = ent.pnetoMay_4,
+                //pnetoMay_1 = ent.pnetoMay_1,
+                //pnetoMay_2 = ent.pnetoMay_2,
+                //pnetoMay_3 = ent.pnetoMay_3,
+                //pnetoMay_4 = ent.pnetoMay_4,
                 //
                 AutoMedidaEmpaqueDsp_1 = ent.AutoMedidaEmpaqueDsp_1,
                 AutoMedidaEmpaqueDsp_2 = ent.AutoMedidaEmpaqueDsp_2,
@@ -181,10 +181,10 @@ namespace PosOnLine.Data.Prov
                 pdfDsp_2 = ent.pdfDsp_2,
                 pdfDsp_3 = ent.pdfDsp_3,
                 pdfDsp_4 = ent.pdfDsp_4,
-                pnetoDsp_1 = ent.pnetoDsp_1,
-                pnetoDsp_2 = ent.pnetoDsp_2,
-                pnetoDsp_3 = ent.pnetoDsp_3,
-                pnetoDsp_4 = ent.pnetoDsp_4,
+                //pnetoDsp_1 = ent.pnetoDsp_1,
+                //pnetoDsp_2 = ent.pnetoDsp_2,
+                //pnetoDsp_3 = ent.pnetoDsp_3,
+                //pnetoDsp_4 = ent.pnetoDsp_4,
                 //
                 FPeso = ent.FPeso,
                 FAlto = ent.FAlto,
@@ -192,6 +192,19 @@ namespace PosOnLine.Data.Prov
                 FAncho = ent.FAncho,
                 FVolumen = ent.FVolumen,
             };
+            nr.setPneto_1(ent.pneto_1);
+            nr.setPneto_2(ent.pneto_2);
+            nr.setPneto_3(ent.pneto_3);
+            nr.setPneto_4(ent.pneto_4);
+            nr.setPneto_5(ent.pneto_5);
+            nr.setPnetoMay_1(ent.pnetoMay_1);
+            nr.setPnetoMay_2(ent.pnetoMay_2);
+            nr.setPnetoMay_3(ent.pnetoMay_3);
+            nr.setPnetoMay_4(ent.pnetoMay_4);
+            nr.setPnetoDsp_1(ent.pnetoDsp_1);
+            nr.setPnetoDsp_2(ent.pnetoDsp_2);
+            nr.setPnetoDsp_3(ent.pnetoDsp_3);
+            nr.setPnetoDsp_4(ent.pnetoDsp_4);
             result.Entidad = nr;
 
             return result;

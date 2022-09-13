@@ -245,6 +245,8 @@ namespace PosOnLine.Src.Pos
             L_TOTAL_RENGLONES.Text = _controlador.CantRenglones.ToString("n0");
             L_IMPORTE.Text=_controlador.Importe.ToString("n2");
             L_IMPORTE_DIVISA.Text = "$"+_controlador.ImporteDivisa.ToString("n2");
+            L_IMPORTE_PAGO_DIVISA_BONO.Text = _controlador.PagoImporteDivisaBono;
+
             ActualizarItem();
             DGV_DETALLE.Refresh();
         }

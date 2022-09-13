@@ -43,6 +43,8 @@ namespace PosOnLine.OOB.Producto.Lista
         public decimal pfullDivEmp_1 { get; set; }
         public decimal pfullDivEmp_2 { get; set; }
         public decimal pfullDivEmp_3 { get; set; }
+        //
+        public bool EsAdmDivisa { get { return EstatusDivisa.Trim().ToUpper() == "1"; } }
 
 
         public Ficha()

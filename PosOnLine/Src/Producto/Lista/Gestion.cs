@@ -277,6 +277,43 @@ namespace PosOnLine.Src.Producto.Lista
             return rt;
         }
 
+        public bool GetEmp_1_IsOk 
+        {
+            get
+            {
+                if (_bs.Current != null)
+                {
+                    var rt= (data)_bs.Current;
+                    return rt.Emp1_IsOK;
+                }
+                return false;
+            }
+        }
+        public bool GetEmp_2_IsOk
+        {
+            get
+            {
+                if (_bs.Current != null)
+                {
+                    var rt = (data)_bs.Current;
+                    return rt.Emp2_IsOK;
+                }
+                return false;
+            }
+        }
+        public bool GetEmp_3_IsOk
+        {
+            get
+            {
+                if (_bs.Current != null)
+                {
+                    var rt = (data)_bs.Current;
+                    return rt.Emp3_IsOK;
+                }
+                return false;
+            }
+        }
+
     }
 
 }

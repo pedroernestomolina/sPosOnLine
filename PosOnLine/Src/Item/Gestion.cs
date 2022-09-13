@@ -284,6 +284,7 @@ namespace PosOnLine.Src.Item
                 Helpers.Msg.Error(r01.Mensaje);
                 return;
             }
+            r01.Entidad.setFactorCambio(_tasaCambio);
             if (!r01.Entidad.IsPesado)
             {
                 Registrar(r01.Entidad, 1, tarifa);
@@ -303,127 +304,6 @@ namespace PosOnLine.Src.Item
             }
         }
 
-        //private void Registrar(OOB.Producto.Entidad.Ficha prd, decimal cant)
-        //{
-        //    var cnt = 0.0m;
-        //    var precioNeto = 0.0m;
-        //    var precioFullDivisa = 0.0m;
-        //    var empaqueCont = 0;
-        //    var empaqueDesc = "";
-        //    var decimales = "";
-
-        //    switch (_tarifaPrecio)
-        //    {
-        //        case "1":
-        //            cnt = prd.contenido_1;
-        //            precioNeto = prd.pneto_1;
-        //            precioFullDivisa = prd.pdf_1;
-        //            empaqueCont = prd.contenido_1;
-        //            empaqueDesc = prd.empaque_1;
-        //            decimales = prd.decimales_1;
-        //            break;
-        //        case "2":
-        //            cnt = prd.contenido_2;
-        //            precioNeto = prd.pneto_2;
-        //            precioFullDivisa = prd.pdf_2;
-        //            empaqueCont = prd.contenido_2;
-        //            empaqueDesc = prd.empaque_2;
-        //            decimales = prd.decimales_2;
-        //            break;
-        //        case "3":
-        //            cnt = prd.contenido_3;
-        //            precioNeto = prd.pneto_3;
-        //            precioFullDivisa = prd.pdf_3;
-        //            empaqueCont = prd.contenido_3;
-        //            empaqueDesc = prd.empaque_3;
-        //            decimales = prd.decimales_3;
-        //            break;
-        //        case "4":
-        //            cnt = prd.contenido_4;
-        //            precioNeto = prd.pneto_4;
-        //            precioFullDivisa = prd.pdf_4;
-        //            empaqueCont = prd.contenido_4;
-        //            empaqueDesc = prd.empaque_4;
-        //            decimales = prd.decimales_4;
-        //            break;
-        //        case "5":
-        //            cnt = prd.contenido_5;
-        //            precioNeto = prd.pneto_5;
-        //            precioFullDivisa = prd.pdf_5;
-        //            empaqueCont = prd.contenido_5;
-        //            empaqueDesc = prd.empaque_5;
-        //            decimales = prd.decimales_5;
-        //            break;
-        //    }
-
-        //    if (cnt == 0.0m)
-        //    {
-        //        Helpers.Msg.Error("CONTENIDO DEL PRODUCTO NO DEFINIDO");
-        //        return;
-        //    }
-        //    if (precioNeto == 0.0m)
-        //    {
-        //        Helpers.Msg.Error("PRECIO DEL PRODUCTO NO DEFINIDO");
-        //        return;
-        //    }
-
-        //    cnt *= cant;
-        //    var ficha = new OOB.Venta.Item.Registrar.Ficha()
-        //    {
-        //        validarExistencia = _validarExistencia,
-        //        deposito = new OOB.Venta.Item.Registrar.FichaDeposito()
-        //        {
-        //            autoDeposito = _autoDeposito,
-        //            autoPrd = prd.Auto,
-        //            cantBloq = cnt
-        //        },
-        //        item = new OOB.Venta.Item.Registrar.FichaItem()
-        //        {
-        //            autoDepartamento = prd.AutoDepartamento,
-        //            autoGrupo = prd.AutoGrupo,
-        //            autoProducto = prd.Auto,
-        //            autoSubGrupo = prd.AutoSubGrupo,
-        //            autoTasa = prd.AutoTasaIva,
-        //            cantidad = cant,
-        //            categoria = prd.Categoria,
-        //            codigo = prd.CodigoPrd,
-        //            costoCompra = prd.Costo,
-        //            costoPromedio = prd.CostoPromedio,
-        //            costoPromedioUnd = prd.CostoPromedioUnidad,
-        //            costoUnd = prd.CostoUnidad,
-        //            decimales = decimales,
-        //            empaqueContenido = empaqueCont,
-        //            empaqueDescripcion = empaqueDesc,
-        //            estatusPesado = prd.EstatusPesado,
-        //            idOperador = Sistema.PosEnUso.id,
-        //            nombre = prd.NombrePrd,
-        //            pfullDivisa = precioFullDivisa,
-        //            pneto = precioNeto,
-        //            tarifaPrecio = _tarifaPrecio,
-        //            tasaIva = prd.TasaImpuesto,
-        //            tipoIva = "",
-        //            autoDeposito = _autoDeposito,
-        //        },
-        //    };
-        //    var r01 = Sistema.MyData.Venta_Item_Registrar(ficha);
-        //    if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-        //    {
-        //        Helpers.Msg.Error(r01.Mensaje);
-        //        return;
-        //    }
-        //    var r02 = Sistema.MyData.Venta_Item_GetById(r01.Id);
-        //    if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-        //    {
-        //        Helpers.Msg.Error(r02.Mensaje);
-        //        return;
-        //    }
-
-        //    _itemActual = r02.Entidad;
-        //    _blitems.Insert(0, new data(r02.Entidad, _tasaCambio));
-        //    _bsitems.Position = 0;
-        //    Helpers.Sonido.SonidoOk();
-        //}
-
         private bool _habilitarPos_precio_5_para_venta_mayor = false;
         private void Registrar(OOB.Producto.Entidad.Ficha prd, decimal cant, string tarifa)
         {
@@ -433,20 +313,6 @@ namespace PosOnLine.Src.Item
             var empaqueCont = 0;
             var empaqueDesc = "";
             var decimales = "";
-
-
-            //if (_habilitarPos_precio_5_para_venta_mayor)
-            //{
-            //    var ent = (data)Items.FirstOrDefault(f => f.Ficha.autoProducto == prd.Auto);
-            //    if (ent != null)
-            //    {
-            //        if (!ent.EsPesado)
-            //        {
-            //            IncrementarItem(ent,1);
-            //            return;
-            //        }
-            //    }
-            //}
 
             switch (tarifa)
             {
@@ -555,17 +421,6 @@ namespace PosOnLine.Src.Item
                     decimales = prd.decimalesDsp_4;
                     break;
             }
-
-            //if (_habilitarPos_precio_5_para_venta_mayor)
-            //{
-            //    var xcnt = Items.Where(f => f.Ficha.autoProducto == prd.Auto).Sum(f => f.Cantidad);
-            //    if (xcnt >= (prd.contenido_5 - 1))
-            //    {
-            //        precioNeto = prd.pneto_5;
-            //        precioFullDivisa = prd.pdf_5;
-            //        empaqueDesc = prd.empaque_5;
-            //    }
-            //}
 
             if (cnt == 0.0m)
             {
@@ -753,18 +608,11 @@ namespace PosOnLine.Src.Item
                     Helpers.Msg.Error(t01.Mensaje);
                     return;
                 }
+                t01.Entidad.setFactorCambio(_tasaCambio);
 
                 var pneto = it.PrecioItem;
                 var tarifa = it.Ficha.tarifaPrecio;
                 var pdivisa = it.Ficha.pfullDivisa;
-                //var xcnt = Items.Where(f => f.Ficha.autoProducto == autoPrd).Sum(f => f.Cantidad);
-                //if ((xcnt+cnt) >= t01.Entidad.contenido_5) 
-                //{
-                //    pneto = t01.Entidad.pneto_5;
-                //    tarifa = "5";
-                //    pdivisa = t01.Entidad.pdf_5;
-                //}
-
                 var ficha = new OOB.Venta.Item.ActualizarCantidad.Aumentar.Ficha()
                 {
                     idOperador = it.Ficha.idOperador,

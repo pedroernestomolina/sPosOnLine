@@ -8,36 +8,31 @@ using System.Threading.Tasks;
 namespace PosOnLine.Src.Pago.LoteReferencia
 {
 
-    public class Gestion
+    public class Gestion: ILoteRef
     {
         
         
-        private bool _isOk;
         private string _lote;
         private string _referencia;
+        private bool _abandonarIsOk;
+        private bool _procesarIsOk;
 
 
-        public string Lote { get { return _lote; } }
-        public string Referencia { get { return _referencia; } }
-        public bool IsOk { get { return _isOk; } }
-
-
-        public Gestion ()
+        public Gestion()
         {
-            Limpiar();
-        }
-
-
-        private void Limpiar()
-        {
-            _isOk = false;
             _lote = "";
             _referencia = "";
+            _abandonarIsOk = false;
+            _procesarIsOk = false;
         }
+
 
         public void Inicializa() 
         {
-            Limpiar();
+            _lote = "";
+            _referencia = "";
+            _abandonarIsOk = false;
+            _procesarIsOk = false;
         }
 
         LoteReferenciaFrm frm;
@@ -54,28 +49,40 @@ namespace PosOnLine.Src.Pago.LoteReferencia
             }
         }
 
-        private bool CargarData()
+
+        public void setNroLote(string nro)
         {
-            var rt = true;
-            return rt;
+            _lote = nro;
+        }
+        public void setNroReferencia(string nro)
+        {
+            _referencia = nro;
+        }
+        public string GetNroLote { get { return _lote; } }
+        public string GetNroReferencia { get { return _referencia; } }
+
+
+        public bool AbandonarIsOK { get { return _abandonarIsOk; } }
+        public void AbandonarFicha()
+        {
+            _abandonarIsOk = true;
         }
 
-        public void Aceptar()
+        public bool LoteRefIsOk { get { return _procesarIsOk; } }
+        public bool ProcesarIsOK { get { return _procesarIsOk; } }
+        public void Procesar()
         {
-            if (_lote.Trim() != "" && _referencia.Trim() != "") 
+            _procesarIsOk = false;
+            if (_lote.Trim() != "" && _referencia.Trim() != "")
             {
-                _isOk = true;
+                _procesarIsOk = true;
             }
         }
 
-        public void setLote(string p)
-        {
-            _lote = p;
-        }
 
-        public void setReferencia(string p)
+        private bool CargarData()
         {
-            _referencia = p;
+            return true;
         }
 
     }

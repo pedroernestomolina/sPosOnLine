@@ -119,6 +119,7 @@
     <Compile Include="Gestion.cs" />
     <Compile Include="Helpers\ficha.cs" />
     <Compile Include="Helpers\fichaSeleccion.cs" />
+    <Compile Include="Helpers\IAbandonar.cs" />
     <Compile Include="Helpers\Imprimir\data.cs" />
     <Compile Include="Helpers\Imprimir\dataCuadre.cs" />
     <Compile Include="Helpers\Imprimir\dataQR.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Helpers\Imprimir\Tickera80\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Ticket.cs" />
+    <Compile Include="Helpers\IProcesar.cs" />
     <Compile Include="Helpers\Msg.cs" />
     <Compile Include="Helpers\Opcion\Gestion.cs" />
     <Compile Include="Helpers\Opcion\IOpcion.cs" />
@@ -373,6 +375,9 @@
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
+    <Compile Include="Src\Pago\LoteReferencia\ILoteRef.cs" />
+    <Compile Include="Src\Pago\Procesar\PgDivisa.cs" />
+    <Compile Include="Src\Pago\Procesar\PgPunto.cs" />
     <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.cs">
       <SubType>Form</SubType>
     </Compile>

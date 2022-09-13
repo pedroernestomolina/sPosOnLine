@@ -16,31 +16,12 @@ namespace PosOnLine.Src.Pago.Procesar
     {
 
         private Gestion _controlador;
-        private bool _efectivoChanged;
-        private bool _divisaChanged;
-        private bool _elect_1_Changed;
-        private bool _elect_2_Changed;
-        private bool _elect_3_Changed;
-        private bool _otro_Changed;
 
 
         public ProcesarFrm()
         {
             InitializeComponent();
         }
-
-
-        public void Inicializa()
-            //CtrCliente cliente, Venta venta, OOB.LibVenta.PosOffline.Permiso.Pos.Ficha permiso, ClaveSeguridad.Seguridad seguridad) 
-        {
-            _efectivoChanged = false;
-            _divisaChanged = false;
-            _elect_1_Changed = false;
-            _elect_2_Changed = false;
-            _elect_3_Changed = false;
-            _otro_Changed = false;
-        }
-            
 
         private void PagoFrm_Load(object sender, EventArgs e)
         {
@@ -53,6 +34,8 @@ namespace PosOnLine.Src.Pago.Procesar
             L_VENTA_DIVISA.Text = "$" + _controlador.MontoPagarDivisa.ToString("n2");
             L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoResta_MonedaNacional.ToString("n2");
             L_RESTA_DIVISA.Text = "$" + _controlador.MontoResta_Divisa.ToString("n2");
+            L_CNT_DIVISA_RECOMIENDA.Text = "";
+            ActualizaMontoResta();
         }
 
         private void Limpiar()
@@ -85,132 +68,13 @@ namespace PosOnLine.Src.Pago.Procesar
             TB_ELECT_2.Text = "0";
             TB_ELECT_3.Text = "0";
             TB_OTRO.Text = "0";
-            _efectivoChanged = false;
-            _divisaChanged = false;
-            _elect_1_Changed = false;
-            _elect_2_Changed = false;
-            _elect_3_Changed = false;
-            _otro_Changed = false;
+            L_CNT_DIVISA_RECOMIENDA.Text = "";
             ActualizaMontoResta();
         }
 
         private void Salir()
         {
             this.Close();
-        }
-
-        private void TB_TextChanged(object sender, EventArgs e)
-        {
-            var tb = (TextBox)sender;
-            switch (tb.Name) 
-            {
-                case "TB_EFECTIVO":
-                    _efectivoChanged = true;
-                    break;
-                case "TB_DIVISA_CNT":
-                    _divisaChanged = true;
-                    break;
-                case "TB_ELECT_1":
-                    _elect_1_Changed = true;
-                    break;
-                case "TB_ELECT_2":
-                    _elect_2_Changed = true;
-                    break;
-                case "TB_ELECT_3":
-                    _elect_3_Changed = true;
-                    break;
-                case "TB_OTRO":
-                    _otro_Changed= true;
-                    break;
-            }
-        }
-
-        private void TB_Leave(object sender, EventArgs e)
-        {
-            var tb = (TextBox)sender;
-            var monto = 0.0m;
-            switch (tb.Name)
-            {
-                case "TB_EFECTIVO":
-                    monto = decimal.Parse(TB_EFECTIVO.Text);
-                    if (_efectivoChanged)
-                    {
-                        if (monto >= 0)
-                        {
-                            _controlador.AddEfectivo(monto);
-                        }
-                        _efectivoChanged = false;
-                    }
-                    break;
-                case "TB_DIVISA_CNT":
-                    monto = decimal.Parse(TB_DIVISA_CNT.Text);
-                    if (_divisaChanged)
-                    {
-                        if (monto >= 0)
-                        {
-                            _controlador.AddDivisa(monto);
-                            TB_OTRO.Text = Math.Round(_controlador.GetPagoOtro, 2, MidpointRounding.AwayFromZero).ToString();
-                            L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
-                            L_REF_4.Text = _controlador.PagoElectronico_REF_4;
-                        }
-                        _divisaChanged = false;
-                    }
-                    break;
-                case "TB_ELECT_1":
-                    monto = decimal.Parse(TB_ELECT_1.Text);
-                    if (_elect_1_Changed)
-                    {
-                        if (monto >= 0)
-                        {
-                            _controlador.AddElectronico(monto, 1);
-                        }
-                        L_LOTE_1.Text = _controlador.PagoElectronico_LOTE_1;
-                        L_REF_1.Text = _controlador.PagoElectronico_REF_1;
-                        _elect_1_Changed = false;
-                    }
-                    break;
-                case "TB_ELECT_2":
-                    monto = decimal.Parse(TB_ELECT_2.Text);
-                    if (_elect_2_Changed)
-                    {
-                        if (monto >= 0)
-                        {
-                            _controlador.AddElectronico(monto, 2);
-                        }
-                        L_LOTE_2.Text = _controlador.PagoElectronico_LOTE_2;
-                        L_REF_2.Text = _controlador.PagoElectronico_REF_2;
-                        _elect_2_Changed = false;
-                    }
-                    break;
-                case "TB_ELECT_3":
-                    monto = decimal.Parse(TB_ELECT_3.Text);
-                    if (_elect_3_Changed)
-                    {
-                        if (monto >= 0)
-                        {
-                            _controlador.AddElectronico(monto, 3);
-                        }
-                        L_LOTE_3.Text = _controlador.PagoElectronico_LOTE_3;
-                        L_REF_3.Text = _controlador.PagoElectronico_REF_3;
-                        _elect_3_Changed = false;
-                    }
-                    break;
-                case "TB_OTRO":
-                    monto = decimal.Parse(TB_OTRO.Text);
-                    if (_otro_Changed)
-                    {
-                        if (monto >= 0)
-                        {
-                            _controlador.AddElectronico(monto, 4);
-                        }
-                        L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
-                        L_REF_4.Text = _controlador.PagoElectronico_REF_4;
-                        _otro_Changed = false;
-                    }
-                    break;
-            }
-
-            ActualizaMontoResta();
         }
 
         private void TB_KeyDown(object sender, KeyEventArgs e)
@@ -374,6 +238,61 @@ namespace PosOnLine.Src.Pago.Procesar
             }
         }
 
+        private void TB_DIVISA_CNT_Leave(object sender, EventArgs e)
+        {
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_DIVISA_CNT.Text);
+            _controlador.AddDivisa(monto);
+            TB_OTRO.Text = Math.Round(_controlador.GetPagoOtro, 2, MidpointRounding.AwayFromZero).ToString();
+            L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
+            L_REF_4.Text = _controlador.PagoElectronico_REF_4;
+            L_CNT_DIVISA_RECOMIENDA.Text = _controlador.GetCntDivisaRecomendar.ToString();
+            ActualizaMontoResta();
+        }
+        private void TB_EFECTIVO_Leave(object sender, EventArgs e)
+        {
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_EFECTIVO.Text);
+            _controlador.AddEfectivo(monto);
+            ActualizaMontoResta();
+        }
+        private void TB_ELECT_1_Leave(object sender, EventArgs e)
+        {
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_ELECT_1.Text);
+            _controlador.AddElectronico(monto, 1);
+            L_LOTE_1.Text = _controlador.PagoElectronico_LOTE_1;
+            L_REF_1.Text = _controlador.PagoElectronico_REF_1;
+            ActualizaMontoResta();
+        }
+        private void TB_ELECT_2_Leave(object sender, EventArgs e)
+        {
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_ELECT_2.Text);
+            _controlador.AddElectronico(monto, 2);
+            L_LOTE_2.Text = _controlador.PagoElectronico_LOTE_2;
+            L_REF_2.Text = _controlador.PagoElectronico_REF_2;
+            ActualizaMontoResta();
+        }
+        private void TB_ELECT_3_Leave(object sender, EventArgs e)
+        {
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_ELECT_3.Text);
+            _controlador.AddElectronico(monto, 3);
+            L_LOTE_3.Text = _controlador.PagoElectronico_LOTE_3;
+            L_REF_3.Text = _controlador.PagoElectronico_REF_3;
+            ActualizaMontoResta();
+        }
+        private void TB_OTRO_Leave(object sender, EventArgs e)
+        {
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_OTRO.Text);
+            _controlador.AddElectronico(monto, 4);
+            L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
+            L_REF_4.Text = _controlador.PagoElectronico_REF_4;
+            ActualizaMontoResta();
+        }
+       
     }
 
 }

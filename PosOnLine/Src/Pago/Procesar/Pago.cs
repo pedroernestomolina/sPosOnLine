@@ -64,7 +64,8 @@ namespace PosOnLine.Src.Pago.Procesar
                 {
                     if (_tasaCambio > 0)
                     {
-                        x = MontoCambioDar_MonedaNacional / _tasaCambio;
+                        var _factor = 1 + (_porctBonoPorPagoDivisa / 100);
+                        x = (MontoCambioDar_MonedaNacional / _factor) / _tasaCambio;
                     }
                 }
                 return x;
@@ -221,19 +222,22 @@ namespace PosOnLine.Src.Pago.Procesar
             var it = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Efectivo);
             if (it == null)
             {
-                it = new PagoDetalle()
+                if (monto > 0m)
                 {
-                    Modo = Enumerados.ModoPago.Efectivo,
-                    Tasa = 1,
-                    Cantidad = 1,
-                    Monto = monto,
-                    Lote = "",
-                    Referencia = "",
-                    TarjetaNro = "",
-                    Importe = MontoResta_MonedaNacional,
-                    MontoRecibido=monto,
-                };
-                _detalle.Add(it);
+                    it = new PagoDetalle()
+                    {
+                        Modo = Enumerados.ModoPago.Efectivo,
+                        Tasa = 1,
+                        Cantidad = 1,
+                        Monto = monto,
+                        Lote = "",
+                        Referencia = "",
+                        TarjetaNro = "",
+                        Importe = MontoResta_MonedaNacional,
+                        MontoRecibido = monto,
+                    };
+                    _detalle.Add(it);
+                }
             }
             else
             {
@@ -247,6 +251,7 @@ namespace PosOnLine.Src.Pago.Procesar
 
         private bool _activarBonoPorPagoDivisa;
         private decimal _porctBonoPorPagoDivisa;
+        private int _cntDivisaRecomendada;
         public void setActivarBonoPorPagoDivisa(bool activar)
         {
             _activarBonoPorPagoDivisa = activar;
@@ -255,89 +260,69 @@ namespace PosOnLine.Src.Pago.Procesar
         {
             _porctBonoPorPagoDivisa = porct;
         }
+        public int GetCntDivisaRecomendar { get { return _cntDivisaRecomendada; } }
         public void AddDivisa(decimal monto)
         {
+            _cntDivisaRecomendada = 0;
             var it = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Divisa);
-            //
+            var it2 = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Electronico && f.Id==4);
             if (it != null)
             {
                 _detalle.Remove(it);
-                it = null;
             }
-            //
-
-            var _monto = monto * _tasaCambio;
-            if (_activarBonoPorPagoDivisa) 
+            if (it2 != null)
             {
-                if (_porctBonoPorPagoDivisa > 0m) 
-                {
-                    var _bono = _monto * (_porctBonoPorPagoDivisa / 100);
-                    if ((_monto + _bono) > MontoResta_MonedaNacional)
-                    {
-                        var _cnt = (int)(MontoResta_MonedaNacional / (1 + (_porctBonoPorPagoDivisa / 100)) / _tasaCambio);
-                        Helpers.Msg.Alerta("CANTIDAD DIVISA SUPERA EL MONTO PENDIENTE POR PAGAR"+Environment.NewLine+"CANTIDAD DIVISA NECESARIA SON: "+_cnt.ToString());
-                        return;
-                    }
-                    AddElectronico(_bono, 4);
-                    _monto += 0;
-                }
+                _detalle.Remove(it2);
             }
-
-            if (it == null)
+            if (monto > 0m)
             {
+                PgDivisa pg = new PgDivisa();
+                pg.setHabilitarBono(_activarBonoPorPagoDivisa);
+                pg.setTasaBono(_porctBonoPorPagoDivisa);
+                pg.setTasaDivisa(_tasaCambio);
+                pg.AgregarPago(monto, MontoPagar);
                 it = new PagoDetalle()
                 {
                     Modo = Enumerados.ModoPago.Divisa,
                     Tasa = _tasaCambio,
                     Cantidad = monto,
-                    Monto = _monto,
+                    Monto = pg.GetMontoRecibeBs,
                     Lote = "",
                     Referencia = "",
                     TarjetaNro = "",
                     Importe = MontoResta_MonedaNacional,
-                    MontoRecibido=monto,
+                    MontoRecibido = monto,
                 };
+                _cntDivisaRecomendada = pg.GetCntDivisaRecomendar;
                 _detalle.Add(it);
-            }
-            else
-            {
-                it.Monto = 0;
-                it.Importe = MontoResta_MonedaNacional;
-                it.Monto = _monto;
-                it.MontoRecibido = monto;
+                var msg1 = "BONO";
+                var msg2 = Math.Round(pg.GetMontoBonoDivisa, 2, MidpointRounding.AwayFromZero).ToString()+"$";
+                AddElectronico(pg.GetMontoBonoBs, 4, msg1, msg2, false);
             }
         }
 
-        public void AddElectronico(decimal monto, int id)
+        public void AddElectronico(decimal monto, int id, string nroLote="", string nroReferencia="", bool activar=true)
         {
-            var _lote = "";
-            var _ref = "";
-
-            if (monto > 0)
-            {
-                var xit = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Electronico && f.Id == id);
-                if (xit == null)
-                {
-                    _gestionLoteRef.Inicializa();
-                    _gestionLoteRef.Inicia();
-                }
-                else
-                {
-                    _gestionLoteRef.Inicializa();
-                    _gestionLoteRef.setLote(xit.Lote);
-                    _gestionLoteRef.setReferencia(xit.Referencia);
-                    _gestionLoteRef.Inicia();
-                }
-                if (_gestionLoteRef.IsOk)
-                {
-                    _lote = _gestionLoteRef.Lote;
-                    _ref = _gestionLoteRef.Referencia;
-                }
-            }
-
+            var _nroLote = nroLote;
+            var _nroReferencia = nroReferencia;
             var it = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Electronico && f.Id == id);
-            if (it == null)
+            if (it != null)
             {
+                _nroLote = it.Lote;
+                _nroReferencia = it.Referencia;
+                _detalle.Remove(it);
+            }
+            if (monto > 0m)
+            {
+                if (activar)
+                {
+                    PgPunto pg = new PgPunto();
+                    pg.setNroLote(_nroLote);
+                    pg.setNroReferencia(_nroReferencia);
+                    pg.AgregarPago();
+                    nroLote = pg.GetNroLote;
+                    nroReferencia = pg.GetNroReferencia;
+                }
                 it = new PagoDetalle()
                 {
                     Id = id,
@@ -345,23 +330,13 @@ namespace PosOnLine.Src.Pago.Procesar
                     Tasa = 1,
                     Cantidad = 1,
                     Monto = monto,
-                    Lote = _lote,
-                    Referencia = _ref,
+                    Lote = nroLote,
+                    Referencia = nroReferencia,
                     TarjetaNro = "",
                     Importe = MontoResta_MonedaNacional,
-                    MontoRecibido=monto,
+                    MontoRecibido = monto,
                 };
                 _detalle.Add(it);
-            }
-            else
-            {
-                it.Monto = 0;
-                it.Importe = MontoResta_MonedaNacional;
-                it.Monto = monto;
-                it.Lote = _lote;
-                it.Referencia = _ref;
-                it.TarjetaNro = "";
-                it.MontoRecibido = monto;
             }
         }
 
@@ -370,6 +345,7 @@ namespace PosOnLine.Src.Pago.Procesar
             _isCredito = false;
             _dsctoPorct = 0.0m;
             _detalle.Clear();
+            _cntDivisaRecomendada = 0;
             _gestionValidarCambio.Inicializa();
         }
 
@@ -399,45 +375,6 @@ namespace PosOnLine.Src.Pago.Procesar
                 if (msg == DialogResult.Yes)
                 {
                     _montoValidar = MontoCambioDar_MonedaNacional;
-                    //var r01 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
-                    //if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
-                    //{
-                    //    Helpers.Msg.Error(r01.Mensaje);
-                    //    return false;
-                    //}
-                    //var _habilitarDsctoUnicamentoConPagoDivisa = r01.Entidad;
-                    //if (_habilitarDsctoUnicamentoConPagoDivisa)
-                    //{
-                    //    var _ent = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Divisa);
-                    //    if (_ent != null) //HAY UN PAGO EN DIVISA
-                    //    {
-                    //        //var _pagoRealRecibo = MontoRecibido - ( MontoRecibido - (_ent.Cantidad * TasaCambio));
-                    //        var _diferenciaPorBonoDivisa= (_ent.Monto - (_ent.Cantidad * TasaCambio));
-                    //        var _pagoRealRecibo = MontoPagar - _diferenciaPorBonoDivisa;
-                    //        _dsctoPorct = (((_pagoRealRecibo / MontoPagar) * (-1)) + 1) * 100;
-                    //        _dsctoPorct = Math.Round(_dsctoPorct, 2, MidpointRounding.AwayFromZero);
-                    //    }
-
-                    //    //if (_dsctoPorct > 0m) 
-                    //    //{
-                    //    //    var ent = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Divisa);
-                    //    //    if (ent == null) 
-                    //    //    {
-                    //    //        Helpers.Msg.Alerta("PROBLEMA CON DESCUENTO EN VENTA, NO CUMPLE CON LA REGLA: PAGO DEBE SER EN DIVISA");
-                    //    //        return false;
-                    //    //    }
-                    //    //    if (ent.Monto==0M)
-                    //    //    {
-                    //    //        Helpers.Msg.Alerta("PROBLEMA CON DESCUENTO EN VENTA, NO CUMPLE CON LA REGLA: PAGO DEBE SER EN DIVISA");
-                    //    //        return false;
-                    //    //    }
-                    //    //    if (ent.Monto < MontoPagar)
-                    //    //    {
-                    //    //        Helpers.Msg.Alerta("PROBLEMA CON DESCUENTO EN VENTA, NO CUMPLE CON LA REGLA: LA TOTALIDAD DEL MONTO DEBE SER PAGADO EN DIVISA");
-                    //    //        return false;
-                    //    //    }
-                    //    //}
-                    //}
                     if (_montoValidar >0m)
                     {
                         _gestionValidarCambio.Inicializa();
@@ -446,7 +383,6 @@ namespace PosOnLine.Src.Pago.Procesar
                         _gestionValidarCambio.Inicia();
                         return _gestionValidarCambio.ValidarIsOk;
                     }
-
                     return true;
                 }
             }
