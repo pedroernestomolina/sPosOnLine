@@ -74,16 +74,6 @@ namespace PosOnLine.Src.Producto.Lista
             _p2Divisa = _p2 / tasaCambio;
             _p3Divisa = _p3 / tasaCambio;
             this.tasaCambio = tasaCambio;
-
-            if (it.EsAdmDivisa)
-            {
-                _p1 = it.pfullDivEmp_1 * tasaCambio;
-                _p1Divisa = it.pfullDivEmp_1;
-                _p2 = it.pfullDivEmp_2 * tasaCambio;
-                _p2Divisa = it.pfullDivEmp_2;
-                _p3 = it.pfullDivEmp_3 * tasaCambio;
-                _p3Divisa = it.pfullDivEmp_3;
-            }
         }
 
 
