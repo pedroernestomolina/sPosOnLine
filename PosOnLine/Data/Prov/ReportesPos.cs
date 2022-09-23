@@ -162,6 +162,47 @@ namespace PosOnLine.Data.Prov
 
             return rt;
         }
+        public OOB.Resultado.Lista<OOB.Reportes.Pos.VueltosEntregados.Ficha> 
+            ReportePos_VueltosEntregados(OOB.Reportes.Pos.Filtro filtro)
+        {
+            var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.VueltosEntregados.Ficha>();
+
+            var filtroDTO = new DtoLibPos.Reportes.POS.Filtro() { IdCierre = filtro.idCierre };
+            var r01 = MyData.ReportePos_VueltosEntregados(filtroDTO);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                throw new Exception(r01.Mensaje);
+
+            var lst = new List<OOB.Reportes.Pos.VueltosEntregados.Ficha>();
+            if (r01.Lista != null)
+            {
+                if (r01.Lista.Count > 0)
+                {
+                    lst = r01.Lista.Select(s =>
+                    {
+                        var nr = new OOB.Reportes.Pos.VueltosEntregados.Ficha()
+                        {
+                            cntVueltoDivisa = s.cntVueltoDivisa,
+                            documento = s.documento,
+                            entDir = s.entDir,
+                            entNombre = s.entNombre,
+                            entTelf = s.entTelf,
+                            esAnulado = s.esAnulado,
+                            fecha = s.fecha,
+                            hora = s.hora,
+                            montoCambio = s.montoCambio,
+                            montoDoc = s.montoDoc,
+                            montoVueltoDivisa = s.montoVueltoDivisa,
+                            montoVueltoEfectivo = s.montoVueltoEfectivo,
+                            montoVueltoPagoMovil = s.montoVueltoPagoMovil,
+                        };
+                        return nr;
+                    }).ToList();
+                }
+            }
+            rt.ListaD = lst;
+
+            return rt;
+        }
 
     }
 

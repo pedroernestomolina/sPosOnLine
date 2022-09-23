@@ -35,6 +35,9 @@ namespace PosOnLine.Src.Pago.Procesar
             L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoResta_MonedaNacional.ToString("n2");
             L_RESTA_DIVISA.Text = "$" + _controlador.MontoResta_Divisa.ToString("n2");
             L_CNT_DIVISA_RECOMIENDA.Text = "";
+            TB_ELECT_1.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
+            TB_ELECT_2.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
+            TB_ELECT_3.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
             ActualizaMontoResta();
         }
 

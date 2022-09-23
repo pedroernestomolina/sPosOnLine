@@ -27,6 +27,9 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             clienteDirFiscal = "";
             codigoSucursal = "";
             nombreAgencia = "";
+            //
+            cierre = "";
+            cierreFtp = "";
         }
 
     }

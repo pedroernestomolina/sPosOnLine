@@ -74,6 +74,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _tick.Documento.factorCambio = _ds.encabezado.FactorCambio;
             _tick.Documento.totalDivisa = "($) " + totDivisa.ToString("n2");
             _tick.Documento.ImageQR = _imagenQR;
+            _tick.Documento.vueltoEfectivo = _ds.encabezado.VueltoEfectivo <= 0m ? "" : "Bs " + _ds.encabezado.VueltoEfectivo.ToString("n2");
+            _tick.Documento.vueltoDivisa = _ds.encabezado.CntDivisaVueltoDivisa <= 0 ? "" : "$" + _ds.encabezado.CntDivisaVueltoDivisa.ToString("n0") + " Bs " + _ds.encabezado.VueltoDivisa.ToString("n2");
+            _tick.Documento.vueltoPagoMovil = _ds.encabezado.VueltoPagoMovil <= 0m ? "" : "Bs " + _ds.encabezado.VueltoPagoMovil.ToString("n2");
 
             foreach (var r in _ds.item)
             {

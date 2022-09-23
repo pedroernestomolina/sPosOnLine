@@ -154,6 +154,7 @@ namespace PosOnLine.Data.Prov
                     subTotal = ficha.arqueo.subTotal,
                     ticket = ficha.arqueo.ticket,
                     total = ficha.arqueo.total,
+                    vueltoPorPagoMovil = ficha.arqueo.vueltoPorPagoMovil,
                 },
             };
             var r01 = MyData.Jornada_Cerrar(fichaDTO);
@@ -319,8 +320,13 @@ namespace PosOnLine.Data.Prov
                 mElectronico_anu = ent.mElectronico_anu,
                 mOtros_anu = ent.mOtros_anu,
                 //
-                cntCambio_anu=ent.cnt_cambio_anulado,
-                mCambio_anu=ent.mcambio_anulado,
+                cntCambio_anu = ent.cnt_cambio_anulado,
+                mCambio_anu = ent.mcambio_anulado,
+                //
+                montoPorVueltoEfectivo = ent.montoPorVueltoEfectivo,
+                montoPorVueltoDivisa = ent.montoPorVueltoDivisa,
+                montoPorVueltoPagoMovil = ent.montoPorVueltoPagoMovil,
+                cntDivisaPorVueltoDivisa = ent.cntDivisaPorVueltoDivisa,
             };
             result.Entidad = nr;
 

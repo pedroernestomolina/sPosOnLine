@@ -75,6 +75,8 @@ namespace PosOnLine.Src.Cierre
 
             //
             L_DESGLOZE.Text ="DESGLOZE DINERO POR: "+_controlador.DesglozeDinero.ToString("n2"); 
+            //
+            L_VUELTO_PAGO_MOVIL.Text = _controlador.GetVueltoPorPagoMovil.ToString("n2");
 
             ActualizaDiferencia();
         }
@@ -90,7 +92,7 @@ namespace PosOnLine.Src.Cierre
             else if (_controlador.Diferencia < 0)
             {
                 L_DIFERENCIA_TEXTO.Text = "Diferencia (FALTANTE)";
-                L_DIFERENCIA.ForeColor = Color.Red;
+                L_DIFERENCIA.ForeColor = Color.Maroon;
             }
             else
             {
@@ -228,6 +230,15 @@ namespace PosOnLine.Src.Cierre
         private void PagoMovil()
         {
             _controlador.PagoMovil();
+        }
+
+        private void BT_VUELTOS_ENTREGADOS_Click(object sender, EventArgs e)
+        {
+            VueltosEntregados();
+        }
+        private void VueltosEntregados()
+        {
+            _controlador.VueltosEntregados();
         }
     
     }

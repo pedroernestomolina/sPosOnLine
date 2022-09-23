@@ -180,6 +180,11 @@ namespace PosOnLine.Data.Prov
                 Vendedor = s.Vendedor,
                 AutoDocCxC=s.AutoDocCxC,
                 AutoReciboCxC=s.AutoReciboCxC,
+                //
+                MontoPorVueltoEnEfectivo=s.MontoPorVueltoEnEfectivo,
+                MontoPorVueltoEnDivisa=s.MontoPorVueltoEnDivisa,
+                MontoPorVueltoEnPagoMovil=s.MontoPorVueltoEnPagoMovil,
+                CantDivisaPorVueltoEnDivisa=s.CantDivisaPorVueltoEnDivisa,
                 items = s.items.Select(ss =>
                 {
                     var xr = new OOB.Documento.Entidad.FichaItem()
@@ -408,6 +413,17 @@ namespace PosOnLine.Data.Prov
                 EstatusValidado = ficha.EstatusValidado,
                 FechaPedido = ficha.FechaPedido,
                 Prefijo = ficha.Prefijo,
+                //
+                PorctBonoPorPagoDivisa = ficha.PorctBonoPorPagoDivisa,
+                CantDivisaAplicaBonoPorPagoDivisa = ficha.CantDivisaAplicaBonoPorPagoDivisa,
+                MontoBonoPorPagoDivisa = ficha.MontoBonoPorPagoDivisa,
+                MontoBonoEnDivisaPorPagoDivisa = ficha.MontoBonoEnDivisaPorPagoDivisa,
+                MontoPorVueltoEnEfectivo = ficha.MontoPorVueltoEnEfectivo,
+                MontoPorVueltoEnDivisa = ficha.MontoPorVueltoEnDivisa,
+                MontoPorVueltoEnPagoMovil = ficha.MontoPorVueltoEnPagoMovil,
+                CantDivisaPorVueltoEnDivisa = ficha.CantDivisaPorVueltoEnDivisa,
+                estatusPorBonoPorPagoDivisa=ficha.estatusPorBonoPorPagoDivisa,
+                estatusPorVueltoEnPagoMovil=ficha.estatusPorVueltoEnPagoMovil,
             };
 
             var detalles = ficha.Detalles.Select(s =>
@@ -748,6 +764,11 @@ namespace PosOnLine.Data.Prov
                 //
                 cntCambio = ficha.Resumen.cntCambio,
                 mCambio = ficha.Resumen.mCambio,
+                //
+                montoVueltoPorEfectivo = ficha.Resumen.montoVueltoPorEfectivo,
+                montoVueltoPorDivisa = ficha.Resumen.montoVueltoPorDivisa,
+                montoVueltoPorPagoMovil = ficha.Resumen.montoVueltoPorPagoMovil,
+                cntDivisaPorVueltoDivisa = ficha.Resumen.cntDivisaPorVueltoDivisa,
             };
             if (ficha.SerieFiscal != null)
             {
@@ -772,6 +793,8 @@ namespace PosOnLine.Data.Prov
                     clienteRif = pm.clienteRif,
                     codigoSucursal = pm.codigoSucursal,
                     nombreAgencia = pm.nombreAgencia,
+                    cierre = pm.cierre,
+                    cierreFtp = pm.cierreFtp,
                 };
             }
             var medidas = new List<DtoLibPos.Documento.Agregar.Factura.FichaMedida>();
@@ -913,6 +936,17 @@ namespace PosOnLine.Data.Prov
                 EstatusValidado = ficha.EstatusValidado,
                 FechaPedido = ficha.FechaPedido,
                 Prefijo = ficha.Prefijo,
+                //
+                PorctBonoPorPagoDivisa = ficha.PorctBonoPorPagoDivisa,
+                CantDivisaAplicaBonoPorPagoDivisa = ficha.CantDivisaAplicaBonoPorPagoDivisa,
+                MontoBonoPorPagoDivisa = ficha.MontoBonoPorPagoDivisa,
+                MontoBonoEnDivisaPorPagoDivisa = ficha.MontoBonoEnDivisaPorPagoDivisa,
+                MontoPorVueltoEnEfectivo = ficha.MontoPorVueltoEnEfectivo,
+                MontoPorVueltoEnDivisa = ficha.MontoPorVueltoEnDivisa,
+                MontoPorVueltoEnPagoMovil = ficha.MontoPorVueltoEnPagoMovil,
+                CantDivisaPorVueltoEnDivisa = ficha.CantDivisaPorVueltoEnDivisa,
+                estatusPorBonoPorPagoDivisa = ficha.estatusPorBonoPorPagoDivisa,
+                estatusPorVueltoEnPagoMovil = ficha.estatusPorVueltoEnPagoMovil,
             };
 
             if (ficha.ClienteSaldo == null)
@@ -1700,8 +1734,13 @@ namespace PosOnLine.Data.Prov
                     mEfectivo = ficha.resumen.mEfectivo,
                     mElectronico = ficha.resumen.mElectronico,
                     mOtros = ficha.resumen.mOtros,
-                    cntCambio=ficha.resumen.cntCambio,
-                    mCambio=ficha.resumen.mCambio,
+                    cntCambio = ficha.resumen.cntCambio,
+                    mCambio = ficha.resumen.mCambio,
+                    //
+                    montoVueltoPorEfectivo = ficha.resumen.montoVueltoPorEfectivo,
+                    montoVueltoPorDivisa = ficha.resumen.montoVueltoPorDivisa,
+                    montoVueltoPorPagoMovil = ficha.resumen.montoVueltoPorPagoMovil,
+                    cntDivisaPorVueltoDivisa = ficha.resumen.cntDivisaPorVueltoDivisa,
                 },
             };
 

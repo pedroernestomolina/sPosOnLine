@@ -79,14 +79,14 @@ namespace PosOnLine.Src.ValidarCambio
 
         public void PagoMovil()
         {
-            _dataPagoMovil = null;
-            _gPagoMovil.Inicializa();
-            _gPagoMovil.setDatosPagoMovil(_entCliente, _montoValidar);
-            _gPagoMovil.Inicia();
-            if (_gPagoMovil.IsOk) 
-            {
-                _dataPagoMovil = _gPagoMovil.Data();
-            }
+            //_dataPagoMovil = null;
+            //_gPagoMovil.Inicializa();
+            //_gPagoMovil.setDatosPagoMovil(_entCliente, _montoValidar);
+            //_gPagoMovil.Inicia();
+            //if (_gPagoMovil.IsOk) 
+            //{
+            //    _dataPagoMovil = _gPagoMovil.Data();
+            //}
         }
 
         public void setDatosPagoMovil(OOB.Cliente.Entidad.Ficha ent)

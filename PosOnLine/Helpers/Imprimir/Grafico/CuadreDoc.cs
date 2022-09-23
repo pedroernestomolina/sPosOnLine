@@ -83,6 +83,10 @@ namespace PosOnLine.Helpers.Imprimir.Grafico
             frp.ShowDialog();
         }
 
+        public void setGrafico(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+        }
+
     }
 
 }

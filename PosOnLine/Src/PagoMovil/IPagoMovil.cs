@@ -9,17 +9,10 @@ using System.Windows.Forms;
 namespace PosOnLine.Src.PagoMovil
 {
     
-    public interface IPagoMovil: IGestion
+    public interface IPagoMovil: IGestion, Helpers.IAbandonar, Helpers.IProcesar
     {
 
-        bool AbandonarIsOk { get; }
-        bool ProcesarIsOk { get; }
         bool IsOk { get; }
-
-
-        void AbandonarFicha();
-        void ProcesarFicha();
-        void setDatosPagoMovil(OOB.Cliente.Entidad.Ficha _entCliente, decimal monto);
 
 
         decimal GetMontoPagoMovil { get; }
@@ -29,11 +22,12 @@ namespace PosOnLine.Src.PagoMovil
         BindingSource GetAgenciaSource { get; }
 
 
+        void setMontoPagoMovil(decimal monto);
         void setNombre(string p);
         void setCiRif(string p);
         void setTelefono(string p);
         void setAgencia(string id);
-        data Data();
+        data DataRetornar();
 
 
         void AgregarAgencias();

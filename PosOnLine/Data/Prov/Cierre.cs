@@ -20,11 +20,8 @@ namespace PosOnLine.Data.Prov
             var filtroDTO = new DtoLibPos.Pos.Cierre.Lista.Filtro();
             var r01 = MyData.Cierre_Lista_GetByFiltro(filtroDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                rt.Mensaje = r01.Mensaje;
-                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return rt;
-            }
+                throw new Exception(r01.Mensaje);
+
             var _lst = new List<OOB.Cierre.Lista.Ficha>();
             if (r01.Lista != null)
             {
@@ -54,11 +51,8 @@ namespace PosOnLine.Data.Prov
 
             var r01 = MyData.Cierre_GetById(idCierre);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                rt.Mensaje = r01.Mensaje;
-                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return rt;
-            }
+                throw new Exception(r01.Mensaje);
+
             var s = r01.Entidad;
             rt.Entidad = new OOB.Cierre.Entidad.Ficha()
             {
@@ -110,10 +104,16 @@ namespace PosOnLine.Data.Prov
                 cntElectronico_s = s.cntElectronico_s,
                 cntOtros_s = s.cntOtros_s,
                 m_cambio = s.m_cambio,
-                cntDocContado=s.cntDocContado,
-                cntDocCredito=s.cntDocCredito,
-                mContado=s.mContado,
-                mCredito=s.mCredito,
+                cntDocContado = s.cntDocContado,
+                cntDocCredito = s.cntDocCredito,
+                mContado = s.mContado,
+                mCredito = s.mCredito,
+                //
+                montoVueltoPorEfectivo = s.montoVueltoPorEfectivo,
+                montoVueltoPorDivisa = s.montoVueltoPorDivisa,
+                montoVueltoPorPagoMovil = s.montoVueltoPorPagoMovil,
+                montoContadoAnulado = s.montoContadoAnulado,
+                montoCreditoAnulado = s.montoCreditoAnulado
             };
 
             return rt;

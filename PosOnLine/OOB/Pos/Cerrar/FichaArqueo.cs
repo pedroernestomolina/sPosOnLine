@@ -49,6 +49,8 @@ namespace PosOnLine.OOB.Pos.Cerrar
         public int cntDocNCr { get; set; }
         public decimal montoFac { get; set; }
         public decimal montoNCr { get; set; }
+        //
+        public decimal vueltoPorPagoMovil { get; set; }
 
 
         public FichaArqueo()
@@ -91,6 +93,7 @@ namespace PosOnLine.OOB.Pos.Cerrar
             cntDocNCr = 0;
             montoFac = 0.0m;
             montoNCr = 0.0m;
+            vueltoPorPagoMovil = 0m;
         }
 
     }

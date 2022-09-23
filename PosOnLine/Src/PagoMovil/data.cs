@@ -14,8 +14,7 @@ namespace PosOnLine.Src.PagoMovil
         public string nombre { get; set; }
         public string ciRif { get; set; }
         public string telefono { get; set; }
-        public string autoAgencia { get; set; }
-        public string nombreAgencia { get; set; }
+        public Helpers.ficha agencia { get; set; }
         public decimal monto { get; set; }
 
 
@@ -24,8 +23,7 @@ namespace PosOnLine.Src.PagoMovil
             nombre = "";
             ciRif = "";
             telefono = "";
-            autoAgencia = "";
-            nombreAgencia = "";
+            agencia = null;
             monto = 0m;
         }
 

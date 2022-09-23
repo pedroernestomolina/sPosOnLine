@@ -48,6 +48,11 @@ namespace PosOnLine.Helpers
             return (MessageBox.Show(msg, "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes);
         }
 
+        public static bool Procesar(string msg = "Procesar Cambios ?")
+        {
+            return (MessageBox.Show(msg, "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes);
+        }
+
     }
 
 }

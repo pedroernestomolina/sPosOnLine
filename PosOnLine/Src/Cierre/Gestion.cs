@@ -38,22 +38,22 @@ namespace PosOnLine.Src.Cierre
         public decimal montoDocCredito { get { return _resumen.mCredito-_resumen.mCredito_anu; } }
 
         public int cntEfecitvo { get { return _resumen.cntEfectivo-_resumen.cntEfectivo_anu; } }
-        public int cntDivisa { get { return _resumen.cntDivisa-_resumen.cntDivisa_anu; } }
+        public int cntDivisa { get { return (_resumen.cntDivisa-_resumen.cntDivisa_anu) - _resumen.cntDivisaPorVueltoDivisa; } }
         public int cntElectronico { get { return _resumen.cntElectronico-_resumen.cntElectronico_anu; } }
         public int cntOtros { get { return _resumen.cntotros-_resumen.cntotros_anu; } }
 
-        public decimal montoEfectivo { get { return _resumen.mEfectivo-_resumen.mEfectivo_anu; } }
-        public decimal montoDivisa { get { return _resumen.mDivisa; } }//_resumen.mDivisaTotal; 
+        public decimal montoEfectivo { get { return (_resumen.mEfectivo - _resumen.mEfectivo_anu) - _resumen.montoPorVueltoEfectivo; } }
+        public decimal montoDivisa { get { return cntDivisa * _factorCambio; } } // (_resumen.mDivisa - _resumen.mDivisa_anu) - _resumen.montoPorVueltoDivisa; } }//_resumen.mDivisaTotal; 
         public decimal montoElectronico { get { return _resumen.mElectronico - _resumen.mElectronico_anu; } }
         public decimal montoOtros { get { return _resumen.mOtros-_resumen.mOtros_anu; } }
 
         public int cntCambio { get { return _resumen.cnt_cambio-_resumen.cntCambio_anu; } }
-        public decimal montoCambio { get { return _resumen.m_cambio-_resumen.mCambio_anu; } }
+        public decimal montoCambio { get { return _resumen.m_cambio - _resumen.mCambio_anu - _resumen.montoPorVueltoEfectivo - _resumen.montoPorVueltoDivisa; } }
 
         public decimal montoDesgloze { get { return ((montoEfectivo + montoDivisa + montoElectronico + montoOtros) - (montoCambio)); } }
         public decimal montoEntrada { get { return (_entradaEfectivo + _entradaTarjeta + _entradaDivisa + _entradaOtro); } }
         public decimal montoEntradaDivisa { get { return _entradaDivisa; } }
-        public decimal Diferencia { get { return montoEntrada-montoDesgloze; } }
+        public decimal Diferencia { get { return (montoEntrada - montoDesgloze) - GetVueltoPorPagoMovil; } }
 
         public int cntFacturaAnulada { get { return _resumen.cnt_anu_fac; } }
         public decimal montoFacturaAnulada { get { return _resumen.m_anu_fac; } }
@@ -179,7 +179,7 @@ namespace PosOnLine.Src.Cierre
                     {
                          autoArqueo=Sistema.PosEnUso.idAutoArqueoCierre,
                          diferencia = Diferencia,
-                         efectivo=  (montoEfectivo-montoCambio),
+                         efectivo = montoEfectivo,
                          cheque = montoDivisa,
                          debito=montoElectronico,
                          credito= 0.0m,
@@ -215,6 +215,7 @@ namespace PosOnLine.Src.Cierre
                          cntDocNCr=cntNCredito,
                          montoFac=montoFactura,
                          montoNCr=montoNCredito,
+                         vueltoPorPagoMovil=GetVueltoPorPagoMovil,
                     },
                 };
 
@@ -251,10 +252,11 @@ namespace PosOnLine.Src.Cierre
                 dat.cnt_otros_s = cntOtros;
                 dat.cnt_divisa_u = _entradaCntDivisa;
                 dat.cuadre_s=montoDesgloze;
-                dat.cuadre_u=montoEntrada;
+                dat.cuadre_u = (montoEntrada - GetVueltoPorPagoMovil);
                 dat.Usuario=Sistema.PosEnUso.nomUsuario;
                 dat.cntDocContado = cntDocContado;
                 dat.cntDocCredito = cntDocCredito;
+                dat.vueltoPorPagoMovil = GetVueltoPorPagoMovil;
 
                 var r02 = Sistema.MyData.Jornada_Cerrar(ficha);
                 if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
@@ -375,6 +377,25 @@ namespace PosOnLine.Src.Cierre
             }
             var rp1 = new Reportes.Cierre.PagoMovil.Movimiento(r01.ListaD);
             rp1.Generar();
+        }
+
+
+        //
+        public decimal GetVueltoPorPagoMovil { get { return _resumen.montoPorVueltoPagoMovil; } }
+        public void VueltosEntregados()
+        {
+            try
+            {
+                var filtro = new OOB.Reportes.Pos.Filtro() { idCierre = Sistema.PosEnUso.idAutoArqueoCierre, };
+                var r01 = Sistema.MyData.ReportePos_VueltosEntregados(filtro);
+                var rp1 = new Reportes.Cierre.VueltosEntregado.Movimiento(r01.ListaD);
+                rp1.Generar();
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+                return;
+            }
         }
 
     }

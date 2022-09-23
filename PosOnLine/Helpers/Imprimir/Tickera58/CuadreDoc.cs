@@ -56,11 +56,11 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
             _lista.Add("Monto     : " + _ds.montoNEN.ToString("n2").PadLeft(18, ' '));
             _lista.Add("");
             _lista.Add("TOTAL VENTA");
-            _lista.Add("MONTO     : " + _ds.montoVenta.ToString("n0").PadLeft(18, ' '));
+            _lista.Add("MONTO     : " + _ds.montoVenta.ToString("n2").PadLeft(18, ' '));
             _lista.Add("");
             _lista.Add("CONTADO   :");
             _lista.Add("Cant      : " + _ds.cntDocContado.ToString("n0"));
-            _lista.Add("Monto     : " + _ds.montoVentaContado.ToString("n0").PadLeft(18, ' '));
+            _lista.Add("Monto     : " + _ds.montoVentaContado.ToString("n2").PadLeft(18, ' '));
             _lista.Add("");
             _lista.Add("CREDITO   :");
             _lista.Add("Cant      : " + _ds.cntDocCredito.ToString("n0"));
@@ -80,7 +80,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
             _lista.Add("Monto     : " + _ds.montoNCR.ToString("n2").PadLeft(18, ' '));
             _lista.Add("A Credito : " + _ds.cntDocCredito.ToString("n0"));
             _lista.Add("Monto     : " + _ds.credito_s.ToString("n2").PadLeft(18, ' '));
-            _lista.Add("TOTAL     :");
+            _lista.Add("Monto x     ");
+            _lista.Add("Cambio    : " + (_ds.cambio_s * (-1)).ToString("n2").PadLeft(18, ' '));
+            _lista.Add("TOTAL       ");
             _lista.Add("Monto     : " + _ds.cuadre_s.ToString("n2").PadLeft(18, ' '));
 
             _lista.Add("");
@@ -97,6 +99,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
             _lista.Add("Monto     : " + _ds.otros_u.ToString("n2").PadLeft(18, ' '));
             _lista.Add("A Credito  ");
             _lista.Add("Monto     : " + _ds.credito_s.ToString("n2").PadLeft(18, ' '));
+            _lista.Add("Vuelto Por ");
+            _lista.Add("PagoMovil : " + (_ds.vueltoPorPagoMovil * (-1)).ToString("n2").PadLeft(18, ' '));
             _lista.Add("TOTAL     ");
             _lista.Add("Monto     : " + _ds.cuadre_u.ToString("n2").PadLeft(18, ' '));
             _tick.Reporte(_lista);

@@ -282,6 +282,7 @@
     <Compile Include="OOB\Reportes\Pos\PagoDetalle\Ficha.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoMovil\Ficha.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoResumen\Ficha.cs" />
+    <Compile Include="OOB\Reportes\Pos\VueltosEntregados\Ficha.cs" />
     <Compile Include="OOB\Resultado\Enumerados.cs" />
     <Compile Include="OOB\Resultado\Ficha.cs" />
     <Compile Include="OOB\Resultado\FichaAuto.cs" />
@@ -367,6 +368,7 @@
     </Compile>
     <Compile Include="Src\Cierre\Gestion.cs" />
     <Compile Include="Src\Cierre\Historico\data.cs" />
+    <Compile Include="Src\Cierre\Historico\dataCierre.cs" />
     <Compile Include="Src\Cierre\Historico\Historia.cs" />
     <Compile Include="Src\Cierre\Historico\HistoriaFrm.cs">
       <SubType>Form</SubType>
@@ -376,8 +378,27 @@
     </Compile>
     <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
     <Compile Include="Src\Pago\LoteReferencia\ILoteRef.cs" />
+    <Compile Include="Src\Pago\Procesar\dataRecolectar.cs" />
     <Compile Include="Src\Pago\Procesar\PgDivisa.cs" />
     <Compile Include="Src\Pago\Procesar\PgPunto.cs" />
+    <Compile Include="Src\Pago\ValidarCambio\ConVuelto\ImpConVuelto.cs" />
+    <Compile Include="Src\Pago\ValidarCambio\ConVuelto\IConVuelto.cs" />
+    <Compile Include="Src\Pago\ValidarCambio\ConVuelto\ValidarCambioFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Pago\ValidarCambio\ConVuelto\ValidarCambioFrm.Designer.cs">
+      <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Pago\ValidarCambio\IValidarCambio.cs" />
+    <Compile Include="Src\Pago\ValidarCambio\SinVuelto\ImpSinVuelto.cs" />
+    <Compile Include="Src\Pago\ValidarCambio\SinVuelto\ISinVuelto.cs" />
+    <Compile Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.Designer.cs">
+      <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Reportes\Cierre\VueltosEntregado\Movimiento.cs" />
     <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -590,13 +611,6 @@
     <Compile Include="Src\SolicitarPermiso\SolicitarPermisoFrm.Designer.cs">
       <DependentUpon>SolicitarPermisoFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\ValidarCambio\gestion.cs" />
-    <Compile Include="Src\ValidarCambio\ValidarCambioFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Src\ValidarCambio\ValidarCambioFrm.Designer.cs">
-      <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Helpers\Imprimir\Grafico\Cuadre.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -639,6 +653,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Cierre\Historico\HistoriaFrm.resx">
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Pago\ValidarCambio\ConVuelto\ValidarCambioFrm.resx">
+      <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.resx">
+      <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Reportes\VueltosEntregado.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.resx">
       <DependentUpon>AgregarEditarFrm.cs</DependentUpon>
@@ -720,9 +743,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\SolicitarPermiso\SolicitarPermisoFrm.resx">
       <DependentUpon>SolicitarPermisoFrm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Src\ValidarCambio\ValidarCambioFrm.resx">
-      <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Helpers\Imprimir\Grafico\ds.xsc">
       <DependentUpon>ds.xsd</DependentUpon>

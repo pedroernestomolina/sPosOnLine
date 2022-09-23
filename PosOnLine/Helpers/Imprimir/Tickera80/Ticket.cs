@@ -264,13 +264,11 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     }
                 }
             }
-
             public class MedioPago
             {
                 public string descripcion { get; set; }
                 public string monto { get; set; }
             }
-
             public class MedidaEmp 
             {
                 public string nombre { get; set; }
@@ -342,9 +340,16 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 MediosPago = new List<MedioPago>();
                 MedidasEmp = new List<MedidaEmp>();
                 ImageQR = null;
+                vueltoEfectivo = "";
+                vueltoDivisa = "";
+                vueltoPagoMovil = "";
             }
 
             public Bitmap ImageQR { get; set; }
+            public string vueltoEfectivo { get; set; }
+            public string vueltoDivisa { get; set; }
+            public string vueltoPagoMovil { get; set; }
+
         }
 
         public enum EnumModoTicket { Modo80mm = 1, Modo58mm };
@@ -526,8 +531,27 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             }
             eg.Graphics.DrawString("CAMBIO", fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.cambio, fr, Brushes.Black, dder2(df.cambio,fr), l);
-            l += 15;
 
+            if (df.vueltoEfectivo != "")
+            {
+                l += 10;
+                eg.Graphics.DrawString("Vuelto en Efectivo:", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString(df.vueltoEfectivo, fr, Brushes.Black, dder2(df.vueltoEfectivo, fr), l);
+            }
+            if (df.vueltoDivisa != "") 
+            {
+                l += 10;
+                eg.Graphics.DrawString("Vuelto en Divisa($):", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString(df.vueltoDivisa, fr, Brushes.Black, dder2(df.vueltoDivisa, fr), l);
+            }
+            if (df.vueltoPagoMovil != "") 
+            {
+                l += 10;
+                eg.Graphics.DrawString("Vuelto en PagoMovil:", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString(df.vueltoPagoMovil, fr, Brushes.Black, dder2(df.vueltoPagoMovil, fr), l);
+            }
+
+            l += 15;
             eg.Graphics.DrawString("EMPAQUE              CANT      PESO     VOLUMEN", fb, Brushes.Black, 0, l);
             l += 10;
             foreach (var mp in df.MedidasEmp)

@@ -33,7 +33,7 @@ namespace PosOnLine.Src.PagoMovil
         {
             IrFoco();
             _controlador.AbandonarFicha();
-            if (_controlador.AbandonarIsOk) 
+            if (_controlador.AbandonarIsOK) 
             {
                 Salir();
             }
@@ -45,8 +45,8 @@ namespace PosOnLine.Src.PagoMovil
         private void ProcesarFicha()
         {
             IrFoco();
-            _controlador.ProcesarFicha();
-            if (_controlador.ProcesarIsOk)
+            _controlador.Procesar();
+            if (_controlador.ProcesarIsOK)
             {
                 Salir();
             }
@@ -59,7 +59,7 @@ namespace PosOnLine.Src.PagoMovil
         private void PagoMovilFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            if (_controlador.AbandonarIsOk || _controlador.ProcesarIsOk) 
+            if (_controlador.AbandonarIsOK || _controlador.ProcesarIsOK) 
             {
                 e.Cancel = false;
             }

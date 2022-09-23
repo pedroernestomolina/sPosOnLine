@@ -65,6 +65,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
             _tick.Documento.cargoPorct = _ds.encabezado.CargoPorc.ToString("n2").Trim() + "%";
             _tick.Documento.HayDescuento = _ds.encabezado.DescuentoPorc > 0.0m;
             _tick.Documento.HayCargo = _ds.encabezado.CargoPorc > 0.0m;
+            _tick.Documento.vueltoEfectivo = _ds.encabezado.VueltoEfectivo <= 0m ? "" : "Bs " + _ds.encabezado.VueltoEfectivo.ToString("n2");
+            _tick.Documento.vueltoDivisa = _ds.encabezado.CntDivisaVueltoDivisa <= 0 ? "" : "$" + _ds.encabezado.CntDivisaVueltoDivisa.ToString("n0") + " Bs " + _ds.encabezado.VueltoDivisa.ToString("n2");
+            _tick.Documento.vueltoPagoMovil = _ds.encabezado.VueltoPagoMovil <= 0m ? "" : "Bs " + _ds.encabezado.VueltoPagoMovil.ToString("n2");
 
             foreach (var r in _ds.item)
             {

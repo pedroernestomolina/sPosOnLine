@@ -57,6 +57,11 @@ namespace PosOnLine.OOB.Pos.Resumen
         public int cntElectronico_anu { get; set; }
         public int cntotros_anu { get; set; }
         public int cntCambio_anu { get; set; }
+        //
+        public decimal montoPorVueltoEfectivo { get; set; }
+        public decimal montoPorVueltoDivisa { get; set; }
+        public decimal montoPorVueltoPagoMovil { get; set; }
+        public int cntDivisaPorVueltoDivisa { get; set; }
 
 
         public decimal CntDivisaTotal 
@@ -143,6 +148,11 @@ namespace PosOnLine.OOB.Pos.Resumen
             //
             mCambio_anu = 0.0m;
             cntCambio_anu = 0;
+            //
+            montoPorVueltoEfectivo = 0m;
+            montoPorVueltoDivisa = 0m;
+            montoPorVueltoPagoMovil = 0m;
+            cntDivisaPorVueltoDivisa = 0;
         }
 
     }

@@ -173,6 +173,12 @@
             this.panel72 = new System.Windows.Forms.Panel();
             this.L_MONTO_CAMBIO = new System.Windows.Forms.Label();
             this.panel74 = new System.Windows.Forms.Panel();
+            this.panel48 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel49 = new System.Windows.Forms.Panel();
+            this.panel54 = new System.Windows.Forms.Panel();
+            this.panel55 = new System.Windows.Forms.Panel();
+            this.L_VUELTO_PAGO_MOVIL = new System.Windows.Forms.Label();
             this.panel60 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.panel61 = new System.Windows.Forms.Panel();
@@ -182,6 +188,8 @@
             this.panel47 = new System.Windows.Forms.Panel();
             this.BT_PAGO_RESUMEN = new System.Windows.Forms.Button();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.panel56 = new System.Windows.Forms.Panel();
+            this.BT_VUELTOS_ENTREGADOS = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -261,11 +269,14 @@
             this.panel70.SuspendLayout();
             this.panel71.SuspendLayout();
             this.panel72.SuspendLayout();
+            this.panel48.SuspendLayout();
+            this.panel55.SuspendLayout();
             this.panel60.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.panel61.SuspendLayout();
             this.panel63.SuspendLayout();
             this.panel47.SuspendLayout();
+            this.panel56.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -649,8 +660,8 @@
             this.tableLayoutPanel2.Controls.Add(this.panel32, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.panel31, 2, 3);
             this.tableLayoutPanel2.Controls.Add(this.panel30, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.panel28, 1, 15);
-            this.tableLayoutPanel2.Controls.Add(this.panel27, 0, 15);
+            this.tableLayoutPanel2.Controls.Add(this.panel28, 1, 16);
+            this.tableLayoutPanel2.Controls.Add(this.panel27, 0, 16);
             this.tableLayoutPanel2.Controls.Add(this.panel26, 1, 14);
             this.tableLayoutPanel2.Controls.Add(this.panel25, 1, 10);
             this.tableLayoutPanel2.Controls.Add(this.panel24, 0, 10);
@@ -686,11 +697,16 @@
             this.tableLayoutPanel2.Controls.Add(this.panel71, 1, 13);
             this.tableLayoutPanel2.Controls.Add(this.panel72, 2, 13);
             this.tableLayoutPanel2.Controls.Add(this.panel74, 3, 13);
+            this.tableLayoutPanel2.Controls.Add(this.panel48, 0, 15);
+            this.tableLayoutPanel2.Controls.Add(this.panel49, 1, 15);
+            this.tableLayoutPanel2.Controls.Add(this.panel54, 2, 15);
+            this.tableLayoutPanel2.Controls.Add(this.panel55, 3, 15);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 16;
+            this.tableLayoutPanel2.RowCount = 17;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -921,21 +937,21 @@
             // panel28
             // 
             this.panel28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel28.Location = new System.Drawing.Point(163, 468);
+            this.panel28.Location = new System.Drawing.Point(163, 504);
             this.panel28.Margin = new System.Windows.Forms.Padding(1);
             this.panel28.Name = "panel28";
             this.panel28.Padding = new System.Windows.Forms.Padding(2);
-            this.panel28.Size = new System.Drawing.Size(95, 70);
+            this.panel28.Size = new System.Drawing.Size(95, 58);
             this.panel28.TabIndex = 23;
             // 
             // panel27
             // 
             this.panel27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel27.Location = new System.Drawing.Point(1, 468);
+            this.panel27.Location = new System.Drawing.Point(1, 504);
             this.panel27.Margin = new System.Windows.Forms.Padding(1);
             this.panel27.Name = "panel27";
             this.panel27.Padding = new System.Windows.Forms.Padding(2);
-            this.panel27.Size = new System.Drawing.Size(160, 70);
+            this.panel27.Size = new System.Drawing.Size(160, 58);
             this.panel27.TabIndex = 22;
             // 
             // panel26
@@ -2047,6 +2063,72 @@
             this.panel74.Size = new System.Drawing.Size(222, 34);
             this.panel74.TabIndex = 50;
             // 
+            // panel48
+            // 
+            this.panel48.Controls.Add(this.label9);
+            this.panel48.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel48.Location = new System.Drawing.Point(1, 468);
+            this.panel48.Margin = new System.Windows.Forms.Padding(1);
+            this.panel48.Name = "panel48";
+            this.panel48.Padding = new System.Windows.Forms.Padding(2);
+            this.panel48.Size = new System.Drawing.Size(160, 34);
+            this.panel48.TabIndex = 51;
+            // 
+            // label9
+            // 
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(2, 2);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(156, 30);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Monto Por \r\nPago Movil:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel49
+            // 
+            this.panel49.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel49.Location = new System.Drawing.Point(163, 468);
+            this.panel49.Margin = new System.Windows.Forms.Padding(1);
+            this.panel49.Name = "panel49";
+            this.panel49.Padding = new System.Windows.Forms.Padding(2);
+            this.panel49.Size = new System.Drawing.Size(95, 34);
+            this.panel49.TabIndex = 52;
+            // 
+            // panel54
+            // 
+            this.panel54.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel54.Location = new System.Drawing.Point(260, 468);
+            this.panel54.Margin = new System.Windows.Forms.Padding(1);
+            this.panel54.Name = "panel54";
+            this.panel54.Padding = new System.Windows.Forms.Padding(2);
+            this.panel54.Size = new System.Drawing.Size(150, 34);
+            this.panel54.TabIndex = 53;
+            // 
+            // panel55
+            // 
+            this.panel55.Controls.Add(this.L_VUELTO_PAGO_MOVIL);
+            this.panel55.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel55.Location = new System.Drawing.Point(412, 468);
+            this.panel55.Margin = new System.Windows.Forms.Padding(1);
+            this.panel55.Name = "panel55";
+            this.panel55.Padding = new System.Windows.Forms.Padding(2);
+            this.panel55.Size = new System.Drawing.Size(222, 34);
+            this.panel55.TabIndex = 54;
+            // 
+            // L_VUELTO_PAGO_MOVIL
+            // 
+            this.L_VUELTO_PAGO_MOVIL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_VUELTO_PAGO_MOVIL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_VUELTO_PAGO_MOVIL.ForeColor = System.Drawing.Color.Maroon;
+            this.L_VUELTO_PAGO_MOVIL.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.L_VUELTO_PAGO_MOVIL.Location = new System.Drawing.Point(2, 2);
+            this.L_VUELTO_PAGO_MOVIL.Name = "L_VUELTO_PAGO_MOVIL";
+            this.L_VUELTO_PAGO_MOVIL.Size = new System.Drawing.Size(218, 30);
+            this.L_VUELTO_PAGO_MOVIL.TabIndex = 10;
+            this.L_VUELTO_PAGO_MOVIL.Text = "999999999.99";
+            this.L_VUELTO_PAGO_MOVIL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // panel60
             // 
             this.panel60.BackColor = System.Drawing.Color.SteelBlue;
@@ -2066,6 +2148,7 @@
             this.tableLayoutPanel7.Controls.Add(this.panel61, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.panel63, 0, 2);
             this.tableLayoutPanel7.Controls.Add(this.panel47, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.panel56, 0, 3);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -2161,6 +2244,32 @@
             // printDocument1
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // panel56
+            // 
+            this.panel56.Controls.Add(this.BT_VUELTOS_ENTREGADOS);
+            this.panel56.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel56.Location = new System.Drawing.Point(1, 322);
+            this.panel56.Margin = new System.Windows.Forms.Padding(1);
+            this.panel56.Name = "panel56";
+            this.panel56.Padding = new System.Windows.Forms.Padding(2);
+            this.panel56.Size = new System.Drawing.Size(92, 105);
+            this.panel56.TabIndex = 4;
+            // 
+            // BT_VUELTOS_ENTREGADOS
+            // 
+            this.BT_VUELTOS_ENTREGADOS.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BT_VUELTOS_ENTREGADOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BT_VUELTOS_ENTREGADOS.Image = ((System.Drawing.Image)(resources.GetObject("BT_VUELTOS_ENTREGADOS.Image")));
+            this.BT_VUELTOS_ENTREGADOS.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.BT_VUELTOS_ENTREGADOS.Location = new System.Drawing.Point(2, 2);
+            this.BT_VUELTOS_ENTREGADOS.Name = "BT_VUELTOS_ENTREGADOS";
+            this.BT_VUELTOS_ENTREGADOS.Size = new System.Drawing.Size(88, 101);
+            this.BT_VUELTOS_ENTREGADOS.TabIndex = 5;
+            this.BT_VUELTOS_ENTREGADOS.Text = "Cambio Vueltos Entregados";
+            this.BT_VUELTOS_ENTREGADOS.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.BT_VUELTOS_ENTREGADOS.UseVisualStyleBackColor = true;
+            this.BT_VUELTOS_ENTREGADOS.Click += new System.EventHandler(this.BT_VUELTOS_ENTREGADOS_Click);
             // 
             // CierreFrm
             // 
@@ -2259,11 +2368,14 @@
             this.panel70.ResumeLayout(false);
             this.panel71.ResumeLayout(false);
             this.panel72.ResumeLayout(false);
+            this.panel48.ResumeLayout(false);
+            this.panel55.ResumeLayout(false);
             this.panel60.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.panel61.ResumeLayout(false);
             this.panel63.ResumeLayout(false);
             this.panel47.ResumeLayout(false);
+            this.panel56.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2423,5 +2535,13 @@
         private System.Windows.Forms.Button BT_PagoMovil;
         private System.Windows.Forms.Panel panel47;
         private System.Windows.Forms.Button BT_PAGO_RESUMEN;
+        private System.Windows.Forms.Panel panel48;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel49;
+        private System.Windows.Forms.Panel panel54;
+        private System.Windows.Forms.Panel panel55;
+        private System.Windows.Forms.Label L_VUELTO_PAGO_MOVIL;
+        private System.Windows.Forms.Panel panel56;
+        private System.Windows.Forms.Button BT_VUELTOS_ENTREGADOS;
     }
 }

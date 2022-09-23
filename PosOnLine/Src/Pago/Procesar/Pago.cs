@@ -19,7 +19,7 @@ namespace PosOnLine.Src.Pago.Procesar
         private bool _isCredito;
         private LoteReferencia.Gestion _gestionLoteRef;
         private Descuento.Gestion _gestionDescuento;
-        private ValidarCambio.Gestion _gestionValidarCambio;
+        private ValidarCambio.IValidarCambio _gValidarCambio;
         private OOB.Cliente.Entidad.Ficha _entCliente;
 
 
@@ -202,8 +202,9 @@ namespace PosOnLine.Src.Pago.Procesar
             _tasaCambio = 0.0m;
             _dsctoPorct = 0.0m;
             _detalle = new List<PagoDetalle>();
-            _gestionValidarCambio = new ValidarCambio.Gestion();
+            _gValidarCambio = new ValidarCambio.ConVuelto.ImpConVuelto();
             _entCliente = null;
+            _dataRecolectar = new dataRecolectar();
         }
 
 
@@ -298,6 +299,11 @@ namespace PosOnLine.Src.Pago.Procesar
                 var msg1 = "BONO";
                 var msg2 = Math.Round(pg.GetMontoBonoDivisa, 2, MidpointRounding.AwayFromZero).ToString()+"$";
                 AddElectronico(pg.GetMontoBonoBs, 4, msg1, msg2, false);
+                //
+                _dataRecolectar.PorctBonoPorPagoDivisa=_porctBonoPorPagoDivisa;
+                _dataRecolectar.CantDivisaAplicaBonoPorPagoDivisa=_cntDivisaRecomendada;
+                _dataRecolectar.MontoBonoPorPagoDivisa=pg.GetMontoBonoBs;
+                _dataRecolectar.MontoBonoEnDivisaPorPagoDivisa=pg.GetMontoBonoDivisa;
             }
         }
 
@@ -346,7 +352,8 @@ namespace PosOnLine.Src.Pago.Procesar
             _dsctoPorct = 0.0m;
             _detalle.Clear();
             _cntDivisaRecomendada = 0;
-            _gestionValidarCambio.Inicializa();
+            _gValidarCambio.Inicializa();
+            _dataRecolectar.Limpiar();
         }
 
         public void setDescuento(decimal porct)
@@ -377,11 +384,13 @@ namespace PosOnLine.Src.Pago.Procesar
                     _montoValidar = MontoCambioDar_MonedaNacional;
                     if (_montoValidar >0m)
                     {
-                        _gestionValidarCambio.Inicializa();
-                        _gestionValidarCambio.setMontoValidar(_montoValidar);
-                        _gestionValidarCambio.setDatosPagoMovil(_entCliente);
-                        _gestionValidarCambio.Inicia();
-                        return _gestionValidarCambio.ValidarIsOk;
+                        _gValidarCambio.Inicializa();
+                        _gValidarCambio.setMontoValidar(_montoValidar);
+                        _gValidarCambio.setTasaCambio(_tasaCambio);
+                        _gValidarCambio.setPorctBonoPorPagoDivisa(_porctBonoPorPagoDivisa);
+                        _gValidarCambio.setDatosCliente(_entCliente);
+                        _gValidarCambio.Inicia();
+                        return _gValidarCambio.ValidarCambioIsOk;
                     }
                     return true;
                 }
@@ -444,8 +453,6 @@ namespace PosOnLine.Src.Pago.Procesar
             _entCliente = ent;
         }
 
-        public bool PagoMovilIsOk { get { return _gestionValidarCambio.PagoMovilIsOk; } }
-        public PagoMovil.data PagoMovilData { get { return _gestionValidarCambio.PagoMovilData; } }
         public decimal GetPagoOtro 
         { 
             get 
@@ -456,6 +463,30 @@ namespace PosOnLine.Src.Pago.Procesar
                 return _monto;
             } 
         }
+
+
+        public bool PagoMovilIsOk { get { return _gValidarCambio.PagoMovilIsOk; } }
+        public PagoMovil.data PagoMovilData { get { return _gValidarCambio.PagoMovilData; } }
+
+
+        private dataRecolectar _dataRecolectar;
+        public dataRecolectar DataPagoRecolectar { get { return RecolectarDataPago(); } }
+        private dataRecolectar RecolectarDataPago()
+        {
+            if (_gValidarCambio.ValidarCambioIsOk)
+            {
+                _dataRecolectar.MontoPorVueltoEnEfectivo = _gValidarCambio.GetMontoPorEfectivo;
+                _dataRecolectar.MontoPorVueltoEnDivisa = _gValidarCambio.GetMontoPorDivisa;
+                _dataRecolectar.MontoPorVueltoEnPagoMovil = _gValidarCambio.GetMontoPorPagoMovil;
+                _dataRecolectar.CantDivisaPorVueltoEnDivisa = _gValidarCambio.GetCantDivisa;
+                if (PagoMovilIsOk) 
+                {
+                    _dataRecolectar.DataPagoMovil = _gValidarCambio.PagoMovilData;
+                }
+            }
+            return _dataRecolectar;
+        }
+
 
     }
 

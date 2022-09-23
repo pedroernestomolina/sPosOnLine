@@ -716,6 +716,7 @@ namespace PosOnLine.Src.Pos
             var documento = "";
             var factorCambio = _tasaCambioActual;
             var saldoPendiente = isCredito ? importeDocumento : 0.0m;
+            var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
 
             var fichaOOB = new OOB.Documento.Agregar.Factura.Ficha()
             {
@@ -813,6 +814,17 @@ namespace PosOnLine.Src.Pos
                 EstatusCierreContable = "0",
                 CierreFtp = "",
                 Prefijo = _sucursalAsignada.codigo + Sistema.IdEquipo,
+                //
+                PorctBonoPorPagoDivisa = dataPagoRecolectada.PorctBonoPorPagoDivisa,
+                MontoBonoPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
+                MontoBonoEnDivisaPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoEnDivisaPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
+                CantDivisaAplicaBonoPorPagoDivisa = dataPagoRecolectada.CantDivisaAplicaBonoPorPagoDivisa,
+                MontoPorVueltoEnEfectivo = Math.Round(dataPagoRecolectada.MontoPorVueltoEnEfectivo, 2, MidpointRounding.AwayFromZero),
+                MontoPorVueltoEnDivisa = Math.Round(dataPagoRecolectada.MontoPorVueltoEnDivisa, 2, MidpointRounding.AwayFromZero),
+                MontoPorVueltoEnPagoMovil = Math.Round(dataPagoRecolectada.MontoPorVueltoEnPagoMovil, 2, MidpointRounding.AwayFromZero),
+                CantDivisaPorVueltoEnDivisa = dataPagoRecolectada.CantDivisaPorVueltoEnDivisa,
+                estatusPorBonoPorPagoDivisa = dataPagoRecolectada.estatusPorBonoPorPagoDivisa,
+                estatusPorVueltoEnPagoMovil = dataPagoRecolectada.AplicaPagoMovil ? "1" : "0",
             };
 
             var medidas = _gestionItem.Items.
@@ -1242,14 +1254,19 @@ namespace PosOnLine.Src.Pos
                 //
                 mCambio = montoCambio,
                 cntCambio = montoCambio > 0 ? 1 : 0,
+                //
+                montoVueltoPorEfectivo=dataPagoRecolectada.MontoPorVueltoEnEfectivo,
+                montoVueltoPorDivisa=dataPagoRecolectada.MontoPorVueltoEnDivisa,
+                montoVueltoPorPagoMovil=dataPagoRecolectada.MontoPorVueltoEnPagoMovil,
+                cntDivisaPorVueltoDivisa = dataPagoRecolectada.CantDivisaPorVueltoEnDivisa,
             };
             fichaOOB.SerieFiscal = new OOB.Documento.Agregar.Factura.FichaSerie() { auto = _serieFactura.Auto };
-            if (_gestionProcesarPago.PagoMovilIsOk)
+            if (dataPagoRecolectada.AplicaPagoMovil) 
             {
-                var pm = _gestionProcesarPago.PagoMovilData;
+                var pm = dataPagoRecolectada.DataPagoMovil;
                 fichaOOB.PagoMovil = new OOB.Documento.Agregar.Factura.FichaPagoMovil()
                 {
-                    autoAgencia = pm.autoAgencia,
+                    autoAgencia = pm.agencia.id,
                     ciRif = pm.ciRif,
                     monto = pm.monto,
                     nombre = pm.nombre,
@@ -1262,7 +1279,9 @@ namespace PosOnLine.Src.Pos
                     tipoDocumento = _tipoDocumentoDevVenta.tipo,
                     montoDocumento = importeDocumento,
                     codigoSucursal = _sucursalAsignada.codigo,
-                    nombreAgencia = pm.nombreAgencia,
+                    nombreAgencia = pm.agencia.desc,
+                    cierre = Sistema.PosEnUso.idAutoArqueoCierre,
+                    cierreFtp = "",
                 };
             }
 
@@ -1430,6 +1449,7 @@ namespace PosOnLine.Src.Pos
                 };
             }
 
+            var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
             var fichaOOB = new OOB.Documento.Agregar.NotaCredito.Ficha()
             {
                 DocumentoNro = documento,
@@ -1526,6 +1546,17 @@ namespace PosOnLine.Src.Pos
                 EstatusCierreContable = "0",
                 CierreFtp = "",
                 Prefijo = _sucursalAsignada.codigo + Sistema.IdEquipo,
+                //
+                PorctBonoPorPagoDivisa = dataPagoRecolectada.PorctBonoPorPagoDivisa,
+                MontoBonoPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
+                MontoBonoEnDivisaPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoEnDivisaPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
+                CantDivisaAplicaBonoPorPagoDivisa = dataPagoRecolectada.CantDivisaAplicaBonoPorPagoDivisa,
+                MontoPorVueltoEnEfectivo = 0m,
+                MontoPorVueltoEnDivisa = 0m,
+                MontoPorVueltoEnPagoMovil = 0m,
+                CantDivisaPorVueltoEnDivisa = 0,
+                estatusPorBonoPorPagoDivisa = dataPagoRecolectada.estatusPorBonoPorPagoDivisa,
+                estatusPorVueltoEnPagoMovil = "0",
             };
             fichaOOB.ClienteSaldo = _clienteSaldo;
 
@@ -2385,6 +2416,10 @@ namespace PosOnLine.Src.Pos
                 DescuentoPorc = xr1.Entidad.Descuento1p,
                 Cargo = xr1.Entidad.Cargos,
                 CargoPorc = xr1.Entidad.Cargosp,
+                VueltoEfectivo = xr1.Entidad.MontoPorVueltoEnEfectivo,
+                VueltoDivisa = xr1.Entidad.MontoPorVueltoEnDivisa,
+                VueltoPagoMovil = xr1.Entidad.MontoPorVueltoEnPagoMovil,
+                CntDivisaVueltoDivisa = xr1.Entidad.CantDivisaPorVueltoEnDivisa,
             };
             xdata.item = new List<Helpers.Imprimir.data.Item>();
             foreach (var rg in xr1.Entidad.items)
@@ -2543,23 +2578,36 @@ namespace PosOnLine.Src.Pos
         }
 
 
-        public string PagoImporteDivisaBono { get { return pagoDivisaConBonoDscto(); } }
+        public string PagoImporteDivisaBono { get { return pagoDivisaConBonoDscto_SoloEnDivisa(); } }
         private bool _habilitarBonoPagoDivisa;
         private decimal _dsctoBonoPagoDivisa;
-        private string pagoDivisaConBonoDscto()
+        private string pagoDivisaConBonoDscto_SoloEnDivisa()
         {
             var rt = "";
             if (_habilitarBonoPagoDivisa) 
             {
                 rt += "Con Bono ("+_dsctoBonoPagoDivisa.ToString("n2")+"%): ";
-                var _pagoDivisa = (int) (ImporteDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
-                var _pago = (_pagoDivisa * _tasaCambioActual);
-                var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
-                var _resta = Importe - (_pago + _bono);
-                rt += _pagoDivisa.ToString("n0")+"$, con " + _resta.ToString("n2") + "Bs";
+                var _impDivisa= Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
+                var _pagoDivisa = (_impDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
+                rt += _pagoDivisa.ToString("n2") + "$";
             }
             return rt;
         }
+        private string pagoDivisaConBonoDscto_EnDivisaBolivar()
+        {
+            var rt = "";
+            if (_habilitarBonoPagoDivisa)
+            {
+                rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
+                var _pagoDivisa = (int)(ImporteDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
+                var _pago = (_pagoDivisa * _tasaCambioActual);
+                var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
+                var _resta = Importe - (_pago + _bono);
+                rt += _pagoDivisa.ToString("n0") + "$, con " + _resta.ToString("n2") + "Bs";
+            }
+            return rt;
+        }
+
 
     }
 

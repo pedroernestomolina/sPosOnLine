@@ -99,7 +99,10 @@ namespace PosOnLine.Helpers.Imprimir
             cuadre_u = 0.0m;
             //
             nroCierre = "";
+            //
+            vueltoPorPagoMovil = 0m;
         }
+        public decimal vueltoPorPagoMovil { get; set; }
 
     }
 

@@ -84,8 +84,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _lista.Add("A Credito : " + _ds.cntDocCredito.ToString("n0"));
             _lista.Add("Monto     : " + _ds.credito_s.ToString("n2").PadLeft(18, ' '));
             _lista.Add("Monto x     ");
-            _lista.Add("Cambio    : " + _ds.cambio_s.ToString("n2").PadLeft(18, ' '));
-            _lista.Add("TOTAL      ");
+            _lista.Add("Cambio    : " + (_ds.cambio_s * (-1)).ToString("n2").PadLeft(18, ' '));
+            _lista.Add("TOTAL       ");
             _lista.Add("Monto     : " + _ds.cuadre_s.ToString("n2").PadLeft(18, ' '));
 
             _lista.Add("");
@@ -102,7 +102,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _lista.Add("Monto     : " + _ds.otros_u.ToString("n2").PadLeft(18, ' '));
             _lista.Add("A Credito  ");
             _lista.Add("Monto     : " + _ds.credito_s.ToString("n2").PadLeft(18, ' '));
-            _lista.Add("TOTAL     ");
+            _lista.Add("Vuelto Por ");
+            _lista.Add("PagoMovil : " + (_ds.vueltoPorPagoMovil*(-1)).ToString("n2").PadLeft(18, ' '));
+            _lista.Add("TOTAL      ");
             _lista.Add("Monto     : " + _ds.cuadre_u.ToString("n2").PadLeft(18, ' '));
             _tick.Reporte(_lista);
         }

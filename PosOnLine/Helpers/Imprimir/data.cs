@@ -101,8 +101,16 @@ namespace PosOnLine.Helpers.Imprimir
 
                 EstacionEquipo = "";
                 Usuario = "";
+                //
+                VueltoEfectivo = 0m;
+                VueltoDivisa = 0m;
+                VueltoPagoMovil = 0m;
+                CntDivisaVueltoDivisa = 0;
             }
-
+            public decimal VueltoEfectivo { get; set; }
+            public decimal VueltoDivisa { get; set; }
+            public decimal VueltoPagoMovil { get; set; }
+            public int CntDivisaVueltoDivisa { get; set; }
         }
 
         public class Item

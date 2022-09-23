@@ -320,6 +320,10 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             var _mOtros=0.0m;
             var _cntCambio=0;
             var _mCambio=0.0m;
+            var _montoVueltoPorEfectivo = 0m;
+            var _montoVueltoPorDivisa = 0m;
+            var _montoVueltoPorPagoMovil = 0m;
+            var _cntDivisaPorVueltoDivisa = 0;
 
             var r01 = Sistema.MyData.Documento_GetById(idDoc);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
@@ -334,6 +338,12 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                 _mCambio = r01.Entidad.Cambio;
                 _cntCambio = _mCambio > 0 ? 1 : 0;
                 _condPagoIsContado = true;
+                //
+                _montoVueltoPorEfectivo = r01.Entidad.MontoPorVueltoEnEfectivo;
+                _montoVueltoPorDivisa = r01.Entidad.MontoPorVueltoEnDivisa;
+                _montoVueltoPorPagoMovil =r01.Entidad.MontoPorVueltoEnPagoMovil;
+                _cntDivisaPorVueltoDivisa = r01.Entidad.CantDivisaPorVueltoEnDivisa;
+                //
                 if (r01.Entidad.AutoReciboCxC != "")
                 {
                     var r04 = Sistema.MyData.Documento_Get_MetodosPago_ByIdRecibo(r01.Entidad.AutoReciboCxC);
@@ -421,6 +431,11 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                     mElectronico = _mElectronico,
                     mOtros = _mOtros,
                     mCambio = _mCambio,
+                    //
+                    montoVueltoPorEfectivo = _montoVueltoPorEfectivo,
+                    montoVueltoPorDivisa = _montoVueltoPorDivisa,
+                    montoVueltoPorPagoMovil = _montoVueltoPorPagoMovil,
+                    cntDivisaPorVueltoDivisa = _cntDivisaPorVueltoDivisa,
                 },
             };
             var r03 = Sistema.MyData.Documento_Anular_Factura(ficha);
