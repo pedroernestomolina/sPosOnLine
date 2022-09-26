@@ -28,7 +28,8 @@ namespace PosOnLine.Src.Reportes.Cierre.Resumen
 
         public void Generar()
         {
-            var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\PagoResumen.rdlc";
+            //var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\PagoResumen.rdlc";
+            var pt = AppDomain.CurrentDomain.BaseDirectory + @"\PagoResumen.rdlc";
             var ds = new DS();
 
             var gf = _lista.GroupBy(g =>

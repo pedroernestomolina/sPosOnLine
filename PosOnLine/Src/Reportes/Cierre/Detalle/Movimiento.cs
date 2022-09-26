@@ -27,7 +27,8 @@ namespace PosOnLine.Src.Reportes.Cierre.Detalle
 
         public void Generar()
         {
-            var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\PagoDetalle.rdlc";
+            //var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\PagoDetalle.rdlc";
+            var pt = AppDomain.CurrentDomain.BaseDirectory + @"\PagoDetalle.rdlc";
             var ds = new DS();
             var xid = 0;
             var montoTotal = 0.0m;

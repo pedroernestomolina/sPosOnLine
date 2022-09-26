@@ -24,7 +24,8 @@ namespace PosOnLine.Src.Reportes.Cierre.PagoMovil
 
         public void Generar()
         {
-            var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\PagoMovil.rdlc";
+            //var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\PagoMovil.rdlc";
+            var pt = AppDomain.CurrentDomain.BaseDirectory + @"\PagoMovil.rdlc";
             var ds = new DS();
 
             foreach (var rg in _lista.OrderBy(o => o.docNro).ToList())

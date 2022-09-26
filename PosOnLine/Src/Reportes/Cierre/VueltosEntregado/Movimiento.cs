@@ -24,7 +24,8 @@ namespace PosOnLine.Src.Reportes.Cierre.VueltosEntregado
 
         public void Generar()
         {
-            var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\VueltosEntregado.rdlc";
+            //var pt = AppDomain.CurrentDomain.BaseDirectory + @"Src\Reportes\VueltosEntregado.rdlc";
+            var pt = AppDomain.CurrentDomain.BaseDirectory + @"\VueltosEntregado.rdlc";
             var ds = new DS();
 
             foreach (var rg in _lst.ToList())
