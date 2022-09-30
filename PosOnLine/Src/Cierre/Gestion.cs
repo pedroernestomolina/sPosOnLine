@@ -266,18 +266,30 @@ namespace PosOnLine.Src.Cierre
                 }
                 dat.nroCierre = r02.Entidad.ToString().Trim().PadLeft(8, '0');
                 Sistema.ImprimirCuadreCaja.setData(dat);
-                if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera58.CuadreDoc))
+                if (Sistema.ImprimirCuadreCaja.IsModoTicket)
                 {
                     _isTicket = true;
                 }
-                else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera80.CuadreDoc)) 
-                {
-                    _isTicket = true;
-                }
-                else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Grafico.CuadreDoc))
+                else 
                 {
                     Sistema.ImprimirCuadreCaja.ImprimirDoc();
                 }
+                //if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera58.CuadreDoc))
+                //{
+                //    _isTicket = true;
+                //}
+                //else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera80.CuadreDoc)) 
+                //{
+                //    _isTicket = true;
+                //}
+                //else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.CuadreDoc))
+                //{
+                //    _isTicket = true;
+                //}
+                //else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Grafico.CuadreDoc))
+                //{
+                //    Sistema.ImprimirCuadreCaja.ImprimirDoc();
+                //}
                 _cierreOk = true;
                 Sistema.PosEnUso.Cerrar();
             }
@@ -295,16 +307,22 @@ namespace PosOnLine.Src.Cierre
 
         public void Imprimir(System.Drawing.Printing.PrintPageEventArgs e)
         {
-            if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera80.CuadreDoc))
-            {
-                var tick = (Helpers.Imprimir.Tickera80.CuadreDoc)Sistema.ImprimirCuadreCaja;
-                tick.setGrafico(e);
-            }
-            else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera58.CuadreDoc))
-            {
-                var tick = (Helpers.Imprimir.Tickera58.CuadreDoc)Sistema.ImprimirCuadreCaja;
-                tick.setGrafico(e);
-            }
+            //if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera80.CuadreDoc))
+            //{
+            //    var tick = (Helpers.Imprimir.Tickera80.CuadreDoc)Sistema.ImprimirCuadreCaja;
+            //    tick.setGrafico(e);
+            //}
+            //else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.CuadreDoc))
+            //{
+            //    var tick = (Helpers.Imprimir.Tickera80Basico.CuadreDoc)Sistema.ImprimirCuadreCaja;
+            //    tick.setGrafico(e);
+            //}
+            //else if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Tickera58.CuadreDoc))
+            //{
+            //    var tick = (Helpers.Imprimir.Tickera58.CuadreDoc)Sistema.ImprimirCuadreCaja;
+            //    tick.setGrafico(e);
+            //}
+            Sistema.ImprimirCuadreCaja.setGrafico(e);
             Sistema.ImprimirCuadreCaja.ImprimirDoc();
         }
 

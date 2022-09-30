@@ -114,6 +114,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _tick.setControlador(e);
         }
 
+
+        //
+        public bool IsModoTicket { get { return true; } }
+
     }
 
 }

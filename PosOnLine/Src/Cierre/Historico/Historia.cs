@@ -144,8 +144,10 @@ namespace PosOnLine.Src.Cierre.Historico
                 dat.nroCierre = _dat.nroCierre;
 
                 Sistema.ImprimirCuadreCaja.setData(dat);
-                if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Grafico.CuadreDoc))
+                if (!Sistema.ImprimirCuadreCaja.IsModoTicket)
                     Sistema.ImprimirCuadreCaja.ImprimirDoc();
+                //if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Grafico.CuadreDoc))
+                //    Sistema.ImprimirCuadreCaja.ImprimirDoc();
             }
             catch (Exception e)
             {

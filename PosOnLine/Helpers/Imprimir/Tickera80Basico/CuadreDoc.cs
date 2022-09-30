@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Helpers.Imprimir.Tickera58
+namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
 {
+
 
     public class CuadreDoc : ICuadreCaja
     {
@@ -35,8 +36,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
 
         private void Imprimir()
         {
+            _lista.Clear();
             _lista.Add("REPORTE CAJA");
             _lista.Add("");
+            _lista.Add("NUMERO: " + _ds.nroCierre);
             _lista.Add("EQUIPO: " + Sistema.EquipoEstacion);
             _lista.Add("OPERAD: " + _ds.Usuario);
             _lista.Add("FECHA : " + DateTime.Now.ToShortDateString());
@@ -68,8 +71,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
             _lista.Add("");
             _lista.Add("");
             _lista.Add("DESGLOZE");
-            _lista.Add("Efectivo  : " + _ds.cnt_efectivo_s.ToString("n0"));
-            _lista.Add("Monto     : " + _ds.efectivo_s.ToString("n2").PadLeft(18,' '));
+            _lista.Add("Efectivo    "); 
+            _lista.Add("Monto     : " + _ds.efectivo_s.ToString("n2").PadLeft(18, ' '));
             _lista.Add("Divisa    : " + _ds.cnt_divisa_s.ToString("n2"));
             _lista.Add("Monto     : " + _ds.divisa_s.ToString("n2").PadLeft(18, ' '));
             _lista.Add("Tarjetas  : " + _ds.cnt_electronico_s.ToString("n0"));
@@ -100,8 +103,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
             _lista.Add("A Credito  ");
             _lista.Add("Monto     : " + _ds.credito_s.ToString("n2").PadLeft(18, ' '));
             _lista.Add("Vuelto Por ");
-            _lista.Add("PagoMovil : " + (_ds.vueltoPorPagoMovil * (-1)).ToString("n2").PadLeft(18, ' '));
-            _lista.Add("TOTAL     ");
+            _lista.Add("PagoMovil : " + (_ds.vueltoPorPagoMovil*(-1)).ToString("n2").PadLeft(18, ' '));
+            _lista.Add("TOTAL      ");
             _lista.Add("Monto     : " + _ds.cuadre_u.ToString("n2").PadLeft(18, ' '));
             _tick.Reporte(_lista);
         }

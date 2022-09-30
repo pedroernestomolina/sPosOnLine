@@ -98,6 +98,9 @@ namespace PosOnLine.Helpers
                                         case "T80":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80.Documento();
                                             break;
+                                        case "T80B":
+                                            Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            break;
                                         case "T58":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
@@ -115,6 +118,9 @@ namespace PosOnLine.Helpers
                                             break;
                                         case "T80":
                                             Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80.Documento();
+                                            break;
+                                        case "T80B":
+                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80Basico.Documento();
                                             break;
                                         case "T58":
                                             Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera58.Documento();
@@ -134,6 +140,9 @@ namespace PosOnLine.Helpers
                                         case "T80":
                                             Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.Documento();
                                             break;
+                                        case "T80B":
+                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            break;
                                         case "T58":
                                             Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
@@ -151,6 +160,9 @@ namespace PosOnLine.Helpers
                                             break;
                                         case "T80":
                                             Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80.CuadreDoc();
+                                            break;
+                                        case "T80B":
+                                            Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80Basico.CuadreDoc();
                                             break;
                                         case "T58":
                                             Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera58.CuadreDoc();

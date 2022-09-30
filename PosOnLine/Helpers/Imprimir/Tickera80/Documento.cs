@@ -155,6 +155,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _imagenQR = new Bitmap(_imagenTemporal, new Size(new Point(100, 100)));
         }
 
+
+        //
+        public bool IsModoTicket { get { return true; } }
+
     }
 
 }

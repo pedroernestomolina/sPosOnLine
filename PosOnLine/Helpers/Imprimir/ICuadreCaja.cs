@@ -14,6 +14,7 @@ namespace PosOnLine.Helpers.Imprimir
         void setData(dataCuadre ds);
         void ImprimirDoc();
         void setGrafico(System.Drawing.Printing.PrintPageEventArgs e);
+        bool IsModoTicket { get; }
 
     }
 

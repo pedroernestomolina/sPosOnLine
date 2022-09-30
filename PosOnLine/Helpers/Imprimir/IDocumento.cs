@@ -15,6 +15,11 @@ namespace PosOnLine.Helpers.Imprimir
         void ImprimirDoc();
         void ImprimirCopiaDoc();
         void setImprimirQR(dataQR dat);
+        bool IsModoTicket { get; }
+
+
+        void setControlador(System.Drawing.Printing.PrintPageEventArgs e);
+        void setEmpresa(OOB.Sistema.Empresa.Ficha ficha);
 
     }
 

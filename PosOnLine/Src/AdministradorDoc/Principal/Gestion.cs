@@ -460,20 +460,36 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
         public void Imprimir(System.Drawing.Printing.PrintPageEventArgs e)
         {
-            if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+            if (ImprimirDoc!=null)
             {
-                var t = (Helpers.Imprimir.Tickera58.Documento)ImprimirDoc;
-                t.setControlador(e);
-                t.setEmpresa(Sistema.DatosEmpresa);
-                t.ImprimirDoc();
+                if (ImprimirDoc.IsModoTicket) 
+                {
+                    ImprimirDoc.setControlador(e);
+                    ImprimirDoc.setEmpresa(Sistema.DatosEmpresa);
+                    ImprimirDoc.ImprimirDoc();
+                }
             }
-            else if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-            {
-                var t = (Helpers.Imprimir.Tickera80.Documento)ImprimirDoc;
-                t.setControlador(e);
-                t.setEmpresa(Sistema.DatosEmpresa);
-                t.ImprimirDoc();
-            }
+            //if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+            //{
+            //    var t = (Helpers.Imprimir.Tickera58.Documento)ImprimirDoc;
+            //    t.setControlador(e);
+            //    t.setEmpresa(Sistema.DatosEmpresa);
+            //    t.ImprimirDoc();
+            //}
+            //else if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+            //{
+            //    var t = (Helpers.Imprimir.Tickera80.Documento)ImprimirDoc;
+            //    t.setControlador(e);
+            //    t.setEmpresa(Sistema.DatosEmpresa);
+            //    t.ImprimirDoc();
+            //}
+            //else if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+            //{
+            //    var t = (Helpers.Imprimir.Tickera80Basico.Documento)ImprimirDoc;
+            //    t.setControlador(e);
+            //    t.setEmpresa(Sistema.DatosEmpresa);
+            //    t.ImprimirDoc();
+            //}
         }
 
         public void VisualizarDocumento()

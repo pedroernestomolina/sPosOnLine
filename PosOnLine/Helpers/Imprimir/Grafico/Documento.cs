@@ -99,6 +99,15 @@ namespace PosOnLine.Helpers.Imprimir.Grafico
         {
         }
 
+        //
+        public bool IsModoTicket { get { return false; } }
+        public void setControlador(System.Drawing.Printing.PrintPageEventArgs e)
+        {
+        }
+        public void setEmpresa(OOB.Sistema.Empresa.Ficha ficha)
+        {
+        }
+
     }
 
 }

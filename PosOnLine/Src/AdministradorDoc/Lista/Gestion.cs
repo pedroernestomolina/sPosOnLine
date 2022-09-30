@@ -275,54 +275,96 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                 { 
                     case data.enumTipoDoc.Factura:
                         Sistema.ImprimirFactura.setData(xdata);
-                        if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                        if (Sistema.ImprimirFactura.IsModoTicket)
                         {
                             _isTickeraOk = true;
                             _imprimirDoc = Sistema.ImprimirFactura;
                         }
-                        else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                        {
-                            _isTickeraOk = true;
-                            _imprimirDoc = Sistema.ImprimirFactura;
-                        }
-                        else
+                        else 
                         {
                             Sistema.ImprimirFactura.ImprimirCopiaDoc();
                         }
+                        //if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirFactura;
+                        //}
+                        //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirFactura;
+                        //}
+                        //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirFactura;
+                        //}
+                        //else
+                        //{
+                        //    Sistema.ImprimirFactura.ImprimirCopiaDoc();
+                        //}
                         break;
                     case data.enumTipoDoc.NotaCredito:
                         Sistema.ImprimirNotaCredito.setData(xdata);
-                        if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                        if (Sistema.ImprimirNotaCredito.IsModoTicket)
                         {
                             _isTickeraOk = true;
                             _imprimirDoc = Sistema.ImprimirNotaCredito;
                         }
-                        else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                        {
-                            _isTickeraOk = true;
-                            _imprimirDoc = Sistema.ImprimirNotaCredito;
-                        }
-                        else
+                        else 
                         {
                             Sistema.ImprimirNotaCredito.ImprimirCopiaDoc();
                         }
+                        //if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirNotaCredito;
+                        //}
+                        //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirNotaCredito;
+                        //}
+                        //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirNotaCredito;
+                        //}
+                        //else
+                        //{
+                        //    Sistema.ImprimirNotaCredito.ImprimirCopiaDoc();
+                        //}
                         break;
                     case data.enumTipoDoc.NotaEntrega:
                         Sistema.ImprimirNotaEntrega.setData(xdata);
-                        if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                        if (Sistema.ImprimirNotaEntrega.IsModoTicket)
                         {
                             _isTickeraOk = true;
                             _imprimirDoc = Sistema.ImprimirNotaEntrega;
                         }
-                        else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                        {
-                            _isTickeraOk = true;
-                            _imprimirDoc = Sistema.ImprimirNotaEntrega;
-                        }
-                        else
+                        else 
                         {
                             Sistema.ImprimirNotaEntrega.ImprimirCopiaDoc();
                         }
+                        //if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirNotaEntrega;
+                        //}
+                        //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirNotaEntrega;
+                        //}
+                        //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+                        //{
+                        //    _isTickeraOk = true;
+                        //    _imprimirDoc = Sistema.ImprimirNotaEntrega;
+                        //}
+                        //else
+                        //{
+                        //    Sistema.ImprimirNotaEntrega.ImprimirCopiaDoc();
+                        //}
                         break;
                 }
             }

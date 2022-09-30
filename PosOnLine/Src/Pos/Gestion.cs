@@ -1306,21 +1306,36 @@ namespace PosOnLine.Src.Pos
                 };
                 Sistema.ImprimirFactura.setData(xdata);
                 Sistema.ImprimirFactura.setImprimirQR(dat);
-
-                if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                if (Sistema.ImprimirFactura.IsModoTicket)
                 {
                     _isTickeraOk = true;
-                    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirFactura;
+                    _ImprimirDoc = Sistema.ImprimirFactura;
                 }
-                else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                {
-                    _isTickeraOk = true;
-                    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirFactura;
-                }
-                else
+                else 
                 {
                     Sistema.ImprimirFactura.ImprimirDoc();
                 }
+
+                //if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirFactura;
+                //}
+                //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirFactura;
+                //}
+                //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80Basico.Documento)Sistema.ImprimirFactura;
+                //}
+                //else
+                //{
+                //    Sistema.ImprimirFactura.ImprimirDoc();
+                //}
+
             }
 
             _gestionItem.Limpiar();
@@ -1976,20 +1991,34 @@ namespace PosOnLine.Src.Pos
             if (xdata != null)
             {
                 Sistema.ImprimirNotaCredito.setData(xdata);
-                if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                if (Sistema.ImprimirNotaCredito.IsModoTicket)
                 {
                     _isTickeraOk = true;
-                    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirNotaCredito;
-                }
-                else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                {
-                    _isTickeraOk = true;
-                    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirNotaCredito;
+                    _ImprimirDoc = Sistema.ImprimirNotaCredito;
                 }
                 else
                 {
                     Sistema.ImprimirNotaCredito.ImprimirDoc();
                 }
+                //if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirNotaCredito;
+                //}
+                //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirNotaCredito;
+                //}
+                //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80Basico.Documento)Sistema.ImprimirNotaCredito;
+                //}
+                //else
+                //{
+                //    Sistema.ImprimirNotaCredito.ImprimirDoc();
+                //}
             }
 
             _gestionItem.Limpiar();
@@ -2327,20 +2356,34 @@ namespace PosOnLine.Src.Pos
             if (xdata != null)
             {
                 Sistema.ImprimirNotaEntrega.setData(xdata);
-                if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                if (Sistema.ImprimirNotaEntrega.IsModoTicket)
                 {
                     _isTickeraOk = true;
-                    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirNotaEntrega;
-                }
-                else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                {
-                    _isTickeraOk = true;
-                    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirNotaEntrega;
+                    _ImprimirDoc = Sistema.ImprimirNotaEntrega;
                 }
                 else
                 {
                     Sistema.ImprimirNotaEntrega.ImprimirDoc();
                 }
+                //if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirNotaEntrega;
+                //}
+                //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirNotaEntrega;
+                //}
+                //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80Basico.Documento)Sistema.ImprimirNotaEntrega;
+                //}
+                //else
+                //{
+                //    Sistema.ImprimirNotaEntrega.ImprimirDoc();
+                //}
             }
 
             _gestionItem.Limpiar();
@@ -2348,9 +2391,9 @@ namespace PosOnLine.Src.Pos
             Inicializa();
         }
 
-        private Helpers.Imprimir.data CargarDataDocumento(string p)
+        private Helpers.Imprimir.data CargarDataDocumento(string idDoc)
         {
-            var xr1 = Sistema.MyData.Documento_GetById(p);
+            var xr1 = Sistema.MyData.Documento_GetById(idDoc);
             if (xr1.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
                 Helpers.Msg.Error(xr1.Mensaje);
@@ -2475,23 +2518,40 @@ namespace PosOnLine.Src.Pos
 
         public void Imprimir(System.Drawing.Printing.PrintPageEventArgs e)
         {
-            if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+            _isTickeraOk = false;
+            if (_ImprimirDoc != null)
             {
-                _isTickeraOk = false;
-                var t = (Helpers.Imprimir.Tickera58.Documento)_ImprimirDoc;
-                t.setControlador(e);
-                t.setEmpresa(Sistema.DatosEmpresa);
-                t.ImprimirDoc();
-            }
-            if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-            {
-                _isTickeraOk = false;
-                var t = (Helpers.Imprimir.Tickera80.Documento)_ImprimirDoc;
-                t.setControlador(e);
-                t.setEmpresa(Sistema.DatosEmpresa);
-                t.ImprimirDoc();
+                _ImprimirDoc.setControlador(e);
+                _ImprimirDoc.setEmpresa(Sistema.DatosEmpresa);
+                _ImprimirDoc.ImprimirDoc();
             }
             _ImprimirDoc = null;
+
+            //if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
+            //{
+            //    _isTickeraOk = false;
+            //    var t = (Helpers.Imprimir.Tickera58.Documento)_ImprimirDoc;
+            //    t.setControlador(e);
+            //    t.setEmpresa(Sistema.DatosEmpresa);
+            //    t.ImprimirDoc();
+            //}
+            //if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
+            //{
+            //    _isTickeraOk = false;
+            //    var t = (Helpers.Imprimir.Tickera80.Documento)_ImprimirDoc;
+            //    t.setControlador(e);
+            //    t.setEmpresa(Sistema.DatosEmpresa);
+            //    t.ImprimirDoc();
+            //}
+            //if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
+            //{
+            //    _isTickeraOk = false;
+            //    var t = (Helpers.Imprimir.Tickera80Basico.Documento)_ImprimirDoc;
+            //    t.setControlador(e);
+            //    t.setEmpresa(Sistema.DatosEmpresa);
+            //    t.ImprimirDoc();
+            //}
+            //_ImprimirDoc = null;
         }
 
         public void CambiarPrecio()

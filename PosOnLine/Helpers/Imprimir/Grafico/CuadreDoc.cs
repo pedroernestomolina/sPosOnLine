@@ -87,6 +87,10 @@ namespace PosOnLine.Helpers.Imprimir.Grafico
         {
         }
 
+
+        //
+        public bool IsModoTicket { get { return false; } }
+
     }
 
 }

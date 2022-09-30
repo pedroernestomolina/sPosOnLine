@@ -142,6 +142,9 @@
     <Compile Include="Helpers\Imprimir\Tickera58\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera58\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera58\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80Basico\CuadreDoc.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80Basico\Documento.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80Basico\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Ticket.cs" />
