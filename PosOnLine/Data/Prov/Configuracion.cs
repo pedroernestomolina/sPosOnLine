@@ -86,6 +86,12 @@ namespace PosOnLine.Data.Prov
                 //var culture = CultureInfo.CreateSpecificCulture("en-EN");
                 Decimal.TryParse(cnf, style, culture, out m1);
             }
+            if (m1 <= 0m)
+            {
+                result.Mensaje = "TASA DIVISA INCORRECTA, NO PUEDE SEWR CERO (0)";
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
             result.Entidad = m1;
 
             return result;

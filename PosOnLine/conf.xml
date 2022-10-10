@@ -2,11 +2,11 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>mscala</Catalogo>
+    <Catalogo>russo</Catalogo>
   </Servidor>
   <IdEquipo>1</IdEquipo>
-  <CodigoSucursalActiva>15</CodigoSucursalActiva>
-  <codigoDepositoActiva>23</codigoDepositoActiva>
+  <CodigoSucursalActiva>01</CodigoSucursalActiva>
+  <codigoDepositoActiva>01</codigoDepositoActiva>
   <SerieFactura>1</SerieFactura>
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
