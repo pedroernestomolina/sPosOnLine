@@ -202,7 +202,8 @@ namespace PosOnLine.Src.Pago.Procesar
             _tasaCambio = 0.0m;
             _dsctoPorct = 0.0m;
             _detalle = new List<PagoDetalle>();
-            _gValidarCambio = new ValidarCambio.ConVuelto.ImpConVuelto();
+            //_gValidarCambio = new ValidarCambio.ConVuelto.ImpConVuelto();
+            _gValidarCambio = new ValidarCambio.SinVuelto.ImpSinVuelto();
             _entCliente = null;
             _dataRecolectar = new dataRecolectar();
         }

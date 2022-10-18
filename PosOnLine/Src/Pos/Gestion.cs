@@ -720,6 +720,7 @@ namespace PosOnLine.Src.Pos
 
             var fichaOOB = new OOB.Documento.Agregar.Factura.Ficha()
             {
+                idOperador = Sistema.PosEnUso.id,
                 DocumentoNro = documento,
                 RazonSocial = _gestionCliente.Cliente.Nombre,
                 DirFiscal = _gestionCliente.Cliente.DireccionFiscal,
@@ -1467,6 +1468,7 @@ namespace PosOnLine.Src.Pos
             var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
             var fichaOOB = new OOB.Documento.Agregar.NotaCredito.Ficha()
             {
+                idOperador=Sistema.PosEnUso.id,
                 DocumentoNro = documento,
                 RazonSocial = _gestionCliente.Cliente.Nombre,
                 DirFiscal = _gestionCliente.Cliente.DireccionFiscal,
@@ -2084,6 +2086,7 @@ namespace PosOnLine.Src.Pos
 
             var fichaOOB = new OOB.Documento.Agregar.NotaEntrega.Ficha()
             {
+                idOperador = Sistema.PosEnUso.id,
                 DocumentoNro = documento,
                 RazonSocial = _gestionCliente.Cliente.Nombre,
                 DirFiscal = _gestionCliente.Cliente.DireccionFiscal,

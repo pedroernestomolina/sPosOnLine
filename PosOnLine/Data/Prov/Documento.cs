@@ -319,6 +319,7 @@ namespace PosOnLine.Data.Prov
 
             var fichaDTO = new DtoLibPos.Documento.Agregar.Factura.Ficha()
             {
+                idOperador=ficha.idOperador,
                 DocumentoNro = ficha.DocumentoNro,
                 RazonSocial = ficha.RazonSocial,
                 DirFiscal = ficha.DirFiscal,
@@ -842,6 +843,7 @@ namespace PosOnLine.Data.Prov
 
             var fichaDTO = new DtoLibPos.Documento.Agregar.NotaCredito.Ficha()
             {
+                idOperador=ficha.idOperador,
                 DocumentoNro = ficha.DocumentoNro,
                 RazonSocial = ficha.RazonSocial,
                 DirFiscal = ficha.DirFiscal,
@@ -1300,6 +1302,7 @@ namespace PosOnLine.Data.Prov
 
             var fichaDTO = new DtoLibPos.Documento.Agregar.NotaEntrega.Ficha()
             {
+                idOperador = ficha.idOperador,
                 DocumentoNro = ficha.DocumentoNro,
                 RazonSocial = ficha.RazonSocial,
                 DirFiscal = ficha.DirFiscal,
@@ -1572,6 +1575,7 @@ namespace PosOnLine.Data.Prov
 
             var fichaDTO = new DtoLibPos.Documento.Anular.NotaEntrega.Ficha()
             {
+                idOperador=ficha.idOperador,
                 autoDocumento = ficha.autoDocumento,
                 CodigoDocumento = ficha.CodigoDocumento,
                 auditoria = new DtoLibPos.Documento.Anular.NotaEntrega.FichaAuditoria()
@@ -1627,6 +1631,7 @@ namespace PosOnLine.Data.Prov
             }
             var fichaDTO = new DtoLibPos.Documento.Anular.NotaCredito.Ficha()
             {
+                idOperador = ficha.idOperador,
                 autoDocumento = ficha.autoDocumento,
                 autoDocCxC = ficha.autoDocCxC,
                 autoReciboCxC = ficha.autoReciboCxC,
@@ -1693,6 +1698,7 @@ namespace PosOnLine.Data.Prov
 
             var fichaDTO = new DtoLibPos.Documento.Anular.Factura.Ficha()
             {
+                idOperador = ficha.idOperador,
                 autoDocumento = ficha.autoDocumento,
                 autoDocCxC = ficha.autoDocCxC,
                 autoReciboCxC = ficha.autoReciboCxC,

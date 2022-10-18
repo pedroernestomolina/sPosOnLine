@@ -799,6 +799,7 @@
     <None Include="Resources\bt_editar.png" />
     <None Include="Resources\bt_editar_2.png" />
     <None Include="Resources\bt_buscar.png" />
+    <None Include="Resources\ZUFU.jpg" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -847,6 +848,7 @@
     <Content Include="Src\Imagenes\cerrar.png" />
     <Content Include="Src\Imagenes\configuracion.png" />
     <Content Include="Src\Imagenes\limpiar.png" />
+    <Content Include="Src\Imagenes\ZUFU.jpg" />
     <Content Include="Src\Sonidos\alerta.wav" />
     <Content Include="Src\Sonidos\error.wav" />
     <Content Include="Src\Sonidos\paso.wav" />

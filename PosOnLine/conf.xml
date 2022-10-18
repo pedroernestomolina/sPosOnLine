@@ -2,18 +2,18 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>russo</Catalogo>
+    <Catalogo>pita</Catalogo>
   </Servidor>
   <IdEquipo>1</IdEquipo>
-  <CodigoSucursalActiva>01</CodigoSucursalActiva>
-  <codigoDepositoActiva>01</codigoDepositoActiva>
+  <CodigoSucursalActiva>15</CodigoSucursalActiva>
+  <codigoDepositoActiva>23</codigoDepositoActiva>
   <SerieFactura>1</SerieFactura>
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
-  <ModoImpresionFactura>T80B</ModoImpresionFactura>
-  <ModoImpresionNEntrega>T80B</ModoImpresionNEntrega>
-  <ModoImpresionNCredito>T80B</ModoImpresionNCredito>
-  <ModoImpresionCuadreCaja>T80B</ModoImpresionCuadreCaja>
+  <ModoImpresionFactura>T80</ModoImpresionFactura>
+  <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
+  <ModoImpresionNCredito>T80</ModoImpresionNCredito>
+  <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>no</HabilitarAbrirDocPendOtrosUsuarios>
   <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>

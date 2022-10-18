@@ -566,5 +566,15 @@ namespace PosOnLine.Properties {
                 return ResourceManager.GetStream("paso", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ZUFU {
+            get {
+                object obj = ResourceManager.GetObject("ZUFU", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

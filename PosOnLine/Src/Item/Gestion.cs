@@ -902,6 +902,7 @@ namespace PosOnLine.Src.Item
                 {
                     Helpers.Sonido.Error();
                     Helpers.Msg.Error(r01.Mensaje);
+                    return;
                 }
                 _blitems.Clear();
                 _bsitems.CurrencyManager.Refresh();

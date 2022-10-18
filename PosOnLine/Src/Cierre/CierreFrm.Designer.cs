@@ -187,9 +187,9 @@
             this.BT_PagoMovil = new System.Windows.Forms.Button();
             this.panel47 = new System.Windows.Forms.Panel();
             this.BT_PAGO_RESUMEN = new System.Windows.Forms.Button();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.panel56 = new System.Windows.Forms.Panel();
             this.BT_VUELTOS_ENTREGADOS = new System.Windows.Forms.Button();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -2241,10 +2241,6 @@
             this.BT_PAGO_RESUMEN.UseVisualStyleBackColor = true;
             this.BT_PAGO_RESUMEN.Click += new System.EventHandler(this.BT_PAGO_RESUMEN_Click);
             // 
-            // printDocument1
-            // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
             // panel56
             // 
             this.panel56.Controls.Add(this.BT_VUELTOS_ENTREGADOS);
@@ -2270,6 +2266,10 @@
             this.BT_VUELTOS_ENTREGADOS.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.BT_VUELTOS_ENTREGADOS.UseVisualStyleBackColor = true;
             this.BT_VUELTOS_ENTREGADOS.Click += new System.EventHandler(this.BT_VUELTOS_ENTREGADOS_Click);
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
             // CierreFrm
             // 

@@ -111,7 +111,7 @@ namespace PosOnLine.Src.Producto.Lista
                 return false;
             }
             _habilitarBonoDivisa = r01.Entidad;
-            var r02 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento ();
+            var r02 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
             if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
                 Helpers.Msg.Error(r02.Mensaje);

@@ -147,6 +147,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
             var ficha = new OOB.Documento.Anular.NotaEntrega.Ficha()
             {
+                idOperador = Sistema.PosEnUso.id,
                 autoDocumento = idDoc,
                 CodigoDocumento = r01.Entidad.Tipo,
                 auditoria = new OOB.Documento.Anular.NotaEntrega.FichaAuditoria
@@ -258,6 +259,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
             var ficha = new OOB.Documento.Anular.NotaCredito.Ficha()
             {
+                idOperador = Sistema.PosEnUso.id,
                 autoDocumento = idDoc,
                 autoDocCxC = r01.Entidad.AutoDocCxC,
                 autoReciboCxC = _autoReciboCxC,
@@ -388,6 +390,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
             var ficha = new OOB.Documento.Anular.Factura.Ficha()
             {
+                idOperador=Sistema.PosEnUso.id,
                 autoDocumento = idDoc,
                 autoDocCxC = r01.Entidad.AutoDocCxC,
                 autoReciboCxC = r01.Entidad.AutoReciboCxC,
