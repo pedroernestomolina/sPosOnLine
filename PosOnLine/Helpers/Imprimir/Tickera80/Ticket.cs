@@ -387,9 +387,13 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     caracterPorLinea = 32;
                     anchoPapel = 184;
                     break;
+                //case EnumModoTicket.Modo80mm:
+                //    caracterPorLinea = 50;
+                //    anchoPapel = 285;
+                //    break;
                 case EnumModoTicket.Modo80mm:
-                    caracterPorLinea = 50;
-                    anchoPapel = 285;
+                    caracterPorLinea = 45;
+                    anchoPapel = 255;
                     break;
             }
         }
@@ -399,8 +403,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         {
 
             var fr = new Font("Arial", 7, FontStyle.Regular);
-            var fb = new Font("Arial", 8, FontStyle.Bold);
-            var fc = new Font("Arial", 9, FontStyle.Bold);
+            //var fb = new Font("Arial", 8, FontStyle.Bold);
+            //var fc = new Font("Arial", 9, FontStyle.Bold); 
+            var fb = new Font("Arial", 7, FontStyle.Bold); //solo para samsung
+            var fc = new Font("Arial", 8, FontStyle.Bold); //solo para samsung
 
 
             var dn = this.Negocio;

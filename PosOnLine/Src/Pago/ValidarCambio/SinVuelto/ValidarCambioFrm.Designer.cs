@@ -163,7 +163,7 @@
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(2);
             this.panel4.Size = new System.Drawing.Size(102, 56);
-            this.panel4.TabIndex = 1;
+            this.panel4.TabIndex = 2;
             // 
             // BT_SALIR
             // 
@@ -216,7 +216,7 @@
             this.panel7.Name = "panel7";
             this.panel7.Padding = new System.Windows.Forms.Padding(2);
             this.panel7.Size = new System.Drawing.Size(119, 56);
-            this.panel7.TabIndex = 2;
+            this.panel7.TabIndex = 1;
             // 
             // BT_PROCESAR
             // 
