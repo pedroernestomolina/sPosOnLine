@@ -101,6 +101,9 @@ namespace PosOnLine.Helpers
                                         case "T80B":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80Basico.Documento();
                                             break;
+                                        case "T70":
+                                            Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera70.Documento();
+                                            break;
                                         case "T58":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
@@ -121,6 +124,9 @@ namespace PosOnLine.Helpers
                                             break;
                                         case "T80B":
                                             Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            break;
+                                        case "T70":
+                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera70.Documento();
                                             break;
                                         case "T58":
                                             Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera58.Documento();
@@ -143,6 +149,9 @@ namespace PosOnLine.Helpers
                                         case "T80B":
                                             Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80Basico.Documento();
                                             break;
+                                        case "T70":
+                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera70.Documento();
+                                            break;
                                         case "T58":
                                             Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
@@ -163,6 +172,9 @@ namespace PosOnLine.Helpers
                                             break;
                                         case "T80B":
                                             Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80Basico.CuadreDoc();
+                                            break;
+                                        case "T70":
+                                            Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera70.CuadreDoc();
                                             break;
                                         case "T58":
                                             Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera58.CuadreDoc();
@@ -235,6 +247,45 @@ namespace PosOnLine.Helpers
                                                 Sistema.Activar_VentasAdm = true;
                                             }
                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var doc2 = new XmlDocument();
+                doc2.Load(AppDomain.CurrentDomain.BaseDirectory + @"\Conf_Pos.XML");
+                if (doc2.HasChildNodes)
+                {
+                    foreach (XmlNode nd in doc2)
+                    {
+                        if (nd.LocalName.ToUpper().Trim() == "CONFIGURACION")
+                        {
+                            foreach (XmlNode nv in nd.ChildNodes)
+                            {
+                                if (nv.LocalName.ToUpper().Trim() == "MODO_DESPLIEGUE_SOLO_DIVISA")
+                                {
+                                    Sistema.Modo_Despliegue_Solo_Divisa = false;
+                                    if (nv.InnerText.Trim().ToUpper() == "SI")
+                                    {
+                                        Sistema.Modo_Despliegue_Solo_Divisa = true;
+                                    }
+                                }
+                                if (nv.LocalName.ToUpper().Trim() == "MODO_VUELTO_GESTIONAR")
+                                {
+                                    Sistema.Modo_Vuelto_Gestionar = false;
+                                    if (nv.InnerText.Trim().ToUpper() == "SI")
+                                    {
+                                        Sistema.Modo_Vuelto_Gestionar = true;
+                                    }
+                                }
+                                if (nv.LocalName.ToUpper().Trim() == "MODO_DESPLIEGUE_LOGO_BASE")
+                                {
+                                    Sistema.Modo_Despliegue_Logo_Base = true;
+                                    if (nv.InnerText.Trim().ToUpper() == "NO")
+                                    {
+                                        Sistema.Modo_Despliegue_Logo_Base = false;
                                     }
                                 }
                             }

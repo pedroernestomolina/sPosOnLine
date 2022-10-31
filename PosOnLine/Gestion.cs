@@ -19,7 +19,7 @@ namespace PosOnLine
         public Gestion()
         {
             _gestionIdentifica = new Src.Identificacion.Gestion();
-            _gestionPrincipal = new Src.Principal.Gestion();
+            //_gestionPrincipal = new Src.Principal.Gestion();
         }
 
 
@@ -35,6 +35,7 @@ namespace PosOnLine
                 _gestionIdentifica.Inicia();
                 if (_gestionIdentifica.IsOk)
                 {
+                    _gestionPrincipal = new Src.Principal.Gestion();
                     _gestionPrincipal.Inicializa();
                     _gestionPrincipal.Inicia();
                 }

@@ -31,6 +31,7 @@ namespace PosOnLine.Src.Principal
 
         private void PrincipalFrm_Load(object sender, EventArgs e)
         {
+            panel11.BackgroundImage = _controlador.LogoImagen;
             ActualizarJornadaOperadorUsuario();
             BT_ABRIR_POS.Enabled = _controlador.ConfiguracionIsOk;
             BT_ADM_DOCUMENTOS.Enabled = _controlador.ConfiguracionIsOk;

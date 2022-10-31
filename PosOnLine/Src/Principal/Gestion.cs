@@ -449,6 +449,18 @@ namespace PosOnLine.Src.Principal
             _gCierreHist.Inicia();
         }
 
+
+        public System.Drawing.Image LogoImagen 
+        { 
+            get 
+            { 
+                if (Sistema.Modo_Despliegue_Logo_Base)
+                    return PosOnLine.Properties.Resources.LOGO_BASE; 
+                else
+                    return PosOnLine.Properties.Resources.ZUFU; 
+            } 
+        } 
+
     }
 
 }

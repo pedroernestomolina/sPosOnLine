@@ -284,25 +284,6 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                         {
                             Sistema.ImprimirFactura.ImprimirCopiaDoc();
                         }
-                        //if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirFactura;
-                        //}
-                        //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirFactura;
-                        //}
-                        //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirFactura;
-                        //}
-                        //else
-                        //{
-                        //    Sistema.ImprimirFactura.ImprimirCopiaDoc();
-                        //}
                         break;
                     case data.enumTipoDoc.NotaCredito:
                         Sistema.ImprimirNotaCredito.setData(xdata);
@@ -315,25 +296,6 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                         {
                             Sistema.ImprimirNotaCredito.ImprimirCopiaDoc();
                         }
-                        //if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirNotaCredito;
-                        //}
-                        //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirNotaCredito;
-                        //}
-                        //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirNotaCredito;
-                        //}
-                        //else
-                        //{
-                        //    Sistema.ImprimirNotaCredito.ImprimirCopiaDoc();
-                        //}
                         break;
                     case data.enumTipoDoc.NotaEntrega:
                         Sistema.ImprimirNotaEntrega.setData(xdata);
@@ -346,25 +308,6 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                         {
                             Sistema.ImprimirNotaEntrega.ImprimirCopiaDoc();
                         }
-                        //if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirNotaEntrega;
-                        //}
-                        //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirNotaEntrega;
-                        //}
-                        //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-                        //{
-                        //    _isTickeraOk = true;
-                        //    _imprimirDoc = Sistema.ImprimirNotaEntrega;
-                        //}
-                        //else
-                        //{
-                        //    Sistema.ImprimirNotaEntrega.ImprimirCopiaDoc();
-                        //}
                         break;
                 }
             }

@@ -82,6 +82,10 @@ namespace PosOnLine
         //PARA OPCION VENTAS ADMINITRATIVA
         public static bool Activar_VentasAdm;
 
+        // CONFIGURACION POS
+        public static bool Modo_Vuelto_Gestionar;
+        public static bool Modo_Despliegue_Logo_Base;
+        public static bool Modo_Despliegue_Solo_Divisa; 
     }
 
 }

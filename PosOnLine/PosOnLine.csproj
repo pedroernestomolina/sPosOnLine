@@ -142,6 +142,9 @@
     <Compile Include="Helpers\Imprimir\Tickera58\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera58\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera58\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera70\CuadreDoc.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera70\Documento.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera70\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80Basico\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80Basico\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80Basico\Ticket.cs" />
@@ -800,11 +803,19 @@
     <None Include="Resources\bt_editar_2.png" />
     <None Include="Resources\bt_buscar.png" />
     <None Include="Resources\ZUFU.jpg" />
+    <Content Include="Conf_Pos.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Resources\carrito_compras_logo.jpg" />
+    <None Include="Resources\BOLSA_SHOPPING_LOGO.jpg" />
+    <None Include="Resources\LOGO_BASE.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
     <Content Include="Src\Imagenes\administrador_32.png" />
     <Content Include="Src\Imagenes\Balanza.jpg" />
+    <Content Include="Src\Imagenes\BOLSA_SHOPPING_LOGO.jpg" />
     <Content Include="Src\Imagenes\bt_alerta.png" />
     <Content Include="Src\Imagenes\bt_anular.png" />
     <Content Include="Src\Imagenes\bt_bajar.png" />
@@ -844,10 +855,12 @@
     <Content Include="Src\Imagenes\carrito compra.png" />
     <Content Include="Src\Imagenes\CarritoCompra.png" />
     <Content Include="Src\Imagenes\carrito_compra.png" />
+    <Content Include="Src\Imagenes\carrito_compras_logo.jpg" />
     <Content Include="Src\Imagenes\cashRegister.ico" />
     <Content Include="Src\Imagenes\cerrar.png" />
     <Content Include="Src\Imagenes\configuracion.png" />
     <Content Include="Src\Imagenes\limpiar.png" />
+    <Content Include="Src\Imagenes\LOGO_BASE.png" />
     <Content Include="Src\Imagenes\ZUFU.jpg" />
     <Content Include="Src\Sonidos\alerta.wav" />
     <Content Include="Src\Sonidos\error.wav" />

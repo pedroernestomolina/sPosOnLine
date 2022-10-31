@@ -1316,27 +1316,6 @@ namespace PosOnLine.Src.Pos
                 {
                     Sistema.ImprimirFactura.ImprimirDoc();
                 }
-
-                //if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirFactura;
-                //}
-                //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirFactura;
-                //}
-                //else if (Sistema.ImprimirFactura.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80Basico.Documento)Sistema.ImprimirFactura;
-                //}
-                //else
-                //{
-                //    Sistema.ImprimirFactura.ImprimirDoc();
-                //}
-
             }
 
             _gestionItem.Limpiar();
@@ -2002,25 +1981,6 @@ namespace PosOnLine.Src.Pos
                 {
                     Sistema.ImprimirNotaCredito.ImprimirDoc();
                 }
-                //if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirNotaCredito;
-                //}
-                //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirNotaCredito;
-                //}
-                //else if (Sistema.ImprimirNotaCredito.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80Basico.Documento)Sistema.ImprimirNotaCredito;
-                //}
-                //else
-                //{
-                //    Sistema.ImprimirNotaCredito.ImprimirDoc();
-                //}
             }
 
             _gestionItem.Limpiar();
@@ -2368,25 +2328,6 @@ namespace PosOnLine.Src.Pos
                 {
                     Sistema.ImprimirNotaEntrega.ImprimirDoc();
                 }
-                //if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera58.Documento)Sistema.ImprimirNotaEntrega;
-                //}
-                //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80.Documento)Sistema.ImprimirNotaEntrega;
-                //}
-                //else if (Sistema.ImprimirNotaEntrega.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = (Helpers.Imprimir.Tickera80Basico.Documento)Sistema.ImprimirNotaEntrega;
-                //}
-                //else
-                //{
-                //    Sistema.ImprimirNotaEntrega.ImprimirDoc();
-                //}
             }
 
             _gestionItem.Limpiar();
@@ -2641,7 +2582,16 @@ namespace PosOnLine.Src.Pos
         }
 
 
-        public string PagoImporteDivisaBono { get { return pagoDivisaConBonoDscto_SoloEnDivisa(); } }
+        public string PagoImporteDivisaBono 
+        {
+            get 
+            {
+                if (Sistema.Modo_Despliegue_Solo_Divisa)
+                    return pagoDivisaConBonoDscto_SoloEnDivisa();
+                else
+                    return pagoDivisaConBonoDscto_EnDivisaBolivar();
+            } 
+        }
         private bool _habilitarBonoPagoDivisa;
         private decimal _dsctoBonoPagoDivisa;
         private string pagoDivisaConBonoDscto_SoloEnDivisa()
@@ -2654,7 +2604,7 @@ namespace PosOnLine.Src.Pos
                 var _pagoDivisa = (_impDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
                 rt += _pagoDivisa.ToString("n2") + "$";
             }
-            return rt;
+            return rt.Trim();
         }
         private string pagoDivisaConBonoDscto_EnDivisaBolivar()
         {
@@ -2668,9 +2618,8 @@ namespace PosOnLine.Src.Pos
                 var _resta = Importe - (_pago + _bono);
                 rt += _pagoDivisa.ToString("n0") + "$, con " + _resta.ToString("n2") + "Bs";
             }
-            return rt;
+            return rt.Trim();
         }
-
 
     }
 

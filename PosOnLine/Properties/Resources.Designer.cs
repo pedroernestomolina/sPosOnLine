@@ -122,6 +122,16 @@ namespace PosOnLine.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BOLSA_SHOPPING_LOGO {
+            get {
+                object obj = ResourceManager.GetObject("BOLSA_SHOPPING_LOGO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bt_alerta {
             get {
                 object obj = ResourceManager.GetObject("bt_alerta", resourceCulture);
@@ -502,6 +512,16 @@ namespace PosOnLine.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap carrito_compras_logo {
+            get {
+                object obj = ResourceManager.GetObject("carrito_compras_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CarritoCompra {
             get {
                 object obj = ResourceManager.GetObject("CarritoCompra", resourceCulture);
@@ -554,6 +574,16 @@ namespace PosOnLine.Properties {
         internal static System.Drawing.Bitmap limpiar {
             get {
                 object obj = ResourceManager.GetObject("limpiar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LOGO_BASE {
+            get {
+                object obj = ResourceManager.GetObject("LOGO_BASE", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

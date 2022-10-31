@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuracion>
+  <Modo_Despliegue_Solo_Divisa>NO</Modo_Despliegue_Solo_Divisa> <!-- SI, *NO -->
+  <Modo_Vuelto_Gestionar>SI</Modo_Vuelto_Gestionar> <!-- SI, *NO -->
+  <Modo_Despliegue_Logo_Base>NO</Modo_Despliegue_Logo_Base>  <!-- *SI, NO-->
+</Configuracion>
