@@ -314,6 +314,80 @@ namespace PosOnLine.Src.Producto.Lista
             }
         }
 
+
+        public int GetInvEmpCompra 
+        {
+            get 
+            {
+                var rt = 0;
+                if ((data)_bs.Current != null)
+                {
+                    rt =  ((data)_bs.Current).GetInvEmpCompra;
+                }
+                return rt;
+            }
+        }
+        public string GetDescEmpCompra
+        {
+            get
+            {
+                var rt = "";
+                if ((data)_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).GetDescEmpCompra;
+                }
+                return rt;
+            }
+        }
+        public int GetInvEmpInv
+        {
+            get
+            {
+                var rt = 0;
+                if ((data)_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).GetInvEmpInv;
+                }
+                return rt;
+            }
+        }
+        public string GetDescEmpInv
+        {
+            get
+            {
+                var rt = "";
+                if ((data)_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).GetDescEmpInv;
+                }
+                return rt;
+            }
+        }
+        public int GetInvEmpUnd
+        {
+            get
+            {
+                var rt = 0;
+                if ((data)_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).GetInvEmpUnd;
+                }
+                return rt;
+            }
+        }
+        public string GetDescEmpUnd
+        {
+            get
+            {
+                var rt = "";
+                if ((data)_bs.Current != null)
+                {
+                    rt = ((data)_bs.Current).GetDescEmpUnd;
+                }
+                return rt;
+            }
+        }
+
     }
 
 }

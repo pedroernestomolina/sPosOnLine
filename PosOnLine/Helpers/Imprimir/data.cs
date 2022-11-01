@@ -98,7 +98,6 @@ namespace PosOnLine.Helpers.Imprimir
                 CambioDar = 0.0m;
                 Total = 0.0m;
                 TotalDivisa = 0.0m;
-
                 EstacionEquipo = "";
                 Usuario = "";
                 //
@@ -106,11 +105,19 @@ namespace PosOnLine.Helpers.Imprimir
                 VueltoDivisa = 0m;
                 VueltoPagoMovil = 0m;
                 CntDivisaVueltoDivisa = 0;
+                //
+                BonoPorPagoDivisa = 0m;
+                MontoBonoPorPagoDivisa = 0m;
+                CntDivisaAplicaBonoPorPagoDivisa = 0;
             }
             public decimal VueltoEfectivo { get; set; }
             public decimal VueltoDivisa { get; set; }
             public decimal VueltoPagoMovil { get; set; }
             public int CntDivisaVueltoDivisa { get; set; }
+            //
+            public decimal BonoPorPagoDivisa { get; set; }
+            public decimal MontoBonoPorPagoDivisa { get; set; }
+            public int CntDivisaAplicaBonoPorPagoDivisa { get; set; }
         }
 
         public class Item

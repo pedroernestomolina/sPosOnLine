@@ -59,7 +59,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     n= Sistema.DatosNegociTicket_Nombre.Trim();
 
                 var l = n.Length;
-                var ml = 50;
+                var ml = 48;
 
                 if (n.Length > ml*3)
                 {
@@ -291,6 +291,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             public string cambio { get; set; }
             public decimal factorCambio { get; set; }
             public string totalDivisa { get; set; }
+            public string bonoDivisa { get; set; }
             public List<Item> Items { get; set; }
             public List<MedioPago> MediosPago { get; set; }
             public List<MedidaEmp > MedidasEmp { get; set; }
@@ -335,6 +336,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 HayDescuento = false;
                 factorCambio = 0m;
                 totalDivisa = "";
+                bonoDivisa = "";
                 HayCargo = false;
                 Items = new List<Item>();
                 MediosPago = new List<MedioPago>();
@@ -387,13 +389,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     caracterPorLinea = 32;
                     anchoPapel = 184;
                     break;
-                //case EnumModoTicket.Modo80mm:
-                //    caracterPorLinea = 50;
-                //    anchoPapel = 285;
-                //    break;
                 case EnumModoTicket.Modo80mm:
-                    caracterPorLinea = 45;
-                    anchoPapel = 255;
+                    caracterPorLinea = 50;
+                    anchoPapel = 285;
                     break;
             }
         }
@@ -403,10 +401,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         {
 
             var fr = new Font("Arial", 7, FontStyle.Regular);
-            //var fb = new Font("Arial", 8, FontStyle.Bold);
-            //var fc = new Font("Arial", 9, FontStyle.Bold); 
-            var fb = new Font("Arial", 7, FontStyle.Bold); //solo para samsung
-            var fc = new Font("Arial", 8, FontStyle.Bold); //solo para samsung
+            var fb = new Font("Arial", 8, FontStyle.Bold);
+            var fc = new Font("Arial", 9, FontStyle.Bold); 
 
 
             var dn = this.Negocio;
@@ -527,6 +523,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             l += 10;
             eg.Graphics.DrawString("TOTAL($)", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.totalDivisa, fr, Brushes.Black, dder2(df.totalDivisa, fr), l);
+            l += 10;
+            eg.Graphics.DrawString("Bono " + df.bonoDivisa, fb, Brushes.Black, 0, l);
             l += 15;
 
             foreach (var mp in df.MediosPago)

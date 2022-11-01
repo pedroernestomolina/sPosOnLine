@@ -291,6 +291,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
             public string cambio { get; set; }
             public decimal factorCambio { get; set; }
             public string totalDivisa { get; set; }
+            public string bonoDivisa { get; set; }
             public List<Item> Items { get; set; }
             public List<MedioPago> MediosPago { get; set; }
             public List<MedidaEmp > MedidasEmp { get; set; }
@@ -335,6 +336,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                 HayDescuento = false;
                 factorCambio = 0m;
                 totalDivisa = "";
+                bonoDivisa = "";
                 HayCargo = false;
                 Items = new List<Item>();
                 MediosPago = new List<MedioPago>();
@@ -519,6 +521,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
             l += 10;
             eg.Graphics.DrawString("TOTAL($)", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.totalDivisa, fr, Brushes.Black, dder2(df.totalDivisa, fr), l);
+            l += 10;
+            eg.Graphics.DrawString("Bono " + df.bonoDivisa, fb, Brushes.Black, 0, l);
             l += 15;
 
             foreach (var mp in df.MediosPago)

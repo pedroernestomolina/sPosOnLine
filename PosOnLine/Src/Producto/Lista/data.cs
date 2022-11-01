@@ -59,8 +59,17 @@ namespace PosOnLine.Src.Producto.Lista
         public string Precio_1 { get { return _p1.ToString("n2") + "/ ( $ " + _p1Divisa.ToString("n2") + ")"; } }
         public string Precio_2 { get { return _p2.ToString("n2") + "/ ( $ " + _p2Divisa.ToString("n2") + ")"; } }
         public string Precio_3 { get { return _p3.ToString("n2") + "/ ( $ " + _p3Divisa.ToString("n2") + ")"; } }
+        //
 
 
+
+        private int _exEmpCompra;
+        private int _exEmpInv;
+        private int _exEmpUnd;
+        private decimal _totEx;
+        private string _dscEmpCompra;
+        private string _dscEmpInv;
+        private string _dscEmpUnd;
         public data()
         {
         }
@@ -74,6 +83,25 @@ namespace PosOnLine.Src.Producto.Lista
             _p2Divisa = _p2 / tasaCambio;
             _p3Divisa = _p3 / tasaCambio;
             this.tasaCambio = tasaCambio;
+
+            _exEmpCompra = 0;
+            _exEmpInv = 0;
+            _exEmpUnd = 0;
+            _totEx = it.ExDisponible;
+            if (it.contEmpCompra > 0)
+            {
+                _exEmpCompra = (int) (_totEx / it.contEmpCompra);
+                _totEx -= (_exEmpCompra * it.contEmpCompra);
+                _dscEmpCompra += _item.descEmpCompra.Trim() + "/(" + _item.contEmpCompra.ToString().Trim() + ")";
+            }
+            if (it.contEmpInv > 0)
+            {
+                _exEmpInv = (int)(_totEx / it.contEmpInv);
+                _totEx -= (_exEmpInv * it.contEmpInv);
+                _dscEmpInv += _item.descEmpInv.Trim() + "/(" + _item.contEmpInv.ToString().Trim() + ")";
+            }
+            _exEmpUnd = (int)(_totEx);
+            _dscEmpUnd += "Unidad/(1)";
         }
 
 
@@ -140,6 +168,13 @@ namespace PosOnLine.Src.Producto.Lista
                 return rt;
             }
         }
+        //
+        public int GetInvEmpCompra { get { return _exEmpCompra; } }
+        public string GetDescEmpCompra { get { return _dscEmpCompra; } }
+        public int GetInvEmpInv { get { return _exEmpInv; } }
+        public string GetDescEmpInv { get { return _dscEmpInv; } }
+        public int GetInvEmpUnd { get { return _exEmpUnd; } }
+        public string GetDescEmpUnd { get { return _dscEmpUnd; } }
 
     }
 

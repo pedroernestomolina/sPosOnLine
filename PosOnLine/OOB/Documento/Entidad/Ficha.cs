@@ -123,6 +123,9 @@ namespace PosOnLine.OOB.Documento.Entidad
         public decimal MontoPorVueltoEnDivisa { get; set; }
         public decimal MontoPorVueltoEnPagoMovil { get; set; }
         public int CantDivisaPorVueltoEnDivisa { get; set; }
+        public decimal BonoPorPagoDivisa { get; set; }
+        public decimal MontoBonoPorPagoDivisa { get; set; }
+        public int CntDivisaAplicaBonoPorPagoDivisa { get; set; }
 
 
         public Ficha()
@@ -233,10 +236,15 @@ namespace PosOnLine.OOB.Documento.Entidad
             MontoPorVueltoEnDivisa = 0m;
             MontoPorVueltoEnPagoMovil = 0m;
             CantDivisaPorVueltoEnDivisa = 0;
+            //
+            BonoPorPagoDivisa = 0m;
+            MontoBonoPorPagoDivisa = 0m;
+            CntDivisaAplicaBonoPorPagoDivisa = 0;
         }
 
 
         public bool isContado { get { return CondicionPago.Trim().ToUpper() == "CONTADO"; } }
+
 
     }
 

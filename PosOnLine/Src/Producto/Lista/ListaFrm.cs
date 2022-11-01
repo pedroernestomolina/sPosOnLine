@@ -173,6 +173,13 @@ namespace PosOnLine.Src.Producto.Lista
             L_EMPAQUE_3.Text = _controlador.GetEmp_3;
             L_PRECIO_3.Text = _controlador.GetPrecio_3;
             L_PRECIO_3_BONO.Text = _controlador.GetPrecio_3_Bono;
+            //
+            L_EX_EMP_COMPRA.Text = _controlador.GetInvEmpCompra.ToString();
+            L_EMP_COMPRA.Text = _controlador.GetDescEmpCompra;
+            L_EX_EMP_INV.Text = _controlador.GetInvEmpInv.ToString();
+            L_EMP_INV.Text = _controlador.GetDescEmpInv;
+            L_EX_EMP_UND.Text = _controlador.GetInvEmpUnd.ToString();
+            L_EMP_UND.Text = _controlador.GetDescEmpUnd;
         }
 
         private void DGV_KeyDown(object sender, KeyEventArgs e)

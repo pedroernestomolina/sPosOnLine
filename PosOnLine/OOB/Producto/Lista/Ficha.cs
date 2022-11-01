@@ -81,8 +81,17 @@ namespace PosOnLine.OOB.Producto.Lista
             pfullDivEmp_1 = 0m;
             pfullDivEmp_2 = 0m;
             pfullDivEmp_3 = 0m;
+            //
+            contEmpCompra=0;
+            contEmpInv = 0;
+            descEmpCompra = "";
+            descEmpInv = "";
         }
-
+        //
+        public int contEmpCompra { get; set; }
+        public int contEmpInv { get; set; }
+        public string  descEmpCompra { get; set; }
+        public string descEmpInv { get; set; }
     }
 
 }

@@ -222,6 +222,15 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                     DescuentoPorc = xr1.Entidad.Descuento1p,
                     Cargo = xr1.Entidad.Cargos,
                     CargoPorc = xr1.Entidad.Cargosp,
+                    //
+                    VueltoEfectivo = xr1.Entidad.MontoPorVueltoEnEfectivo,
+                    VueltoDivisa = xr1.Entidad.MontoPorVueltoEnDivisa,
+                    VueltoPagoMovil = xr1.Entidad.MontoPorVueltoEnPagoMovil,
+                    CntDivisaVueltoDivisa = xr1.Entidad.CantDivisaPorVueltoEnDivisa,
+                    //
+                    BonoPorPagoDivisa = xr1.Entidad.BonoPorPagoDivisa,
+                    MontoBonoPorPagoDivisa = xr1.Entidad.MontoBonoPorPagoDivisa,
+                    CntDivisaAplicaBonoPorPagoDivisa = xr1.Entidad.CntDivisaAplicaBonoPorPagoDivisa,
                 };
                 xdata.item = new List<Helpers.Imprimir.data.Item>();
                 foreach (var rg in xr1.Entidad.items)

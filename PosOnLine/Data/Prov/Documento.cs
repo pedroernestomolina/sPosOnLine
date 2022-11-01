@@ -185,6 +185,11 @@ namespace PosOnLine.Data.Prov
                 MontoPorVueltoEnDivisa=s.MontoPorVueltoEnDivisa,
                 MontoPorVueltoEnPagoMovil=s.MontoPorVueltoEnPagoMovil,
                 CantDivisaPorVueltoEnDivisa=s.CantDivisaPorVueltoEnDivisa,
+                //
+                BonoPorPagoDivisa = s.BonoPorPagoDivisa,
+                MontoBonoPorPagoDivisa = s.MontoBonoPorPagoDivisa,
+                CntDivisaAplicaBonoPorPagoDivisa = s.CntDivisaAplicaBonoPorPagoDivisa,
+                //
                 items = s.items.Select(ss =>
                 {
                     var xr = new OOB.Documento.Entidad.FichaItem()
