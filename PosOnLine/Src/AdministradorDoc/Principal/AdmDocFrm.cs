@@ -192,6 +192,15 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
         private void AnularDocumento()
         {
             _controlador.AnularDocumento();
+            if (_controlador.AnularDocumentoIsOk)
+            {
+                _controlador.ImprimirDocumento();
+                if (_controlador.IsTickeraOk)
+                {
+                    printDocument1.Print();
+                }
+                Helpers.Msg.EliminarOk();
+            }
         }
 
         private void BT_SALIDA_Click(object sender, EventArgs e)

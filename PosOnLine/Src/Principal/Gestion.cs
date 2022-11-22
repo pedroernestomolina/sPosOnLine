@@ -117,6 +117,12 @@ namespace PosOnLine.Src.Principal
         {
             var rt = true;
 
+            Sistema.FechaUltimoBoletinDescargado = new DateTime(2000, 1, 1);
+            var xr0 = Sistema.MyData.Servicio_GetFechaUltBoletin();
+            if (xr0.Result != OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Sistema.FechaUltimoBoletinDescargado = xr0.Entidad;
+            }
             var t00 = Sistema.MyData.Sucursal_GetFicha_ByCodigo(Sistema.CodigoSucursalActivo);
             if (t00.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
@@ -459,7 +465,10 @@ namespace PosOnLine.Src.Principal
                 else
                     return PosOnLine.Properties.Resources.ZUFU; 
             } 
-        } 
+        }
+
+
+        public DateTime Get_FechaUltBoletin { get { return Sistema.FechaUltimoBoletinDescargado; } }
 
     }
 

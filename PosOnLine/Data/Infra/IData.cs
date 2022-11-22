@@ -12,10 +12,12 @@ namespace PosOnLine.Data.Infra
         IProducto, IDeposito, IVenta, IPendiente, IDocumento, IConcepto, ISistema,
         IVendedor, IPermiso, IReportePos, IAgencia, ICierre
     {
-
-        OOB.Resultado.FichaEntidad<DateTime> FechaServidor();
-        OOB.Resultado.Ficha Test();
-
+        OOB.Resultado.FichaEntidad<DateTime> 
+            FechaServidor();
+        OOB.Resultado.Ficha 
+            Test();
+        OOB.Resultado.FichaEntidad<DateTime> 
+            Servicio_GetFechaUltBoletin();
     }
 
 }

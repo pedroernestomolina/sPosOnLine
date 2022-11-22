@@ -345,13 +345,14 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 vueltoEfectivo = "";
                 vueltoDivisa = "";
                 vueltoPagoMovil = "";
+                IsAnulado = false;
             }
 
             public Bitmap ImageQR { get; set; }
             public string vueltoEfectivo { get; set; }
             public string vueltoDivisa { get; set; }
             public string vueltoPagoMovil { get; set; }
-
+            public bool IsAnulado { get; set; }
         }
 
         public enum EnumModoTicket { Modo80mm = 1, Modo58mm };
@@ -402,7 +403,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             var fr = new Font("Arial", 7, FontStyle.Regular);
             var fb = new Font("Arial", 8, FontStyle.Bold);
-            var fc = new Font("Arial", 9, FontStyle.Bold); 
+            var fc = new Font("Arial", 9, FontStyle.Bold);
+            var fd = new Font("Arial", 11, FontStyle.Bold); 
 
 
             var dn = this.Negocio;
@@ -457,6 +459,13 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     eg.Graphics.DrawString(s, fr, Brushes.Black, 0, l);
                     l += 10f;
                 }
+            }
+
+            if (df.IsAnulado)
+            {
+                l += 10f;
+                eg.Graphics.DrawString("ANULADO", fd, Brushes.Black, centrar("ANULADO"), l);
+                l += 5f;
             }
 
             l += 10f;

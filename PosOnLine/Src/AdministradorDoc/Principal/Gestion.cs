@@ -39,6 +39,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
         public void Inicializa() 
         {
+            _anularDocumentoIsOk = false;
             _gestionLista.Inicializa();
             _notaCreditoIsOk = false;
         }
@@ -96,8 +97,10 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             }
         }
 
+        private bool _anularDocumentoIsOk;
         public void AnularDocumento()
         {
+            _anularDocumentoIsOk = false;
             if (_gestionLista.AplicaParaAnular())
             {
                 if (Helpers.PassWord.PassWIsOk(Sistema.FuncionAdmAnularDocumento))
@@ -128,8 +131,8 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                         }
                         if (rt)
                         {
+                            _anularDocumentoIsOk = rt;
                             _gestionLista.setAnularDoc();
-                            Helpers.Msg.EliminarOk();
                         }
                     }
                 }
@@ -472,33 +475,16 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                     ImprimirDoc.ImprimirDoc();
                 }
             }
-            //if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-            //{
-            //    var t = (Helpers.Imprimir.Tickera58.Documento)ImprimirDoc;
-            //    t.setControlador(e);
-            //    t.setEmpresa(Sistema.DatosEmpresa);
-            //    t.ImprimirDoc();
-            //}
-            //else if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-            //{
-            //    var t = (Helpers.Imprimir.Tickera80.Documento)ImprimirDoc;
-            //    t.setControlador(e);
-            //    t.setEmpresa(Sistema.DatosEmpresa);
-            //    t.ImprimirDoc();
-            //}
-            //else if (ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-            //{
-            //    var t = (Helpers.Imprimir.Tickera80Basico.Documento)ImprimirDoc;
-            //    t.setControlador(e);
-            //    t.setEmpresa(Sistema.DatosEmpresa);
-            //    t.ImprimirDoc();
-            //}
         }
 
         public void VisualizarDocumento()
         {
             _gestionLista.VisualizarDocumento();
         }
+
+
+        //
+        public bool AnularDocumentoIsOk { get { return _anularDocumentoIsOk; } }
 
     }
 

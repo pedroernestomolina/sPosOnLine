@@ -171,6 +171,7 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                     _direccion = Sistema.DatosNegociTicket_Direccion.Trim();
 
                 var xdata = new Helpers.Imprimir.data();
+                xdata.isAnulado = xr1.Entidad.EstatusAnulado == "1";
                 xdata.negocio = new Helpers.Imprimir.data.Negocio()
                 {
                     CiRif = _cirif,

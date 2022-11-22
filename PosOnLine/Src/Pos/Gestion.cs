@@ -611,7 +611,6 @@ namespace PosOnLine.Src.Pos
                         {
                             return;
                         }
-
                         _gestionProcesarPago.Inicializar();
                         _gestionProcesarPago.setCliente(_gestionCliente.ClienteData);
                         _gestionProcesarPago.setDataCliente(_gestionCliente.Cliente);
@@ -2352,6 +2351,7 @@ namespace PosOnLine.Src.Pos
             }
 
             var xdata = new Helpers.Imprimir.data();
+            xdata.isAnulado = xr1.Entidad.EstatusAnulado == "1";
             xdata.negocio = new Helpers.Imprimir.data.Negocio()
             {
                 Nombre = Sistema.DatosEmpresa.Nombre,
@@ -2616,7 +2616,17 @@ namespace PosOnLine.Src.Pos
             if (_habilitarBonoPagoDivisa)
             {
                 rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
-                var _pagoDivisa = (int)(ImporteDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
+
+                var _pagoDivisa = (Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero) / (1 + (_dsctoBonoPagoDivisa / 100)));
+                if ((Math.Round(_pagoDivisa, 0) - _pagoDivisa) > 0)
+                {
+                    _pagoDivisa = Math.Round(_pagoDivisa, 0) - 1;
+                }
+                else 
+                {
+                    _pagoDivisa = Math.Round(_pagoDivisa, 0);
+                }
+
                 var _pago = (_pagoDivisa * _tasaCambioActual);
                 var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
                 var _resta = Importe - (_pago + _bono);

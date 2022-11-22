@@ -278,6 +278,20 @@ namespace PosOnLine.Src.Item
 
         public void RegistraItem(string idPrd, string tarifa)
         {
+            var _fecha= new DateTime(2000,1,1);
+            var r00 = Sistema.MyData.Servicio_GetFechaUltBoletin();
+            if (r00.Result != OOB.Resultado.Enumerados.EnumResult.isError) 
+            {
+                _fecha= r00.Entidad;
+            }
+            if (_fecha != Sistema.FechaUltimoBoletinDescargado) 
+            {
+                var msg = "PROBLEMA CON LA ACTUALIZACION DE BOLETIN, DEBES CERRAR Y SALIR DEL SISTEMA PARA ACTUALIZAR NUEVOS CAMBIOS";
+                Helpers.Msg.Error(msg);
+                return;
+            }
+
+
             var r01 = Sistema.MyData.Producto_GetFichaById(idPrd);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {

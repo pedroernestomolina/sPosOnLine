@@ -23,7 +23,8 @@ namespace PosOnLine.Data.Prov
         }
 
 
-        public OOB.Resultado.FichaEntidad<DateTime> FechaServidor()
+        public OOB.Resultado.FichaEntidad<DateTime>
+            FechaServidor()
         {
             var result = new OOB.Resultado.FichaEntidad<DateTime>();
 
@@ -38,8 +39,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Ficha Test()
+        public OOB.Resultado.Ficha 
+            Test()
         {
             var result = new OOB.Resultado.Ficha();
 
@@ -53,7 +54,20 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
+        public OOB.Resultado.FichaEntidad<DateTime> 
+            Servicio_GetFechaUltBoletin()
+        {
+            var result = new OOB.Resultado.FichaEntidad<DateTime>();
+            var r01 = MyData.Servicio_GetFechaUltBoletin();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+            result.Entidad = r01.Entidad;
+            return result;
+        }
     }
 
 }

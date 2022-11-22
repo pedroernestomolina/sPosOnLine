@@ -208,6 +208,7 @@ namespace PosOnLine.Helpers.Imprimir
         public List<Item> item { get; set; }
         public List<MetodoPago> metodoPago { get; set; }
         public List<MedidaEmp> medidaEmp { get; set; }
+        public bool isAnulado { get; set; }
 
     }
 

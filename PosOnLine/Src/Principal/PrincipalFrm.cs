@@ -95,6 +95,7 @@ namespace PosOnLine.Src.Principal
             L_VERSION.Text = _controlador.Version;
             L_BD_NOMBRE.Text = _controlador.BD_Nombre;
             L_BD_RUTA.Text = _controlador.BD_Ruta;
+            L_FECHA_ULT_BOLETIN.Text = _controlador.Get_FechaUltBoletin.ToString();
             L_INF_DEPOSITO.Text = _controlador.DepositoID;
         }
 
