@@ -46,7 +46,9 @@ namespace PosOnLine.Src.Pago.Procesar
                 _factorBono = (_tasaBono / 100);
             }
             var _montoPendDiv = Math.Round(montoPendBs / _tasaDivisa, 2, MidpointRounding.AwayFromZero);
-            var _cntDivisaTomar = (int)(_montoPendDiv / (1 + _factorBono));
+            var rt = (_montoPendDiv / (1 + _factorBono));
+            var _cntDivisaTomar = (int)Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+
             if (_cntDivisaTomar > 0)
             {
                 if (montoSeRecibeEnDivisa < _cntDivisaTomar)

@@ -346,6 +346,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 vueltoDivisa = "";
                 vueltoPagoMovil = "";
                 IsAnulado = false;
+                //
+                bonoDscto = "";
             }
 
             public Bitmap ImageQR { get; set; }
@@ -353,6 +355,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             public string vueltoDivisa { get; set; }
             public string vueltoPagoMovil { get; set; }
             public bool IsAnulado { get; set; }
+            public string bonoDscto { get; set; }
         }
 
         public enum EnumModoTicket { Modo80mm = 1, Modo58mm };
@@ -533,7 +536,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             eg.Graphics.DrawString("TOTAL($)", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.totalDivisa, fr, Brushes.Black, dder2(df.totalDivisa, fr), l);
             l += 10;
-            eg.Graphics.DrawString("Bono " + df.bonoDivisa, fb, Brushes.Black, 0, l);
+            //eg.Graphics.DrawString("Bono " + df.bonoDivisa, fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString(df.bonoDivisa, fb, Brushes.Black, 0, l);
+            l += 10;
+            eg.Graphics.DrawString(df.bonoDscto, fb, Brushes.Black, 0, l);
             l += 15;
 
             foreach (var mp in df.MediosPago)

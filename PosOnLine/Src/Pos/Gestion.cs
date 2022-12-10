@@ -2617,19 +2617,14 @@ namespace PosOnLine.Src.Pos
             {
                 rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
 
-                var _pagoDivisa = (Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero) / (1 + (_dsctoBonoPagoDivisa / 100)));
-                if ((Math.Round(_pagoDivisa, 0) - _pagoDivisa) > 0)
-                {
-                    _pagoDivisa = Math.Round(_pagoDivisa, 0) - 1;
-                }
-                else 
-                {
-                    _pagoDivisa = Math.Round(_pagoDivisa, 0);
-                }
+                var _importDivisa = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
+                var _pagoDivisa = Math.Round(_importDivisa / (1 + (_dsctoBonoPagoDivisa / 100)), 2, MidpointRounding.AwayFromZero);
+                _pagoDivisa = _pagoDivisa - (_pagoDivisa - (int)_pagoDivisa);
 
                 var _pago = (_pagoDivisa * _tasaCambioActual);
                 var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
                 var _resta = Importe - (_pago + _bono);
+                if (_resta <= 0.001m) { _resta = 0m; }
                 rt += _pagoDivisa.ToString("n0") + "$, con " + _resta.ToString("n2") + "Bs";
             }
             return rt.Trim();
