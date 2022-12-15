@@ -47,9 +47,22 @@ namespace PosOnLine.Src.Pago.Procesar
             }
             var _montoPendDiv = Math.Round(montoPendBs / _tasaDivisa, 2, MidpointRounding.AwayFromZero);
             var rt = (_montoPendDiv / (1 + _factorBono));
-            var _cntDivisaTomar = (int)Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+            var _cntDivisaTomar = 0m;
 
-            if (_cntDivisaTomar > 0)
+            var _ver = montoSeRecibeEnDivisa - rt;
+            _cntDivisaTomar = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+
+            //if (_ver > 0 && _ver < 1)
+            //{
+            //    _cntDivisaTomar = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+            //}
+            //else 
+            //{
+            //    _cntDivisaTomar = (int)Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+            //}
+
+            //var _cntDivisaTomar = (int)Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+            if (_cntDivisaTomar > 0m)
             {
                 if (montoSeRecibeEnDivisa < _cntDivisaTomar)
                 {
@@ -65,11 +78,11 @@ namespace PosOnLine.Src.Pago.Procesar
         private decimal _montoBonoDivisa;
         private decimal _montoBonoBs;
         private decimal _montoRecibeBs;
-        private int _cntDivisaRecomendar;
+        private decimal _cntDivisaRecomendar;
         public decimal GetMontoBonoBs { get { return _montoBonoBs; } }
         public decimal GetMontoRecibeBs { get { return _montoRecibeBs; } }
         public decimal GetMontoBonoDivisa { get { return _montoBonoDivisa; } }
-        public int GetCntDivisaRecomendar { get { return _cntDivisaRecomendar; } }
+        public decimal GetCntDivisaRecomendar { get { return _cntDivisaRecomendar; } }
 
     }
 

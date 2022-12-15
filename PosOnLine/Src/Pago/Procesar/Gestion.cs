@@ -227,7 +227,7 @@ namespace PosOnLine.Src.Pago.Procesar
         public bool PagoMovilIsOk { get { return _pago.PagoMovilIsOk; } }
         public PagoMovil.data PagoMovilData { get { return _pago.PagoMovilData; } }
         public decimal GetPagoOtro { get { return _pago.GetPagoOtro; } }
-        public int GetCntDivisaRecomendar { get { return _pago.GetCntDivisaRecomendar; } }
+        public decimal GetCntDivisaRecomendar { get { return _pago.GetCntDivisaRecomendar; } }
 
         public dataRecolectar DataPagoRecolectar { get { return _pago.DataPagoRecolectar; } }
         public bool TipoDocumento_IsNotaCredito { get { return _isNotaCredito; } }

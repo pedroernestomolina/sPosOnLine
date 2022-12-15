@@ -104,20 +104,20 @@ namespace PosOnLine.Helpers.Imprimir
                 VueltoEfectivo = 0m;
                 VueltoDivisa = 0m;
                 VueltoPagoMovil = 0m;
-                CntDivisaVueltoDivisa = 0;
+                CntDivisaVueltoDivisa = 0m;
                 //
                 BonoPorPagoDivisa = 0m;
                 MontoBonoPorPagoDivisa = 0m;
-                CntDivisaAplicaBonoPorPagoDivisa = 0;
+                CntDivisaAplicaBonoPorPagoDivisa = 0m;
             }
             public decimal VueltoEfectivo { get; set; }
             public decimal VueltoDivisa { get; set; }
             public decimal VueltoPagoMovil { get; set; }
-            public int CntDivisaVueltoDivisa { get; set; }
+            public decimal CntDivisaVueltoDivisa { get; set; }
             //
             public decimal BonoPorPagoDivisa { get; set; }
             public decimal MontoBonoPorPagoDivisa { get; set; }
-            public int CntDivisaAplicaBonoPorPagoDivisa { get; set; }
+            public decimal CntDivisaAplicaBonoPorPagoDivisa { get; set; }
         }
 
         public class Item

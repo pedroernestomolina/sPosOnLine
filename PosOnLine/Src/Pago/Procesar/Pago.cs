@@ -256,7 +256,7 @@ namespace PosOnLine.Src.Pago.Procesar
 
         private bool _activarBonoPorPagoDivisa;
         private decimal _porctBonoPorPagoDivisa;
-        private int _cntDivisaRecomendada;
+        private decimal _cntDivisaRecomendada;
         public void setActivarBonoPorPagoDivisa(bool activar)
         {
             _activarBonoPorPagoDivisa = activar;
@@ -265,10 +265,10 @@ namespace PosOnLine.Src.Pago.Procesar
         {
             _porctBonoPorPagoDivisa = porct;
         }
-        public int GetCntDivisaRecomendar { get { return _cntDivisaRecomendada; } }
+        public decimal GetCntDivisaRecomendar { get { return _cntDivisaRecomendada; } }
         public void AddDivisa(decimal monto)
         {
-            _cntDivisaRecomendada = 0;
+            _cntDivisaRecomendada = 0m;
             var it = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Divisa);
             var it2 = _detalle.FirstOrDefault(f => f.Modo == Enumerados.ModoPago.Electronico && f.Id==4);
             if (it != null)

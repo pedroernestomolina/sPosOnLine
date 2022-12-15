@@ -328,7 +328,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             var _montoVueltoPorEfectivo = 0m;
             var _montoVueltoPorDivisa = 0m;
             var _montoVueltoPorPagoMovil = 0m;
-            var _cntDivisaPorVueltoDivisa = 0;
+            var _cntDivisaPorVueltoDivisa = 0m;
 
             var r01 = Sistema.MyData.Documento_GetById(idDoc);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)

@@ -118,7 +118,7 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
         public FichaClienteSaldo ClienteSaldo { get; set; }
         //
         public decimal PorctBonoPorPagoDivisa { get; set; }
-        public int CantDivisaAplicaBonoPorPagoDivisa { get; set; }
+        public decimal CantDivisaAplicaBonoPorPagoDivisa { get; set; }
         public decimal MontoBonoPorPagoDivisa { get; set; }
         public decimal MontoBonoEnDivisaPorPagoDivisa { get; set; }
         public decimal MontoPorVueltoEnEfectivo { get; set; }
@@ -237,7 +237,7 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
             ClienteSaldo = null;
             //
             PorctBonoPorPagoDivisa = 0m;
-            CantDivisaAplicaBonoPorPagoDivisa = 0;
+            CantDivisaAplicaBonoPorPagoDivisa = 0m;
             MontoBonoPorPagoDivisa = 0m;
             MontoBonoEnDivisaPorPagoDivisa = 0m;
             MontoPorVueltoEnEfectivo = 0m;
