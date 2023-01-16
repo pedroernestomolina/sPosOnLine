@@ -202,12 +202,6 @@ namespace PosOnLine.Src.Pago.Procesar
             _tasaCambio = 0.0m;
             _dsctoPorct = 0.0m;
             _detalle = new List<PagoDetalle>();
-
-            if (Sistema.Modo_Vuelto_Gestionar)
-                _gValidarCambio = new ValidarCambio.ConVuelto.ImpConVuelto();
-            else
-                _gValidarCambio = new ValidarCambio.SinVuelto.ImpSinVuelto();
-
             _entCliente = null;
             _dataRecolectar = new dataRecolectar();
         }
@@ -356,7 +350,10 @@ namespace PosOnLine.Src.Pago.Procesar
             _dsctoPorct = 0.0m;
             _detalle.Clear();
             _cntDivisaRecomendada = 0;
-            _gValidarCambio.Inicializa();
+            if (_gValidarCambio != null)
+            {
+                _gValidarCambio.Inicializa();
+            }
             _dataRecolectar.Limpiar();
         }
 
@@ -388,6 +385,13 @@ namespace PosOnLine.Src.Pago.Procesar
                     _montoValidar = MontoCambioDar_MonedaNacional;
                     if (_montoValidar >0m)
                     {
+                        if (_gValidarCambio == null)
+                        {
+                            if (Sistema.Modo_Vuelto_Gestionar)
+                                _gValidarCambio = new ValidarCambio.ConVuelto.ImpConVuelto();
+                            else
+                                _gValidarCambio = new ValidarCambio.SinVuelto.ImpSinVuelto();
+                        }
                         _gValidarCambio.Inicializa();
                         _gValidarCambio.setMontoValidar(_montoValidar);
                         _gValidarCambio.setTasaCambio(_tasaCambio);
@@ -477,6 +481,10 @@ namespace PosOnLine.Src.Pago.Procesar
         public dataRecolectar DataPagoRecolectar { get { return RecolectarDataPago(); } }
         private dataRecolectar RecolectarDataPago()
         {
+            if (_gValidarCambio ==null)
+            {
+                return new dataRecolectar();
+            }
             if (_gValidarCambio.ValidarCambioIsOk)
             {
                 _dataRecolectar.MontoPorVueltoEnEfectivo = _gValidarCambio.GetMontoPorEfectivo;
@@ -490,7 +498,6 @@ namespace PosOnLine.Src.Pago.Procesar
             }
             return _dataRecolectar;
         }
-
 
     }
 

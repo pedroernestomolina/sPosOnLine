@@ -15,7 +15,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
 
         private bool _notaCreditoIsOk;
-        private Anular.Gestion _gestionAnular;
+        private Anular.IAnular _gestionAnular;
         private Visualizar.Gestion _gestionVisualizar;
 
 
@@ -107,15 +107,14 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                 {
                     _gestionAnular.Inicializa();
                     _gestionAnular.Inicia();
-                    if (_gestionAnular.IsAnularOK)
+                    if (_gestionAnular.ProcesarIsOK)
                     {
                         var msg = MessageBox.Show("Estas Seguro De Anular Este Documento ?", "** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                         if (msg == DialogResult.No)
                         {
                             return;
                         }
-
-                        var motivo = _gestionAnular.Motivo;
+                        var motivo = _gestionAnular.GetMotivo;
                         var rt = false;
                         switch (_gestionLista.DocAplicaParaAulacion.DocTipo)
                         {
@@ -454,9 +453,9 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             return true;
         }
 
-        public void setGestionAnular(Anular.Gestion gestion)
+        public void setGestionAnular(Anular.IAnular ctr)
         {
-            _gestionAnular = gestion;
+            _gestionAnular = ctr;
         }
 
         public void ImprimirDocumento()
@@ -485,7 +484,5 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
         //
         public bool AnularDocumentoIsOk { get { return _anularDocumentoIsOk; } }
-
     }
-
 }

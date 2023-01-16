@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.FichaId 
             Jornada_Abrir(OOB.Pos.Abrir.Ficha ficha)
         {
@@ -168,8 +166,6 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-
         public OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha> 
             Jornada_EnUso_GetByIdEquipo(string idEquipo)
         {
@@ -232,15 +228,11 @@ namespace PosOnLine.Data.Prov
             Jornada_EnUso_GetBy_EquipoSucursal(string idEquipo, string codSucursal)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Pos.EnUso.Ficha>();
-
             var r01 = MyData.Jornada_EnUso_GetBy_EquipoSucursal(idEquipo, codSucursal);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                throw new Exception(r01.Mensaje);
             }
-
             var ent = r01.Entidad;
             var nr = new OOB.Pos.EnUso.Ficha()
             {
@@ -254,11 +246,8 @@ namespace PosOnLine.Data.Prov
                 idResumen = ent.idResumen,
             };
             result.Entidad = nr;
-
             return result;
         }
-
-
         public OOB.Resultado.FichaEntidad<OOB.Pos.Resumen.Ficha> 
             Jornada_Resumen_GetByIdResumen(int id)
         {
@@ -332,7 +321,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

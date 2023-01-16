@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.Lista<OOB.Cierre.Lista.Ficha> 
             Cierre_Lista_GetByFiltro(OOB.Cierre.Lista.Filtro filtro)
         {
@@ -118,7 +116,5 @@ namespace PosOnLine.Data.Prov
 
             return rt;
         }
-
     }
-
 }

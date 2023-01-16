@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-
     public partial class DataPrv: IData
     {
-
-        public OOB.Resultado.Lista<OOB.Deposito.Entidad.Ficha> Deposito_GetLista(OOB.Deposito.Lista.Filtro filtro)
+        public OOB.Resultado.Lista<OOB.Deposito.Entidad.Ficha> 
+            Deposito_GetLista(OOB.Deposito.Lista.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Deposito.Entidad.Ficha>();
 
@@ -47,8 +46,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Deposito.Entidad.Ficha> Deposito_GetFichaById(string id)
+        public OOB.Resultado.FichaEntidad<OOB.Deposito.Entidad.Ficha> 
+            Deposito_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Deposito.Entidad.Ficha>();
 
@@ -72,19 +71,15 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Deposito.Entidad.Ficha> Deposito_GetFicha_ByCodigo(string codigo)
+        public OOB.Resultado.FichaEntidad<OOB.Deposito.Entidad.Ficha> 
+            Deposito_GetFicha_ByCodigo(string codigo)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Deposito.Entidad.Ficha>();
-
             var r01 = MyData.Deposito_GetFicha_ByCodigo(codigo);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                throw new Exception(r01.Mensaje);
             }
-
             var ent = r01.Entidad;
             var nr = new OOB.Deposito.Entidad.Ficha()
             {
@@ -94,10 +89,7 @@ namespace PosOnLine.Data.Prov
                 codSuc = ent.codSuc,
             };
             result.Entidad = nr;
-
             return result;
         }
-
     }
-
 }

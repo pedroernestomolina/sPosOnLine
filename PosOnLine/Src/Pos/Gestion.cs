@@ -58,6 +58,9 @@ namespace PosOnLine.Src.Pos
         private CambioPrecio.ICambioPrecio _gCambioPrecio;
         private SolicitarPermiso.ISolicitarPermiso _gSolicitarPermiso;
         private IMultiplicar _gMultiplicar;
+        //
+        private System.Windows.Forms.PrintDialog printDialog2;
+        private System.Drawing.Printing.PrintDocument printDocument2;
 
 
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
@@ -91,9 +94,17 @@ namespace PosOnLine.Src.Pos
             }
         }
 
-
-        public Gestion()
+        private Anular.IAnular _gAnular;
+        public Gestion(Anular.IAnular ctrAnular)
         {
+            _gAnular = ctrAnular;
+
+            printDialog2 = new PrintDialog();
+            printDocument2 = new System.Drawing.Printing.PrintDocument();
+            printDocument2.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument2_PrintPage);
+            printDialog2.Document = printDocument2;
+
+
             _precioManejar = "";
             _docAplicarNotaCredito = null;
             _modoFuncion = EnumModoFuncion.Facturacion;
@@ -117,6 +128,17 @@ namespace PosOnLine.Src.Pos
             _gSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
             //
             _gMultiplicar = _gestionMultiplicar;
+        }
+        private void printDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            _isTickeraOk = false;
+            if (_ImprimirDoc != null)
+            {
+                _ImprimirDoc.setControlador(e);
+                _ImprimirDoc.setEmpresa(Sistema.DatosEmpresa);
+                _ImprimirDoc.ImprimirDoc();
+            }
+            _ImprimirDoc = null;
         }
 
 
@@ -1310,6 +1332,7 @@ namespace PosOnLine.Src.Pos
                 {
                     _isTickeraOk = true;
                     _ImprimirDoc = Sistema.ImprimirFactura;
+                    printDocument2.Print();
                 }
                 else 
                 {
@@ -1975,13 +1998,13 @@ namespace PosOnLine.Src.Pos
                 {
                     _isTickeraOk = true;
                     _ImprimirDoc = Sistema.ImprimirNotaCredito;
+                    printDocument2.Print();
                 }
                 else
                 {
                     Sistema.ImprimirNotaCredito.ImprimirDoc();
                 }
             }
-
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
             Inicializa();
@@ -2322,13 +2345,13 @@ namespace PosOnLine.Src.Pos
                 {
                     _isTickeraOk = true;
                     _ImprimirDoc = Sistema.ImprimirNotaEntrega;
+                    printDocument2.Print();
                 }
                 else
                 {
                     Sistema.ImprimirNotaEntrega.ImprimirDoc();
                 }
             }
-
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
             Inicializa();
@@ -2474,32 +2497,6 @@ namespace PosOnLine.Src.Pos
                 _ImprimirDoc.ImprimirDoc();
             }
             _ImprimirDoc = null;
-
-            //if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera58.Documento))
-            //{
-            //    _isTickeraOk = false;
-            //    var t = (Helpers.Imprimir.Tickera58.Documento)_ImprimirDoc;
-            //    t.setControlador(e);
-            //    t.setEmpresa(Sistema.DatosEmpresa);
-            //    t.ImprimirDoc();
-            //}
-            //if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80.Documento))
-            //{
-            //    _isTickeraOk = false;
-            //    var t = (Helpers.Imprimir.Tickera80.Documento)_ImprimirDoc;
-            //    t.setControlador(e);
-            //    t.setEmpresa(Sistema.DatosEmpresa);
-            //    t.ImprimirDoc();
-            //}
-            //if (_ImprimirDoc.GetType() == typeof(Helpers.Imprimir.Tickera80Basico.Documento))
-            //{
-            //    _isTickeraOk = false;
-            //    var t = (Helpers.Imprimir.Tickera80Basico.Documento)_ImprimirDoc;
-            //    t.setControlador(e);
-            //    t.setEmpresa(Sistema.DatosEmpresa);
-            //    t.ImprimirDoc();
-            //}
-            //_ImprimirDoc = null;
         }
 
         public void CambiarPrecio()
@@ -2630,6 +2627,35 @@ namespace PosOnLine.Src.Pos
             return rt.Trim();
         }
 
-    }
+        Src.MovCaja.Agregar.IAgregar _gAgregarMovCaja;
+        Src.MovCaja.Anular.IAnularMov _gAnularMovCaja;
+        Src.MovCaja.View.IViewMov _gViewMovCaja;
+        Src.MovCaja.Adm.IAdm _gAdmMovCaja;
+        public void MOV_ENTRADA_SALIDA_DINERO_CAJA()
+        {
+            if (Sistema.Sucursal.isModGastoHabilitado)
+            {
+                if (_gAgregarMovCaja == null)
+                {
+                    _gAgregarMovCaja = new Src.MovCaja.Agregar.ImpAgregar();
+                }
+                if (_gAnularMovCaja == null)
+                {
+                    _gAnularMovCaja = new Src.MovCaja.Anular.ImpAnularMov(_gAnular);
+                }
+                if (_gViewMovCaja == null)
+                {
+                    _gViewMovCaja = new Src.MovCaja.View.ImpViewMov();
+                }
 
+                if (_gAdmMovCaja == null)
+                {
+                    _gAdmMovCaja = new Src.MovCaja.Adm.ImpAdm(_gAnularMovCaja, _gAgregarMovCaja, _gViewMovCaja);
+                }
+                _gAdmMovCaja.Inicializa();
+                _gAdmMovCaja.setIdOperadorActual(Sistema.PosEnUso.id);
+                _gAdmMovCaja.Inicia();
+            }
+        }
+    }
 }

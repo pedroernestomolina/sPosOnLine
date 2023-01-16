@@ -16,7 +16,7 @@ namespace PosOnLine.Src.Principal
         private Pos.Gestion _gestionPos;
         private PassWord.Gestion _gestionPassW;
         private AdministradorDoc.Principal.Gestion _gestionDoc;
-        private Anular.Gestion _gestionAnular;
+        private Anular.IAnular _gestionAnular;
         private Cierre.Gestion _gestionCierre;
         private Configuracion.Gestion _gestionCnf;
         private Configuracion.SucursalDeposito.Gestion _gestionCnfSucDeposito;
@@ -87,11 +87,11 @@ namespace PosOnLine.Src.Principal
             _gestionCnf = new Configuracion.Gestion();
             _gestionCnfSucDeposito = new Configuracion.SucursalDeposito.Gestion();
             _gestionCierre = new Cierre.Gestion();
-            _gestionAnular = new Anular.Gestion();
+            _gestionAnular = new Anular.ImpAnular();
             _gestionDoc = new AdministradorDoc.Principal.Gestion();
             _gestionDoc.setGestionAnular(_gestionAnular);
             _gestionPassW = new PassWord.Gestion();
-            _gestionPos = new Pos.Gestion();
+            _gestionPos = new Pos.Gestion(_gestionAnular);
             _gestionPos.setGestionPassW(_gestionPassW);
             _gCierreHist = new Cierre.Historico.Historia();
             Helpers.PassWord.setGestion(_gestionPassW);
@@ -115,86 +115,50 @@ namespace PosOnLine.Src.Principal
 
         private bool CargarData()
         {
-            var rt = true;
+            try
+            {
+                Sistema.FechaUltimoBoletinDescargado = new DateTime(2000, 1, 1);
+                var xr0 = Sistema.MyData.Servicio_GetFechaUltBoletin();
+                if (xr0.Result != OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Sistema.FechaUltimoBoletinDescargado = xr0.Entidad;
+                }
 
-            Sistema.FechaUltimoBoletinDescargado = new DateTime(2000, 1, 1);
-            var xr0 = Sistema.MyData.Servicio_GetFechaUltBoletin();
-            if (xr0.Result != OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Sistema.FechaUltimoBoletinDescargado = xr0.Entidad;
+                var t00 = Sistema.MyData.Sucursal_GetFicha_ByCodigo(Sistema.CodigoSucursalActivo);
+                var t01 = Sistema.MyData.Sucursal_GetFichaById(t00.Entidad);
+                if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(t01.Mensaje);
+                    return false;
+                }
+                Sistema.Sucursal = t01.Entidad;
+                Sistema.Modo_Vuelto_Gestionar = t01.Entidad.isVueltoDivisaHabilitado;
+
+                var t02 = Sistema.MyData.Deposito_GetFicha_ByCodigo(Sistema.CodigoDepositoActivo);
+                Sistema.Deposito = t02.Entidad;
+
+                var r01 = Sistema.MyData.Jornada_EnUso_GetBy_EquipoSucursal(Sistema.IdEquipo, Sistema.CodigoSucursalActivo);
+                Sistema.PosEnUso = r01.Entidad;
+
+                var r02 = Sistema.MyData.Configuracion_Pos_GetFicha();
+                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02.Mensaje);
+                    return false;
+                }
+                Sistema.ConfiguracionActual = r02.Entidad;
+                Sistema.ConfiguracionActual.idDeposito = Sistema.Deposito.id;
+                Sistema.ConfiguracionActual.idSucursal = Sistema.Sucursal.id;
+
+                var r04 = Sistema.MyData.Sistema_Empresa_GetFicha();
+                Sistema.DatosEmpresa = r04.Entidad;
+                return true;
             }
-            var t00 = Sistema.MyData.Sucursal_GetFicha_ByCodigo(Sistema.CodigoSucursalActivo);
-            if (t00.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            catch (Exception e)
             {
-                Helpers.Msg.Error(t00.Mensaje);
+                Helpers.Msg.Error(e.Message);
                 return false;
             }
-            var t01 = Sistema.MyData.Sucursal_GetFichaById(t00.Entidad);
-            if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(t01.Mensaje);
-                return false;
-            }
-            Sistema.Sucursal = t01.Entidad;
-
-            var t02 = Sistema.MyData.Deposito_GetFicha_ByCodigo(Sistema.CodigoDepositoActivo);
-            if (t02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(t02.Mensaje);
-                return false;
-            }
-            Sistema.Deposito = t02.Entidad;
-
-            //var r01 = Sistema.MyData.Jornada_EnUso_GetByIdEquipo(Sistema.IdEquipo, Sistema.CodigoSucursalActivo);
-            var r01 = Sistema.MyData.Jornada_EnUso_GetBy_EquipoSucursal(Sistema.IdEquipo, Sistema.CodigoSucursalActivo);
-            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r01.Mensaje);
-                return false;
-            }
-            Sistema.PosEnUso = r01.Entidad;
-
-            var r02 = Sistema.MyData.Configuracion_Pos_GetFicha();
-            if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02.Mensaje);
-                return false;
-            }
-            Sistema.ConfiguracionActual = r02.Entidad;
-            Sistema.ConfiguracionActual.idDeposito = Sistema.Deposito.id;
-            Sistema.ConfiguracionActual.idSucursal = Sistema.Sucursal.id;
-
-            //if (r02.Entidad.idSucursal != "")
-            //{
-            //    var r03 = Sistema.MyData.Sucursal_GetFichaById(r02.Entidad.idSucursal);
-            //    if (r03.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            //    {
-            //        Helpers.Msg.Error(r03.Mensaje);
-            //        return false;
-            //    }
-            //    Sistema.Sucursal = r03.Entidad;
-            //}
-
-            var r04 = Sistema.MyData.Sistema_Empresa_GetFicha();
-            if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r04.Mensaje);
-                return false;
-            }
-            Sistema.DatosEmpresa = r04.Entidad;
-
-            //if (r02.Entidad.idDeposito != "")
-            //{
-            //    var r05 = Sistema.MyData.Deposito_GetFichaById(r02.Entidad.idDeposito);
-            //    if (r05.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            //    {
-            //        Helpers.Msg.Error(r05.Mensaje);
-            //        return false;
-            //    }
-            //    Sistema.Deposito = r05.Entidad;
-            //}
-
-            return rt;
         }
 
         public void AbrirPos()

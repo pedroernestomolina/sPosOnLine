@@ -2,11 +2,11 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>mscala</Catalogo>
+    <Catalogo>dios</Catalogo>
   </Servidor>
-  <IdEquipo>2</IdEquipo>
-  <CodigoSucursalActiva>15</CodigoSucursalActiva>
-  <codigoDepositoActiva>23</codigoDepositoActiva>
+  <IdEquipo>1</IdEquipo>
+  <CodigoSucursalActiva>18</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <codigoDepositoActiva>26</codigoDepositoActiva> <!-- AUTO DEPOSITO -->
   <SerieFactura>1</SerieFactura>
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>

@@ -322,6 +322,36 @@ namespace PosOnLine.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bt_entrada_salida_dinero_24 {
+            get {
+                object obj = ResourceManager.GetObject("bt_entrada_salida_dinero_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bt_entrada_salida_dinero_32 {
+            get {
+                object obj = ResourceManager.GetObject("bt_entrada_salida_dinero_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bt_entrada_salida_dinero_48 {
+            get {
+                object obj = ResourceManager.GetObject("bt_entrada_salida_dinero_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bt_gaveta {
             get {
                 object obj = ResourceManager.GetObject("bt_gaveta", resourceCulture);

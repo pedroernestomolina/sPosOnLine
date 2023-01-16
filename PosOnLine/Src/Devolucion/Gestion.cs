@@ -137,13 +137,17 @@ namespace PosOnLine.Src.Devolucion
                 var it = (Item.data)_bs.Current;
                 _gMult.Inicializa();
                 _gMult.Inicia();
-                if (_gMult.MultiplicarIsOk) 
+                if (_gMult.MultiplicarIsOk)
                 {
                     if (_gMult.Cantidad >= it.Cantidad)
                     {
                         Helpers.Msg.Alerta("CANTIDAD A DEVOLVER SOBRE PASA LA CANTIDAD INGRESADA");
                         return;
                     }
+                }
+                else 
+                {
+                    return;
                 }
 
                 var dtDev = new dataDev()

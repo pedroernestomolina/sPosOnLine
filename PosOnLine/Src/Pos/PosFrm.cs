@@ -17,6 +17,7 @@ namespace PosOnLine.Src.Pos
 
         private Gestion _controlador; 
         private Timer _hora;
+        //
 
      
         public PosFrm()
@@ -195,8 +196,6 @@ namespace PosOnLine.Src.Pos
 
         private void PosVenta_Load(object sender, EventArgs e)
         {
-            printDialog1.Document = printDocument1;
-
             L_MONTO_DIVISA.Text = _controlador.TasaCambioActual.ToString("n3");
             L_FECHA.Text = "Hoy : "+DateTime.Now.ToShortDateString();
             L_HORA.Text = "";
@@ -425,10 +424,6 @@ namespace PosOnLine.Src.Pos
         private void Totalizar()
         {
             _controlador.Totalizar();
-            if (_controlador.IsTickeraOk) 
-            {
-                printDocument1.Print();
-            }
             Actualizar();
         }
 
@@ -532,12 +527,6 @@ namespace PosOnLine.Src.Pos
             L_PRD_CONT.Text = _controlador.ProductoContenido.ToString("n0");
         }
 
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            e.Cancel = false;
-            _controlador.Imprimir(e);
-        }
-
         private void DGV_DETALLE_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1 && e.ColumnIndex != -1)
@@ -567,6 +556,15 @@ namespace PosOnLine.Src.Pos
             }
         }
 
+        private void BT_MOV_CAJA_Click(object sender, EventArgs e)
+        {
+            MOV_ENTRADA_SALIDA_DINERO_CAJA();
+        }
+        private void MOV_ENTRADA_SALIDA_DINERO_CAJA()
+        {
+            IrFoco();
+            _controlador.MOV_ENTRADA_SALIDA_DINERO_CAJA();
+        }
     }
 
 }

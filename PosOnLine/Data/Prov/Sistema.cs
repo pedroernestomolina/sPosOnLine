@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.TipoDocumento.Entidad.Ficha> Sistema_TipoDocumento_GetFichaById(string id)
+        public OOB.Resultado.FichaEntidad<OOB.Sistema.TipoDocumento.Entidad.Ficha> 
+            Sistema_TipoDocumento_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.TipoDocumento.Entidad.Ficha>();
 
@@ -37,8 +36,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha> Sistema_Serie_GetFichaById(string id)
+        public OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha> 
+            Sistema_Serie_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha>();
 
@@ -60,8 +59,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.Transporte.Entidad.Ficha> Sistema_Transporte_GetFichaById(string id)
+        public OOB.Resultado.FichaEntidad<OOB.Sistema.Transporte.Entidad.Ficha> 
+            Sistema_Transporte_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.Transporte.Entidad.Ficha>();
 
@@ -83,8 +82,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Sistema.TasaFiscal.Entidad.Ficha> Sistema_Fiscal_GetTasas(OOB.Sistema.TasaFiscal.Listar.Filtro filtro)
+        public OOB.Resultado.Lista<OOB.Sistema.TasaFiscal.Entidad.Ficha> 
+            Sistema_Fiscal_GetTasas(OOB.Sistema.TasaFiscal.Listar.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Sistema.TasaFiscal.Entidad.Ficha>();
 
@@ -119,8 +118,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.Cobrador.Entidad.Ficha> Sistema_Cobrador_GetFichaById(string id)
+        public OOB.Resultado.FichaEntidad<OOB.Sistema.Cobrador.Entidad.Ficha> 
+            Sistema_Cobrador_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.Cobrador.Entidad.Ficha>();
 
@@ -142,8 +141,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.MedioPago.Entidad.Ficha> Sistema_MedioPago_GetFichaById(string id)
+        public OOB.Resultado.FichaEntidad<OOB.Sistema.MedioPago.Entidad.Ficha> 
+            Sistema_MedioPago_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.MedioPago.Entidad.Ficha>();
 
@@ -165,8 +164,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<string> Sistema_ClaveAcceso_GetByIdNivel(int id)
+        public OOB.Resultado.FichaEntidad<string> 
+            Sistema_ClaveAcceso_GetByIdNivel(int id)
         {
             var result = new OOB.Resultado.FichaEntidad<string>();
 
@@ -181,8 +180,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Sistema.MedioPago.Entidad.Ficha> Sistema_MedioPago_GetLista(OOB.Sistema.MedioPago.Lista.Filtro filtro)
+        public OOB.Resultado.Lista<OOB.Sistema.MedioPago.Entidad.Ficha> 
+            Sistema_MedioPago_GetLista(OOB.Sistema.MedioPago.Lista.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Sistema.MedioPago.Entidad.Ficha>();
 
@@ -216,8 +215,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Sistema.TipoDocumento.Entidad.Ficha> Sistema_TipoDocumento_GetLista()
+        public OOB.Resultado.Lista<OOB.Sistema.TipoDocumento.Entidad.Ficha> 
+            Sistema_TipoDocumento_GetLista()
         {
             var result = new OOB.Resultado.Lista<OOB.Sistema.TipoDocumento.Entidad.Ficha>();
 
@@ -253,8 +252,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Sistema.SerieFiscal.Entidad.Ficha> Sistema_Serie_GetLista()
+        public OOB.Resultado.Lista<OOB.Sistema.SerieFiscal.Entidad.Ficha> 
+            Sistema_Serie_GetLista()
         {
             var result = new OOB.Resultado.Lista<OOB.Sistema.SerieFiscal.Entidad.Ficha>();
 
@@ -287,8 +286,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Sistema.Transporte.Entidad.Ficha> Sistema_Transporte_GetLista()
+        public OOB.Resultado.Lista<OOB.Sistema.Transporte.Entidad.Ficha> 
+            Sistema_Transporte_GetLista()
         {
             var result = new OOB.Resultado.Lista<OOB.Sistema.Transporte.Entidad.Ficha>();
 
@@ -322,8 +321,8 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.Lista<OOB.Sistema.Cobrador.Entidad.Ficha> Sistema_Cobrador_GetLista()
+        public OOB.Resultado.Lista<OOB.Sistema.Cobrador.Entidad.Ficha> 
+            Sistema_Cobrador_GetLista()
         {
             var result = new OOB.Resultado.Lista<OOB.Sistema.Cobrador.Entidad.Ficha>();
 
@@ -357,17 +356,14 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.Empresa.Ficha> Sistema_Empresa_GetFicha()
+        public OOB.Resultado.FichaEntidad<OOB.Sistema.Empresa.Ficha> 
+            Sistema_Empresa_GetFicha()
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.Empresa.Ficha>();
-
             var r01 = MyData.Sistema_Empresa_GetFicha();
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                throw new Exception(r01.Mensaje);
             }
             var s=r01.Entidad;
             result.Entidad = new OOB.Sistema.Empresa.Ficha()
@@ -377,11 +373,10 @@ namespace PosOnLine.Data.Prov
                 Nombre = s.Nombre,
                 Telefono = s.Telefono,
             };
-
             return result;
         }
-
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha> Sistema_Serie_GetFichaBySerie(string serie)
+        public OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha> 
+            Sistema_Serie_GetFichaBySerie(string serie)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha>();
 
@@ -403,7 +398,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

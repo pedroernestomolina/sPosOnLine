@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.Lista<OOB.Agencia.Entidad.Ficha> 
             Agencia_GetLista(OOB.Agencia.Lista.Filtro filtro)
         {
@@ -68,7 +66,5 @@ namespace PosOnLine.Data.Prov
             result.Auto = r01.Auto;
             return result;
         }
-
     }
-
 }

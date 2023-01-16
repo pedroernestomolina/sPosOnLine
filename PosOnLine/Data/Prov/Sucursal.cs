@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.FichaEntidad<OOB.Sucursal.Entidad.Ficha>
             Sucursal_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sucursal.Entidad.Ficha>();
-
             var r01 = MyData.Sucursal_GetFichaById(id);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
@@ -24,7 +21,6 @@ namespace PosOnLine.Data.Prov
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
-
             var ent = r01.Entidad;
             var nr = new OOB.Sucursal.Entidad.Ficha()
             {
@@ -37,9 +33,12 @@ namespace PosOnLine.Data.Prov
                 estatusVentaCredito = ent.estatusVentaCredito,
                 autoDepositoPrincipal = ent.autoDepositoPrincipal,
                 estatus = ent.estatus,
+                habilitaModGastoPos=ent.habilitaModGastoPos,
+                habilitaVentaSurtidoPos=ent.habilitaVentaSurtidoPos,
+                habilitaVueltoDivisaPos=ent.habilitaVueltoDivisaPos,
+                modoVentaPos=ent.modoVentaPos,
             };
             result.Entidad = nr;
-
             return result;
         }
         public OOB.Resultado.Lista<OOB.Sucursal.Entidad.Ficha> 
@@ -81,19 +80,13 @@ namespace PosOnLine.Data.Prov
             Sucursal_GetFicha_ByCodigo(string codigo)
         {
             var result = new OOB.Resultado.FichaEntidad<string>();
-
             var r01 = MyData.Sucursal_GetFicha_ByCodigo(codigo);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                throw new Exception(r01.Mensaje);
             }
             result.Entidad = r01.Entidad;
-
             return result;
         }
-
     }
-
 }

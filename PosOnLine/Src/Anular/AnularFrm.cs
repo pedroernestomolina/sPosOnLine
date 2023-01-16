@@ -16,26 +16,28 @@ namespace PosOnLine.Src.Anular
     {
 
 
-        private Gestion _controlador;
+        private IAnular _controlador;
 
 
         public AnularFrm()
         {
             InitializeComponent();
         }
-
-        private void BT_SALIR_Click(object sender, EventArgs e)
+        private void AnularFrm_Load(object sender, EventArgs e)
         {
-            Salir();
-        }
-
-        private void Salir()
-        {
+            TB_MOTIVO.Text = _controlador.GetMotivo;
             IrFoco();
-            this.Close();
+        }
+        private void AnularFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (_controlador.AbandonarIsOK || _controlador.ProcesarIsOK)
+            {
+                e.Cancel = false;
+            }
         }
 
-        public  void setControlador(Gestion ctr)
+        public  void setControlador(ImpAnular ctr)
         {
             _controlador = ctr;
         }
@@ -44,15 +46,31 @@ namespace PosOnLine.Src.Anular
         {
             Procesar();
         }
-
+        private void BT_SALIR_Click(object sender, EventArgs e)
+        {
+            AbandonarFicha();
+        }
         private void Procesar()
         {
             _controlador.Procesar();
-            if (_controlador.IsAnularOK) 
+            if (_controlador.ProcesarIsOK)
             {
                 IrFoco();
                 Salir();
             }
+        }
+        private void AbandonarFicha()
+        {
+            _controlador.AbandonarFicha();
+            if (_controlador.AbandonarIsOK)
+            {
+                Salir();
+            }
+        }
+        private void Salir()
+        {
+            IrFoco();
+            this.Close();
         }
 
         private void IrFoco()
@@ -63,13 +81,7 @@ namespace PosOnLine.Src.Anular
 
         private void TB_MOTIVO_Leave(object sender, EventArgs e)
         {
-            _controlador.Motivo = TB_MOTIVO.Text;
-        }
-
-        private void AnularFrm_Load(object sender, EventArgs e)
-        {
-            TB_MOTIVO.Text = _controlador.Motivo;
-            IrFoco();
+            _controlador.setMotivo(TB_MOTIVO.Text.Trim());
         }
 
         private void Ctr_KeyDown(object sender, KeyEventArgs e)
@@ -79,7 +91,5 @@ namespace PosOnLine.Src.Anular
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
-      
     }
-
 }

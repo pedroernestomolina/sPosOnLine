@@ -89,6 +89,7 @@
     <Compile Include="Data\Infra\IDeposito.cs" />
     <Compile Include="Data\Infra\IDocumento.cs" />
     <Compile Include="Data\Infra\IJornada.cs" />
+    <Compile Include="Data\Infra\IMovCaja.cs" />
     <Compile Include="Data\Infra\IPendiente.cs" />
     <Compile Include="Data\Infra\IPermiso.cs" />
     <Compile Include="Data\Infra\IProducto.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Data\Prov\Deposito.cs" />
     <Compile Include="Data\Prov\Documento.cs" />
     <Compile Include="Data\Prov\Jornada.cs" />
+    <Compile Include="Data\Prov\MovCaja.cs" />
     <Compile Include="Data\Prov\Pendiente.cs" />
     <Compile Include="Data\Prov\Permiso.cs" />
     <Compile Include="Data\Prov\Producto.cs" />
@@ -263,6 +265,12 @@
     <Compile Include="OOB\Documento\Entidad\FichaMetodoPago.cs" />
     <Compile Include="OOB\Documento\Lista\Ficha.cs" />
     <Compile Include="OOB\Documento\Lista\Filtro.cs" />
+    <Compile Include="OOB\MovCaja\Anular\Ficha.cs" />
+    <Compile Include="OOB\MovCaja\Entidad\Detalle.cs" />
+    <Compile Include="OOB\MovCaja\Entidad\Ficha.cs" />
+    <Compile Include="OOB\MovCaja\Lista\Filtro.cs" />
+    <Compile Include="OOB\MovCaja\Registrar\Detalle.cs" />
+    <Compile Include="OOB\MovCaja\Registrar\Ficha.cs" />
     <Compile Include="OOB\Pendiente\DejarCta\Ficha.cs" />
     <Compile Include="OOB\Pendiente\DejarCta\FichaItem.cs" />
     <Compile Include="OOB\Pendiente\Lista\Ficha.cs" />
@@ -357,7 +365,8 @@
     <Compile Include="Src\Anular\AnularFrm.Designer.cs">
       <DependentUpon>AnularFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Anular\Gestion.cs" />
+    <Compile Include="Src\Anular\ImpAnular.cs" />
+    <Compile Include="Src\Anular\IAnular.cs" />
     <Compile Include="Src\CambioPrecio\CambioPrecio.cs" />
     <Compile Include="Src\CambioPrecio\CambioPrecioFrm.cs">
       <SubType>Form</SubType>
@@ -383,6 +392,41 @@
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
+    <Compile Include="Src\ILista.cs" />
+    <Compile Include="Src\MovCaja\Adm\AdmFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\MovCaja\Adm\AdmFrm.Designer.cs">
+      <DependentUpon>AdmFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\MovCaja\Adm\data.cs" />
+    <Compile Include="Src\MovCaja\Adm\IAdm.cs" />
+    <Compile Include="Src\MovCaja\Adm\IAdmLista.cs" />
+    <Compile Include="Src\MovCaja\Adm\ImpAdm.cs" />
+    <Compile Include="Src\MovCaja\Adm\ImpAdmLista.cs" />
+    <Compile Include="Src\MovCaja\Agregar\AgregarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\MovCaja\Agregar\AgregarFrm.Designer.cs">
+      <DependentUpon>AgregarFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\MovCaja\Agregar\dataAgregar.cs" />
+    <Compile Include="Src\MovCaja\Agregar\dataMedios.cs" />
+    <Compile Include="Src\MovCaja\Agregar\IAgregar.cs" />
+    <Compile Include="Src\MovCaja\Agregar\ImpAgregar.cs" />
+    <Compile Include="Src\MovCaja\Agregar\medio.cs" />
+    <Compile Include="Src\MovCaja\Anular\IAnularMov.cs" />
+    <Compile Include="Src\MovCaja\Anular\ImpAnularMov.cs" />
+    <Compile Include="Src\MovCaja\View\dataView.cs" />
+    <Compile Include="Src\MovCaja\View\detalle.cs" />
+    <Compile Include="Src\MovCaja\View\ViewFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\MovCaja\View\ViewFrm.Designer.cs">
+      <DependentUpon>ViewFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\MovCaja\View\ImpViewMov.cs" />
+    <Compile Include="Src\MovCaja\View\IViewMov.cs" />
     <Compile Include="Src\Pago\LoteReferencia\ILoteRef.cs" />
     <Compile Include="Src\Pago\Procesar\dataRecolectar.cs" />
     <Compile Include="Src\Pago\Procesar\PgDivisa.cs" />
@@ -660,6 +704,15 @@
     <EmbeddedResource Include="Src\Cierre\Historico\HistoriaFrm.resx">
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\MovCaja\Adm\AdmFrm.resx">
+      <DependentUpon>AdmFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\MovCaja\Agregar\AgregarFrm.resx">
+      <DependentUpon>AgregarFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\MovCaja\View\ViewFrm.resx">
+      <DependentUpon>ViewFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\Pago\ValidarCambio\ConVuelto\ValidarCambioFrm.resx">
       <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -810,6 +863,9 @@
     <None Include="Resources\carrito_compras_logo.jpg" />
     <None Include="Resources\BOLSA_SHOPPING_LOGO.jpg" />
     <None Include="Resources\LOGO_BASE.png" />
+    <None Include="Resources\bt_entrada_salida_dinero_24.png" />
+    <None Include="Resources\bt_entrada_salida_dinero_32.png" />
+    <None Include="Resources\bt_entrada_salida_dinero_48.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -835,6 +891,9 @@
     <Content Include="Src\Imagenes\bt_eliminar.png" />
     <Content Include="Src\Imagenes\bt_eliminar_uno.png" />
     <Content Include="Src\Imagenes\bt_enEspera.png" />
+    <Content Include="Src\Imagenes\bt_entrada_salida_dinero_24.png" />
+    <Content Include="Src\Imagenes\bt_entrada_salida_dinero_32.png" />
+    <Content Include="Src\Imagenes\bt_entrada_salida_dinero_48.png" />
     <Content Include="Src\Imagenes\bt_gaveta.png" />
     <Content Include="Src\Imagenes\bt_mult.png" />
     <Content Include="Src\Imagenes\bt_notaPendiente.png" />

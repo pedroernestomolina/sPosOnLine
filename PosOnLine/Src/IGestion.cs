@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src
 {
-    
     public interface IGestion
     {
-
         void Inicializa();
         void Inicia();
-
     }
-
 }

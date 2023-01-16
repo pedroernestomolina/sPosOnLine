@@ -601,7 +601,6 @@
         private System.Windows.Forms.Panel panel15;
         private System.Windows.Forms.Label L_ITEMS;
         private System.Windows.Forms.Label label2;
-
     }
 
 }
