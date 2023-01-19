@@ -43,108 +43,71 @@ namespace PosOnLine.Src.MovCaja.Adm
             c1.HeaderCell.Style.Font = f;
             c1.DefaultCellStyle.Font = f1;
 
-            var c9 = new DataGridViewTextBoxColumn();
-            c9.DataPropertyName = "TipoMovDesc";
-            c9.HeaderText = "Tipo Mov";
-            c9.Visible = true;
-            c9.Width = 100;
-            c9.HeaderCell.Style.Font = f;
-            c9.DefaultCellStyle.Font = f1;
-            c9.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
             var c2 = new DataGridViewTextBoxColumn();
-            c2.DataPropertyName = "Documento";
-            c2.HeaderText = "Documento";
+            c2.DataPropertyName = "TipoMovDesc";
+            c2.Name = "TipoMov";
+            c2.HeaderText = "Tipo Mov";
             c2.Visible = true;
             c2.Width = 100;
             c2.HeaderCell.Style.Font = f;
             c2.DefaultCellStyle.Font = f1;
-
-            var c7 = new DataGridViewTextBoxColumn();
-            c7.DataPropertyName = "DocNombre";
-            c7.Name = "DocNombre";
-            c7.HeaderText = "Tipo";
-            c7.Visible = true;
-            c7.Width = 90;
-            c7.HeaderCell.Style.Font = f;
-            c7.DefaultCellStyle.Font = f1;
-            c7.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            var c6 = new DataGridViewTextBoxColumn();
-            c6.DataPropertyName = "Renglones";
-            c6.HeaderText = "# Reng";
-            c6.Visible = true;
-            c6.Width = 40;
-            c6.HeaderCell.Style.Font = f;
-            c6.DefaultCellStyle.Font = f1;
-            c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            c6.DefaultCellStyle.Format = "n0";
-            c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             var c3 = new DataGridViewTextBoxColumn();
-            c3.DataPropertyName = "CiRif";
-            c3.HeaderText = "CiRif";
+            c3.DataPropertyName = "FechaEmision";
+            c3.HeaderText = "Fecha";
             c3.Visible = true;
-            c3.Width = 90;
+            c3.Width = 80;
             c3.HeaderCell.Style.Font = f;
             c3.DefaultCellStyle.Font = f1;
 
+            var c7 = new DataGridViewTextBoxColumn();
+            c7.DataPropertyName = "Monto";
+            c7.HeaderText = "Monto";
+            c7.Visible = true;
+            c7.Width = 80;
+            c7.HeaderCell.Style.Font = f;
+            c7.DefaultCellStyle.Font = f1;
+            c7.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            c7.DefaultCellStyle.Format = "n2";
+
             var c4 = new DataGridViewTextBoxColumn();
-            c4.DataPropertyName = "NombreRazonSocial";
-            c4.HeaderText = "Nombre / Razón Social";
+            c4.DataPropertyName = "MontoDivisaMov";
+            c4.HeaderText = "Monto($)";
             c4.Visible = true;
-            c4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            c4.MinimumWidth = 180;
+            c4.Width = 80;
             c4.HeaderCell.Style.Font = f;
             c4.DefaultCellStyle.Font = f1;
+            c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            c4.DefaultCellStyle.Format = "n2";
 
             var c5 = new DataGridViewTextBoxColumn();
-            c5.DataPropertyName = "Monto";
-            c5.HeaderText = "Importe";
+            c5.DataPropertyName = "ConceptoMov";
+            c5.HeaderText = "Concepto";
             c5.Visible = true;
-            c5.Width = 120;
+            c5.MinimumWidth = 120;
             c5.HeaderCell.Style.Font = f;
             c5.DefaultCellStyle.Font = f1;
-            c5.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            c5.DefaultCellStyle.Format = "n2";
+            c5.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            c5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            var cA = new DataGridViewTextBoxColumn();
-            cA.DataPropertyName = "MontoDivisa";
-            cA.HeaderText = "$";
-            cA.Visible = true;
-            cA.Width = 70;
-            cA.HeaderCell.Style.Font = f;
-            cA.DefaultCellStyle.Font = f1;
-            cA.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            cA.DefaultCellStyle.Format = "n2";
-
-            var c8 = new DataGridViewTextBoxColumn();
-            c8.DataPropertyName = "EstatusDoc";
-            c8.Name = "Estatus";
-            c8.HeaderText = "Estatus";
-            c8.Visible = true;
-            c8.Width = 80;
-            c8.HeaderCell.Style.Font = f;
-            c8.DefaultCellStyle.Font = f1;
-
-            var cB = new DataGridViewTextBoxColumn();
-            cB.DataPropertyName = "Signo";
-            cB.Name = "Signo";
-            cB.HeaderText = "Signo";
-            cB.Visible = false;
-            cB.Width = 10;
+            var c6 = new DataGridViewTextBoxColumn();
+            c6.DataPropertyName = "EstatusMov";
+            c6.Name = "EstatusMov";
+            c6.HeaderText = "Estatus";
+            c6.Visible = true;
+            c6.Width = 70;
+            c6.HeaderCell.Style.Font = f;
+            c6.DefaultCellStyle.Font = f1;
+            c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             DGV.Columns.Add(c1);
-            DGV.Columns.Add(c9);
             DGV.Columns.Add(c2);
-            DGV.Columns.Add(c7);
-            DGV.Columns.Add(c6);
             DGV.Columns.Add(c3);
+            DGV.Columns.Add(c7);
             DGV.Columns.Add(c4);
             DGV.Columns.Add(c5);
-            DGV.Columns.Add(cA);
-            DGV.Columns.Add(c8);
-            DGV.Columns.Add(cB);
+            DGV.Columns.Add(c6);
         }
         private void AdmFrm_Load(object sender, EventArgs e)
         {
@@ -197,6 +160,28 @@ namespace PosOnLine.Src.MovCaja.Adm
         private void ViewMov()
         {
             _controlador.ViewMov();
+        }
+
+        private void DGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in DGV.Rows)
+            {
+                if ((string)row.Cells["EstatusMov"].Value != "")
+                {
+                    row.Cells["EstatusMov"].Style.BackColor = Color.Red;
+                    row.Cells["EstatusMov"].Style.ForeColor = Color.White;
+                }
+                var _tipoMov = (string)row.Cells["TipoMov"].Value;
+                switch (_tipoMov.Trim().ToUpper())
+                { 
+                    case "ENTRADA":
+                        row.Cells["TipoMov"].Style.ForeColor = Color.DarkGreen;
+                        break;
+                    case "SALIDA":
+                        row.Cells["TipoMov"].Style.ForeColor = Color.DarkRed;
+                        break;
+                }
+            }
         }
     }
 }

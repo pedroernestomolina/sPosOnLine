@@ -100,6 +100,9 @@ namespace PosOnLine.Src.MovCaja.Adm
                         IdMov = r01.Entidad.IdMov,
                         NroMov = r01.Entidad.NumeroMov,
                         TipoMov = r01.Entidad.TipoMov,
+                        ConceptoMov = r01.Entidad.ConceptoMov,
+                        FechaEmision = r01.Entidad.FechaMov,
+                        MontoDivisaMov = r01.Entidad.MontoDivisaMov,
                     };
                     _gLista.Agregar(rg);
                 }
@@ -143,6 +146,10 @@ namespace PosOnLine.Src.MovCaja.Adm
                         NroMov = rg.NumeroMov,
                         TipoMov = rg.TipoMov,
                         EstatusAnulado= rg.EstatusAnulado,
+                        ConceptoMov = rg.ConceptoMov,
+                        FechaEmision= rg.FechaMov,
+                        MontoDivisaMov= rg.MontoDivisaMov,
+                        Monto=rg.MontoMov,
                     };
                     _lst.Add(nr);
                 }

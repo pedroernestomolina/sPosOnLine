@@ -240,7 +240,14 @@ namespace PosOnLine.Src.Cierre
         {
             _controlador.VueltosEntregados();
         }
-    
-    }
 
+        private void BT_MOV_CAJA_Click(object sender, EventArgs e)
+        {
+            MovCaja();
+        }
+        private void MovCaja()
+        {
+            _controlador.MovCaja();
+        }
+    }
 }

@@ -416,6 +416,22 @@ namespace PosOnLine.Src.Cierre
             }
         }
 
+        public void MovCaja()
+        {
+            if (!Sistema.Sucursal.isModGastoHabilitado) { return; }
+            var filtro = new OOB.Reportes.Pos.MovCaja.Filtro()
+            {
+                idOperador = Sistema.PosEnUso.id,
+            };
+            var r01 = Sistema.MyData.ReportePos_MovCaja(filtro);
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r01.Mensaje);
+                return;
+            }
+            var rp1 = new Reportes.Cierre.MovCaja.Movimiento(r01.Entidad);
+            rp1.Generar();
+        }
     }
 
 }

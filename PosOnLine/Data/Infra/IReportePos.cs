@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Infra
 {
-    
     public interface IReportePos
     {
-
         OOB.Resultado.Lista<OOB.Reportes.Pos.PagoDetalle.Ficha> 
             ReportePos_PagoDetalle(OOB.Reportes.Pos.Filtro filtro);
         OOB.Resultado.Lista<OOB.Reportes.Pos.PagoResumen.Ficha> 
@@ -19,7 +17,8 @@ namespace PosOnLine.Data.Infra
             ReportePos_PagoMovil(OOB.Reportes.Pos.Filtro filtro);
         OOB.Resultado.Lista<OOB.Reportes.Pos.VueltosEntregados.Ficha>
             ReportePos_VueltosEntregados(OOB.Reportes.Pos.Filtro filtro);
-
+        //
+        OOB.Resultado.FichaEntidad<OOB.Reportes.Pos.MovCaja.Ficha>
+            ReportePos_MovCaja(OOB.Reportes.Pos.MovCaja.Filtro filtro);
     }
-
 }

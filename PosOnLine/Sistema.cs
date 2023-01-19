@@ -58,6 +58,8 @@ namespace PosOnLine
 
         //
         public static string CLAVE_ADMINISTRADOR = "71277128";
+        public static string USUARIO_ADMINISTRATIVO = "ADMINISTRADOR";
+        public static string USUARIO_ADMINISTRATIVO_CLAVE = "ADMIN";
 
         //
         public static string CodigoSucursalActivo;
@@ -87,7 +89,6 @@ namespace PosOnLine
         public static bool Modo_Despliegue_Logo_Base;
         public static bool Modo_Despliegue_Solo_Divisa;
         public static DateTime FechaUltimoBoletinDescargado;
-
     }
 
 }

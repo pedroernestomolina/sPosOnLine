@@ -77,6 +77,29 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="MovCaja" msprop:Generator_TableClassName="MovCajaDataTable" msprop:Generator_TableVarName="tableMovCaja" msprop:Generator_RowChangedName="MovCajaRowChanged" msprop:Generator_TablePropName="MovCaja" msprop:Generator_RowDeletingName="MovCajaRowDeleting" msprop:Generator_RowChangingName="MovCajaRowChanging" msprop:Generator_RowEvHandlerName="MovCajaRowChangeEventHandler" msprop:Generator_RowDeletedName="MovCajaRowDeleted" msprop:Generator_RowClassName="MovCajaRow" msprop:Generator_UserTableName="MovCaja" msprop:Generator_RowEvArgName="MovCajaRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="fecha" msprop:Generator_ColumnVarNameInTable="columnfecha" msprop:Generator_ColumnPropNameInRow="fecha" msprop:Generator_ColumnPropNameInTable="fechaColumn" msprop:Generator_UserColumnName="fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="monto" msprop:Generator_ColumnVarNameInTable="columnmonto" msprop:Generator_ColumnPropNameInRow="monto" msprop:Generator_ColumnPropNameInTable="montoColumn" msprop:Generator_UserColumnName="monto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="montoDivisa" msprop:Generator_ColumnVarNameInTable="columnmontoDivisa" msprop:Generator_ColumnPropNameInRow="montoDivisa" msprop:Generator_ColumnPropNameInTable="montoDivisaColumn" msprop:Generator_UserColumnName="montoDivisa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="concepto" msprop:Generator_ColumnVarNameInTable="columnconcepto" msprop:Generator_ColumnPropNameInRow="concepto" msprop:Generator_ColumnPropNameInTable="conceptoColumn" msprop:Generator_UserColumnName="concepto" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroMov" msprop:Generator_ColumnVarNameInTable="columnnumeroMov" msprop:Generator_ColumnPropNameInRow="numeroMov" msprop:Generator_ColumnPropNameInTable="numeroMovColumn" msprop:Generator_UserColumnName="numeroMov" type="xs:string" minOccurs="0" />
+              <xs:element name="tipoMov" msprop:Generator_ColumnVarNameInTable="columntipoMov" msprop:Generator_ColumnPropNameInRow="tipoMov" msprop:Generator_ColumnPropNameInTable="tipoMovColumn" msprop:Generator_UserColumnName="tipoMov" type="xs:string" minOccurs="0" />
+              <xs:element name="signoMov" msprop:Generator_ColumnVarNameInTable="columnsignoMov" msprop:Generator_ColumnPropNameInRow="signoMov" msprop:Generator_ColumnPropNameInTable="signoMovColumn" msprop:Generator_UserColumnName="signoMov" type="xs:int" minOccurs="0" />
+              <xs:element name="estatus" msprop:Generator_ColumnVarNameInTable="columnestatus" msprop:Generator_ColumnPropNameInRow="estatus" msprop:Generator_ColumnPropNameInTable="estatusColumn" msprop:Generator_UserColumnName="estatus" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MovCajaDet" msprop:Generator_TableClassName="MovCajaDetDataTable" msprop:Generator_TableVarName="tableMovCajaDet" msprop:Generator_TablePropName="MovCajaDet" msprop:Generator_RowDeletingName="MovCajaDetRowDeleting" msprop:Generator_RowChangingName="MovCajaDetRowChanging" msprop:Generator_RowEvHandlerName="MovCajaDetRowChangeEventHandler" msprop:Generator_RowDeletedName="MovCajaDetRowDeleted" msprop:Generator_UserTableName="MovCajaDet" msprop:Generator_RowChangedName="MovCajaDetRowChanged" msprop:Generator_RowEvArgName="MovCajaDetRowChangeEvent" msprop:Generator_RowClassName="MovCajaDetRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="medio" msprop:Generator_ColumnVarNameInTable="columnmedio" msprop:Generator_ColumnPropNameInRow="medio" msprop:Generator_ColumnPropNameInTable="medioColumn" msprop:Generator_UserColumnName="medio" type="xs:string" minOccurs="0" />
+              <xs:element name="monto" msprop:Generator_ColumnVarNameInTable="columnmonto" msprop:Generator_ColumnPropNameInRow="monto" msprop:Generator_ColumnPropNameInTable="montoColumn" msprop:Generator_UserColumnName="monto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cnt" msprop:Generator_ColumnVarNameInTable="columncnt" msprop:Generator_ColumnPropNameInRow="cnt" msprop:Generator_ColumnPropNameInTable="cntColumn" msprop:Generator_UserColumnName="cnt" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

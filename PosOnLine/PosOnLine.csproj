@@ -292,6 +292,10 @@
     <Compile Include="OOB\Producto\Lista\Ficha.cs" />
     <Compile Include="OOB\Producto\Lista\Filtro.cs" />
     <Compile Include="OOB\Reportes\Pos\Filtro.cs" />
+    <Compile Include="OOB\Reportes\Pos\MovCaja\Ficha.cs" />
+    <Compile Include="OOB\Reportes\Pos\MovCaja\FichaDet.cs" />
+    <Compile Include="OOB\Reportes\Pos\MovCaja\FichaMov.cs" />
+    <Compile Include="OOB\Reportes\Pos\MovCaja\Filtro.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoDetalle\Detalle.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoDetalle\Ficha.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoMovil\Ficha.cs" />
@@ -392,6 +396,7 @@
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
+    <Compile Include="Src\Identificacion\ILogin.cs" />
     <Compile Include="Src\ILista.cs" />
     <Compile Include="Src\MovCaja\Adm\AdmFrm.cs">
       <SubType>Form</SubType>
@@ -448,6 +453,7 @@
     <Compile Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.Designer.cs">
       <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Src\Reportes\Cierre\MovCaja\Movimiento.cs" />
     <Compile Include="Src\Reportes\Cierre\VueltosEntregado\Movimiento.cs" />
     <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.cs">
       <SubType>Form</SubType>
@@ -540,7 +546,7 @@
       <DependentUpon>DevolucionFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Devolucion\Gestion.cs" />
-    <Compile Include="Src\Identificacion\Gestion.cs" />
+    <Compile Include="Src\Identificacion\ImpLogin.cs" />
     <Compile Include="Src\Identificacion\IdentificacionFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -718,6 +724,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.resx">
       <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Reportes\MovCaja.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\VueltosEntregado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

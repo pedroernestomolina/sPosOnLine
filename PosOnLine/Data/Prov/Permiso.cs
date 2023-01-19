@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.FichaEntidad<OOB.Permiso.Entidad.Ficha> 
             Permiso_Pos(OOB.Permiso.Buscar.Ficha ficha)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Permiso.Entidad.Ficha>();
-
             var r01 = MyData.Permiso_Pos(ficha.IdGrupoUsuario, ficha.CodigoFuncion);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
@@ -24,7 +21,6 @@ namespace PosOnLine.Data.Prov
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
-
             var ent = r01.Entidad;
             var nr = new OOB.Permiso.Entidad.Ficha()
             {
@@ -33,7 +29,6 @@ namespace PosOnLine.Data.Prov
                 seguridad=ent.seguridad,
             };
             result.Entidad = nr;
-
             return result;
         }
         public OOB.Resultado.FichaEntidad<string> 
@@ -84,7 +79,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

@@ -12,14 +12,13 @@ namespace PosOnLine
     public class Gestion
     {
 
-        private Src.Identificacion.Gestion _gestionIdentifica;
+        private Src.Identificacion.ILogin _gLogin ;
         private Src.Principal.Gestion _gestionPrincipal;
         
 
         public Gestion()
         {
-            _gestionIdentifica = new Src.Identificacion.Gestion();
-            //_gestionPrincipal = new Src.Principal.Gestion();
+            _gLogin = new Src.Identificacion.ImpLogin();
         }
 
 
@@ -31,9 +30,9 @@ namespace PosOnLine
                 Sistema.MyBalanza = new Lib.Controles.BalanzaSoloPeso.BalanzaManual.Balanza();
                 Sistema.EquipoEstacion = Environment.MachineName;
 
-                _gestionIdentifica.Inicializa();
-                _gestionIdentifica.Inicia();
-                if (_gestionIdentifica.IsOk)
+                _gLogin.Inicializa();
+                _gLogin.Inicia();
+                if (_gLogin.LoginIsOk)
                 {
                     _gestionPrincipal = new Src.Principal.Gestion();
                     _gestionPrincipal.Inicializa();

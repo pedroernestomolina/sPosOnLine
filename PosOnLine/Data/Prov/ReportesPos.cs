@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoDetalle.Ficha> 
             ReportePos_PagoDetalle(OOB.Reportes.Pos.Filtro filtro)
         {
@@ -203,7 +201,67 @@ namespace PosOnLine.Data.Prov
 
             return rt;
         }
+        //
+        public OOB.Resultado.FichaEntidad<OOB.Reportes.Pos.MovCaja.Ficha> 
+            ReportePos_MovCaja(OOB.Reportes.Pos.MovCaja.Filtro filtro)
+        {
+            var rt = new OOB.Resultado.FichaEntidad<OOB.Reportes.Pos.MovCaja.Ficha>();
 
+            var filtroDTO = new DtoLibPos.Reportes.POS.MovCaja.Filtro() { idOperador = filtro.idOperador };
+            var r01 = MyData.ReportePos_MovCaja(filtroDTO);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            var _mov = new List<OOB.Reportes.Pos.MovCaja.FichaMov>();
+            var _det= new List<OOB.Reportes.Pos.MovCaja.FichaDet>();
+            if (r01.Entidad.mov != null)
+            {
+                if (r01.Entidad.mov.Count > 0)
+                {
+                    _mov= r01.Entidad.mov.Select(s =>
+                    {
+                        var nr = new OOB.Reportes.Pos.MovCaja.FichaMov()
+                        {
+                            idMov=s.idMov,
+                            numeroMov=s.numeroMov,
+                            conceptoMov = s.conceptoMov,
+                            estatusAnuladoMov = s.estatusAnuladoMov,
+                            factorCambioMov = s.factorCambioMov,
+                            fechaMov = s.fechaMov,
+                            montoDivisaMov = s.montoDivisaMov,
+                            montoMov = s.montoMov,
+                            signoMov = s.signoMov,
+                            tipoMov = s.tipoMov,
+                        };
+                        return nr;
+                    }).ToList();
+                }
+            }
+            if (r01.Entidad.det != null)
+            {
+                if (r01.Entidad.det.Count > 0)
+                {
+                    _det = r01.Entidad.det.Select(s =>
+                    {
+                        var nr = new OOB.Reportes.Pos.MovCaja.FichaDet()
+                        {
+                            cntDivisa = s.cntDivisa,
+                            codigoMed = s.codigoMed,
+                            descMed = s.descMed,
+                            esDivisa = s.esDivisa,
+                            monto = s.monto,
+                        };
+                        return nr;
+                    }).ToList();
+                }
+            }
+            rt.Entidad = new OOB.Reportes.Pos.MovCaja.Ficha()
+            {
+                mov = _mov,
+                det = _det,
+            };
+            return rt;
+        }
     }
-
 }
