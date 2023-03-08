@@ -24,11 +24,23 @@ namespace PosOnLine
 
         public void Inicia()
         {
+            Sistema.SimboloDivisa_AlImprimirTicket = "$";
+            Sistema.ImpresoraFiscal = new Sistema.HndFiscal();
             if (CargarDataXML()) 
             {
                 Sistema.MyData = new DataPrv(Sistema.Instancia, Sistema.BaseDatos);
                 Sistema.MyBalanza = new Lib.Controles.BalanzaSoloPeso.BalanzaManual.Balanza();
                 Sistema.EquipoEstacion = Environment.MachineName;
+                if (Sistema.ImpresoraFiscal.Activar)
+                {
+                    Sistema.FiscalTfhka = new LibFoxFiscal.LibFoxFiscal.Fiscal();
+                    Sistema.FiscalTfhka.SetPuerto(Sistema.ImpresoraFiscal.Puerto);
+                    if (Sistema.ImprimirFactura.IsModoFiscal) 
+                    {
+                        Sistema.ImprimirFactura.setHndFiscal(Sistema.FiscalTfhka);
+                        Sistema.ImprimirNotaCredito.setHndFiscal(Sistema.FiscalTfhka);
+                    }
+                }
 
                 _gLogin.Inicializa();
                 _gLogin.Inicia();

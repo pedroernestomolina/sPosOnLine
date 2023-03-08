@@ -88,24 +88,32 @@ namespace PosOnLine.Helpers
 
                                 if (nv.LocalName.ToUpper().Trim() == "MODOIMPRESIONFACTURA")
                                 {
+                                    Sistema.ModoFiscalActivo = false;
                                     switch (nv.InnerText.Trim().ToUpper())
                                     {
                                         case "G":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Grafico.Documento();
                                             break;
                                         case "F":
+                                            Sistema.ModoFiscalActivo = true;
+                                            Sistema.ImprimirFactura = new Helpers.Imprimir.Fiscal.Documento();
+                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Fiscal.DocumentoNC();
                                             break;
                                         case "T80":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80.Documento();
+                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80.Documento();
                                             break;
                                         case "T80B":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80Basico.Documento();
                                             break;
                                         case "T70":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera70.Documento();
+                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera70.Documento();
                                             break;
                                         case "T58":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
+                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
                                     }
                                 }
@@ -142,18 +150,19 @@ namespace PosOnLine.Helpers
                                             Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Grafico.Documento();
                                             break;
                                         case "F":
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Fiscal.Documento();
                                             break;
                                         case "T80":
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.Documento();
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.Documento();
                                             break;
                                         case "T80B":
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80Basico.Documento();
                                             break;
                                         case "T70":
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera70.Documento();
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera70.Documento();
                                             break;
                                         case "T58":
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera58.Documento();
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
                                     }
                                 }
@@ -247,6 +256,32 @@ namespace PosOnLine.Helpers
                                                 Sistema.Activar_VentasAdm = true;
                                             }
                                         }
+                                    }
+                                }
+                                //DEFINE IMPRESORA FISCAL
+                                if (nv.LocalName.ToUpper().Trim() == "IMPRESORA_FISCAL")
+                                {
+                                    foreach (XmlNode sv in nv.ChildNodes)
+                                    {
+                                        if (sv.LocalName.Trim().ToUpper() == "ACTIVAR")
+                                        {
+                                            if (sv.InnerText.Trim().ToUpper() == "SI")
+                                            {
+                                                Sistema.ImpresoraFiscal.Activar = true;
+                                            }
+                                        }
+                                        if (sv.LocalName.Trim().ToUpper() == "PUERTO")
+                                        {
+                                            Sistema.ImpresoraFiscal.Puerto = int.Parse(sv.InnerText.Trim());
+                                        }
+                                    }
+                                }
+                                //DEFINE EL SIMBOLO DIVISA A USAR PARA IMPRIMIR TICKET
+                                if (nv.LocalName.ToUpper().Trim() == "SIMBOLO_DIVISA_TICKET")
+                                {
+                                    if (nv.InnerText.Trim() != "")
+                                    {
+                                        Sistema.SimboloDivisa_AlImprimirTicket = nv.InnerText.Trim();
                                     }
                                 }
                             }

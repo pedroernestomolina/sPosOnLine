@@ -260,8 +260,19 @@ namespace PosOnLine.Src.Producto.Lista
                 return rt; 
             }
         }
-
-
+        public string GetProducto_Det 
+        {
+            get
+            {
+                var rt="";
+                if (_bs.Current != null) 
+                {
+                    var _item = (data)_bs.Current;
+                    rt = _item.codigo.Trim() + Environment.NewLine + _item.nombre.Trim();
+                }
+                return rt;
+            }
+        }
         private string PrecioBono(decimal montoLocal, decimal montoDivisa) 
         {
             var rt = "";
@@ -387,7 +398,6 @@ namespace PosOnLine.Src.Producto.Lista
                 return rt;
             }
         }
-
     }
 
 }

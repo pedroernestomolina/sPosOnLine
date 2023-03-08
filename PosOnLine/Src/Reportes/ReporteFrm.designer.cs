@@ -48,6 +48,7 @@
             this.Controls.Add(this.reportViewer1);
             this.Name = "ReporteFrm";
             this.Padding = new System.Windows.Forms.Padding(2);
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.ReporteFrm_Load);
             this.ResumeLayout(false);
 

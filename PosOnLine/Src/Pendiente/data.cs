@@ -10,7 +10,6 @@ namespace PosOnLine.Src.Pendiente
     
     public class data
     {
-
         private OOB.Pendiente.Lista.Ficha _it;
 
 
@@ -20,13 +19,12 @@ namespace PosOnLine.Src.Pendiente
         public decimal ImporteDivisa { get { return _it.montoDivisa; } }
         public int Renglones { get { return _it.renglones; } }
         public OOB.Pendiente.Lista.Ficha Ficha { get { return _it; } }
+        public string Usuario { get { return _it.usuDescripcion.Trim(); } }
 
 
         public data(OOB.Pendiente.Lista.Ficha it)
         {
             this._it = it;
         }
-
     }
-
 }

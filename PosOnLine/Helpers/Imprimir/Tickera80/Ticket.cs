@@ -11,7 +11,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
     public class Ticket
     {
-
         public class DatosNegocio
         {
             public string cirif { get; set; }
@@ -215,21 +214,14 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 {
                     get
                     {
-                        //var t = descripcion.Trim();
-                        //if (t.Length >= 30)
-                        //{
-                        //    t = t.Substring(0, 30);
-                        //}
-                        //if (isExento) { t = t + " (E)"; }
-
                         var lst = new List<string>();
                         var t = descripcion.Trim();
                         var l = (int)t.Length / 30;
                         var sw = 0;
                         for (var x = 0; x < l; x++) 
                         {
-                            var xt = t.Substring(30*x, 30*(x+1));
-                            if (isExento && sw==0)
+                            var xt = t.Substring(30 * x, 30);
+                            if (isExento && sw == 0)
                             {
                                 sw = 1;
                                 xt = xt + " (E)";
@@ -259,7 +251,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                         t += cx + " ";
                         t += empDesc.Trim() + "/" + empCont.ToString().Trim();
                         t += " X " + precio.ToString("n2");
-                        t += " X $" + precioDivisa.ToString("n2");
+                        t += " X " + Sistema.SimboloDivisa_AlImprimirTicket + precioDivisa.ToString("n2");
                         return t;
                     }
                 }
@@ -491,13 +483,16 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 l += 10;
                 foreach (var xl in xdes2)
                 {
-                    eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
-                    if (sw == 0)
+                    if (xl.Length > 0)
                     {
-                        eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
-                        sw = 1;
+                        eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
+                        if (sw == 0)
+                        {
+                            eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
+                            sw = 1;
+                        }
+                        l += 10;
                     }
-                    l += 10;
                 }
                 l += 5;
             }
@@ -533,10 +528,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             eg.Graphics.DrawString("TOTAL", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.total, fr, Brushes.Black, dder2(df.total,fr), l);
             l += 10;
-            eg.Graphics.DrawString("TOTAL($)", fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString("TOTAL(" + Sistema.SimboloDivisa_AlImprimirTicket + ")", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.totalDivisa, fr, Brushes.Black, dder2(df.totalDivisa, fr), l);
             l += 10;
-            //eg.Graphics.DrawString("Bono " + df.bonoDivisa, fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.bonoDivisa, fb, Brushes.Black, 0, l);
             l += 10;
             eg.Graphics.DrawString(df.bonoDscto, fb, Brushes.Black, 0, l);
@@ -560,7 +554,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             if (df.vueltoDivisa != "") 
             {
                 l += 10;
-                eg.Graphics.DrawString("Vuelto en Divisa($):", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString("Vuelto en Divisa(" + Sistema.SimboloDivisa_AlImprimirTicket + "):", fr, Brushes.Black, 0, l);
                 eg.Graphics.DrawString(df.vueltoDivisa, fr, Brushes.Black, dder2(df.vueltoDivisa, fr), l);
             }
             if (df.vueltoPagoMovil != "") 
@@ -612,7 +606,5 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 l += 10;
             }
         }
-
     }
-
 }

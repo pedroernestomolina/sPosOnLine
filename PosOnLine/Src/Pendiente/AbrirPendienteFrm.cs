@@ -31,6 +31,7 @@ namespace PosOnLine.Src.Pendiente
             var f = new Font("Serif", 8, FontStyle.Bold);
             var f1 = new Font("Serif", 10, FontStyle.Regular);
 
+            DGV.RowHeadersVisible = false;
             DGV.AllowUserToAddRows = false;
             DGV.AllowUserToDeleteRows = false;
             DGV.AutoGenerateColumns = false;
@@ -41,12 +42,19 @@ namespace PosOnLine.Src.Pendiente
             DGV.MultiSelect = false;
             DGV.ReadOnly = true;
 
+            var c0 = new DataGridViewTextBoxColumn();
+            c0.DataPropertyName = "Usuario";
+            c0.HeaderText = "Usuario";
+            c0.Visible = true;
+            c0.Width = 120;
+            c0.HeaderCell.Style.Font = f;
+            c0.DefaultCellStyle.Font = f;
         
             var c1 = new DataGridViewTextBoxColumn();
             c1.DataPropertyName = "Fecha";
             c1.HeaderText = "Fecha";
             c1.Visible = true;
-            c1.Width = 100;
+            c1.Width = 90;
             c1.HeaderCell.Style.Font = f;
             c1.DefaultCellStyle.Font = f1;
 
@@ -74,7 +82,7 @@ namespace PosOnLine.Src.Pendiente
             c5.DataPropertyName = "ImporteDivisa";
             c5.HeaderText = "$";
             c5.Visible = true;
-            c5.Width = 80;
+            c5.Width = 90;
             c5.HeaderCell.Style.Font = f;
             c5.DefaultCellStyle.Font = f1;
             c5.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -82,14 +90,15 @@ namespace PosOnLine.Src.Pendiente
 
             var c4 = new DataGridViewTextBoxColumn();
             c4.DataPropertyName = "Renglones";
-            c4.HeaderText = "Renglones";
+            c4.HeaderText = "#Reng";
             c4.Visible = true;
-            c4.Width = 80;
+            c4.Width = 70;
             c4.HeaderCell.Style.Font = f;
             c4.DefaultCellStyle.Font = f1;
             c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             c4.DefaultCellStyle.Format = "n0";
 
+            DGV.Columns.Add(c0);
             DGV.Columns.Add(c1);
             DGV.Columns.Add(c2);
             DGV.Columns.Add(c3);

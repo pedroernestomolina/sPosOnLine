@@ -53,6 +53,10 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LibFoxFiscal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Fiscal\LibFoxFiscal.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="MySql.Data, Version=6.8.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -78,6 +82,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TfhkaNet, Version=1.7.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Fiscal\TfhkaNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Infra\IAgencia.cs" />
@@ -126,6 +134,7 @@
     <Compile Include="Helpers\Imprimir\dataCuadre.cs" />
     <Compile Include="Helpers\Imprimir\dataQR.cs" />
     <Compile Include="Helpers\Imprimir\Fiscal\Documento.cs" />
+    <Compile Include="Helpers\Imprimir\Fiscal\DocumentoNC.cs" />
     <Compile Include="Helpers\Imprimir\Grafico\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Grafico\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Grafico\ds1.Designer.cs">
@@ -379,13 +388,21 @@
       <DependentUpon>CambioPrecioFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\CambioPrecio\ICambioPrecio.cs" />
-    <Compile Include="Src\Cierre\CierreFrm.cs">
+    <Compile Include="Src\Cierre\NoFiscal\CierreFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Src\Cierre\CierreFrm.Designer.cs">
+    <Compile Include="Src\Cierre\NoFiscal\CierreFrm.Designer.cs">
       <DependentUpon>CierreFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Cierre\Gestion.cs" />
+    <Compile Include="Src\Cierre\Fiscal\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Cierre\Fiscal\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Cierre\Fiscal\ICierre.cs" />
+    <Compile Include="Src\Cierre\Fiscal\ImpCierre.cs" />
+    <Compile Include="Src\Cierre\NoFiscal\Gestion.cs" />
     <Compile Include="Src\Cierre\Historico\data.cs" />
     <Compile Include="Src\Cierre\Historico\dataCierre.cs" />
     <Compile Include="Src\Cierre\Historico\Historia.cs" />
@@ -396,6 +413,7 @@
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
+    <Compile Include="Src\Cierre\NoFiscal\INoFiscal.cs" />
     <Compile Include="Src\Identificacion\ILogin.cs" />
     <Compile Include="Src\ILista.cs" />
     <Compile Include="Src\MovCaja\Adm\AdmFrm.cs">
@@ -704,8 +722,11 @@
     <EmbeddedResource Include="Src\CambioPrecio\CambioPrecioFrm.resx">
       <DependentUpon>CambioPrecioFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\Cierre\CierreFrm.resx">
+    <EmbeddedResource Include="Src\Cierre\NoFiscal\CierreFrm.resx">
       <DependentUpon>CierreFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Cierre\Fiscal\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Cierre\Historico\HistoriaFrm.resx">
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
@@ -875,6 +896,8 @@
     <None Include="Resources\bt_entrada_salida_dinero_24.png" />
     <None Include="Resources\bt_entrada_salida_dinero_32.png" />
     <None Include="Resources\bt_entrada_salida_dinero_48.png" />
+    <Content Include="Lib\Fiscal\LibFoxFiscal.dll" />
+    <Content Include="Lib\Fiscal\TfhkaNet.dll" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />

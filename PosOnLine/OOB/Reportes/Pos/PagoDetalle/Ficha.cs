@@ -31,7 +31,7 @@ namespace PosOnLine.OOB.Reportes.Pos.PagoDetalle
         {
             get 
             {
-                return (docTipo.Trim().ToUpper() == "FAC" || docTipo.Trim().ToUpper() == "NCR");
+                return (docTipo.Trim().ToUpper() == "FAC" || docTipo.Trim().ToUpper() == "NCR" || docTipo.Trim().ToUpper() == "NEN");
             }
         }
 

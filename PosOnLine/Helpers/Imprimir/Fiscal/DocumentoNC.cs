@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace PosOnLine.Helpers.Imprimir.Fiscal
 {
-    public class Documento: IDocumento
+    public class DocumentoNC : IDocumento
     {
         private data _ds;
         private LibFoxFiscal.LibFoxFiscal.IFiscal _fiscal;
 
 
-        public Documento()
+        public DocumentoNC()
         {
         }
 
@@ -29,7 +28,7 @@ namespace PosOnLine.Helpers.Imprimir.Fiscal
             {
                 var doc = new LibFoxFiscal.LibFoxFiscal.ReImprimir();
                 doc.Documento = _ds.encabezado.DocumentoNro;
-                doc.Tipo = LibFoxFiscal.LibFoxFiscal.EnumTipoDocumento.Factura;
+                doc.Tipo = LibFoxFiscal.LibFoxFiscal.EnumTipoDocumento.NCredito;
                 var f01 = _fiscal.ReImprimirDocumento(doc);
             }
             catch (Exception e)
@@ -61,18 +60,18 @@ namespace PosOnLine.Helpers.Imprimir.Fiscal
 
         private void Imprimir()
         {
-            var _ficha = new LibFoxFiscal.LibFoxFiscal.Factura()
+            var _ficha = new LibFoxFiscal.LibFoxFiscal.NCredito()
             {
                 CargoGlobal = 0m,
                 CiRif = _ds.encabezado.CiRifCli,
-                CondicionPago = _ds.encabezado.DocumentoCondicionPago,
                 Direccion = _ds.encabezado.DireccionCli,
                 DsctoGlobal = 0m,
-                Estacion = _ds.encabezado.EstacionEquipo,
                 NombreRazonSocial = _ds.encabezado.NombreCli,
                 Telefono = "",
-                Total = _ds.encabezado.Total,
-                Usuario = _ds.encabezado.Usuario,
+                Monto = _ds.encabezado.Total,
+                DocumentoFiscalAfecta = _ds.encabezado.DocumentoAplica,
+                FechaDocumentoAfecta = _ds.encabezado.DocumentoFecha.Date.ToShortDateString(),
+                SerialFiscalDocumentoAfecta = _ds.encabezado.DocumentoAplica_SerialFiscal,
             };
             var _lstDet = new List<LibFoxFiscal.LibFoxFiscal.IFacturaDetalles>();
             foreach (var rg in _ds.item)
@@ -100,7 +99,7 @@ namespace PosOnLine.Helpers.Imprimir.Fiscal
             _ficha.MediosPago = _lstMP;
             try
             {
-                var r01 = _fiscal.Factura(_ficha);
+                var r01 = _fiscal.NCredito(_ficha);
                 if (r01.Resultado == LibFoxFiscal.Resultado.EnumResultado.ERROR)
                 {
                     throw new Exception(r01.MensajeError);

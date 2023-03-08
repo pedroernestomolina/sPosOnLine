@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace PosOnLine.Src.Cierre
+namespace PosOnLine.Src.Cierre.NoFiscal
 {
 
     public partial class CierreFrm : Form

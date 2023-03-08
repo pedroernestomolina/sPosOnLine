@@ -10,10 +10,8 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Helpers.Imprimir.Grafico
 {
-
     public class Documento: IDocumento
     {
-
         private data _ds;
 
 
@@ -101,13 +99,15 @@ namespace PosOnLine.Helpers.Imprimir.Grafico
 
         //
         public bool IsModoTicket { get { return false; } }
+        public bool IsModoFiscal { get { return false; } }
         public void setControlador(System.Drawing.Printing.PrintPageEventArgs e)
         {
         }
         public void setEmpresa(OOB.Sistema.Empresa.Ficha ficha)
         {
         }
-
+        public void setHndFiscal(LibFoxFiscal.LibFoxFiscal.IFiscal hndFiscal)
+        {
+        }
     }
-
 }

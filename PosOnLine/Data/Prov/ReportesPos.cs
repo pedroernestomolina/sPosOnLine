@@ -192,6 +192,7 @@ namespace PosOnLine.Data.Prov
                             montoVueltoDivisa = s.montoVueltoDivisa,
                             montoVueltoEfectivo = s.montoVueltoEfectivo,
                             montoVueltoPagoMovil = s.montoVueltoPagoMovil,
+                            siglasDoc=s.siglasDoc,
                         };
                         return nr;
                     }).ToList();

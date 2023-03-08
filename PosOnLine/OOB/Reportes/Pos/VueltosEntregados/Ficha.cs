@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PosOnLine.OOB.Reportes.Pos.VueltosEntregados
 {
-    
     public class Ficha
     {
-
         public string documento { get; set; }
         public string esAnulado { get; set; }
         public DateTime fecha { get; set; }
@@ -23,6 +22,8 @@ namespace PosOnLine.OOB.Reportes.Pos.VueltosEntregados
         public decimal montoVueltoDivisa { get; set; }
         public decimal montoVueltoPagoMovil { get; set; }
         public int cntVueltoDivisa { get; set; }
+        public string siglasDoc { get; set; }
+        public bool isAnulado { get { return esAnulado.Trim().ToUpper() == "1"; } }
 
 
         public Ficha()
@@ -40,11 +41,7 @@ namespace PosOnLine.OOB.Reportes.Pos.VueltosEntregados
             montoVueltoDivisa = 0m;
             montoVueltoPagoMovil = 0m;
             cntVueltoDivisa = 0;
+            siglasDoc = "";
         }
-
-
-        public bool isAnulado { get { return esAnulado.Trim().ToUpper() == "1"; } }
-
     }
-
 }

@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.Ficha 
             Pendiente_DejarCta(OOB.Pendiente.DejarCta.Ficha ficha)
         {
@@ -72,7 +70,6 @@ namespace PosOnLine.Data.Prov
             Pendiente_Lista(OOB.Pendiente.Lista.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Pendiente.Lista.Ficha>();
-
             var filtroDTO = new DtoLibPos.Pendiente.Lista.Filtro();
             if (filtro.idOperador !=-1)
             {
@@ -81,9 +78,7 @@ namespace PosOnLine.Data.Prov
             var r01 = MyData.Pendiente_Lista(filtroDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                throw new Exception(r01.Mensaje);
             }
             var lst = new List<OOB.Pendiente.Lista.Ficha>();
             if (r01.Lista != null) 
@@ -103,10 +98,11 @@ namespace PosOnLine.Data.Prov
                             renglones = s.renglones,
                             fecha = s.fecha,
                             hora = s.hora,
-                            //
                             idSucursal = s.idSucursal,
                             idDeposito = s.idDeposito,
                             idVendedor = s.idVendedor,
+                            usuCodigo = s.usuCod,
+                            usuDescripcion = s.usuDesc,
                         };
                         return nr;
                     }).ToList();
@@ -131,7 +127,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

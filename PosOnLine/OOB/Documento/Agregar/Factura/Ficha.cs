@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Documento.Agregar.Factura
 {
-    
     public class Ficha
     {
-
         public int idOperador { get; set; }
         public string DocumentoNro { get; set; }
         public string RazonSocial { get; set; }
@@ -130,6 +128,8 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public int CantDivisaPorVueltoEnDivisa { get; set; }
         public string estatusPorBonoPorPagoDivisa { get; set; }
         public string estatusPorVueltoEnPagoMovil { get; set; }
+        public bool estatusFiscal { get; set; }
+        public int zFiscal { get; set; }
 
 
         public Ficha()
@@ -252,8 +252,9 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             CantDivisaPorVueltoEnDivisa = 0;
             estatusPorBonoPorPagoDivisa = "0";
             estatusPorVueltoEnPagoMovil = "0";
+            //
+            estatusFiscal = false;
+            zFiscal = -1;
         }
-
     }
-
 }

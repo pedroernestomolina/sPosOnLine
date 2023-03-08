@@ -66,7 +66,7 @@
             this.panel9.Margin = new System.Windows.Forms.Padding(1);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(3);
-            this.panel9.Size = new System.Drawing.Size(674, 54);
+            this.panel9.Size = new System.Drawing.Size(774, 54);
             this.panel9.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -83,18 +83,18 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(668, 48);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(768, 48);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel6
             // 
             this.panel6.Controls.Add(this.BT_SALIDA);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(502, 1);
+            this.panel6.Location = new System.Drawing.Point(577, 1);
             this.panel6.Margin = new System.Windows.Forms.Padding(1);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(2);
-            this.panel6.Size = new System.Drawing.Size(165, 46);
+            this.panel6.Size = new System.Drawing.Size(190, 46);
             this.panel6.TabIndex = 0;
             // 
             // BT_SALIDA
@@ -106,7 +106,7 @@
             this.BT_SALIDA.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.BT_SALIDA.Location = new System.Drawing.Point(2, 2);
             this.BT_SALIDA.Name = "BT_SALIDA";
-            this.BT_SALIDA.Size = new System.Drawing.Size(161, 42);
+            this.BT_SALIDA.Size = new System.Drawing.Size(186, 42);
             this.BT_SALIDA.TabIndex = 1;
             this.BT_SALIDA.Text = "Salida";
             this.BT_SALIDA.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -121,7 +121,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(674, 61);
+            this.panel1.Size = new System.Drawing.Size(774, 61);
             this.panel1.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -140,7 +140,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(674, 61);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(774, 61);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel3
@@ -151,7 +151,7 @@
             this.panel3.Margin = new System.Windows.Forms.Padding(1);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(2);
-            this.panel3.Size = new System.Drawing.Size(534, 59);
+            this.panel3.Size = new System.Drawing.Size(634, 59);
             this.panel3.TabIndex = 1;
             // 
             // label1
@@ -161,7 +161,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(2, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(530, 55);
+            this.label1.Size = new System.Drawing.Size(630, 55);
             this.label1.TabIndex = 0;
             this.label1.Text = "Abrir Cta En Pendiente";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -191,7 +191,7 @@
             // 
             this.panel5.Controls.Add(this.BT_ABRIR);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(613, 1);
+            this.panel5.Location = new System.Drawing.Point(713, 1);
             this.panel5.Margin = new System.Windows.Forms.Padding(1);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(4);
@@ -219,7 +219,7 @@
             this.panel4.Location = new System.Drawing.Point(0, 61);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(4);
-            this.panel4.Size = new System.Drawing.Size(674, 416);
+            this.panel4.Size = new System.Drawing.Size(774, 416);
             this.panel4.TabIndex = 0;
             // 
             // DGV
@@ -228,7 +228,7 @@
             this.DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGV.Location = new System.Drawing.Point(4, 4);
             this.DGV.Name = "DGV";
-            this.DGV.Size = new System.Drawing.Size(666, 408);
+            this.DGV.Size = new System.Drawing.Size(766, 408);
             this.DGV.TabIndex = 0;
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
@@ -238,7 +238,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BT_SALIDA;
-            this.ClientSize = new System.Drawing.Size(674, 531);
+            this.ClientSize = new System.Drawing.Size(774, 531);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel9);

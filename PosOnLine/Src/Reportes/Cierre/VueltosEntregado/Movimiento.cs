@@ -33,7 +33,7 @@ namespace PosOnLine.Src.Reportes.Cierre.VueltosEntregado
                 if (rg.isAnulado) continue;
 
                 DataRow p = ds.Tables["VueltosEnt"].NewRow();
-                p["documento"] = rg.documento;
+                p["documento"] = rg.documento + Environment.NewLine + rg.siglasDoc;
                 p["fechaHora"] = rg.fecha.ToShortDateString() + Environment.NewLine + rg.hora;
                 p["entNombre"] = rg.entNombre;
                 p["entDir"] = rg.entDir;

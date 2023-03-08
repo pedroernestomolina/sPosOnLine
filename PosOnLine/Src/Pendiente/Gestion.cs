@@ -58,26 +58,26 @@ namespace PosOnLine.Src.Pendiente
 
         private bool CargarData()
         {
-            var rt = true;
-
-            var filtro = new OOB.Pendiente.Lista.Filtro(); 
-            if (!Sistema.ModoAbrirDocPendOtrosUsuarios) 
+            try
             {
-                filtro.idOperador = Sistema.PosEnUso.id; 
-            };
-            var r01 = Sistema.MyData.Pendiente_Lista(filtro);
-            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                _bl.Clear();
+                var filtro = new OOB.Pendiente.Lista.Filtro();
+                if (!Sistema.ModoAbrirDocPendOtrosUsuarios)
+                {
+                    filtro.idOperador = Sistema.PosEnUso.id;
+                };
+                var r01 = Sistema.MyData.Pendiente_Lista(filtro);
+                foreach (var it in r01.ListaD)
+                {
+                    _bl.Add(new data(it));
+                }
+                return true;
+            }
+            catch (Exception e)
             {
-                Helpers.Msg.Error(r01.Mensaje);
+                Helpers.Msg.Error(e.Message);
                 return false;
             }
-            _bl.Clear();
-            foreach (var it in r01.ListaD) 
-            {
-                _bl.Add(new data(it));
-            }
-
-            return rt;
         }
 
 

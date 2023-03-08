@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir
 {
-    
     public class data
     {
-
         public class Negocio 
         {
             public string Nombre { get; set; }
@@ -109,6 +107,9 @@ namespace PosOnLine.Helpers.Imprimir
                 BonoPorPagoDivisa = 0m;
                 MontoBonoPorPagoDivisa = 0m;
                 CntDivisaAplicaBonoPorPagoDivisa = 0m;
+                //
+                DocumentoAplica_Fecha = DateTime.Now;
+                DocumentoAplica_SerialFiscal = "";
             }
             public decimal VueltoEfectivo { get; set; }
             public decimal VueltoDivisa { get; set; }
@@ -118,6 +119,9 @@ namespace PosOnLine.Helpers.Imprimir
             public decimal BonoPorPagoDivisa { get; set; }
             public decimal MontoBonoPorPagoDivisa { get; set; }
             public decimal CntDivisaAplicaBonoPorPagoDivisa { get; set; }
+            //
+            public string DocumentoAplica_SerialFiscal { get; set; }
+            public DateTime DocumentoAplica_Fecha { get; set; }
         }
 
         public class Item
@@ -209,7 +213,5 @@ namespace PosOnLine.Helpers.Imprimir
         public List<MetodoPago> metodoPago { get; set; }
         public List<MedidaEmp> medidaEmp { get; set; }
         public bool isAnulado { get; set; }
-
     }
-
 }

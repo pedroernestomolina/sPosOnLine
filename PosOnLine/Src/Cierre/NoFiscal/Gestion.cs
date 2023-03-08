@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace PosOnLine.Src.Cierre
+namespace PosOnLine.Src.Cierre.NoFiscal
 {
     
-    public class Gestion
+    public class Gestion: INoFiscal
     {
 
         private bool _cierreOk; 

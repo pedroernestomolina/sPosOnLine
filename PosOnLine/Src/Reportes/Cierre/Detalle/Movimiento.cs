@@ -51,7 +51,7 @@ namespace PosOnLine.Src.Reportes.Cierre.Detalle
                 {
                     DataRow p = ds.Tables["Pago"].NewRow();
                     p["id1"] = xid.ToString().Trim().PadLeft(4, '0');
-                    p["documento"] = rg.docNumero;
+                    p["documento"] = rg.docNumero + Environment.NewLine+rg.docTipo;
                     p["fechaHora"] = rg.docHora + Environment.NewLine + rg.docFecha.ToShortDateString();
                     p["nombreRazonSocial"] = rg.cliCiRif + Environment.NewLine + rg.cliNombre;
                     p["dirFiscal"] = rg.cliDir;

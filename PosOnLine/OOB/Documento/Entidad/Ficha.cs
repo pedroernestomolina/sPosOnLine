@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Documento.Entidad
 {
-    
     public class Ficha
     {
-
         public string Auto { get; set; }
         public string DocumentoNro { get; set; }
         public DateTime Fecha { get; set; }
@@ -126,6 +124,9 @@ namespace PosOnLine.OOB.Documento.Entidad
         public decimal BonoPorPagoDivisa { get; set; }
         public decimal MontoBonoPorPagoDivisa { get; set; }
         public decimal CntDivisaAplicaBonoPorPagoDivisa { get; set; }
+        //
+        public string estatusFiscal { get; set; }
+        public bool IsFiscal { get { return estatusFiscal.Trim().ToUpper() == "1"; } }
 
 
         public Ficha()
@@ -240,9 +241,9 @@ namespace PosOnLine.OOB.Documento.Entidad
             BonoPorPagoDivisa = 0m;
             MontoBonoPorPagoDivisa = 0m;
             CntDivisaAplicaBonoPorPagoDivisa = 0m;
+            //
+            estatusFiscal = "";
         }
         public bool isContado { get { return CondicionPago.Trim().ToUpper() == "CONTADO"; } }
-
     }
-
 }

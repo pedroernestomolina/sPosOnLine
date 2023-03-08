@@ -17,7 +17,6 @@ namespace PosOnLine.Src.Principal
         private PassWord.Gestion _gestionPassW;
         private AdministradorDoc.Principal.Gestion _gestionDoc;
         private Anular.IAnular _gestionAnular;
-        private Cierre.Gestion _gestionCierre;
         private Configuracion.Gestion _gestionCnf;
         private Configuracion.SucursalDeposito.Gestion _gestionCnfSucDeposito;
         private Pos.ICliente _gCliente;
@@ -86,7 +85,6 @@ namespace PosOnLine.Src.Principal
         {
             _gestionCnf = new Configuracion.Gestion();
             _gestionCnfSucDeposito = new Configuracion.SucursalDeposito.Gestion();
-            _gestionCierre = new Cierre.Gestion();
             _gestionAnular = new Anular.ImpAnular();
             _gestionDoc = new AdministradorDoc.Principal.Gestion();
             _gestionDoc.setGestionAnular(_gestionAnular);
@@ -261,6 +259,8 @@ namespace PosOnLine.Src.Principal
             }
         }
 
+        private Cierre.Fiscal.ICierre _cierrePosFiscal;
+        private Cierre.NoFiscal.INoFiscal _cierrePosNoFiscal;
         public void CerrarPos()
         {
             if (Sistema.PosEnUso.IsEnUso)
@@ -270,14 +270,30 @@ namespace PosOnLine.Src.Principal
                     Helpers.Msg.Error("USUARIO ACTUAL NO PUEDE CERRAR POS" + Environment.NewLine + "EXISTE UNA JORNADA ABIERTA DE OTRO OPERADOR");
                     return;
                 }
-
                 if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosCerrarPos))
                 {
-                    _gestionCierre.Inicializa();
-                    _gestionCierre.Inicia();
-                    if (_gestionCierre.CierreIsOk)
+                    if (_cierrePosNoFiscal == null) 
                     {
-                        Helpers.Msg.OK("OPERADOR CERRRADO EXITOSAMENTE !!!!!");
+                        _cierrePosNoFiscal = new Cierre.NoFiscal.Gestion();
+                    }
+                    if (Sistema.ModoFiscalActivo)
+                    {
+                        if (_cierrePosFiscal == null) 
+                        {
+                            _cierrePosFiscal = new Cierre.Fiscal.ImpCierre(_cierrePosNoFiscal,
+                                                                            Sistema.FiscalTfhka);
+                        }
+                        _cierrePosFiscal.Inicializa();
+                        _cierrePosFiscal.Inicia();
+                    }
+                    else 
+                    {
+                        _cierrePosNoFiscal.Inicializa();
+                        _cierrePosNoFiscal.Inicia();
+                        if (_cierrePosNoFiscal.CierreIsOk)
+                        {
+                            Helpers.Msg.OK("OPERADOR CERRRADO EXITOSAMENTE !!!!!");
+                        }
                     }
                 }
             }

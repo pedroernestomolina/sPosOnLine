@@ -1,4 +1,4 @@
-﻿namespace PosOnLine.Src.Cierre 
+﻿namespace PosOnLine.Src.Cierre.NoFiscal
 {
     partial class CierreFrm
     {
@@ -189,9 +189,9 @@
             this.BT_PAGO_RESUMEN = new System.Windows.Forms.Button();
             this.panel56 = new System.Windows.Forms.Panel();
             this.BT_VUELTOS_ENTREGADOS = new System.Windows.Forms.Button();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.panel57 = new System.Windows.Forms.Panel();
             this.BT_MOV_CAJA = new System.Windows.Forms.Button();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -2271,10 +2271,6 @@
             this.BT_VUELTOS_ENTREGADOS.UseVisualStyleBackColor = true;
             this.BT_VUELTOS_ENTREGADOS.Click += new System.EventHandler(this.BT_VUELTOS_ENTREGADOS_Click);
             // 
-            // printDocument1
-            // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
             // panel57
             // 
             this.panel57.Controls.Add(this.BT_MOV_CAJA);
@@ -2301,6 +2297,10 @@
             this.BT_MOV_CAJA.UseVisualStyleBackColor = true;
             this.BT_MOV_CAJA.Click += new System.EventHandler(this.BT_MOV_CAJA_Click);
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
             // CierreFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2313,6 +2313,7 @@
             this.KeyPreview = true;
             this.Name = "CierreFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CierreFrm_FormClosing);
             this.Load += new System.EventHandler(this.CierreFrm_Load);
             this.panel1.ResumeLayout(false);

@@ -66,7 +66,7 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
         public void setData(List<OOB.Documento.Lista.Ficha> list)
         {
             _bl.Clear();
-            foreach (var it in list.OrderByDescending(o=>o.FechaEmision.Date).ThenByDescending(o=>o.DocNumero).ToList()) 
+            foreach (var it in list.OrderBy(o=>o.Serie).ThenByDescending(o=>o.FechaEmision.Date).ThenByDescending(o=>o.DocNumero).ToList()) 
             {
                 _bl.Add(new data(it));
             }
@@ -78,7 +78,7 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
             if (_bs.Current != null)
             {
                 var it = (data)_bs.Current;
-                if (it.DocTipo == data.enumTipoDoc.Factura)
+                if (it.DocTipo == data.enumTipoDoc.Factura || it.DocTipo == data.enumTipoDoc.NotaEntrega)
                 {
                     if (!it.IsAnulado)
                     {
@@ -105,6 +105,11 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
             if (_bs.Current != null)
             {
                 var it = (data)_bs.Current;
+                if (it.IsFiscal)
+                {
+                    Helpers.Msg.Error("DOCUMENTO FISCAL NO PUEDE SER ANULADO");
+                    return false;
+                }
                 if (!it.IsAnulado)
                 {
                     _docAplicaParaAnulacion = it;
@@ -116,7 +121,6 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                     return false;
                 }
             }
-
             return rt;
         }
 

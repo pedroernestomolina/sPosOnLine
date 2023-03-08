@@ -11,11 +11,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir.Tickera70
 {
-
-
     public class Documento : IDocumento
     {
-
         private data _ds;
         private Ticket _tick;
         private string _data;
@@ -157,11 +154,11 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
             var _imagenTemporal = new Bitmap(ms);
             _imagenQR = new Bitmap(_imagenTemporal, new Size(new Point(100, 100)));
         }
-
-
         //
         public bool IsModoTicket { get { return true; } }
-
+        public bool IsModoFiscal { get { return false; } }
+        public void setHndFiscal(LibFoxFiscal.LibFoxFiscal.IFiscal hndFiscal)
+        {
+        }
     }
-
 }

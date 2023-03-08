@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Documento.Lista
 {
-    
     public class Ficha
     {
-
         public string Id { get; set; }
         public string DocNumero { get; set; }
         public string Control { get; set; }
@@ -26,7 +24,9 @@ namespace PosOnLine.OOB.Documento.Lista
         public string DocNombre { get; set; }
         public string DocCodigo { get; set; }
         public int DocSigno { get; set; }
+        public string estatusFiscal { get; set; }
         public bool IsActivo { get { return Estatus.Trim().ToUpper() == "0" ? true : false; } }
+        public bool IsFiscal { get { return estatusFiscal.Trim().ToUpper() == "1"; } }
         public string DocSiglas
         {
             get
@@ -66,8 +66,7 @@ namespace PosOnLine.OOB.Documento.Lista
             DocNombre = "";
             DocCodigo = "";
             DocSigno = 1;
+            estatusFiscal = "";
         }
-
     }
-
 }

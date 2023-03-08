@@ -14,7 +14,6 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
     public partial class AdmDocFrm : Form
     {
-
         private Gestion _controlador;
 
 
@@ -29,7 +28,10 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
         {
             var f = new Font("Serif", 8, FontStyle.Bold);
             var f1 = new Font("Serif", 9, FontStyle.Regular);
+            var f2 = new Font("Serif", 7, FontStyle.Bold);
 
+            DGV.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            DGV.RowHeadersVisible = false;
             DGV.AllowUserToAddRows = false;
             DGV.AllowUserToDeleteRows = false;
             DGV.AutoGenerateColumns = false;
@@ -44,7 +46,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             c1.DataPropertyName = "FechaHora";
             c1.HeaderText = "Fecha/Hora";
             c1.Visible = true;
-            c1.Width = 120;
+            c1.Width = 110;
             c1.HeaderCell.Style.Font = f;
             c1.DefaultCellStyle.Font = f1;
 
@@ -52,7 +54,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             c9.DataPropertyName = "Serie";
             c9.HeaderText = "Serie";
             c9.Visible = true;
-            c9.Width = 60;
+            c9.Width = 50;
             c9.HeaderCell.Style.Font = f;
             c9.DefaultCellStyle.Font = f1;
             c9.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -61,7 +63,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             c2.DataPropertyName = "Documento";
             c2.HeaderText = "Documento";
             c2.Visible = true;
-            c2.Width = 100;
+            c2.Width = 90;
             c2.HeaderCell.Style.Font = f;
             c2.DefaultCellStyle.Font = f1;
 
@@ -70,9 +72,9 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             c7.Name = "DocNombre";
             c7.HeaderText = "Tipo";
             c7.Visible = true;
-            c7.Width = 90;
+            c7.Width = 100;
             c7.HeaderCell.Style.Font = f;
-            c7.DefaultCellStyle.Font = f1;
+            c7.DefaultCellStyle.Font = f2;
             c7.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             var c6 = new DataGridViewTextBoxColumn();
@@ -99,9 +101,9 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             c4.HeaderText = "Nombre / Razón Social";
             c4.Visible = true;
             c4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            c4.MinimumWidth = 180;
+            c4.MinimumWidth = 120;
             c4.HeaderCell.Style.Font = f;
-            c4.DefaultCellStyle.Font = f1;
+            c4.DefaultCellStyle.Font = f2;
 
             var c5 = new DataGridViewTextBoxColumn();
             c5.DataPropertyName = "Monto";
@@ -117,7 +119,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             cA.DataPropertyName = "MontoDivisa";
             cA.HeaderText = "$";
             cA.Visible = true;
-            cA.Width = 70;
+            cA.Width = 80;
             cA.HeaderCell.Style.Font = f;
             cA.DefaultCellStyle.Font = f1;
             cA.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -128,9 +130,10 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             c8.Name = "Estatus";
             c8.HeaderText="Estatus";
             c8.Visible = true;
-            c8.Width = 80;
+            c8.Width = 100;
             c8.HeaderCell.Style.Font = f;
             c8.DefaultCellStyle.Font = f1;
+            c8.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             var cB = new DataGridViewTextBoxColumn();
             cB.DataPropertyName = "Signo";
@@ -158,6 +161,14 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             DGV.DataSource = _controlador.Source;
             DGV.Refresh();
             printDialog1.Document = printDocument1;
+        }
+        private void AdmDocFrm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.Control && e.KeyCode == Keys.N)
+            {
+                _controlador.ActualizarModoDoc();
+                L_ITEMS.Text = _controlador.TotItems;
+            }
         }
 
         private void IrFocoPrincipal()
@@ -256,8 +267,8 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
 
                 if ((int)row.Cells["Signo"].Value ==-1)
                 {
-                    row.Cells["DocNombre"].Style.BackColor = Color.Red;
-                    row.Cells["DocNombre"].Style.ForeColor = Color.White;
+                    row.Cells["DocNombre"].Style.BackColor = Color.Yellow;
+                    row.Cells["DocNombre"].Style.ForeColor = Color.Black;
                 }
             }
         }
@@ -281,7 +292,5 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
         {
             _controlador = ctr;
         }
-
     }
-
 }

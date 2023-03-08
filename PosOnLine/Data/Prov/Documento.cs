@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-
     public partial class DataPrv : IData
     {
-
-
         public OOB.Resultado.Lista<OOB.Documento.Lista.Ficha> 
             Documento_Get_Lista(OOB.Documento.Lista.Filtro filtro)
         {
@@ -54,6 +51,7 @@ namespace PosOnLine.Data.Prov
                             Renglones = s.Renglones,
                             Serie = s.Serie,
                             MontoDivisa=s.MontoDivisa,
+                            estatusFiscal= s.estatusFiscal,
                         };
                         return nr;
                     }).ToList();
@@ -190,6 +188,8 @@ namespace PosOnLine.Data.Prov
                 MontoBonoPorPagoDivisa = s.MontoBonoPorPagoDivisa,
                 CntDivisaAplicaBonoPorPagoDivisa = s.CntDivisaAplicaBonoPorPagoDivisa,
                 //
+                estatusFiscal= s.estatusFiscal,
+                //
                 items = s.items.Select(ss =>
                 {
                     var xr = new OOB.Documento.Entidad.FichaItem()
@@ -316,7 +316,6 @@ namespace PosOnLine.Data.Prov
             return result;
         }
 
-
         public OOB.Resultado.FichaEntidad<OOB.Documento.Agregar.Factura.Result>
             Documento_Agregar_Factura(OOB.Documento.Agregar.Factura.Ficha ficha)
         {
@@ -324,7 +323,7 @@ namespace PosOnLine.Data.Prov
 
             var fichaDTO = new DtoLibPos.Documento.Agregar.Factura.Ficha()
             {
-                idOperador=ficha.idOperador,
+                idOperador = ficha.idOperador,
                 DocumentoNro = ficha.DocumentoNro,
                 RazonSocial = ficha.RazonSocial,
                 DirFiscal = ficha.DirFiscal,
@@ -428,8 +427,11 @@ namespace PosOnLine.Data.Prov
                 MontoPorVueltoEnDivisa = ficha.MontoPorVueltoEnDivisa,
                 MontoPorVueltoEnPagoMovil = ficha.MontoPorVueltoEnPagoMovil,
                 CantDivisaPorVueltoEnDivisa = ficha.CantDivisaPorVueltoEnDivisa,
-                estatusPorBonoPorPagoDivisa=ficha.estatusPorBonoPorPagoDivisa,
-                estatusPorVueltoEnPagoMovil=ficha.estatusPorVueltoEnPagoMovil,
+                estatusPorBonoPorPagoDivisa = ficha.estatusPorBonoPorPagoDivisa,
+                estatusPorVueltoEnPagoMovil = ficha.estatusPorVueltoEnPagoMovil,
+                //
+                estatusFiscal = ficha.estatusFiscal ? "1" : "",
+                zFiscal=ficha.zFiscal,
             };
 
             var detalles = ficha.Detalles.Select(s =>
@@ -954,6 +956,9 @@ namespace PosOnLine.Data.Prov
                 CantDivisaPorVueltoEnDivisa = ficha.CantDivisaPorVueltoEnDivisa,
                 estatusPorBonoPorPagoDivisa = ficha.estatusPorBonoPorPagoDivisa,
                 estatusPorVueltoEnPagoMovil = ficha.estatusPorVueltoEnPagoMovil,
+                //
+                estatusFiscal= ficha.estatusFiscal,
+                zFiscal = ficha.zFiscal,
             };
 
             if (ficha.ClienteSaldo == null)
@@ -1572,7 +1577,6 @@ namespace PosOnLine.Data.Prov
             return result;
         }
 
-
         public OOB.Resultado.Ficha 
             Documento_Anular_NotaEntrega(OOB.Documento.Anular.NotaEntrega.Ficha ficha)
         {
@@ -1752,6 +1756,11 @@ namespace PosOnLine.Data.Prov
                     montoVueltoPorDivisa = ficha.resumen.montoVueltoPorDivisa,
                     montoVueltoPorPagoMovil = ficha.resumen.montoVueltoPorPagoMovil,
                     cntDivisaPorVueltoDivisa = ficha.resumen.cntDivisaPorVueltoDivisa,
+                    //
+                    cntFac_Anu = ficha.resumen.cntFac_Anu,
+                    cntNte_Anu = ficha.resumen.cntNte_Anu,
+                    montoFac_Anu = ficha.resumen.montoFac_Anu,
+                    montoNte_Anu = ficha.resumen.montoNte_Anu,
                 },
             };
 
@@ -1765,7 +1774,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

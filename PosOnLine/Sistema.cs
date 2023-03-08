@@ -11,6 +11,11 @@ namespace PosOnLine
     
     public class Sistema
     {
+        public class HndFiscal
+        {
+            public bool Activar { get; set; }
+            public int Puerto { get; set; }
+        }
 
         static public IData MyData;
         static public Lib.Controles.BalanzaSoloPeso.IBalanza MyBalanza;
@@ -49,6 +54,7 @@ namespace PosOnLine
         public static Helpers.Imprimir.IDocumento ImprimirFactura;
         public static Helpers.Imprimir.IDocumento ImprimirNotaCredito;
         public static Helpers.Imprimir.IDocumento ImprimirNotaEntrega;
+        public static Helpers.Imprimir.IDocumento ImprimirNotaCreditoNoFiscal;
         public static Helpers.Imprimir.ICuadreCaja ImprimirCuadreCaja;
 
         //
@@ -89,6 +95,13 @@ namespace PosOnLine
         public static bool Modo_Despliegue_Logo_Base;
         public static bool Modo_Despliegue_Solo_Divisa;
         public static DateTime FechaUltimoBoletinDescargado;
-    }
 
+        // CONFIGURACION POS 
+        public static bool ModoFiscalActivo;
+        public static HndFiscal ImpresoraFiscal;
+        public static LibFoxFiscal.LibFoxFiscal.IFiscal FiscalTfhka;
+
+        //SIMBOLO PARA EXPRESAR LA DIVISA
+        public static string SimboloDivisa_AlImprimirTicket;
+    }
 }

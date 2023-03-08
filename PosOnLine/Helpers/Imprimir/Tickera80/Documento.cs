@@ -11,11 +11,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
-
-
     public class Documento : IDocumento
     {
-
         private data _ds;
         private Ticket _tick;
         private string _data;
@@ -72,10 +69,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _tick.Documento.HayDescuento = _ds.encabezado.DescuentoPorc > 0.0m;
             _tick.Documento.HayCargo = _ds.encabezado.CargoPorc > 0.0m;
             _tick.Documento.factorCambio = _ds.encabezado.FactorCambio;
-            _tick.Documento.totalDivisa = "($) " + totDivisa.ToString("n2");
-            //_tick.Documento.bonoDivisa = @_ds.encabezado.BonoPorPagoDivisa.ToString("n2") + "% => $" +
-            //                                _ds.encabezado.CntDivisaAplicaBonoPorPagoDivisa.ToString() +
-            //                                " = " + _ds.encabezado.MontoBonoPorPagoDivisa.ToString("n2");
+            _tick.Documento.totalDivisa = "("+Sistema.SimboloDivisa_AlImprimirTicket+") " + totDivisa.ToString("n2");
 
             var _c1 = tot - _ds.encabezado.MontoBonoPorPagoDivisa;
             var _c2 = 0m;
@@ -83,15 +77,16 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             {
                 _c2 = 100 - (_c1 * 100 / tot);
             }
-            _tick.Documento.bonoDivisa = @" => $" +
-                                            _ds.encabezado.CntDivisaAplicaBonoPorPagoDivisa.ToString() +
-                                            " = " + _ds.encabezado.MontoBonoPorPagoDivisa.ToString("n2");
+            _tick.Documento.bonoDivisa = @" => "+Sistema.SimboloDivisa_AlImprimirTicket +
+                                                        _ds.encabezado.CntDivisaAplicaBonoPorPagoDivisa.ToString() +
+                                                        " = " + _ds.encabezado.MontoBonoPorPagoDivisa.ToString("n2");
+
             _tick.Documento.bonoDscto = @" => Bono(%) = " + _c2.ToString("n2");
 
 
             _tick.Documento.ImageQR = _imagenQR;
             _tick.Documento.vueltoEfectivo = _ds.encabezado.VueltoEfectivo <= 0m ? "" : "Bs " + _ds.encabezado.VueltoEfectivo.ToString("n2");
-            _tick.Documento.vueltoDivisa = _ds.encabezado.CntDivisaVueltoDivisa <= 0 ? "" : "$" + _ds.encabezado.CntDivisaVueltoDivisa.ToString("n0") + " Bs " + _ds.encabezado.VueltoDivisa.ToString("n2");
+            _tick.Documento.vueltoDivisa = _ds.encabezado.CntDivisaVueltoDivisa <= 0 ? "" : Sistema.SimboloDivisa_AlImprimirTicket + _ds.encabezado.CntDivisaVueltoDivisa.ToString("n0") + " Bs " + _ds.encabezado.VueltoDivisa.ToString("n2");
             _tick.Documento.vueltoPagoMovil = _ds.encabezado.VueltoPagoMovil <= 0m ? "" : "Bs " + _ds.encabezado.VueltoPagoMovil.ToString("n2");
             _tick.Documento.IsAnulado = _ds.isAnulado;
 
@@ -171,11 +166,11 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             var _imagenTemporal = new Bitmap(ms);
             _imagenQR = new Bitmap(_imagenTemporal, new Size(new Point(100, 100)));
         }
-
-
         //
         public bool IsModoTicket { get { return true; } }
-
+        public bool IsModoFiscal { get { return false; } }
+        public void setHndFiscal(LibFoxFiscal.LibFoxFiscal.IFiscal hndFiscal)
+        {
+        }
     }
-
 }

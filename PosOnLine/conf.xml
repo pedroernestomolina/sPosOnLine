@@ -2,20 +2,20 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>everest</Catalogo>
+    <Catalogo>dios</Catalogo>
   </Servidor>
   <IdEquipo>1</IdEquipo>
-  <CodigoSucursalActiva>01</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
-  <codigoDepositoActiva>01</codigoDepositoActiva> <!-- AUTO DEPOSITO -->
+  <CodigoSucursalActiva>18</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <codigoDepositoActiva>26</codigoDepositoActiva> <!-- AUTO DEPOSITO -->
   <SerieFactura>1</SerieFactura>
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
-  <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- T80, T70, T80B, T58 -->
+  <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
   <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
   <ModoImpresionNCredito>T80</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
-  <HabilitarAbrirDocPendOtrosUsuarios>no</HabilitarAbrirDocPendOtrosUsuarios>
+  <HabilitarAbrirDocPendOtrosUsuarios>si</HabilitarAbrirDocPendOtrosUsuarios>
   <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>
     <Rif>J30821934-7</Rif>
@@ -25,4 +25,9 @@
   <Venta_Adm>
     <Activar>No</Activar>
   </Venta_Adm>
+  <Impresora_Fiscal>
+    <Activar>Si</Activar>  <!-- SI, NO -->
+    <Puerto>3</Puerto> 
+  </Impresora_Fiscal>
+  <Simbolo_Divisa_Ticket>Ref</Simbolo_Divisa_Ticket> <!-- POR DEFECTO $, PERO PUEDE SER Ref-->
 </Configuracion>

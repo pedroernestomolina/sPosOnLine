@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir.Tickera58
 {
-
     public class Documento : IDocumento
     {
-
         private data _ds;
         private Ticket _tick;
 
@@ -121,7 +119,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera58
 
         //
         public bool IsModoTicket { get { return true; } }
-
+        public bool IsModoFiscal { get { return false; } }
+        public void setHndFiscal(LibFoxFiscal.LibFoxFiscal.IFiscal hndFiscal)
+        {
+        }
     }
-
 }

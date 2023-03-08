@@ -148,6 +148,7 @@ namespace PosOnLine.Src.Producto.Lista
             L_PRECIO_1_BONO.Text = _controlador.GetPrecio_1_Bono;
             L_PRECIO_2_BONO.Text = _controlador.GetPrecio_2_Bono;
             L_PRECIO_3_BONO.Text = _controlador.GetPrecio_3_Bono;
+            L_PRD_DETALLE.Text = _controlador.GetProducto_Det;
             L_TITULO_PRECIO_BONO.Text = _controlador.GetTituloPrecioBono;
             ActualizarPanelInformativo();
         }
@@ -159,6 +160,8 @@ namespace PosOnLine.Src.Producto.Lista
 
         private void ActualizarPanelInformativo()
         {
+            L_PRD_DETALLE.Text = _controlador.GetProducto_Det;
+
             P_EMP1.Visible = _controlador.GetEmp_1_IsOk;
             L_EMP_1.Text = _controlador.GetEmp_1;
             L_PRECIO_1.Text = _controlador.GetPrecio_1;

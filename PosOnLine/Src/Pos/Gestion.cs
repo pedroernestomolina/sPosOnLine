@@ -675,9 +675,20 @@ namespace PosOnLine.Src.Pos
                         {
                             _gestionProcesarPago.Inicializar();
                             _gestionProcesarPago.setCliente(_gestionCliente.ClienteData);
+                            _gestionProcesarPago.setDataCliente(_gestionCliente.Cliente);
                             _gestionProcesarPago.setImporte(_gestionItem.Importe);
                             _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
-                            ProcesarNotaEntrega();
+                            _gestionProcesarPago.Inicia();
+                            if (_gestionProcesarPago.PagoIsOk)
+                            {
+                                ProcesarNotaEntreag_2();
+                            }
+
+                            //_gestionProcesarPago.Inicializar();
+                            //_gestionProcesarPago.setCliente(_gestionCliente.ClienteData);
+                            //_gestionProcesarPago.setImporte(_gestionItem.Importe);
+                            //_gestionProcesarPago.setTasaCambio(_tasaCambioActual);
+                            //ProcesarNotaEntrega();
                         }
                     }
                 }
@@ -687,10 +698,8 @@ namespace PosOnLine.Src.Pos
 
         private void ProcesarFactura()
         {
-
             if (Sistema.Activar_VentasAdm)
             {
-                
                 var t01 = Sistema.MyData.Vendedor_GetFichaById(_gestionCliente.GetVendedorId);
                 if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
@@ -703,7 +712,6 @@ namespace PosOnLine.Src.Pos
 
             _isTickeraOk = false;
             _ImprimirDoc = null;
-
             var dsctoFinal = _gestionProcesarPago.DescuentoPorct;
             _gestionItem.setDescuentoFinal(dsctoFinal);
 
@@ -1306,7 +1314,20 @@ namespace PosOnLine.Src.Pos
                     cierreFtp = "",
                 };
             }
-
+            fichaOOB.estatusFiscal = Sistema.ImprimirFactura.IsModoFiscal;
+            if (Sistema.ImprimirFactura.IsModoFiscal) 
+            {
+                var f01 = Sistema.FiscalTfhka.Informacion();
+                if (f01.Resultado == LibFoxFiscal.Resultado.EnumResultado.ERROR)
+                {
+                    Helpers.Msg.Error(f01.MensajeError);
+                    return;
+                }
+                fichaOOB.SerieFiscal = null;
+                fichaOOB.DocumentoNro = (f01.Entidad.UltimaFacturaGenerada + 1).ToString().Trim().PadLeft(10, '0');
+                fichaOOB.Control = f01.Entidad.Serial;
+                fichaOOB.zFiscal = f01.Entidad.UltimoZGenerado + 1;
+            }
             var r01 = Sistema.MyData.Documento_Agregar_Factura(fichaOOB);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
@@ -1407,7 +1428,6 @@ namespace PosOnLine.Src.Pos
         /// </summary>
         private void ProcesarNotaCredito()
         {
-
             var t01 = Sistema.MyData.Vendedor_GetFichaById(_docAplicarNotaCredito.AutoVendedor);
             if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
@@ -1465,6 +1485,12 @@ namespace PosOnLine.Src.Pos
                     MontoActualizar = importeDocumentoDivisa,
                 };
             }
+            var _serie = _serieNotaCredito;
+            if (!_docAplicarNotaCredito.IsFiscal) 
+            {
+                _serie = _serieNotaEntrega;
+            }
+
 
             var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
             var fichaOOB = new OOB.Documento.Agregar.NotaCredito.Ficha()
@@ -1495,7 +1521,7 @@ namespace PosOnLine.Src.Pos
                 RetencionIslr = 0.0m,
                 AutoCliente = _gestionCliente.Cliente.Id,
                 CodigoCliente = _gestionCliente.Cliente.Codigo,
-                Control = _serieNotaCredito.Control,
+                Control = _serie.Control,
                 OrdenCompra = "",
                 Dias = 0,
                 Descuento1 = dsctoMonto,
@@ -1534,7 +1560,7 @@ namespace PosOnLine.Src.Pos
                 AutoTransporte = _transporteAsignado.id,
                 Situacion = "Procesado",
                 Signo = _tipoDocumentoDevVenta.signo,
-                Serie = _serieNotaCredito.Serie,
+                Serie = _serie.Serie,
                 Tarifa = _precioManejar,
                 TipoRemision = "01",
                 DocumentoRemision = _docAplicarNotaCredito.DocumentoNro,
@@ -1575,6 +1601,8 @@ namespace PosOnLine.Src.Pos
                 CantDivisaPorVueltoEnDivisa = 0,
                 estatusPorBonoPorPagoDivisa = dataPagoRecolectada.estatusPorBonoPorPagoDivisa,
                 estatusPorVueltoEnPagoMovil = "0",
+                //
+                estatusFiscal = _docAplicarNotaCredito.estatusFiscal,
             };
             fichaOOB.ClienteSaldo = _clienteSaldo;
 
@@ -1718,7 +1746,7 @@ namespace PosOnLine.Src.Pos
                 CDepartamento = 0.0m,
                 CVentas = 0.0m,
                 CVentasp = 0.0m,
-                Serie = _serieNotaCredito.Serie,
+                Serie = _serie.Serie,
                 ImporteNeto = netoMonto,
                 Dias = 0,
                 CastigoP = 0.0m,
@@ -1981,7 +2009,24 @@ namespace PosOnLine.Src.Pos
                 mAnu = 0.0m,
                 mNte = 0.0m,
             };
-            fichaOOB.SerieFiscal = new OOB.Documento.Agregar.NotaCredito.FichaSerie() { auto = _serieNotaCredito.Auto };
+            fichaOOB.SerieFiscal = new OOB.Documento.Agregar.NotaCredito.FichaSerie() { auto = _serie.Auto };
+
+            if (_docAplicarNotaCredito.IsFiscal)
+            {
+                if (Sistema.ImprimirNotaCredito.IsModoFiscal)
+                {
+                    var f01 = Sistema.FiscalTfhka.Informacion();
+                    if (f01.Resultado == LibFoxFiscal.Resultado.EnumResultado.ERROR)
+                    {
+                        Helpers.Msg.Error(f01.MensajeError);
+                        return;
+                    }
+                    fichaOOB.SerieFiscal = null;
+                    fichaOOB.DocumentoNro = (f01.Entidad.UltimaNCreditoGenerada + 1).ToString().Trim().PadLeft(10, '0');
+                    fichaOOB.Control = f01.Entidad.Serial;
+                    fichaOOB.zFiscal = f01.Entidad.UltimoZGenerado + 1;
+                }
+            }
 
             var r01 = Sistema.MyData.Documento_Agregar_NotaCredito(fichaOOB);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
@@ -1994,16 +2039,27 @@ namespace PosOnLine.Src.Pos
             if (xdata != null)
             {
                 Sistema.ImprimirNotaCredito.setData(xdata);
-                if (Sistema.ImprimirNotaCredito.IsModoTicket)
-                {
-                    _isTickeraOk = true;
-                    _ImprimirDoc = Sistema.ImprimirNotaCredito;
-                    printDocument2.Print();
-                }
-                else
+                if (_docAplicarNotaCredito.IsFiscal)
                 {
                     Sistema.ImprimirNotaCredito.ImprimirDoc();
                 }
+                else
+                {
+                    _isTickeraOk = true;
+                    _ImprimirDoc = Sistema.ImprimirNotaCreditoNoFiscal;
+                    printDocument2.Print();
+                }
+                //Sistema.ImprimirNotaCredito.setData(xdata);
+                //if (Sistema.ImprimirNotaCredito.IsModoTicket)
+                //{
+                //    _isTickeraOk = true;
+                //    _ImprimirDoc = Sistema.ImprimirNotaCredito;
+                //    printDocument2.Print();
+                //}
+                //else
+                //{
+                //    Sistema.ImprimirNotaCredito.ImprimirDoc();
+                //}
             }
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
@@ -2434,6 +2490,9 @@ namespace PosOnLine.Src.Pos
                 BonoPorPagoDivisa = xr1.Entidad.BonoPorPagoDivisa,
                 MontoBonoPorPagoDivisa = xr1.Entidad.MontoBonoPorPagoDivisa,
                 CntDivisaAplicaBonoPorPagoDivisa = xr1.Entidad.CntDivisaAplicaBonoPorPagoDivisa,
+                //
+                DocumentoAplica_Fecha = xr1.Entidad.Fecha,
+                DocumentoAplica_SerialFiscal = xr1.Entidad.Control,
             };
             xdata.item = new List<Helpers.Imprimir.data.Item>();
             foreach (var rg in xr1.Entidad.items)
@@ -2463,7 +2522,7 @@ namespace PosOnLine.Src.Pos
             {
                 if (Math.Abs(mp.cntDivisa) >= 1)
                 {
-                    var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo($" + mp.cntDivisa.ToString() + ")", monto = mp.montoRecibido };
+                    var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo("+Sistema.SimboloDivisa_AlImprimirTicket + mp.cntDivisa.ToString() + ")", monto = mp.montoRecibido };
                     xdata.metodoPago.Add(pag);
                 }
                 else
@@ -2656,6 +2715,666 @@ namespace PosOnLine.Src.Pos
                 _gAdmMovCaja.setIdOperadorActual(Sistema.PosEnUso.id);
                 _gAdmMovCaja.Inicia();
             }
+        }
+
+        //
+        private void ProcesarNotaEntreag_2()
+        {
+
+            if (Sistema.Activar_VentasAdm)
+            {
+                var t01 = Sistema.MyData.Vendedor_GetFichaById(_gestionCliente.GetVendedorId);
+                if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(t01.Mensaje);
+                    return;
+                }
+                _vendedorAsignado = t01.Entidad;
+            }
+
+
+            _isTickeraOk = false;
+            _ImprimirDoc = null;
+
+            var dsctoFinal = _gestionProcesarPago.DescuentoPorct;
+            _gestionItem.setDescuentoFinal(dsctoFinal);
+
+            var isCredito = _gestionProcesarPago.IsCreditoOk;
+            var montoRecibido = _gestionProcesarPago.MontoRecibido;
+            //var montoCambio = _gestionProcesarPago.MontoCambioDar_MonedaNacional;
+            var montoCambio = _gestionProcesarPago.MontoCambioDar;
+            var BaseExenta = _gestionItem.Items.Sum(s => s.BaseExenta);
+            var MontoBase = _gestionItem.Items.Sum(s => s.MontoBase);
+            var MontoImpuesto = _gestionItem.Items.Sum(s => s.MontoImpuesto);
+            var MontoBase1 = _gestionItem.Items.Where(w => w.IdTasaFiscal == _tasaFiscal_1.id).Sum(s => s.MontoBase);
+            var MontoBase2 = _gestionItem.Items.Where(w => w.IdTasaFiscal == _tasaFiscal_2.id).Sum(s => s.MontoBase);
+            var MontoBase3 = _gestionItem.Items.Where(w => w.IdTasaFiscal == _tasaFiscal_3.id).Sum(s => s.MontoBase);
+            var MontoImpuesto1 = _gestionItem.Items.Where(w => w.IdTasaFiscal == _tasaFiscal_1.id).Sum(s => s.MontoImpuesto);
+            var MontoImpuesto2 = _gestionItem.Items.Where(w => w.IdTasaFiscal == _tasaFiscal_2.id).Sum(s => s.MontoImpuesto);
+            var MontoImpuesto3 = _gestionItem.Items.Where(w => w.IdTasaFiscal == _tasaFiscal_3.id).Sum(s => s.MontoImpuesto);
+            var dsctoMonto = _gestionItem.Importe * dsctoFinal / 100;
+            var utilidadMonto = _gestionItem.Items.Sum(s => s.Utilidad);
+            var costoMonto = _gestionItem.Items.Sum(s => s.CostoVenta);
+            var subTotalNeto = _gestionItem.Items.Sum(s => s.TotalNeto);
+            var subTotal = _gestionItem.Importe - dsctoMonto;
+            var netoMonto = _gestionItem.Items.Sum(s => s.VentaNeta);
+            var netoMontoDivisa = 0m;
+            if (_tasaCambioActual > 0)
+            {
+                netoMontoDivisa = netoMonto / _tasaCambioActual;
+            }
+
+            var importeDocumento = _gestionProcesarPago.MontoPagar;
+            var importeDocumentoDivisa = _gestionProcesarPago.MontoPagarDivisa;
+            var documento = "";
+            var factorCambio = _tasaCambioActual;
+            var saldoPendiente = isCredito ? importeDocumento : 0.0m;
+            var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
+
+            var fichaOOB = new OOB.Documento.Agregar.Factura.Ficha()
+            {
+                idOperador = Sistema.PosEnUso.id,
+                DocumentoNro = documento,
+                RazonSocial = _gestionCliente.Cliente.Nombre,
+                DirFiscal = _gestionCliente.Cliente.DireccionFiscal,
+                CiRif = _gestionCliente.Cliente.CiRif,
+                Tipo = _tipoDocumentoNotaEntrega.codigo,
+                Exento = BaseExenta,
+                Base1 = MontoBase1,
+                Base2 = MontoBase2,
+                Base3 = MontoBase3,
+                Impuesto1 = MontoImpuesto1,
+                Impuesto2 = MontoImpuesto2,
+                Impuesto3 = MontoImpuesto3,
+                MBase = MontoBase,
+                Impuesto = MontoImpuesto,
+                Total = importeDocumento,
+                Tasa1 = _tasaFiscal_1.tasa,
+                Tasa2 = _tasaFiscal_2.tasa,
+                Tasa3 = _tasaFiscal_3.tasa,
+                Nota = "",
+                TasaRetencionIva = 0.0m,
+                TasaRetencionIslr = 0.0m,
+                RetencionIva = 0.0m,
+                RetencionIslr = 0.0m,
+                AutoCliente = _gestionCliente.Cliente.Id,
+                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                Control = _serieNotaEntrega.Control,
+                OrdenCompra = "",
+                Dias = 0,
+                Descuento1 = dsctoMonto,
+                Descuento2 = 0.0m,
+                Cargos = 0.0m,
+                Descuento1p = dsctoFinal,
+                Descuento2p = 0.0m,
+                Cargosp = 0.0m,
+                Columna = "1",
+                EstatusAnulado = "0",
+                Aplica = "",
+                ComprobanteRetencion = "",
+                SubTotalNeto = subTotalNeto,
+                Telefono = _gestionCliente.Cliente.Telefono,
+                FactorCambio = factorCambio,
+                CodigoVendedor = _vendedorAsignado.codigo,
+                Vendedor = _vendedorAsignado.nombre,
+                AutoVendedor = _vendedorAsignado.id,
+                FechaPedido = DateTime.Now.Date,
+                Pedido = "",
+                CondicionPago = isCredito ? "CREDITO" : "CONTADO",
+                Usuario = Sistema.Usuario.nombre,
+                CodigoUsuario = Sistema.Usuario.codigo,
+                CodigoSucursal = _sucursalAsignada.codigo,
+                Transporte = _transporteAsignado.nombre,
+                CodigoTransporte = _transporteAsignado.codigo,
+                MontoDivisa = importeDocumentoDivisa,
+                Despachado = "",
+                DirDespacho = "",
+                Estacion = Sistema.EquipoEstacion,
+                Renglones = _gestionItem.CantRenglones,
+                SaldoPendiente = saldoPendiente,
+                ComprobanteRetencionIslr = "",
+                DiasValidez = 0,
+                AutoUsuario = Sistema.Usuario.id,
+                AutoTransporte = _transporteAsignado.id,
+                Situacion = "Procesado",
+                Signo = _tipoDocumentoNotaEntrega.signo,
+                Serie = _serieNotaEntrega.Serie,
+                Tarifa = _precioManejar,
+                TipoRemision = "",
+                DocumentoRemision = "",
+                AutoRemision = "",
+                DocumentoNombre = "NOTA ENTREGA",
+                SubTotalImpuesto = MontoImpuesto,
+                SubTotal = subTotal,
+                TipoCliente = "",
+                Planilla = "",
+                Expendiente = "",
+                AnticipoIva = 0.0m,
+                TercerosIva = 0.0m,
+                Neto = netoMonto,
+                Costo = costoMonto,
+                Utilidad = utilidadMonto,
+                Utilidadp = 100 - (costoMonto / netoMonto * 100),
+                DocumentoTipo = _tipoDocumentoNotaEntrega.tipo,
+                CiTitular = "",
+                NombreTitular = "",
+                CiBeneficiario = "",
+                NombreBeneficiario = "",
+                Clave = "",
+                DenominacionFiscal = "No Contribuyente",
+                Cambio = montoCambio,
+                EstatusValidado = "0",
+                Cierre = Sistema.PosEnUso.idAutoArqueoCierre,
+                EstatusCierreContable = "0",
+                CierreFtp = "",
+                Prefijo = _sucursalAsignada.codigo + Sistema.IdEquipo,
+                //
+                PorctBonoPorPagoDivisa = dataPagoRecolectada.PorctBonoPorPagoDivisa,
+                MontoBonoPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
+                MontoBonoEnDivisaPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoEnDivisaPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
+                CantDivisaAplicaBonoPorPagoDivisa = dataPagoRecolectada.CantDivisaAplicaBonoPorPagoDivisa,
+                MontoPorVueltoEnEfectivo = Math.Round(dataPagoRecolectada.MontoPorVueltoEnEfectivo, 2, MidpointRounding.AwayFromZero),
+                MontoPorVueltoEnDivisa = Math.Round(dataPagoRecolectada.MontoPorVueltoEnDivisa, 2, MidpointRounding.AwayFromZero),
+                MontoPorVueltoEnPagoMovil = Math.Round(dataPagoRecolectada.MontoPorVueltoEnPagoMovil, 2, MidpointRounding.AwayFromZero),
+                CantDivisaPorVueltoEnDivisa = dataPagoRecolectada.CantDivisaPorVueltoEnDivisa,
+                estatusPorBonoPorPagoDivisa = dataPagoRecolectada.estatusPorBonoPorPagoDivisa,
+                estatusPorVueltoEnPagoMovil = dataPagoRecolectada.AplicaPagoMovil ? "1" : "0",
+            };
+
+            var medidas = _gestionItem.Items.
+                            GroupBy(g => g.Ficha.empaqueDescripcion).
+                            Select(s => new OOB.Documento.Agregar.Factura.FichaMedida()
+                            {
+                                descMedida = s.Key,
+                                cnt = s.ToList().Sum(ss => ss.Cantidad),
+                                peso = s.ToList().Sum(ss => ss.Cantidad * ss.Ficha.peso),
+                                volumen = s.ToList().Sum(ss => ss.Cantidad * ss.Ficha.volumen),
+                            }).
+                            ToList();
+            fichaOOB.Medidas = medidas;
+
+            var detalles = _gestionItem.Items.Select(s =>
+            {
+                var nr = new OOB.Documento.Agregar.Factura.FichaDetalle()
+                {
+                    AutoProducto = s.Ficha.autoProducto,
+                    Codigo = s.Ficha.codigo,
+                    Nombre = s.Ficha.nombre,
+                    AutoDepartamento = s.Ficha.autoDepartamento,
+                    AutoGrupo = s.Ficha.autoGrupo,
+                    AutoSubGrupo = s.Ficha.autoSubGrupo,
+                    AutoDeposito = s.Ficha.autoDeposito,
+                    Cantidad = s.Ficha.cantidad,
+                    Empaque = s.Ficha.empaqueDescripcion,
+                    PrecioNeto = s.Ficha.pneto,
+                    Descuento1p = 0.0m,
+                    Descuento2p = 0.0m,
+                    Descuento3p = 0.0m,
+                    Descuento1 = 0.0m,
+                    Descuento2 = 0.0m,
+                    Descuento3 = 0.0m,
+                    CostoVenta = s.CostoVenta,
+                    TotalNeto = s.TotalNeto,
+                    Tasa = s.Ficha.tasaIva,
+                    Impuesto = s.Impuesto,
+                    Total = s.Total,
+                    EstatusAnulado = "0",
+                    Tipo = _tipoDocumentoVenta.codigo,
+                    Deposito = _depositoAsignado.nombre,
+                    Signo = _tipoDocumentoVenta.signo,
+                    PrecioFinal = s.PrecioFinal,
+                    AutoCliente = _gestionCliente.Cliente.Id,
+                    Decimales = s.Ficha.decimales,
+                    ContenidoEmpaque = s.Ficha.empaqueContenido,
+                    CantidadUnd = s.TotalUnd,
+                    PrecioUnd = s.PrecioUnd,
+                    CostoUnd = s.Ficha.costoUnd,
+                    Utilidad = s.Utilidad,
+                    Utilidadp = s.UtilidadP,
+                    PrecioItem = s.PrecioItem,
+                    EstatusGarantia = "0",
+                    EstatusSerial = "0",
+                    CodigoDeposito = _depositoAsignado.codigo,
+                    DiasGarantia = 0,
+                    Detalle = "",
+                    PrecioSugerido = 0.0m,
+                    AutoTasa = s.Ficha.autoTasa,
+                    EstatusCorte = "0",
+                    X = 1,
+                    Y = 1,
+                    Z = 1,
+                    Corte = "",
+                    Categoria = s.Ficha.categoria,
+                    Cobranzap = 0.0m,
+                    Ventasp = 0.0m,
+                    CobranzapVendedor = 0.0m,
+                    VentaspVendedor = 0.0m,
+                    Cobranza = 0.0m,
+                    Ventas = 0.0m,
+                    CobranzaVendedor = 0.0m,
+                    VentasVendedor = 0.0m,
+                    CostoPromedioUnd = s.Ficha.costoPromedioUnd,
+                    CostoCompra = s.Ficha.costoCompra,
+                    EstatusChecked = "1",
+                    Tarifa = s.Ficha.tarifaPrecio,
+                    TotalDescuento = 0.0m,
+                    CodigoVendedor = _vendedorAsignado.codigo,
+                    AutoVendedor = _vendedorAsignado.id,
+                    CierreFtp = "",
+                };
+                return nr;
+            }).ToList();
+            fichaOOB.Detalles = detalles;
+
+            var actDeposito = _gestionItem.Items.Select(s =>
+            {
+                var nr = new OOB.Documento.Agregar.Factura.FichaDeposito()
+                {
+                    AutoDeposito = s.Ficha.autoDeposito,
+                    AutoProducto = s.Ficha.autoProducto,
+                    CantUnd = s.TotalUnd,
+                };
+                return nr;
+            }).ToList();
+            fichaOOB.ActDeposito = actDeposito;
+
+            var kardex = _gestionItem.Items.Select(s =>
+            {
+                var nr = new OOB.Documento.Agregar.Factura.FichaKardex()
+                {
+                    AutoProducto = s.Ficha.autoProducto,
+                    Total = s.TotalUnd * s.Ficha.costoUnd,
+                    AutoDeposito = s.Ficha.autoDeposito,
+                    AutoConcepto = _conceptoVenta.id,
+                    Modulo = "Ventas",
+                    Entidad = _gestionCliente.Cliente.Nombre,
+                    Signo = -1,
+                    Cantidad = s.Cantidad,
+                    CantidadBono = 0.0m,
+                    CantidadUnd = s.TotalUnd,
+                    CostoUnd = s.Ficha.costoUnd,
+                    EstatusAnulado = "0",
+                    Nota = "",
+                    PrecioUnd = s.PrecioFinalUnd,
+                    Codigo = _tipoDocumentoNotaEntrega.codigo,
+                    Siglas = _tipoDocumentoNotaEntrega.siglas,
+                    CierreFtp = "",
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                    CodigoDeposito = _depositoAsignado.codigo,
+                    NombreDeposito = _depositoAsignado.nombre,
+                    CodigoConcepto = _conceptoSalida.codigo,
+                    NombreConcepto = _conceptoSalida.nombre,
+                    FactorCambio = factorCambio,
+                };
+                return nr;
+            }).ToList();
+            fichaOOB.MovKardex = kardex;
+
+            fichaOOB.DocCxC = new OOB.Documento.Agregar.Factura.FichaCxC()
+            {
+                CCobranza = 0.0m,
+                CCobranzap = 0.0m,
+                TipoDocumento = _tipoDocumentoVenta.siglas,
+                Nota = "",
+                Importe = importeDocumento,
+                Acumulado = isCredito ? 0.0m : importeDocumento,
+                AutoCliente = _gestionCliente.Cliente.Id,
+                Cliente = _gestionCliente.Cliente.Nombre,
+                CiRif = _gestionCliente.Cliente.CiRif,
+                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                EstatusCancelado = isCredito ? "0" : "1",
+                Resta = isCredito ? importeDocumento : 0.0m,
+                EstatusAnulado = "0",
+                Numero = "",
+                AutoAgencia = "0000000001",
+                Agencia = "",
+                Signo = _tipoDocumentoVenta.signo,
+                AutoVendedor = _vendedorAsignado.id,
+                CDepartamento = 0.0m,
+                CVentas = 0.0m,
+                CVentasp = 0.0m,
+                Serie = _serieFactura.Serie,
+                ImporteNeto = netoMonto,
+                Dias = 0,
+                CastigoP = 0.0m,
+                CierreFtp = "",
+                MontoDivisa = importeDocumentoDivisa,
+                TasaDivisa = factorCambio,
+                //
+                AcumuladoDivisa = isCredito ? 0.0m : importeDocumentoDivisa,
+                CodigoSucursal = _sucursalAsignada.codigo,
+                RestaDivisa = isCredito ? importeDocumentoDivisa : 0.0m,
+                ImporteNetoDivisa = Math.Round(netoMontoDivisa, 2, MidpointRounding.AwayFromZero),
+            };
+
+            var PMontoEfectivo = 0.0m;
+            var PMontoDivisa = 0.0m;
+            var PMontoElectronico = 0.0m;
+            var PMontoOtro = 0.0m;
+            var CntEfectivo = 0;
+            var CntDivisa = 0;
+            var CntElectronico = 0;
+            var CntOtro = 0;
+
+            if (isCredito)
+            {
+                fichaOOB.DocCxCPago = null;
+                fichaOOB.ClienteSaldo = new OOB.Documento.Agregar.Factura.FichaClienteSaldo()
+                {
+                    AutoCliente = _gestionCliente.Cliente.Id,
+                    MontoActualizar = importeDocumentoDivisa,
+                };
+            }
+            else
+            {
+                fichaOOB.DocCxCPago = new OOB.Documento.Agregar.Factura.FichaCxCPago();
+                var p = new OOB.Documento.Agregar.Factura.FichaCxC()
+                {
+                    CCobranza = 0.0m,
+                    CCobranzap = 0.0m,
+                    TipoDocumento = "PAG",
+                    Nota = "",
+                    Importe = importeDocumento,
+                    Acumulado = 0.0m,
+                    AutoCliente = _gestionCliente.Cliente.Id,
+                    Cliente = _gestionCliente.Cliente.Nombre,
+                    CiRif = _gestionCliente.Cliente.CiRif,
+                    CodigoCliente = _gestionCliente.Cliente.Codigo,
+                    EstatusCancelado = "0",
+                    Resta = 0.0m,
+                    EstatusAnulado = "0",
+                    Numero = "",
+                    AutoAgencia = "0000000001",
+                    Agencia = "",
+                    Signo = -1,
+                    AutoVendedor = _vendedorAsignado.id,
+                    CDepartamento = 0.0m,
+                    CVentas = 0.0m,
+                    CVentasp = 0.0m,
+                    Serie = "",
+                    ImporteNeto = 0.0m,
+                    Dias = 0,
+                    CastigoP = 0.0m,
+                    CierreFtp = "",
+                    MontoDivisa = importeDocumentoDivisa,
+                    TasaDivisa = factorCambio,
+                    //
+                    AcumuladoDivisa = 0m,
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                    RestaDivisa = 0m,
+                    ImporteNetoDivisa = 0m,
+                };
+                var _montoRecibidoDivisa = 0m;
+                var _cambioDivisa = 0m;
+                if (factorCambio > 0)
+                {
+                    _montoRecibidoDivisa = Math.Round(montoRecibido / factorCambio, 2, MidpointRounding.AwayFromZero);
+                    _cambioDivisa = Math.Round(montoCambio / factorCambio, 2, MidpointRounding.AwayFromZero);
+                }
+                var pR = new OOB.Documento.Agregar.Factura.FichaCxCRecibo()
+                {
+                    AutoUsuario = Sistema.Usuario.id,
+                    Importe = importeDocumento,
+                    Usuario = Sistema.Usuario.nombre,
+                    MontoRecibido = montoRecibido,
+                    Cobrador = _cobradorAsignado.nombre,
+                    AutoCliente = _gestionCliente.Cliente.Id,
+                    Cliente = _gestionCliente.Cliente.Nombre,
+                    CiRif = _gestionCliente.Cliente.CiRif,
+                    Codigo = _gestionCliente.Cliente.Codigo,
+                    EstatusAnulado = "0",
+                    Direccion = _gestionCliente.Cliente.DireccionFiscal,
+                    Telefono = _gestionCliente.Cliente.Telefono,
+                    AutoCobrador = _cobradorAsignado.id,
+                    Anticipos = 0.0m,
+                    Cambio = montoCambio,
+                    Nota = "",
+                    CodigoCobrador = _cobradorAsignado.codigo,
+                    Retenciones = 0.0m,
+                    Descuentos = 0.0m,
+                    Cierre = Sistema.PosEnUso.idAutoArqueoCierre,
+                    CierreFtp = "",
+                    //
+                    ImporteDivisa = importeDocumentoDivisa,
+                    MontoRecibidoDivisa = _montoRecibidoDivisa,
+                    CambioDivisa = _cambioDivisa,
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                };
+                var pD = new OOB.Documento.Agregar.Factura.FichaCxCDocumento()
+                {
+                    Id = 1,
+                    TipoDocumento = _tipoDocumentoNotaEntrega.siglas,
+                    Operacion = "Pago",
+                    Importe = importeDocumento,
+                    Dias = 0,
+                    CastigoP = 0.0m,
+                    ComisionP = 0.0m,
+                    CierreFtp = "",
+                    //
+                    ImporteDivisa = importeDocumentoDivisa,
+                    CodigoSucursal = _sucursalAsignada.codigo,
+                    Notas = "",
+                };
+
+                var pM = new List<OOB.Documento.Agregar.Factura.FichaCxCMetodoPago>();
+                foreach (var it in _gestionProcesarPago.PagoDetalles.Where(w => w.Monto > 0m).ToList())
+                {
+                    var autoMedioPago = "";
+                    var codigoMedioPago = "";
+                    var descMedioPago = "";
+                    var lote = "";
+                    var referencia = "";
+                    var montoRecibe = it.MontoRecibido;
+                    var _montoRecibeDivisa = 0m;
+                    var _aplicaFactorConversion = "";
+
+                    switch (it.Modo)
+                    {
+                        case Pago.Procesar.Enumerados.ModoPago.Efectivo:
+                            autoMedioPago = _medioPagoEfectivo.id;
+                            codigoMedioPago = _medioPagoEfectivo.codigo;
+                            descMedioPago = _medioPagoEfectivo.nombre;
+                            PMontoEfectivo += montoRecibe;
+                            CntEfectivo += 1;
+                            //
+                            if (factorCambio > 0)
+                            {
+                                _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                            }
+                            _aplicaFactorConversion = "1";
+                            break;
+
+                        case Pago.Procesar.Enumerados.ModoPago.Divisa:
+                            //montoRecibe = it.Monto;
+                            montoRecibe = it.MontoPagoDivisaSinBono;
+                            autoMedioPago = _medioPagoDivisa.id;
+                            codigoMedioPago = _medioPagoDivisa.codigo;
+                            descMedioPago = _medioPagoDivisa.nombre;
+                            lote = it.Cantidad.ToString();
+                            referencia = TasaCambioActual.ToString("n2").Replace(".", "");
+                            PMontoDivisa += montoRecibe;
+                            CntDivisa = (int)it.Cantidad;
+                            //
+                            _montoRecibeDivisa = it.Cantidad;
+                            _aplicaFactorConversion = "0";
+                            break;
+
+                        case Pago.Procesar.Enumerados.ModoPago.Electronico:
+                            if (it.Id != 4) //DEBITO
+                            {
+                                autoMedioPago = _medioPagoElectronico.id;
+                                codigoMedioPago = _medioPagoElectronico.codigo;
+                                descMedioPago = _medioPagoElectronico.nombre;
+                                lote = it.Lote;
+                                referencia = it.Referencia;
+                                PMontoElectronico += montoRecibe;
+                                CntElectronico += 1;
+                                //
+                                if (factorCambio > 0)
+                                {
+                                    _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                                }
+                                _aplicaFactorConversion = "1";
+                            }
+                            else //OTROS
+                            {
+                                autoMedioPago = _medioPagoOtro.id;
+                                codigoMedioPago = _medioPagoOtro.codigo;
+                                descMedioPago = _medioPagoOtro.nombre;
+                                lote = it.Lote;
+                                referencia = it.Referencia;
+                                PMontoOtro += montoRecibe;
+                                CntOtro += 1;
+                                //
+                                if (factorCambio > 0)
+                                {
+                                    _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
+                                }
+                                _aplicaFactorConversion = "1";
+                            }
+                            break;
+                    }
+
+                    pM.Add(new OOB.Documento.Agregar.Factura.FichaCxCMetodoPago()
+                    {
+                        AutoMedioPago = autoMedioPago,
+                        AutoAgencia = "",
+                        Medio = descMedioPago,
+                        Codigo = codigoMedioPago,
+                        MontoRecibido = montoRecibe,
+                        EstatusAnulado = "0",
+                        Numero = "",
+                        Agencia = "",
+                        AutoUsuario = Sistema.Usuario.id,
+                        Lote = lote,
+                        Referencia = referencia,
+                        AutoCobrador = _cobradorAsignado.id,
+                        Cierre = Sistema.PosEnUso.idAutoArqueoCierre,
+                        CierreFtp = "",
+                        //
+                        OpBanco = "",
+                        OpNroCta = "",
+                        OpNroRef = "",
+                        OpFecha = DateTime.Now.Date,
+                        OpDetalle = "",
+                        OpMonto = _montoRecibeDivisa,
+                        OpTasa = factorCambio,
+                        OpAplicaConversion = _aplicaFactorConversion,
+                        CodigoSucursal = _sucursalAsignada.codigo,
+                    });
+                }
+                fichaOOB.DocCxCPago.Pago = p;
+                fichaOOB.DocCxCPago.Recibo = pR;
+                fichaOOB.DocCxCPago.Documento = pD;
+                fichaOOB.DocCxCPago.MetodoPago = pM;
+                fichaOOB.ClienteSaldo = null;
+            }
+            fichaOOB.PosVenta = _gestionItem.Items.Select(s =>
+            {
+                var nr = new OOB.Documento.Agregar.Factura.FichaPosVenta()
+                {
+                    id = s.Ficha.id,
+                    idOperador = s.Ficha.idOperador,
+                };
+                return nr;
+            }).ToList();
+            fichaOOB.Resumen = new OOB.Documento.Agregar.Factura.FichaPosResumen()
+            {
+                cntDoc = 1,
+                cntDevolucion = 0,
+                cntFac = 0,
+                cntNCr = 0,
+                idResumen = Sistema.PosEnUso.idResumen,
+                mDevolucion = 0.0m,
+                mFac = 0m,
+                mNCr = 0.0m,
+                cntEfectivo = CntEfectivo,
+                cntDivisa = CntDivisa,
+                cntElectronico = CntElectronico,
+                cntotros = CntOtro,
+                mEfectivo = PMontoEfectivo,
+                mDivisa = PMontoDivisa,
+                mElectronico = PMontoElectronico,
+                mOtros = PMontoOtro,
+                cntDocContado = isCredito ? 0 : 1,
+                cntDocCredito = isCredito ? 1 : 0,
+                mContado = isCredito ? 0 : importeDocumento,
+                mCredito = isCredito ? importeDocumento : 0,
+                //
+                cntAnu = 0,
+                cntNte = 1,
+                mAnu = 0.0m,
+                mNte = importeDocumento,
+                //
+                mCambio = montoCambio,
+                cntCambio = montoCambio > 0 ? 1 : 0,
+                //
+                montoVueltoPorEfectivo = dataPagoRecolectada.MontoPorVueltoEnEfectivo,
+                montoVueltoPorDivisa = dataPagoRecolectada.MontoPorVueltoEnDivisa,
+                montoVueltoPorPagoMovil = dataPagoRecolectada.MontoPorVueltoEnPagoMovil,
+                cntDivisaPorVueltoDivisa = dataPagoRecolectada.CantDivisaPorVueltoEnDivisa,
+            };
+            fichaOOB.SerieFiscal = new OOB.Documento.Agregar.Factura.FichaSerie() { auto = _serieNotaEntrega.Auto };
+            if (dataPagoRecolectada.AplicaPagoMovil)
+            {
+                var pm = dataPagoRecolectada.DataPagoMovil;
+                fichaOOB.PagoMovil = new OOB.Documento.Agregar.Factura.FichaPagoMovil()
+                {
+                    autoAgencia = pm.agencia.id,
+                    ciRif = pm.ciRif,
+                    monto = pm.monto,
+                    nombre = pm.nombre,
+                    telefono = pm.telefono,
+                    //
+                    clienteDirFiscal = _gestionCliente.Cliente.DireccionFiscal,
+                    clienteNombre = _gestionCliente.Cliente.Nombre,
+                    clienteRif = _gestionCliente.Cliente.CiRif,
+                    codigoDocumento = _tipoDocumentoDevVenta.codigo,
+                    tipoDocumento = _tipoDocumentoDevVenta.tipo,
+                    montoDocumento = importeDocumento,
+                    codigoSucursal = _sucursalAsignada.codigo,
+                    nombreAgencia = pm.agencia.desc,
+                    cierre = Sistema.PosEnUso.idAutoArqueoCierre,
+                    cierreFtp = "",
+                };
+            }
+
+            var r01 = Sistema.MyData.Documento_Agregar_Factura(fichaOOB);
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r01.Mensaje);
+                return;
+            }
+
+            var xdata = CargarDataDocumento(r01.Entidad.autoDoc);
+            if (xdata != null)
+            {
+                var dat = new Helpers.Imprimir.dataQR()
+                {
+                    autoCierre = r01.Entidad.autoCierre,
+                    autoDoc = r01.Entidad.autoDoc,
+                    codDoc = r01.Entidad.codDoc,
+                    idVerificador = r01.Entidad.idVerificador,
+                    montoDoc = r01.Entidad.montoDoc,
+                    numDoc = r01.Entidad.numDoc,
+                };
+                Sistema.ImprimirNotaEntrega.setData(xdata);
+                Sistema.ImprimirNotaEntrega.setImprimirQR(dat);
+                if (Sistema.ImprimirNotaEntrega.IsModoTicket)
+                {
+                    _isTickeraOk = true;
+                    _ImprimirDoc = Sistema.ImprimirNotaEntrega;
+                    printDocument2.Print();
+                }
+                else
+                {
+                    Sistema.ImprimirNotaEntrega.ImprimirDoc();
+                }
+            }
+
+            _gestionItem.Limpiar();
+            _gestionCliente.Limpiar();
+            Inicializa();
         }
     }
 }
