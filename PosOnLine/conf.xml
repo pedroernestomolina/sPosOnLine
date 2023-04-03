@@ -2,7 +2,7 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>dios</Catalogo>
+    <Catalogo>everest</Catalogo>
   </Servidor>
   <IdEquipo>1</IdEquipo>
   <CodigoSucursalActiva>18</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
