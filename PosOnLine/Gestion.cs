@@ -63,7 +63,5 @@ namespace PosOnLine
             }
             return true;
         }
-
     }
-
 }

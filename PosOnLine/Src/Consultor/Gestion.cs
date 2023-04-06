@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.Consultor
 {
-
-    public class Gestion
+    public class Gestion: IModo
     {
-
         private decimal _factorCambio;
         private string _tarifaPrecio;
         private data _dataPrd;
@@ -130,7 +128,5 @@ namespace PosOnLine.Src.Consultor
         {
             _gestionBuscar = _ctrBuscar;
         }
-
     }
-
 }

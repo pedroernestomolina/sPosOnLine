@@ -5,14 +5,14 @@
     <Catalogo>everest</Catalogo>
   </Servidor>
   <IdEquipo>1</IdEquipo>
-  <CodigoSucursalActiva>18</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
-  <codigoDepositoActiva>26</codigoDepositoActiva> <!-- AUTO DEPOSITO -->
+  <CodigoSucursalActiva>01</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <codigoDepositoActiva>01</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
   <SerieFactura>1</SerieFactura>
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
-  <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
+  <ModoImpresionFactura>F</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
   <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
-  <ModoImpresionNCredito>T80</ModoImpresionNCredito>
+  <ModoImpresionNCredito>F</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>si</HabilitarAbrirDocPendOtrosUsuarios>

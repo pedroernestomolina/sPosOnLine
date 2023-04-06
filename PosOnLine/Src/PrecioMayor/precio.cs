@@ -66,7 +66,5 @@ namespace PosOnLine.Src.PrecioMayor
         {
             _factorCambio=p;
         }
-
     }
-
 }

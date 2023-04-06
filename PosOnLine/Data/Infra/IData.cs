@@ -11,7 +11,8 @@ namespace PosOnLine.Data.Infra
     public interface IData: IUsuario, IJornada, IConfiguracion, ISucursal, ICliente,
         IProducto, IDeposito, IVenta, IPendiente, IDocumento, IConcepto, ISistema,
         IVendedor, IPermiso, IReportePos, IAgencia, ICierre,
-        IMovCaja
+        IMovCaja,
+        IProducto_ModoAdm
     {
         OOB.Resultado.FichaEntidad<DateTime> 
             FechaServidor();
@@ -20,5 +21,4 @@ namespace PosOnLine.Data.Infra
         OOB.Resultado.FichaEntidad<DateTime> 
             Servicio_GetFechaUltBoletin();
     }
-
 }

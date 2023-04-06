@@ -27,16 +27,12 @@ namespace PosOnLine.Data.Prov
             FechaServidor()
         {
             var result = new OOB.Resultado.FichaEntidad<DateTime>();
-
             var r01 = MyData.FechaServidor();
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError) 
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                throw new Exception(r01.Mensaje);
             }
             result.Entidad = r01.Entidad;
-
             return result;
         }
         public OOB.Resultado.Ficha 
@@ -69,5 +65,4 @@ namespace PosOnLine.Data.Prov
             return result;
         }
     }
-
 }

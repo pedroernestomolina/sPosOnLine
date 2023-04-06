@@ -106,7 +106,7 @@ namespace PosOnLine.Src.Producto.Lista
             DGV.Columns.Add(c3);
             DGV.Columns.Add(c6);
             DGV.Columns.Add(c4);
-            DGV.Columns.Add(c5);
+            //DGV.Columns.Add(c5);
             //DGV.Columns.Add(c7);
             //DGV.Columns.Add(c8);
         }

@@ -15,14 +15,14 @@ namespace PosOnLine.Src.Producto.Buscar
         private string _autoDepositoAsignado;
         private string _tarifaPrecio;
         private bool _habilitarVentaMayor; 
-        private Producto.Lista.Gestion _gestionListar;
-        private PrecioMayor.Gestion _gestionMayor;
+        private Producto.Lista.IListaModo _gestionListar;
+        private PrecioMayor.IModo _gestionMayor;
 
 
         public bool BusquedaIsOk { get { return _autoPrd != ""; } }
         public string AutoProducto { get { return _autoPrd; } }
         public string AutoDeposito { get { return _autoDepositoAsignado; } }
-        public Producto.Lista.Gestion GestionListar { get { return _gestionListar; } }
+        public Producto.Lista.IListaModo GestionListar { get { return _gestionListar; } }
         public string TarifaPrecioSeleccionada { get { return _tarifaPrecio; } }
 
 
@@ -43,14 +43,6 @@ namespace PosOnLine.Src.Producto.Buscar
             {
                 return;
             }
-
-            //var vr = VerificaPreEmpaque(buscar);
-            //if (vr.IsPreEmpaque)
-            //{
-            //    codBuscar = vr.ItemCodigo;
-            //    Peso = vr.Peso;
-            //}
-
             var r01 = Sistema.MyData.Producto_BusquedaByCodigoBarra(codBuscar);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
@@ -102,35 +94,31 @@ namespace PosOnLine.Src.Producto.Buscar
                                 _lst = _lst.Where(w => w.ExDisponible > 0).ToList();
                             }
                             _gestionListar.setData(_lst, r05.Entidad);
+                            _gestionListar.setFiltroPrdListar(filtro);
                             _gestionListar.Inicia();
                             if (_gestionListar.ItemSeleccionIsOk)
                             {
-                                //if (_habilitarVentaMayor)
-                                //{
-                                //    _gestionMayor.Inicializa();
-                                //    _gestionMayor.setAutoProducto(_gestionListar.ItemSeleccionado.Auto);
-                                //    _gestionMayor.setTarifaPrecio(_tarifaPrecio);
-                                //    _gestionMayor.Inicia();
-                                //    if (_gestionMayor.PrecioSeleccionadoIsOk)
-                                //    {
-                                //        _autoPrd = _gestionMayor.AutoProducto;
-                                //        _tarifaPrecio = _gestionMayor.TarifaSeleccionada;
-                                //    }
-                                //}
-                                //else 
-                                //{
-                                //    _autoPrd = _gestionListar.ItemSeleccionado.Auto;
-                                //}
-
-                                _autoPrd = _gestionListar.ItemSeleccionado.Auto;
+                                _autoPrd = _gestionListar.IdItemSeleccionado;
                             }
                         }
                     }
                     else
+                    {
                         _autoPrd = r03.Auto;
+                        if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
+                        {
+                            return;
+                        }
+                    }
                 }
                 else
+                {
                     _autoPrd = r02.Auto;
+                    if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
+                    {
+                        return;
+                    }
+                }
             }
             else
             {
@@ -162,31 +150,25 @@ namespace PosOnLine.Src.Producto.Buscar
             }
         }
 
+        public void setGestionLista(Lista.IListaModo ctr)
+        {
+            _gestionListar = ctr;
+        }
+        public void setGestionPrecioMayor(PrecioMayor.IModo ctr)
+        {
+            _gestionMayor = ctr;
+        }
         public void setDepositoAsignado(OOB.Deposito.Entidad.Ficha _depositoAsignado)
         {
             _autoDepositoAsignado = _depositoAsignado.id;
         }
-
-        public void setGestionLista(Lista.Gestion _ctrListar)
-        {
-            _gestionListar = _ctrListar;
-        }
-
         public void setTarifaPrecio(string tarifa)
         {
             _tarifaPrecio = tarifa;
         }
-
         public void setHabilitarVentaMayor(bool p)
         {
             _habilitarVentaMayor = p;
         }
-
-        public void setGestionPrecioMayor(PrecioMayor.Gestion ctrlPrecMay)
-        {
-            _gestionMayor = ctrlPrecMay;
-        }
-
     }
-
 }

@@ -101,6 +101,7 @@
     <Compile Include="Data\Infra\IPendiente.cs" />
     <Compile Include="Data\Infra\IPermiso.cs" />
     <Compile Include="Data\Infra\IProducto.cs" />
+    <Compile Include="Data\Infra\IProducto_ModoAdm.cs" />
     <Compile Include="Data\Infra\IReportePos.cs" />
     <Compile Include="Data\Infra\ISistema.cs" />
     <Compile Include="Data\Infra\ISucursal.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Data\Prov\Pendiente.cs" />
     <Compile Include="Data\Prov\Permiso.cs" />
     <Compile Include="Data\Prov\Producto.cs" />
+    <Compile Include="Data\Prov\Producto_ModoAdm.cs" />
     <Compile Include="Data\Prov\ReportesPos.cs" />
     <Compile Include="Data\Prov\Sistema.cs" />
     <Compile Include="Data\Prov\Sucursal.cs" />
@@ -300,6 +302,11 @@
     <Compile Include="OOB\Producto\Existencia\Entidad\Ficha.cs" />
     <Compile Include="OOB\Producto\Lista\Ficha.cs" />
     <Compile Include="OOB\Producto\Lista\Filtro.cs" />
+    <Compile Include="OOB\Producto_ModoAdm\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Producto_ModoAdm\Lista\Ficha.cs" />
+    <Compile Include="OOB\Producto_ModoAdm\Precio\Ficha.cs" />
+    <Compile Include="OOB\Producto_ModoAdm\Precio\Filtro.cs" />
+    <Compile Include="OOB\Producto_ModoAdm\Precio\Precio.cs" />
     <Compile Include="OOB\Reportes\Pos\Filtro.cs" />
     <Compile Include="OOB\Reportes\Pos\MovCaja\Ficha.cs" />
     <Compile Include="OOB\Reportes\Pos\MovCaja\FichaDet.cs" />
@@ -380,6 +387,15 @@
     </Compile>
     <Compile Include="Src\Anular\ImpAnular.cs" />
     <Compile Include="Src\Anular\IAnular.cs" />
+    <Compile Include="Src\AsignarVededor\IModo.cs" />
+    <Compile Include="Src\AsignarVededor\ModoAdm\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\AsignarVededor\ModoAdm\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\AsignarVededor\ModoAdm\IModoAdm.cs" />
+    <Compile Include="Src\AsignarVededor\ModoAdm\ImpModoAdm.cs" />
     <Compile Include="Src\CambioPrecio\CambioPrecio.cs" />
     <Compile Include="Src\CambioPrecio\CambioPrecioFrm.cs">
       <SubType>Form</SubType>
@@ -414,8 +430,26 @@
     </Compile>
     <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
     <Compile Include="Src\Cierre\NoFiscal\INoFiscal.cs" />
+    <Compile Include="Src\Consultor\IModo.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Consultor\ModoAdm\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Consultor\ModoAdm\IExistencia.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\IModoAdm.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\ImpModoAdm.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\imp_existencia.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\imp_prdConsultar.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\imp_vta.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\IPrdConsultar.cs" />
+    <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
     <Compile Include="Src\Identificacion\ILogin.cs" />
     <Compile Include="Src\ILista.cs" />
+    <Compile Include="Src\Item\IModo.cs" />
+    <Compile Include="Src\Item\ModoAdm\IModoAdm.cs" />
+    <Compile Include="Src\Item\ModoAdm\ImpModoAdm.cs" />
     <Compile Include="Src\MovCaja\Adm\AdmFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -471,8 +505,32 @@
     <Compile Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.Designer.cs">
       <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Src\PrecioMayor\IModo.cs" />
+    <Compile Include="Src\PrecioMayor\ModoAdm\IModoAdm.cs" />
+    <Compile Include="Src\PrecioMayor\ModoAdm\ImpModoAdm.cs" />
+    <Compile Include="Src\Producto\Lista\IListaModo.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\imp_dataPrd.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\imp_empVta.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\IEmp.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\IEmpVta.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\IInv.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\IDataPrd.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\IListar.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\IModoAdm.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\imp_emp.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\ImpListar.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\ImpModoAdm.cs" />
+    <Compile Include="Src\Producto\Lista\ModoAdm\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Producto\Lista\ModoAdm\Frm.designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Producto\Lista\ModoAdm\imp_inv.cs" />
     <Compile Include="Src\Reportes\Cierre\MovCaja\Movimiento.cs" />
     <Compile Include="Src\Reportes\Cierre\VueltosEntregado\Movimiento.cs" />
+    <Compile Include="Src\Tools\Vendedor\ImpVendedor.cs" />
+    <Compile Include="Src\Tools\Vendedor\IVendedor.cs" />
     <Compile Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -719,6 +777,9 @@
     <EmbeddedResource Include="Src\Anular\AnularFrm.resx">
       <DependentUpon>AnularFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\AsignarVededor\ModoAdm\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\CambioPrecio\CambioPrecioFrm.resx">
       <DependentUpon>CambioPrecioFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -730,6 +791,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Cierre\Historico\HistoriaFrm.resx">
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Consultor\ModoAdm\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\MovCaja\Adm\AdmFrm.resx">
       <DependentUpon>AdmFrm.cs</DependentUpon>
@@ -745,6 +809,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.resx">
       <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Producto\Lista\ModoAdm\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\MovCaja.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

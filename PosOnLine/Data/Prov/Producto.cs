@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.FichaAuto 
             Producto_BusquedaByCodigo(string buscar)
         {
@@ -318,7 +316,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

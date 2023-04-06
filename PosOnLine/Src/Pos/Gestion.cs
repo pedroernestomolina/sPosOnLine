@@ -43,18 +43,22 @@ namespace PosOnLine.Src.Pos
         private OOB.Documento.Entidad.Ficha _docAplicarNotaCredito;
         private EnumModoFuncion _modoFuncion;
         private bool _permitirBusquedaPorDescripcion;
-        private Producto.Lista.Gestion _gestionListar;
+        //private Producto.Lista.Gestion _gestionListar;
+        private Producto.Lista.IListaModo _gestionListar;
         private Producto.Buscar.Gestion _gestionBuscar;
         private ICliente _gestionCliente;
-        private Consultor.Gestion _gestionConsultor;
-        private Item.Gestion _gestionItem;
+        //private Consultor.Gestion _gestionConsultor;
+        private Consultor.IModo _gestionConsultor;
+        //private Item.Gestion _gestionItem;
+        private Item.IModo _gestionItem;
         private Multiplicar.Gestion _gestionMultiplicar;
         private Pago.Procesar.Gestion _gestionProcesarPago;
         private Pendiente.Gestion _gestionPendiente;
         private PassWord.Gestion _gestionPassW;
         private bool _isTickeraOk;
         private Helpers.Imprimir.IDocumento _ImprimirDoc;
-        private PrecioMayor.Gestion _gestionMayor;
+        //private PrecioMayor.Gestion _gestionMayor;
+        private PrecioMayor.IModo _gestionMayor;
         private CambioPrecio.ICambioPrecio _gCambioPrecio;
         private SolicitarPermiso.ISolicitarPermiso _gSolicitarPermiso;
         private IMultiplicar _gMultiplicar;
@@ -110,16 +114,22 @@ namespace PosOnLine.Src.Pos
             _modoFuncion = EnumModoFuncion.Facturacion;
             _permitirBusquedaPorDescripcion = false;
 
-            _gestionMayor = new PrecioMayor.Gestion();
-            _gestionListar = new Producto.Lista.Gestion();
+            //03/04
+            //_gestionMayor = new PrecioMayor.Gestion();
+            //_gestionListar = new Producto.Lista.Gestion();
+            //_gestionConsultor = new Consultor.Gestion();
+            _gestionListar = new Producto.Lista.ModoAdm.ImpModoAdm();
+            _gestionMayor = new PrecioMayor.ModoAdm.ImpModoAdm();
+            _gestionConsultor = new Consultor.ModoAdm.ImpModoAdm();
+
             _gestionBuscar = new Producto.Buscar.Gestion();
             _gestionBuscar.setGestionLista(_gestionListar);
             _gestionBuscar.setGestionPrecioMayor(_gestionMayor);
-            _gestionConsultor = new Consultor.Gestion();
             _gestionConsultor.setGestionBuscar(_gestionBuscar);
             _gestionMultiplicar = new Multiplicar.Gestion();
             _gestionPendiente = new Pendiente.Gestion();
-            _gestionItem = new Item.Gestion();
+            //_gestionItem = new Item.Gestion();
+            _gestionItem = new Item.ModoAdm.ImpModoAdm();
             _gestionItem.Hnd_Item_Cambio += _gestionItem_Hnd_Item_Cambio;
             _gestionItem.setGestionMultiplicar(_gestionMultiplicar);
             _gestionItem.setGestionPendiente(_gestionPendiente);
@@ -430,7 +440,6 @@ namespace PosOnLine.Src.Pos
 
             _gestionConsultor.Inicializa();
             _gestionConsultor.setFactorCambio(_tasaCambioActual);
-            //_gestionConsultor.setHabilitar_Precio5_VentaMayor(r01.Entidad);
             _gestionConsultor.Inicia();
             _gestionItem.setItemActualInicializar();
         }
@@ -555,11 +564,13 @@ namespace PosOnLine.Src.Pos
                         if (_gestionItem.DejarCtaPendienteIsOk)
                         {
                             _gestionCliente.Limpiar();
+                            Inicializa();
+                            _gestionItem.setItemActualInicializar();
                         }
                     }
                 }
-                Inicializa();
-                _gestionItem.setItemActualInicializar();
+                //Inicializa();
+                //_gestionItem.setItemActualInicializar();
             }
         }
 
@@ -683,12 +694,6 @@ namespace PosOnLine.Src.Pos
                             {
                                 ProcesarNotaEntreag_2();
                             }
-
-                            //_gestionProcesarPago.Inicializar();
-                            //_gestionProcesarPago.setCliente(_gestionCliente.ClienteData);
-                            //_gestionProcesarPago.setImporte(_gestionItem.Importe);
-                            //_gestionProcesarPago.setTasaCambio(_tasaCambioActual);
-                            //ProcesarNotaEntrega();
                         }
                     }
                 }
@@ -1391,11 +1396,13 @@ namespace PosOnLine.Src.Pos
                 }
                 _gestionListar.Inicializa();
                 _gestionListar.setData(r04.ListaD, _tasaCambioActual);
+                _gestionListar.setFiltroPrdListar(filtro);
                 _gestionListar.Inicia();
                 if (_gestionListar.ItemSeleccionIsOk)
                 {
                     _gestionItem.Inicializar();
-                    _gestionItem.RegistraItem(_gestionListar.ItemSeleccionado.Auto, _precioManejar);
+                    var _autoPrd = _gestionListar.IdItemSeleccionado;
+                    _gestionItem.RegistraItem(_autoPrd, _precioManejar);
                 }
             }
         }

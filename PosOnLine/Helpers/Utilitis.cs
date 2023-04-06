@@ -25,7 +25,6 @@ namespace PosOnLine.Helpers
         static public OOB.Resultado.Ficha CargarXml()
         {
             var result = new OOB.Resultado.Ficha();
-
             try
             {
                 var doc = new XmlDocument();
@@ -217,9 +216,9 @@ namespace PosOnLine.Helpers
                                     }
                                 }
 
-                                Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra = false;
                                 if (nv.LocalName.ToUpper().Trim() == "HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA")
                                 {
+                                    Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra = false;
                                     if (nv.InnerText.Trim().ToUpper() == "SI")
                                     {
                                         Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra = true;
@@ -333,10 +332,7 @@ namespace PosOnLine.Helpers
                 result.Result =  OOB.Resultado.Enumerados.EnumResult.isError;
                 result.Mensaje = e.Message;
             }
-
             return result;
         }
-
     }
-
 }

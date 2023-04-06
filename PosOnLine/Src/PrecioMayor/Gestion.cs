@@ -8,11 +8,8 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.PrecioMayor
 {
-
-    public class Gestion
+    public class Gestion: IModo
     {
-
-
         private string _autoPrd;
         private string _tarifa;
         private string _producto;
@@ -225,7 +222,5 @@ namespace PosOnLine.Src.PrecioMayor
                 _precioSeleccionadoIsOk = true;
             }
         }
-
     }
-
 }

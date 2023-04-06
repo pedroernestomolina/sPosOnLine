@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 namespace PosOnLine
 {
-
     static class Program
     {
         /// <summary>
@@ -23,5 +22,4 @@ namespace PosOnLine
             gestion.Inicia();
         }
     }
-
 }

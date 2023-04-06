@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace PosOnLine.Src.Producto.Lista
 {
 
-    public class Gestion
+    public class Gestion: IListaModo
     {
 
         private OOB.Producto.Lista.Ficha _itemSeleccionado;
@@ -71,7 +71,8 @@ namespace PosOnLine.Src.Producto.Lista
             _itemSeleccionado = null;
         }
 
-        internal void setData(List<OOB.Producto.Lista.Ficha> lst, decimal tasaCambio)
+
+        public void setData(List<OOB.Producto.Lista.Ficha> lst, decimal tasaCambio)
         {
             _lData.Clear();
             foreach (var it in lst.OrderBy(o=>o.Nombre).ToList())
@@ -398,6 +399,12 @@ namespace PosOnLine.Src.Producto.Lista
                 return rt;
             }
         }
-    }
 
+
+        //03/04
+        public string IdItemSeleccionado { get { return ItemSeleccionado.Auto; } }
+        public void setFiltroPrdListar(OOB.Producto.Lista.Filtro filtro)
+        {
+        }
+    }
 }
