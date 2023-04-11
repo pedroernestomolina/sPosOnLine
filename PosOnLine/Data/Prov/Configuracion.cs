@@ -9,9 +9,34 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
+        public OOB.Resultado.FichaEntidad<modoPos>
+            Configuracion_ModoPos()
+        {
+            var rt = new OOB.Resultado.FichaEntidad<modoPos>();
+            var r01 = MyData.Configuracion_ModoPos();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            modoPos _modo = modoPos.SinDefinir;
+            var _dato = r01.Entidad.Trim().ToUpper();
+            switch (_dato)
+            {
+                case "BASICO":
+                    _modo = modoPos.Basico;
+                    break;
+                case "SUCURSAL":
+                    _modo = modoPos.Sucursal;
+                    break;
+                case "ADMINISTRATIVO":
+                    _modo = modoPos.Administrativo;
+                    break;
+            }
+            rt.Entidad = _modo;
+            return rt;
+        }
 
         public OOB.Resultado.FichaEntidad<OOB.Configuracion.Entidad.Ficha> 
             Configuracion_Pos_GetFicha()
@@ -278,7 +303,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

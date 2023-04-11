@@ -65,6 +65,7 @@ namespace PosOnLine.Src.Producto.Lista
             c4.DefaultCellStyle.Font = f1;
             c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             c4.DefaultCellStyle.Format ="n1";
+            c4.Name = "CNT";
 
             var c5 = new DataGridViewTextBoxColumn();
             c5.DataPropertyName = "Precio";
@@ -74,6 +75,7 @@ namespace PosOnLine.Src.Producto.Lista
             c5.HeaderCell.Style.Font = f;
             c5.DefaultCellStyle.Font = f1;
             c5.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            c5.Name = "PVT";
 
             var c6 = new DataGridViewTextBoxColumn();
             c6.DataPropertyName = "Plu";
@@ -135,8 +137,8 @@ namespace PosOnLine.Src.Producto.Lista
             _source = _controlador.Source;
             _source.CurrentChanged += _source_CurrentChanged;
             DGV.DataSource = _source;
-            DGV.Columns[3].Visible = _controlador.IsCantidadVisible;
-            DGV.Columns[4].Visible = _controlador.IsPrecioVisible;
+            //DGV.Columns["CNT"].Visible = _controlador.IsCantidadVisible;
+            //DGV.Columns["PVT"].Visible = _controlador.IsPrecioVisible;
             DGV.Focus();
             DGV.Refresh();
             L_EMP_1.Text = _controlador.GetEmp_1;

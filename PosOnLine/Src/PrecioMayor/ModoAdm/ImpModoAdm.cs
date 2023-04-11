@@ -31,7 +31,7 @@ namespace PosOnLine.Src.PrecioMayor.ModoAdm
 
         public void Inicializa()
         {
-            _tarifaSeleccionada = "1";
+            _tarifaSeleccionada = "1"; // TIPO DE EMPAQUE A SELECCIONAR 
             _precioSeleccionadoIsOk = false;
         }
         public void Inicia()

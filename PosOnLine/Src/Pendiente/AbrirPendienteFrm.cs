@@ -43,12 +43,13 @@ namespace PosOnLine.Src.Pendiente
             DGV.ReadOnly = true;
 
             var c0 = new DataGridViewTextBoxColumn();
-            c0.DataPropertyName = "Usuario";
+            c0.DataPropertyName = "UsuCodigo";
             c0.HeaderText = "Usuario";
             c0.Visible = true;
-            c0.Width = 120;
+            c0.Width = 80;
             c0.HeaderCell.Style.Font = f;
             c0.DefaultCellStyle.Font = f;
+            c0.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         
             var c1 = new DataGridViewTextBoxColumn();
             c1.DataPropertyName = "Fecha";
@@ -98,7 +99,18 @@ namespace PosOnLine.Src.Pendiente
             c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             c4.DefaultCellStyle.Format = "n0";
 
+            var c6 = new DataGridViewTextBoxColumn();
+            c6.DataPropertyName = "Vendedor";
+            c6.HeaderText = "Vend";
+            c6.Visible = true;
+            c6.MinimumWidth = 120;
+            c6.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            c6.HeaderCell.Style.Font = f;
+            c6.DefaultCellStyle.Font = f1;
+            c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
             DGV.Columns.Add(c0);
+            DGV.Columns.Add(c6);
             DGV.Columns.Add(c1);
             DGV.Columns.Add(c2);
             DGV.Columns.Add(c3);

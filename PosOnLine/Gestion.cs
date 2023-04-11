@@ -42,6 +42,21 @@ namespace PosOnLine
                     }
                 }
 
+                var r01 = Sistema.MyData.Configuracion_ModoPos();
+                switch (r01.Entidad)
+                {
+                    case Data.Infra.modoPos.Basico:
+                        throw new Exception("MODO FABRICA NO IMPLEMNTADO");
+                    case Data.Infra.modoPos.Sucursal:
+                        Sistema.MiFabrica = new Src.FabModSuc();
+                        break;
+                    case Data.Infra.modoPos.Administrativo:
+                        Sistema.MiFabrica = new Src.FabModAdm();
+                        break;
+                    default:
+                        throw new Exception("NO SE HA DEFINIDO UN MODO DE CONFIGURACION PARA EL POS");
+                }
+
                 _gLogin.Inicializa();
                 _gLogin.Inicia();
                 if (_gLogin.LoginIsOk)

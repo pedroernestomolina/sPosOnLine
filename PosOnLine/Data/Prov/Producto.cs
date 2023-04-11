@@ -316,5 +316,26 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
+        public OOB.Resultado.FichaEntidad<OOB.Producto.Costo.Ficha> 
+            Producto_GetCosto_By(string idPrd)
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Producto.Costo.Ficha>();
+            var r01 = MyData.Producto_GetCosto_By(idPrd);
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            var r = r01.Entidad;
+            result.Entidad = new OOB.Producto.Costo.Ficha()
+            {
+                contEmpCompra = r.contEmpCompra,
+                costoEmpCompraDivisa = r.costoEmpCompraDivisa,
+                costoEmpCompraMonLocal = r.costoEmpCompraMonLocal,
+                costoUndCompraMonLocal = r.costoUndCompraMonLocal,
+                descPrd = r.descPrd,
+                idPrd = r.idPrd,
+            };
+            return result;
+        }
     }
 }

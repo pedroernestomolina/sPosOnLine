@@ -9,10 +9,8 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Item
 {
-
-    public class Gestion
+    public class Gestion: IModo
     {
-
         public event EventHandler Hnd_Item_Cambio;
 
 
@@ -49,7 +47,7 @@ namespace PosOnLine.Src.Item
         public string PrdTasaIva { get { return _prdTasaIvaInf; } }
         public decimal PrdPrecioNeto { get { return _prdPrecioNetoInf; } }
         public decimal PrdIva { get { return _prdIvaInf; } }
-        public int PrdContenido { get { return _prdContenidoInf; } }
+        public decimal PrdContenido { get { return _prdContenidoInf; } }
         public BindingList<data> Items { get { return _blitems; } }
         public data DataItemActual { get { return (data)_bsitems.Current; } }
 
@@ -971,7 +969,5 @@ namespace PosOnLine.Src.Item
         {
             IncrementarItem(it, cnt);
         }
-
     }
-
 }

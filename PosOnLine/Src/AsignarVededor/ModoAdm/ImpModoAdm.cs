@@ -29,6 +29,8 @@ namespace PosOnLine.Src.AsignarVededor.ModoAdm
 
         public void Inicializa()
         {
+            _abandonarIsOk = false;
+            _procesarIsOk = false;
             _idVendedorAsignado = "";
             _vendedor.Inicializa();
         }

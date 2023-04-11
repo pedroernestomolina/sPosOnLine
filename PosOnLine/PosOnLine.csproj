@@ -296,6 +296,7 @@
     <Compile Include="OOB\Pos\Cerrar\FichaArqueo.cs" />
     <Compile Include="OOB\Pos\EnUso\Ficha.cs" />
     <Compile Include="OOB\Pos\Resumen\Ficha.cs" />
+    <Compile Include="OOB\Producto\Costo\Ficha.cs" />
     <Compile Include="OOB\Producto\Entidad\Ficha.cs" />
     <Compile Include="OOB\Producto\Existencia\Bloquear\Ficha.cs" />
     <Compile Include="OOB\Producto\Existencia\Buscar\Ficha.cs" />
@@ -445,7 +446,10 @@
     <Compile Include="Src\Consultor\ModoAdm\imp_vta.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IPrdConsultar.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
+    <Compile Include="Src\FabModAdm.cs" />
+    <Compile Include="Src\FabModSuc.cs" />
     <Compile Include="Src\Identificacion\ILogin.cs" />
+    <Compile Include="Src\IFabrica.cs" />
     <Compile Include="Src\ILista.cs" />
     <Compile Include="Src\Item\IModo.cs" />
     <Compile Include="Src\Item\ModoAdm\IModoAdm.cs" />
@@ -965,6 +969,7 @@
     <None Include="Resources\bt_entrada_salida_dinero_48.png" />
     <Content Include="Lib\Fiscal\LibFoxFiscal.dll" />
     <Content Include="Lib\Fiscal\TfhkaNet.dll" />
+    <None Include="Resources\bt_vendedor.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -1009,6 +1014,7 @@
     <Content Include="Src\Imagenes\bt_undo.png" />
     <Content Include="Src\Imagenes\bt_usuario.png" />
     <Content Include="Src\Imagenes\bt_vegetales.png" />
+    <Content Include="Src\Imagenes\bt_vendedor.png" />
     <Content Include="Src\Imagenes\calc.png" />
     <Content Include="Src\Imagenes\carrito compra.png" />
     <Content Include="Src\Imagenes\CarritoCompra.png" />

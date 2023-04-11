@@ -65,6 +65,8 @@ namespace PosOnLine.Src.Pos
         //
         private System.Windows.Forms.PrintDialog printDialog2;
         private System.Drawing.Printing.PrintDocument printDocument2;
+        //
+        private OOB.Vendedor.Entidad.Ficha _vendedorPorDefecto; 
 
 
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
@@ -118,9 +120,15 @@ namespace PosOnLine.Src.Pos
             //_gestionMayor = new PrecioMayor.Gestion();
             //_gestionListar = new Producto.Lista.Gestion();
             //_gestionConsultor = new Consultor.Gestion();
-            _gestionListar = new Producto.Lista.ModoAdm.ImpModoAdm();
-            _gestionMayor = new PrecioMayor.ModoAdm.ImpModoAdm();
-            _gestionConsultor = new Consultor.ModoAdm.ImpModoAdm();
+            //_gestionItem = new Item.Gestion();
+            //_gestionListar = new Producto.Lista.ModoAdm.ImpModoAdm();
+            //_gestionMayor = new PrecioMayor.ModoAdm.ImpModoAdm();
+            //_gestionConsultor = new Consultor.ModoAdm.ImpModoAdm();
+            //_gestionItem = new Item.ModoAdm.ImpModoAdm();
+            _gestionListar = Sistema.MiFabrica.CreateInstace_PosGestionListar();
+            _gestionMayor = Sistema.MiFabrica.CreateInstace_PosGestionMayor();
+            _gestionConsultor = Sistema.MiFabrica.CreateInstace_PosGestionConsultor();
+            _gestionItem = Sistema.MiFabrica.CreateInstace_PosGestionItem(); 
 
             _gestionBuscar = new Producto.Buscar.Gestion();
             _gestionBuscar.setGestionLista(_gestionListar);
@@ -128,8 +136,6 @@ namespace PosOnLine.Src.Pos
             _gestionConsultor.setGestionBuscar(_gestionBuscar);
             _gestionMultiplicar = new Multiplicar.Gestion();
             _gestionPendiente = new Pendiente.Gestion();
-            //_gestionItem = new Item.Gestion();
-            _gestionItem = new Item.ModoAdm.ImpModoAdm();
             _gestionItem.Hnd_Item_Cambio += _gestionItem_Hnd_Item_Cambio;
             _gestionItem.setGestionMultiplicar(_gestionMultiplicar);
             _gestionItem.setGestionPendiente(_gestionPendiente);
@@ -240,6 +246,7 @@ namespace PosOnLine.Src.Pos
                 Helpers.Msg.Error(r02_7.Mensaje);
                 return false;
             }
+            _vendedorPorDefecto = r02_7.Entidad;
             var r02_8 = Sistema.MyData.Sistema_Serie_GetFichaBySerie(Sistema.SerieFactura);
             if (r02_8.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
@@ -512,9 +519,16 @@ namespace PosOnLine.Src.Pos
                 {
                     _gestionCliente.Limpiar();
                     Inicializa();
+                    Reiniciar();
                 }
                 _gestionItem.setItemActualInicializar();
             }
+        }
+
+        private void Reiniciar()
+        {
+            _gestionCliente.Limpiar();
+            _vendedorAsignado = _vendedorPorDefecto;
         }
 
         public void DevolucionItem()
@@ -565,6 +579,7 @@ namespace PosOnLine.Src.Pos
                         {
                             _gestionCliente.Limpiar();
                             Inicializa();
+                            Reiniciar();
                             _gestionItem.setItemActualInicializar();
                         }
                     }
@@ -593,6 +608,15 @@ namespace PosOnLine.Src.Pos
                                 _gestionCliente.setSucursal(_gestionPendiente.CtaPediente.Ficha.idSucursal);
                                 _gestionCliente.setDeposito(_gestionPendiente.CtaPediente.Ficha.idDeposito);
                                 _gestionCliente.setVendedor(_gestionPendiente.CtaPediente.Ficha.idVendedor);
+
+                                _vendedorAsignado = _vendedorPorDefecto;
+                                var v01 = Sistema.MyData.Vendedor_GetFichaById(_gestionPendiente.CtaPediente.Ficha.idVendedor);
+                                if (v01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                                {
+                                    Helpers.Msg.Error(v01.Mensaje);
+                                    return;
+                                }
+                                _vendedorAsignado = v01.Entidad;
                             }
                         }
                     }
@@ -713,7 +737,10 @@ namespace PosOnLine.Src.Pos
                 }
                 _vendedorAsignado = t01.Entidad;
             }
-
+            if (_vendedorAsignado == null)
+            {
+                _vendedorAsignado = _vendedorPorDefecto;
+            }
 
             _isTickeraOk = false;
             _ImprimirDoc = null;
@@ -1369,6 +1396,7 @@ namespace PosOnLine.Src.Pos
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
             Inicializa();
+            Reiniciar();
         }
 
         public void ActivarCalculadora()
@@ -2071,6 +2099,7 @@ namespace PosOnLine.Src.Pos
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
             Inicializa();
+            Reiniciar();
         }
 
         public void NotaEntrega()
@@ -2418,6 +2447,7 @@ namespace PosOnLine.Src.Pos
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
             Inicializa();
+            Reiniciar();
         }
 
         private Helpers.Imprimir.data CargarDataDocumento(string idDoc)
@@ -2727,7 +2757,6 @@ namespace PosOnLine.Src.Pos
         //
         private void ProcesarNotaEntreag_2()
         {
-
             if (Sistema.Activar_VentasAdm)
             {
                 var t01 = Sistema.MyData.Vendedor_GetFichaById(_gestionCliente.GetVendedorId);
@@ -2738,7 +2767,10 @@ namespace PosOnLine.Src.Pos
                 }
                 _vendedorAsignado = t01.Entidad;
             }
-
+            if (_vendedorAsignado == null) 
+            {
+                _vendedorAsignado = _vendedorPorDefecto;
+            }
 
             _isTickeraOk = false;
             _ImprimirDoc = null;
@@ -3382,6 +3414,7 @@ namespace PosOnLine.Src.Pos
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
             Inicializa();
+            Reiniciar();
         }
     }
 }

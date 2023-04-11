@@ -23,6 +23,8 @@ namespace PosOnLine.OOB.Pendiente.Lista
         public string idVendedor { get; set; }
         public string usuCodigo { get; set; }
         public string usuDescripcion { get; set; }
+        public string codVend { get; set; }
+        public string nombreVend { get; set; }
 
 
         public Ficha()
@@ -41,6 +43,8 @@ namespace PosOnLine.OOB.Pendiente.Lista
             idVendedor = "";
             usuCodigo = "";
             usuDescripcion = "";
+            codVend = "";
+            nombreVend = "";
         }
     }
 }

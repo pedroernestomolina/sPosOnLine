@@ -10,9 +10,9 @@
   <SerieFactura>1</SerieFactura>
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
-  <ModoImpresionFactura>F</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
+  <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
   <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
-  <ModoImpresionNCredito>F</ModoImpresionNCredito>
+  <ModoImpresionNCredito>T80</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>si</HabilitarAbrirDocPendOtrosUsuarios>
@@ -26,8 +26,8 @@
     <Activar>No</Activar>
   </Venta_Adm>
   <Impresora_Fiscal>
-    <Activar>Si</Activar>  <!-- SI, NO -->
-    <Puerto>3</Puerto> 
+    <Activar>no</Activar>  <!-- SI, NO -->
+    <Puerto>0</Puerto> 
   </Impresora_Fiscal>
-  <Simbolo_Divisa_Ticket>Ref</Simbolo_Divisa_Ticket> <!-- POR DEFECTO $, PERO PUEDE SER Ref-->
+  <Simbolo_Divisa_Ticket>$</Simbolo_Divisa_Ticket> <!-- POR DEFECTO $, PERO PUEDE SER Ref-->
 </Configuracion>

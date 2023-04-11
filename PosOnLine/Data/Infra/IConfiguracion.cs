@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Infra
 {
-    
+    public enum modoPos { SinDefinir = -1, Basico = 1, Sucursal = 2, Administrativo } ;
+
     public interface IConfiguracion
     {
+        OOB.Resultado.FichaEntidad<modoPos>
+            Configuracion_ModoPos();
 
         OOB.Resultado.FichaEntidad<decimal> 
             Configuracion_FactorDivisa();
@@ -31,7 +34,5 @@ namespace PosOnLine.Data.Infra
             Configuracion_ValorMaximoPorcentajeDescuento();
         OOB.Resultado.FichaEntidad<bool>
             Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
-
     }
-
 }

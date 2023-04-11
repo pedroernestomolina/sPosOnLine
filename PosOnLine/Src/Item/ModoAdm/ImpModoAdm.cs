@@ -274,6 +274,7 @@ namespace PosOnLine.Src.Item.ModoAdm
                 };
                 var r0p = Sistema.MyData.Producto_ModoAdm_GetPrecio_By(precioOOB);
                 var r1p = Sistema.MyData.FechaServidor();
+                var r2p = Sistema.MyData.Producto_GetCosto_By(prd.idPrd);
                 var _fechaSist = r1p.Entidad.Date;
                 foreach (var rg in r0p.Entidad.precios)
                 {
@@ -307,6 +308,7 @@ namespace PosOnLine.Src.Item.ModoAdm
                         break;
                     }
                 }
+                precioNeto = Math.Round(precioNeto, 2, MidpointRounding.AwayFromZero);
                 if (cnt == 0.0m)
                 {
                     throw new Exception("CONTENIDO DEL PRODUCTO NO DEFINIDO");
@@ -314,6 +316,12 @@ namespace PosOnLine.Src.Item.ModoAdm
                 if (precioNeto == 0.0m)
                 {
                     throw new Exception("PRECIO DEL PRODUCTO NO DEFINIDO");
+                }
+                var _costoNeto = (r2p.Entidad.costoUndCompraMonLocal * empaqueCont);
+                _costoNeto = Math.Round(_costoNeto, 2, MidpointRounding.AwayFromZero);
+                if (_costoNeto > precioNeto)
+                {
+                    throw new Exception("PRECIO DEL PRODUCTO POR DEBAJO DEL COSTO");
                 }
 
                 cnt *= cant;

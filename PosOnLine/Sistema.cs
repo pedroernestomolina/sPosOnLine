@@ -103,5 +103,8 @@ namespace PosOnLine
 
         //SIMBOLO PARA EXPRESAR LA DIVISA
         public static string SimboloDivisa_AlImprimirTicket;
+
+        //FABRICA DE MODULOS DEL SISTEMA
+        public static Src.IFabrica MiFabrica;
     }
 }

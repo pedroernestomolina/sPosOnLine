@@ -18,8 +18,15 @@ namespace PosOnLine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var gestion = new Gestion();
-            gestion.Inicia();
+            try
+            {
+                var gestion = new Gestion();
+                gestion.Inicia();
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+            }
         }
     }
 }
