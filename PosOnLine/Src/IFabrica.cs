@@ -17,5 +17,10 @@ namespace PosOnLine.Src
             CreateInstace_PosGestionConsultor();
         Item.IModo 
             CreateInstace_PosGestionItem();
+        //
+        Pos.ICliente
+            CreateInstace_PosCliente();
+        CambioPrecio.ICambioPrecio 
+            CreateInstace_PosCambioPrecioPrd();
     }
 }

@@ -7,18 +7,12 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Resultado
 {
-
     public class FichaEntidad<T> : Ficha
     {
-
         public T Entidad { get; set; }
-
-
         public FichaEntidad()
             : base()
         {
         }
-
     }
-
 }

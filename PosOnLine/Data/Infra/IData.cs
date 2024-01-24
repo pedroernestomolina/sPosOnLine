@@ -11,7 +11,8 @@ namespace PosOnLine.Data.Infra
         IProducto, IDeposito, IVenta, IPendiente, IDocumento, IConcepto, ISistema,
         IVendedor, IPermiso, IReportePos, IAgencia, ICierre,
         IMovCaja,
-        IProducto_ModoAdm
+        IProducto_ModoAdm,
+        IVentaZufu
     {
         OOB.Resultado.FichaEntidad<DateTime> 
             FechaServidor();

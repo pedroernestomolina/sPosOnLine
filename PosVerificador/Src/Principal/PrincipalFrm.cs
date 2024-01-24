@@ -213,6 +213,13 @@ namespace PosVerificador.Src.Principal
             _contrtolador.ReporteDocumentosVerificados();
         }
 
+        private void TSM_CONFIGURACION_DAR_ALTA_TODAS_Click(object sender, EventArgs e)
+        {
+            DarAltaTodosDocumento();
+        }
+        private void DarAltaTodosDocumento()
+        {
+            _contrtolador.DarAltaTodosDocumento();
+        }
     }
-
 }

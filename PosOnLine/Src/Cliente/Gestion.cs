@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.Cliente
 {
-    
     public class Gestion: Pos.ICliente
     {
-
-
         private Buscar.Gestion _gestionBuscar;
         private bool _isClienteOk;
 
@@ -72,6 +69,10 @@ namespace PosOnLine.Src.Cliente
         {
         }
 
-    }
 
+        //
+        public void CargarFicha(object ficha)
+        {
+        }
+    }
 }

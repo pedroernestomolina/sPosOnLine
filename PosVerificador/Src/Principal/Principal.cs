@@ -305,9 +305,24 @@ namespace PosVerificador.Src.Principal
                     rp1.Generar();
                 }
             }
-
         }
 
+        public void DarAltaTodosDocumento()
+        {
+            var xmsg = "Dar de Alta A Todos Los Doucmentos Generados ?";
+            var msg = MessageBox.Show(xmsg, "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (msg == DialogResult.Yes)
+            {
+                try
+                {
+                    var r01 = Sistema.MyData.Verificador_DarAltaTodosLosDocumentos();
+                    Helpers.Msg.OK("TODOS LOS DOCUMENTOS FUERON DADOS DE ALTA");
+                }
+                catch (Exception e)
+                {
+                    Helpers.Msg.Error(e.Message);
+                }
+            }
+        }
     }
-
 }

@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosVerificador.Data.Prov
 {
-
     public partial class DataPrv : IData
     {
-
         public OOB.Resultado.FichaEntidad<OOB.Verificador.Entidad.Ficha> 
             Verificador_GetFichaById(int id)
         {
@@ -77,7 +75,16 @@ namespace PosVerificador.Data.Prov
 
             return result;
         }
-
+        public OOB.Resultado.Ficha 
+            Verificador_DarAltaTodosLosDocumentos()
+        {
+            var result = new OOB.Resultado.Ficha();
+            var r01 = MyData.Verificador_DarAltaTodosLosDocumentos();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            return result;
+        }
     }
-
 }

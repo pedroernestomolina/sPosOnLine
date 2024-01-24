@@ -11,11 +11,9 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.CambioPrecio
 {
-
     public partial class CambioPrecioFrm : Form
     {
-
-        private ICambioPrecio _controlador;
+        private IVista _controlador;
 
 
         public CambioPrecioFrm()
@@ -24,7 +22,7 @@ namespace PosOnLine.Src.CambioPrecio
         }
 
 
-        public void setControlador(ICambioPrecio ctr)
+        public void setControlador(IVista ctr)
         {
             _controlador = ctr;
         }
@@ -94,7 +92,5 @@ namespace PosOnLine.Src.CambioPrecio
         {
             _controlador.setPrecioNuevo(decimal.Parse(TB_PRECIO_NUEVO.Text));
         }
-
     }
-
 }

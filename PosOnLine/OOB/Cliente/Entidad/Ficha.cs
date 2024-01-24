@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Cliente.Entidad
 {
-    
-    public class Ficha 
+    public class Ficha
     {
-
         public string Id { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
@@ -33,8 +31,6 @@ namespace PosOnLine.OOB.Cliente.Entidad
                 return xr;
             } 
         }
-
-
         public Ficha()
         {
             Id = "";
@@ -47,7 +43,5 @@ namespace PosOnLine.OOB.Cliente.Entidad
             EstatusCredito = "";
             Tarifa = "";
         }
-
     }
-
 }

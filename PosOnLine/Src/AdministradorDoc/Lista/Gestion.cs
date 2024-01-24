@@ -300,9 +300,10 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                         }
                         break;
                     case data.enumTipoDoc.NotaCredito:
-                        Sistema.ImprimirNotaCredito.setData(xdata);
+                        //Sistema.ImprimirNotaCredito.setData(xdata);
                         if (Sistema.ImprimirNotaCredito.IsModoTicket)
                         {
+                            Sistema.ImprimirNotaCredito.setData(xdata);
                             _isTickeraOk = true;
                             _imprimirDoc = Sistema.ImprimirNotaCredito;
                         }

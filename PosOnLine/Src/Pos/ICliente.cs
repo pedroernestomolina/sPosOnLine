@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.Pos
 {
-    
     public interface ICliente
     {
-
         bool IsClienteOk { get; }
         OOB.Cliente.Entidad.Ficha Cliente { get; }
         string ClienteData { get; }
@@ -32,6 +30,7 @@ namespace PosOnLine.Src.Pos
         void setSucursal(string id);
         void setDeposito(string id);
 
+        //
+        void CargarFicha(object ficha);
     }
-
 }

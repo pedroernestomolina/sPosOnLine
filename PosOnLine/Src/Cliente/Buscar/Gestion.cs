@@ -8,10 +8,8 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Cliente.Buscar
 {
-
     public class Gestion
     {
-
         public enum enumMetodoBusqueda { SinDefinir = 1, CiRif = 1, Nombre };
 
 
@@ -57,12 +55,6 @@ namespace PosOnLine.Src.Cliente.Buscar
                 frm.ShowDialog();
             }
         }
-
-        private bool CargarData()
-        {
-            return true;
-        }
-
         public void setCiRifMetodoBusqueda()
         {
             _metodoBusqueda = enumMetodoBusqueda.CiRif;
@@ -93,90 +85,50 @@ namespace PosOnLine.Src.Cliente.Buscar
 
         public void setBuscar(string texto)
         {
-            _cadenaBusqueda = texto;
-
-            if (_metodoBusqueda == enumMetodoBusqueda.CiRif )
+            try
             {
-                var cirif = _cadenaBusqueda.Trim().ToUpper();
-                if (cirif == "")
-                    return;
-
-                var r01 = Sistema.MyData.Cliente_GetFichaByCiRif(cirif);
-                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                {
-                    Helpers.Msg.Error(r01.Mensaje);
-                    return;
-                }
-                if (r01.Entidad != "")
-                {
-                    var r02 = Sistema.MyData.Cliente_GetFicha(r01.Entidad);
-                    if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                    {
-                        Helpers.Msg.Error(r02.Mensaje);
-                        return;
-                    }
-                    _cliente = r02.Entidad;
-                    frm.ActualizarCliente();
-                }
-                else 
-                {
-                    var msg = MessageBox.Show("Cliente No Encontrado, Agregarlo ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                    if (msg == DialogResult.Yes)
-                    {
-                        _habilitarBusqueda = false;
-                        frm.AgregarClienteCtr();
-                    }
-                    else 
-                    {
-                        Limpiar();
-                        frm.LimpiarCtr();
-                    }
-                }
-            }
-            else
-            {
-                var cadena = _cadenaBusqueda.Trim().ToUpper();
+                var cadena = texto.Trim().ToUpper();
                 if (cadena == "")
                     return;
-                Listar(cadena);
-            }
-        }
 
-        public void Listar(string buscar)
-        {
-            _clienteSeleccionadoIsOk = false;
-            var pref= OOB.Cliente.Lista.Enumerados.enumPreferenciaBusqueda.CiRif;
-            if (_metodoBusqueda== enumMetodoBusqueda.Nombre)
-                pref= OOB.Cliente.Lista.Enumerados.enumPreferenciaBusqueda.Nombre;
-
-            var filtroOOB = new OOB.Cliente.Lista.Filtro()
-            {
-                cadena = buscar,
-                preferenciaBusqueda = pref,
-            };
-            var r01 = Sistema.MyData.Cliente_GetLista(filtroOOB);
-            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r01.Mensaje);
-                return;
-            }
-
-            _gestionLista.Inicializar();
-            _gestionLista.setLista(r01.ListaD);
-            _gestionLista.Inicia();
-
-            if (_gestionLista.ItemSeleccionado != null)
-            {
-                _habilitarBusqueda = false;
-                var idCliente = _gestionLista.ItemSeleccionado.auto;
-                var r02 = Sistema.MyData.Cliente_GetFicha(idCliente);
-                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                if (_metodoBusqueda == enumMetodoBusqueda.CiRif)
                 {
-                    Helpers.Msg.Error(r02.Mensaje);
-                    return;
+                    var r01 = Sistema.MyData.Cliente_GetFichaByCiRif(cadena);
+                    if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                    {
+                        throw new Exception(r01.Mensaje);
+                    }
+                    if (r01.Entidad != "")
+                    {
+                        cargarDataCliente(r01.Entidad);
+                        frm.ActualizarCliente();
+                    }
+                    else
+                    {
+                        var msg = MessageBox.Show("Cliente No Encontrado, Agregarlo ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                        if (msg == DialogResult.Yes)
+                        {
+                            AgregarCliente(cadena);
+                            if (_cliente != null)
+                            {
+                                frm.ActualizarCliente();
+                            }
+                        }
+                        else
+                        {
+                            Limpiar();
+                            frm.LimpiarCtr();
+                        }
+                    }
                 }
-                _cliente = r02.Entidad;
-                frm.ActualizarCliente();
+                else
+                {
+                    ListaCliente(cadena);
+                }
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
             }
         }
 
@@ -331,25 +283,88 @@ namespace PosOnLine.Src.Cliente.Buscar
             }
         }
 
-        public bool EditarIsOk { get { return _gEditar.IsEditarOk; } }
-        public void EditarCliente()
+
+        Zufu.ClienteComp.AgregarEditar.Vista.IAgregar _agregar;
+        private void AgregarCliente(string cirif)
         {
-            _gEditar.Inicializa();
-            _gEditar.setCliente(_cliente);
-            _gEditar.Inicia();
-            if (_gEditar.IsEditarOk) 
+            if (_agregar == null)
             {
-                var r01 = Sistema.MyData.Cliente_GetFicha(_cliente.Id);
-                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                {
-                    Helpers.Msg.Error(r01.Mensaje);
-                    return;
-                }
+                _agregar = new Zufu.ClienteComp.AgregarEditar.Handler.Agregar();
+            }
+            _agregar.Inicializa();
+            _agregar.setCiRif(cirif);
+            _agregar.Inicia();
+            if (_agregar.Procesar.OpcionIsOK)
+            {
+                cargarDataCliente(_agregar.IdNewCliente);
                 _clienteSeleccionadoIsOk = true;
-                _cliente = r01.Entidad;
             }
         }
 
-    }
+        private bool _editarIsOk = false;
+        Zufu.ClienteComp.AgregarEditar.Vista.IEditar _editar;
+        public bool EditarIsOk { get { return _editarIsOk; } }
+        public void EditarCliente()
+        {
+            _editarIsOk = false;
+            if (_editar == null) 
+            {
+                _editar = new Zufu.ClienteComp.AgregarEditar.Handler.Editar();
+            }
+            _editar.Inicializa();
+            _editar.setIdEditar(_cliente.Id);
+            _editar.Inicia();
+            if (_editar.Procesar.OpcionIsOK)
+            {
+                cargarDataCliente(_cliente.Id);
+                _clienteSeleccionadoIsOk = true;
+                _editarIsOk = true;
+            }
+        }
 
+        private Zufu.ClienteComp.Listar.Vista.IVista _listaClient;
+        public void ListaCliente(string buscar)
+        {
+            _clienteSeleccionadoIsOk = false;
+            var filtroOOB = new OOB.Cliente.Lista.Filtro()
+            {
+                cadena = buscar,
+                preferenciaBusqueda = OOB.Cliente.Lista.Enumerados.enumPreferenciaBusqueda.Nombre,
+            };
+            var r01 = Sistema.MyData.Cliente_GetLista(filtroOOB);
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            if (_listaClient == null)
+            {
+                _listaClient = new Zufu.ClienteComp.Listar.Handler.Imp();
+            }
+            _listaClient.Inicializa();
+            _listaClient.setListaCargar(r01.ListaD.OrderBy(o => o.nombre).ToList());
+            _listaClient.Inicia();
+            if (_listaClient.Lista.ItemSeleccionadoIsOk)
+            {
+                _habilitarBusqueda = false;
+                var _clientSel = (Zufu.ClienteComp.Listar.Handler.dataList)_listaClient.Lista.ItemSeleccionado;
+                cargarDataCliente(_clientSel.Ficha.auto);
+                frm.ActualizarCliente();
+            }
+        }
+
+
+        private void cargarDataCliente(string id)
+        {
+            var r01 = Sistema.MyData.Cliente_GetFicha(id);
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            _cliente = r01.Entidad;
+        }
+        private bool CargarData()
+        {
+            return true;
+        }
+    }
 }

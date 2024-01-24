@@ -8,10 +8,8 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.CambioPrecio
 {
-    
-    public class CambioPrecio: ICambioPrecio
+    public class CambioPrecio: IVista
     {
-
         private Item.data _item;
         private bool _procesarIsOk;
         private bool _abandonarIsOK;
@@ -145,7 +143,8 @@ namespace PosOnLine.Src.CambioPrecio
         {
             _precioNuevo = pn;
         }
-
+        public void setUsuarioAutoriza(object usuario)
+        {
+        }
     }
-
 }

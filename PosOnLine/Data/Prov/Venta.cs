@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.FichaId 
             Venta_Item_Registrar(OOB.Venta.Item.Registrar.Ficha ficha)
         {

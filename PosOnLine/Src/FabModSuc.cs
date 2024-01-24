@@ -29,5 +29,17 @@ namespace PosOnLine.Src
         {
             return new Item.Gestion();
         }
+        //
+        public Pos.ICliente 
+            CreateInstace_PosCliente()
+        {
+            return new Zufu.ClienteComp.Cliente.Handler.Imp();
+        }
+        public CambioPrecio.ICambioPrecio 
+            CreateInstace_PosCambioPrecioPrd()
+        {
+            //return new CambioPrecio.CambioPrecio();
+            return new Zufu.CambioPrecioPrdComp.CambioPrecio.Handler.Imp();
+        }
     }
 }

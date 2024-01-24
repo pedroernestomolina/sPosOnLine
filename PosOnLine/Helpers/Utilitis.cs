@@ -100,6 +100,7 @@ namespace PosOnLine.Helpers
                                             break;
                                         case "T80":
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80.Documento();
+                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.Documento();
                                             Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80.Documento();
                                             break;
                                         case "T80B":

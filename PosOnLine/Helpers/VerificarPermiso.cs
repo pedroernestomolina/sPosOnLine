@@ -10,7 +10,7 @@ namespace PosOnLine.Helpers
 
     public class VerificarPermiso
     {
-        static public bool Verificar(string usu, string psw) 
+        static public OOB.Usuario.Entidad.Ficha Verificar(string usu, string psw) 
         {
             try
             {
@@ -26,19 +26,19 @@ namespace PosOnLine.Helpers
                 if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
                     Helpers.Msg.Error(r02.Mensaje);
-                    return false;
+                    return null;
                 }
                 if (!r02.Entidad.permisoHabilitado)
                 {
                     Helpers.Msg.Alerta("PERMISO NO HABILITADO PARA CAMBIAR PRECIO");
-                    return false;
+                    return null;
                 }
-                return true;
+                return r01.Entidad;
             }
             catch (Exception e)
             {
                 Helpers.Msg.Error(e.Message);
-                return false;
+                return null;
             }
         }
     }

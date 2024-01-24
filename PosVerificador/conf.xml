@@ -2,6 +2,6 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>mscala</Catalogo>
+    <Catalogo>banco</Catalogo>
   </Servidor>
 </Configuracion>

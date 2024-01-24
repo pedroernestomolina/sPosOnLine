@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibControles", "LibControle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosVerificador", "PosVerificador\PosVerificador.csproj", "{BDB3F3C6-8FF4-499D-8519-23E44C67D1CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PosNew", "PosNew", "{0D4CFEF8-6A3A-487D-8E00-17CE8B69A41A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosNew", "PosNew\PosNew.csproj", "{CD839D1D-7709-4F42-A041-E6F344E96799}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +31,15 @@ Global
 		{BDB3F3C6-8FF4-499D-8519-23E44C67D1CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDB3F3C6-8FF4-499D-8519-23E44C67D1CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDB3F3C6-8FF4-499D-8519-23E44C67D1CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD839D1D-7709-4F42-A041-E6F344E96799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD839D1D-7709-4F42-A041-E6F344E96799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD839D1D-7709-4F42-A041-E6F344E96799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD839D1D-7709-4F42-A041-E6F344E96799}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CD839D1D-7709-4F42-A041-E6F344E96799} = {0D4CFEF8-6A3A-487D-8E00-17CE8B69A41A}
 	EndGlobalSection
 EndGlobal

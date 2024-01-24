@@ -29,5 +29,16 @@ namespace PosOnLine.Src
         {
             return new Item.ModoAdm.ImpModoAdm();
         }
+        //
+        public Pos.ICliente 
+            CreateInstace_PosCliente()
+        {
+            return new VentaAdm.Gestion();
+        }
+        public CambioPrecio.ICambioPrecio 
+            CreateInstace_PosCambioPrecioPrd()
+        {
+            return new Src.CambioPrecio.CambioPrecio();
+        }
     }
 }

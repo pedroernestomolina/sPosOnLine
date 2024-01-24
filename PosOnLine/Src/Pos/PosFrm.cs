@@ -566,5 +566,4 @@ namespace PosOnLine.Src.Pos
             _controlador.MOV_ENTRADA_SALIDA_DINERO_CAJA();
         }
     }
-
 }

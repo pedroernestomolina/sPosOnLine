@@ -202,13 +202,21 @@ namespace PosOnLine.Src.Principal
 
             if (Sistema.PosEnUso.IsEnUso) 
             {
-                if (Sistema.Activar_VentasAdm)
+                //if (Sistema.Activar_VentasAdm)
+                //{
+                //    _gCliente = new VentaAdm.Gestion();
+                //}
+                //else
+                //{
+                //    if (_gCliente == null) 
+                //    {
+                //        _gCliente = Sistema.MiFabrica.CreateInstace_PosCliente();
+                //    }
+                //    //_gCliente = new Cliente.Gestion();
+                //}
+                if (_gCliente == null)
                 {
-                    _gCliente = new VentaAdm.Gestion();
-                }
-                else
-                {
-                    _gCliente = new Cliente.Gestion();
+                    _gCliente = Sistema.MiFabrica.CreateInstace_PosCliente();
                 }
                 frm.setVisibilidad(false);
                 _gestionPos.setCtrlCliente(_gCliente);
@@ -244,9 +252,12 @@ namespace PosOnLine.Src.Principal
                 _gestionDoc.Inicia();
                 if (_gestionDoc.NotaCreditoIsOk)
                 {
-                    _gCliente = new Cliente.Gestion();
+                    if (_gCliente == null)
+                    {
+                        _gCliente = Sistema.MiFabrica.CreateInstace_PosCliente();
+                    }
+                    //_gCliente = new Cliente.Gestion();
                     _gestionPos.setCtrlCliente(_gCliente);
-
                     _gestionPos.Inicializa();
                     _gestionPos.setNotaCredito(_gestionDoc.DocAplicaNotaCredito);
                     _gestionPos.Inicia();

@@ -46,7 +46,6 @@ namespace PosOnLine.Src.Pos
         //private Producto.Lista.Gestion _gestionListar;
         private Producto.Lista.IListaModo _gestionListar;
         private Producto.Buscar.Gestion _gestionBuscar;
-        private ICliente _gestionCliente;
         //private Consultor.Gestion _gestionConsultor;
         private Consultor.IModo _gestionConsultor;
         //private Item.Gestion _gestionItem;
@@ -59,7 +58,6 @@ namespace PosOnLine.Src.Pos
         private Helpers.Imprimir.IDocumento _ImprimirDoc;
         //private PrecioMayor.Gestion _gestionMayor;
         private PrecioMayor.IModo _gestionMayor;
-        private CambioPrecio.ICambioPrecio _gCambioPrecio;
         private SolicitarPermiso.ISolicitarPermiso _gSolicitarPermiso;
         private IMultiplicar _gMultiplicar;
         //
@@ -67,12 +65,29 @@ namespace PosOnLine.Src.Pos
         private System.Drawing.Printing.PrintDocument printDocument2;
         //
         private OOB.Vendedor.Entidad.Ficha _vendedorPorDefecto; 
+        //
+        private Pos.ICliente _gestionCliente;
+        private CambioPrecio.ICambioPrecio _gCambioPrecio;
 
 
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
         public string UsuarioActual { get { return Sistema.Usuario.codigo + Environment.NewLine + Sistema.Usuario.nombre; } }
         public string EquipoEstacion { get { return Sistema.EquipoEstacion; } }
-        public string ClienteData { get { return _gestionCliente.ClienteData; } }
+        //public string ClienteData { get { return _gestionCliente.ClienteData; } }
+        public string ClienteData 
+        {
+            get 
+            {
+                var rt = "";
+                if (_clienteFicha != null)
+                {
+                    rt = _clienteFicha.CiRif + Environment.NewLine + 
+                        _clienteFicha.Nombre + Environment.NewLine + 
+                        _clienteFicha.DireccionFiscal;
+                }
+                return rt;
+            } 
+        }
         public int CantItem { get { return _gestionItem.CantItem; } }
         public decimal TotalPeso { get { return _gestionItem.TotalPeso; } }
         public int CantRenglones { get { return _gestionItem.CantRenglones; } }
@@ -140,10 +155,11 @@ namespace PosOnLine.Src.Pos
             _gestionItem.setGestionMultiplicar(_gestionMultiplicar);
             _gestionItem.setGestionPendiente(_gestionPendiente);
             _gestionProcesarPago = new Pago.Procesar.Gestion();
-            _gCambioPrecio = new CambioPrecio.CambioPrecio();
             _gSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
             //
             _gMultiplicar = _gestionMultiplicar;
+            //
+            _clienteFicha = null;
         }
         private void printDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
@@ -156,7 +172,6 @@ namespace PosOnLine.Src.Pos
             }
             _ImprimirDoc = null;
         }
-
 
         private void _gestionItem_Hnd_Item_Cambio(object sender, EventArgs e)
         {
@@ -171,6 +186,8 @@ namespace PosOnLine.Src.Pos
             _docAplicarNotaCredito = null;
             _modoFuncion = EnumModoFuncion.Facturacion;
             _gestionCliente.Inicializa();
+            //
+            _clienteFicha = null;
         }
 
         PosFrm frm;
@@ -410,18 +427,24 @@ namespace PosOnLine.Src.Pos
             else
             {
                 _gestionItem.setData(_docAplicarNotaCredito.items, _tasaCambioActual);
-                _gestionCliente.CargarCliente(_docAplicarNotaCredito.AutoCliente);
+                _clienteFicha = null;
+                var v00 = Sistema.MyData.Cliente_GetFicha(_docAplicarNotaCredito.AutoCliente);
+                if (v00.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(v00.Mensaje);
+                    return false;
+                }
+                _clienteFicha = v00.Entidad;
+                _gestionCliente.CargarFicha(_clienteFicha);
             }
-
             return rt;
         }
 
+        private OOB.Cliente.Entidad.Ficha _clienteFicha;
         public void ClienteBuscar()
         {
             if (!IsNotaCredito)
             {
-                //_gestionCliente.Inicializa();
-
                 if (Sistema.Activar_VentasAdm)
                 {
                     var _habilitar = !(_gestionItem.Items.Count() > 0);
@@ -431,7 +454,13 @@ namespace PosOnLine.Src.Pos
                     }
                     _gestionCliente.setHabilitarBusqueda(_habilitar);
                 }
+                _gestionCliente.Inicializa();
+                _gestionCliente.CargarFicha(_clienteFicha);
                 _gestionCliente.Inicia();
+                if (_gestionCliente.IsClienteOk)
+                {
+                    _clienteFicha = _gestionCliente.Cliente;
+                }
                 _gestionItem.setItemActualInicializar();
             }
         }
@@ -456,7 +485,7 @@ namespace PosOnLine.Src.Pos
             if (cadena == "") { return; }
 
             if (Sistema.Activar_VentasAdm)
-                if (!_gestionCliente.IsClienteOk) 
+                if (_clienteFicha==null) 
                 {
                     Helpers.Msg.Alerta("POR FAVOR, DEBES PRIMERO SELECCIONAR UN CLIENTE PRIMERO");
                     return;
@@ -464,21 +493,20 @@ namespace PosOnLine.Src.Pos
 
             if (_precioManejar == "") //MODO LIBRE, debe indicar un cliente, para mostrar precio
             {
-                if (!_gestionCliente.IsClienteOk)
+                if (_clienteFicha == null)
                 {
                     Helpers.Msg.Alerta("DEBES INDICAR/SELECCIONAR UN CLIENTE POR FAVOR");
                     return;
                 }
             }
-
             if (_modoFuncion != EnumModoFuncion.NotaCredito)
             {
                 var _tarifaPrecioManejar = _precioManejar;
                 if (_precioManejar == "")
                 {
-                    if (_gestionCliente.IsClienteOk)
+                    if (_clienteFicha != null) 
                     {
-                        _tarifaPrecioManejar = _gestionCliente.Cliente.TarifaPrecio;
+                        _tarifaPrecioManejar = _clienteFicha.TarifaPrecio;
                     }
                     else
                     {
@@ -504,13 +532,9 @@ namespace PosOnLine.Src.Pos
 
         public void AnularVenta()
         {
-            if (CantRenglones == 0)
-                return;
-
             var msg = MessageBox.Show("Anular Venta ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (msg == System.Windows.Forms.DialogResult.No)
                 return;
-
             if (PassWIsOk(Sistema.FuncionPosAnularVenta))
             {
                 _gestionItem.Inicializar();
@@ -557,7 +581,7 @@ namespace PosOnLine.Src.Pos
                 if (CantRenglones == 0)
                     return;
 
-                if (_gestionCliente.Cliente == null)
+                if (_clienteFicha == null)
                 {
                     Helpers.Msg.Error("DEBE SELECCIONAR UN CLIENTE ANTES DE DEJAR LA CUENTA PENDIENTE");
                 }
@@ -574,7 +598,7 @@ namespace PosOnLine.Src.Pos
                             _idDeposito= _gestionCliente.GetDepositoId;
                             _idVendedor = _gestionCliente.GetVendedorId;
                         }
-                        _gestionItem.DejarCtaPendiente(_gestionCliente.Cliente, _idSucursal, _idDeposito, _idVendedor);
+                        _gestionItem.DejarCtaPendiente(_clienteFicha, _idSucursal, _idDeposito, _idVendedor);
                         if (_gestionItem.DejarCtaPendienteIsOk)
                         {
                             _gestionCliente.Limpiar();
@@ -584,8 +608,6 @@ namespace PosOnLine.Src.Pos
                         }
                     }
                 }
-                //Inicializa();
-                //_gestionItem.setItemActualInicializar();
             }
         }
 
@@ -604,7 +626,15 @@ namespace PosOnLine.Src.Pos
                             ActualizarData();
                             if (_gestionPendiente.CtaPediente.Ficha != null)
                             {
-                                _gestionCliente.CargarCliente(_gestionPendiente.CtaPediente.Ficha.idCliente);
+                                _clienteFicha = null;
+                                var v00 = Sistema.MyData.Cliente_GetFicha(_gestionPendiente.CtaPediente.Ficha.idCliente);
+                                if (v00.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                                {
+                                    Helpers.Msg.Error(v00.Mensaje);
+                                    return;
+                                }
+                                _clienteFicha = v00.Entidad;
+                                _gestionCliente.CargarFicha(_clienteFicha);
                                 _gestionCliente.setSucursal(_gestionPendiente.CtaPediente.Ficha.idSucursal);
                                 _gestionCliente.setDeposito(_gestionPendiente.CtaPediente.Ficha.idDeposito);
                                 _gestionCliente.setVendedor(_gestionPendiente.CtaPediente.Ficha.idVendedor);
@@ -650,18 +680,16 @@ namespace PosOnLine.Src.Pos
             {
                 if (CantRenglones > 0)
                 {
-                    if (_gestionCliente.Cliente == null)
+                    if (_clienteFicha== null)
                     {
                         Helpers.Msg.Error("DEBE SELECCIONAR UN CLIENTE PARA PROCESAR DOCUMENTO");
                         return;
                     }
-
                     if (Sistema.ModoSoloDocPendiente)
                     {
                         Helpers.Msg.Error("OPCION NO PERMITIDA," + Environment.NewLine + "SOLO PODRAS DEJAR EL DOCUMENTO EN PENDIENTE" + Environment.NewLine + "VERIFICA POR FAVOR...");
                         return;
                     }
-
                     if (_modoFuncion == EnumModoFuncion.Facturacion)
                     {
                         if (!PassWIsOk(Sistema.FuncionPosElaborarFacturaVenta))
@@ -669,8 +697,8 @@ namespace PosOnLine.Src.Pos
                             return;
                         }
                         _gestionProcesarPago.Inicializar();
-                        _gestionProcesarPago.setCliente(_gestionCliente.ClienteData);
-                        _gestionProcesarPago.setDataCliente(_gestionCliente.Cliente);
+                        _gestionProcesarPago.setCliente(ClienteData);
+                        _gestionProcesarPago.setDataCliente(_clienteFicha);
                         _gestionProcesarPago.setImporte(_gestionItem.Importe);
                         _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
                         _gestionProcesarPago.Inicia();
@@ -685,7 +713,7 @@ namespace PosOnLine.Src.Pos
                         if (msg == DialogResult.Yes)
                         {
                             _gestionProcesarPago.Inicializar();
-                            _gestionProcesarPago.setCliente(_gestionCliente.ClienteData);
+                            _gestionProcesarPago.setCliente(ClienteData);
                             _gestionProcesarPago.setImporte(_gestionItem.Importe);
                             _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
                             _gestionProcesarPago.setNotaCredito(true);
@@ -709,8 +737,8 @@ namespace PosOnLine.Src.Pos
                         if (msg == DialogResult.Yes)
                         {
                             _gestionProcesarPago.Inicializar();
-                            _gestionProcesarPago.setCliente(_gestionCliente.ClienteData);
-                            _gestionProcesarPago.setDataCliente(_gestionCliente.Cliente);
+                            _gestionProcesarPago.setCliente(ClienteData);
+                            _gestionProcesarPago.setDataCliente(_clienteFicha);
                             _gestionProcesarPago.setImporte(_gestionItem.Importe);
                             _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
                             _gestionProcesarPago.Inicia();
@@ -741,7 +769,6 @@ namespace PosOnLine.Src.Pos
             {
                 _vendedorAsignado = _vendedorPorDefecto;
             }
-
             _isTickeraOk = false;
             _ImprimirDoc = null;
             var dsctoFinal = _gestionProcesarPago.DescuentoPorct;
@@ -779,13 +806,21 @@ namespace PosOnLine.Src.Pos
             var saldoPendiente = isCredito ? importeDocumento : 0.0m;
             var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
 
+            //
+            var _cliId = _clienteFicha.Id;
+            var _cliNombreRazonSocial = _clienteFicha.Nombre;
+            var _cliCiRif = _clienteFicha.CiRif;
+            var _cliDirFiscal = _clienteFicha.DireccionFiscal;
+            var _cliCodigo = _clienteFicha.Codigo;
+            var _cliTelefono = _clienteFicha.Telefono;
+            //
             var fichaOOB = new OOB.Documento.Agregar.Factura.Ficha()
             {
                 idOperador = Sistema.PosEnUso.id,
                 DocumentoNro = documento,
-                RazonSocial = _gestionCliente.Cliente.Nombre,
-                DirFiscal = _gestionCliente.Cliente.DireccionFiscal,
-                CiRif = _gestionCliente.Cliente.CiRif,
+                RazonSocial = _cliNombreRazonSocial ,
+                DirFiscal = _cliDirFiscal,
+                CiRif = _cliCiRif,
                 Tipo = _tipoDocumentoVenta.codigo,
                 Exento = BaseExenta,
                 Base1 = MontoBase1,
@@ -805,8 +840,8 @@ namespace PosOnLine.Src.Pos
                 TasaRetencionIslr = 0.0m,
                 RetencionIva = 0.0m,
                 RetencionIslr = 0.0m,
-                AutoCliente = _gestionCliente.Cliente.Id,
-                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                AutoCliente = _cliId,
+                CodigoCliente = _cliCodigo,
                 Control = _serieFactura.Control,
                 OrdenCompra = "",
                 Dias = 0,
@@ -821,7 +856,7 @@ namespace PosOnLine.Src.Pos
                 Aplica = "",
                 ComprobanteRetencion = "",
                 SubTotalNeto = subTotalNeto,
-                Telefono = _gestionCliente.Cliente.Telefono,
+                Telefono = _cliTelefono,
                 FactorCambio = factorCambio,
                 CodigoVendedor = _vendedorAsignado.codigo,
                 Vendedor = _vendedorAsignado.nombre,
@@ -931,7 +966,7 @@ namespace PosOnLine.Src.Pos
                     Deposito = _depositoAsignado.nombre,
                     Signo = _tipoDocumentoVenta.signo,
                     PrecioFinal = s.PrecioFinal,
-                    AutoCliente = _gestionCliente.Cliente.Id,
+                    AutoCliente = _cliId,
                     Decimales = s.Ficha.decimales,
                     ContenidoEmpaque = s.Ficha.empaqueContenido,
                     CantidadUnd = s.TotalUnd,
@@ -995,7 +1030,7 @@ namespace PosOnLine.Src.Pos
                     AutoDeposito = s.Ficha.autoDeposito,
                     AutoConcepto = _conceptoVenta.id,
                     Modulo = "Ventas",
-                    Entidad = _gestionCliente.Cliente.Nombre,
+                    Entidad = _cliNombreRazonSocial,
                     Signo = -1,
                     Cantidad = s.Cantidad,
                     CantidadBono = 0.0m,
@@ -1026,10 +1061,10 @@ namespace PosOnLine.Src.Pos
                 Nota = "",
                 Importe = importeDocumento,
                 Acumulado = isCredito ? 0.0m : importeDocumento,
-                AutoCliente = _gestionCliente.Cliente.Id,
-                Cliente = _gestionCliente.Cliente.Nombre,
-                CiRif = _gestionCliente.Cliente.CiRif,
-                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                AutoCliente = _cliId,
+                Cliente = _cliNombreRazonSocial,
+                CiRif = _cliCiRif,
+                CodigoCliente = _cliCodigo,
                 EstatusCancelado = isCredito ? "0" : "1",
                 Resta = isCredito ? importeDocumento : 0.0m,
                 EstatusAnulado = "0",
@@ -1069,7 +1104,7 @@ namespace PosOnLine.Src.Pos
                 fichaOOB.DocCxCPago = null;
                 fichaOOB.ClienteSaldo = new OOB.Documento.Agregar.Factura.FichaClienteSaldo()
                 {
-                    AutoCliente = _gestionCliente.Cliente.Id,
+                    AutoCliente = _cliId,
                     MontoActualizar = importeDocumentoDivisa,
                 };
             }
@@ -1084,10 +1119,10 @@ namespace PosOnLine.Src.Pos
                     Nota = "",
                     Importe = importeDocumento,
                     Acumulado = 0.0m,
-                    AutoCliente = _gestionCliente.Cliente.Id,
-                    Cliente = _gestionCliente.Cliente.Nombre,
-                    CiRif = _gestionCliente.Cliente.CiRif,
-                    CodigoCliente = _gestionCliente.Cliente.Codigo,
+                    AutoCliente = _cliId,
+                    Cliente = _cliNombreRazonSocial, 
+                    CiRif = _cliCiRif,
+                    CodigoCliente = _cliCodigo,
                     EstatusCancelado = "0",
                     Resta = 0.0m,
                     EstatusAnulado = "0",
@@ -1126,13 +1161,13 @@ namespace PosOnLine.Src.Pos
                     Usuario = Sistema.Usuario.nombre,
                     MontoRecibido = montoRecibido,
                     Cobrador = _cobradorAsignado.nombre,
-                    AutoCliente = _gestionCliente.Cliente.Id,
-                    Cliente = _gestionCliente.Cliente.Nombre,
-                    CiRif = _gestionCliente.Cliente.CiRif,
-                    Codigo = _gestionCliente.Cliente.Codigo,
+                    AutoCliente = _cliId,
+                    Cliente = _cliNombreRazonSocial,
+                    CiRif = _cliCiRif,
+                    Codigo = _cliCodigo,
                     EstatusAnulado = "0",
-                    Direccion = _gestionCliente.Cliente.DireccionFiscal,
-                    Telefono = _gestionCliente.Cliente.Telefono,
+                    Direccion = _cliDirFiscal,
+                    Telefono = _cliTelefono,
                     AutoCobrador = _cobradorAsignado.id,
                     Anticipos = 0.0m,
                     Cambio = montoCambio,
@@ -1334,9 +1369,9 @@ namespace PosOnLine.Src.Pos
                     nombre = pm.nombre,
                     telefono = pm.telefono,
                     //
-                    clienteDirFiscal = _gestionCliente.Cliente.DireccionFiscal,
-                    clienteNombre = _gestionCliente.Cliente.Nombre,
-                    clienteRif = _gestionCliente.Cliente.CiRif,
+                    clienteDirFiscal = _cliDirFiscal,
+                    clienteNombre = _cliNombreRazonSocial,
+                    clienteRif = _cliCiRif,
                     codigoDocumento = _tipoDocumentoDevVenta.codigo,
                     tipoDocumento = _tipoDocumentoDevVenta.tipo,
                     montoDocumento = importeDocumento,
@@ -1527,14 +1562,22 @@ namespace PosOnLine.Src.Pos
             }
 
 
+            //
+            var _cliId = _clienteFicha.Id;
+            var _cliNombreRazonSocial = _clienteFicha.Nombre;
+            var _cliCiRif = _clienteFicha.CiRif;
+            var _cliDirFiscal = _clienteFicha.DireccionFiscal;
+            var _cliCodigo = _clienteFicha.Codigo;
+            var _cliTelefono = _clienteFicha.Telefono;
+            //
             var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
             var fichaOOB = new OOB.Documento.Agregar.NotaCredito.Ficha()
             {
                 idOperador=Sistema.PosEnUso.id,
                 DocumentoNro = documento,
-                RazonSocial = _gestionCliente.Cliente.Nombre,
-                DirFiscal = _gestionCliente.Cliente.DireccionFiscal,
-                CiRif = _gestionCliente.Cliente.CiRif,
+                RazonSocial = _cliNombreRazonSocial,
+                DirFiscal = _cliDirFiscal,
+                CiRif = _cliCiRif,
                 Tipo = _tipoDocumentoDevVenta.codigo,
                 Exento = BaseExenta,
                 Base1 = MontoBase1,
@@ -1554,8 +1597,8 @@ namespace PosOnLine.Src.Pos
                 TasaRetencionIslr = 0.0m,
                 RetencionIva = 0.0m,
                 RetencionIslr = 0.0m,
-                AutoCliente = _gestionCliente.Cliente.Id,
-                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                AutoCliente = _cliId, 
+                CodigoCliente = _cliCodigo,
                 Control = _serie.Control,
                 OrdenCompra = "",
                 Dias = 0,
@@ -1570,7 +1613,7 @@ namespace PosOnLine.Src.Pos
                 Aplica = _docAplicarNotaCredito.DocumentoNro,
                 ComprobanteRetencion = "",
                 SubTotalNeto = subTotalNeto,
-                Telefono = _gestionCliente.Cliente.Telefono,
+                Telefono = _cliTelefono,
                 FactorCambio = factorCambio,
                 CodigoVendedor =  _vendedorAsignado.codigo,
                 Vendedor = _vendedorAsignado.nombre,
@@ -1671,7 +1714,7 @@ namespace PosOnLine.Src.Pos
                     Deposito = _depositoAsignado.nombre,
                     Signo = _tipoDocumentoDevVenta.signo,
                     PrecioFinal = s.PrecioFinal,
-                    AutoCliente = _gestionCliente.Cliente.Id,
+                    AutoCliente = _cliId,
                     Decimales = s.Ficha.decimales,
                     ContenidoEmpaque = s.Ficha.empaqueContenido,
                     CantidadUnd = s.TotalUnd,
@@ -1735,7 +1778,7 @@ namespace PosOnLine.Src.Pos
                     AutoDeposito = s.Ficha.autoDeposito,
                     AutoConcepto = _conceptoDevVenta.id,
                     Modulo = "Ventas",
-                    Entidad = _gestionCliente.Cliente.Nombre,
+                    Entidad = _cliNombreRazonSocial,
                     Signo = 1,
                     Cantidad = s.Cantidad,
                     CantidadBono = 0.0m,
@@ -1766,10 +1809,10 @@ namespace PosOnLine.Src.Pos
                 Nota = "",
                 Importe = importeDocumento,
                 Acumulado = isCredito ? 0.0m : importeDocumento,
-                AutoCliente = _gestionCliente.Cliente.Id,
-                Cliente = _gestionCliente.Cliente.Nombre,
-                CiRif = _gestionCliente.Cliente.CiRif,
-                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                AutoCliente = _cliId,
+                Cliente = _cliNombreRazonSocial,
+                CiRif = _cliCiRif, 
+                CodigoCliente = _cliCodigo,
                 EstatusCancelado = isCredito ? "0" : "1",
                 Resta = isCredito ? importeDocumento : 0.0m,
                 EstatusAnulado = "0",
@@ -1817,10 +1860,10 @@ namespace PosOnLine.Src.Pos
                     Nota = "",
                     Importe = importeDocumento,
                     Acumulado = 0.0m,
-                    AutoCliente = _gestionCliente.Cliente.Id,
-                    Cliente = _gestionCliente.Cliente.Nombre,
-                    CiRif = _gestionCliente.Cliente.CiRif,
-                    CodigoCliente = _gestionCliente.Cliente.Codigo,
+                    AutoCliente = _cliId,
+                    Cliente = _cliNombreRazonSocial,
+                    CiRif = _cliCiRif,
+                    CodigoCliente = _cliCodigo, 
                     EstatusCancelado = "0",
                     Resta = 0.0m,
                     EstatusAnulado = "0",
@@ -1859,13 +1902,13 @@ namespace PosOnLine.Src.Pos
                     Usuario = Sistema.Usuario.nombre,
                     MontoRecibido = (-1) * montoRecibido,
                     Cobrador = _cobradorAsignado.nombre,
-                    AutoCliente = _gestionCliente.Cliente.Id,
-                    Cliente = _gestionCliente.Cliente.Nombre,
-                    CiRif = _gestionCliente.Cliente.CiRif,
-                    Codigo = _gestionCliente.Cliente.Codigo,
+                    AutoCliente = _cliId, 
+                    Cliente = _cliNombreRazonSocial,
+                    CiRif = _cliCiRif,
+                    Codigo = _cliCodigo,
                     EstatusAnulado = "0",
-                    Direccion = _gestionCliente.Cliente.DireccionFiscal,
-                    Telefono = _gestionCliente.Cliente.Telefono,
+                    Direccion = _cliDirFiscal,
+                    Telefono = _cliTelefono,
                     AutoCobrador = _cobradorAsignado.id,
                     Anticipos = 0.0m,
                     Cambio = montoCambio,
@@ -2073,15 +2116,17 @@ namespace PosOnLine.Src.Pos
             var xdata = CargarDataDocumento(r01.Auto);
             if (xdata != null)
             {
-                Sistema.ImprimirNotaCredito.setData(xdata);
                 if (_docAplicarNotaCredito.IsFiscal)
                 {
+                    Sistema.ImprimirNotaCredito.setData(xdata);
                     Sistema.ImprimirNotaCredito.ImprimirDoc();
                 }
                 else
                 {
                     _isTickeraOk = true;
-                    _ImprimirDoc = Sistema.ImprimirNotaCreditoNoFiscal;
+                    //_ImprimirDoc = Sistema.ImprimirNotaCreditoNoFiscal;
+                    Sistema.ImprimirNotaCredito.setData(xdata);
+                    _ImprimirDoc = Sistema.ImprimirNotaCredito;
                     printDocument2.Print();
                 }
                 //Sistema.ImprimirNotaCredito.setData(xdata);
@@ -2158,13 +2203,21 @@ namespace PosOnLine.Src.Pos
             var factorCambio = _tasaCambioActual;
             var saldoPendiente = isCredito ? importeDocumento : 0.0m;
 
+            //
+            var _cliId = _clienteFicha.Id;
+            var _cliNombreRazonSocial = _clienteFicha.Nombre;
+            var _cliCiRif = _clienteFicha.CiRif;
+            var _cliDirFiscal = _clienteFicha.DireccionFiscal;
+            var _cliCodigo = _clienteFicha.Codigo;
+            var _cliTelefono = _clienteFicha.Telefono;
+            //
             var fichaOOB = new OOB.Documento.Agregar.NotaEntrega.Ficha()
             {
                 idOperador = Sistema.PosEnUso.id,
                 DocumentoNro = documento,
-                RazonSocial = _gestionCliente.Cliente.Nombre,
-                DirFiscal = _gestionCliente.Cliente.DireccionFiscal,
-                CiRif = _gestionCliente.Cliente.CiRif,
+                RazonSocial = _cliNombreRazonSocial,
+                DirFiscal = _cliDirFiscal,
+                CiRif = _cliCiRif,
                 Tipo = _tipoDocumentoNotaEntrega.codigo,
                 Exento = BaseExenta,
                 Base1 = MontoBase1,
@@ -2184,8 +2237,8 @@ namespace PosOnLine.Src.Pos
                 TasaRetencionIslr = 0.0m,
                 RetencionIva = 0.0m,
                 RetencionIslr = 0.0m,
-                AutoCliente = _gestionCliente.Cliente.Id,
-                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                AutoCliente = _cliId,
+                CodigoCliente = _cliCodigo,
                 Control = _serieNotaEntrega.Control,
                 OrdenCompra = "",
                 Dias = 0,
@@ -2200,7 +2253,7 @@ namespace PosOnLine.Src.Pos
                 Aplica = "",
                 ComprobanteRetencion = "",
                 SubTotalNeto = subTotalNeto,
-                Telefono = _gestionCliente.Cliente.Telefono,
+                Telefono = _cliTelefono,
                 FactorCambio = factorCambio,
                 CodigoVendedor = _vendedorAsignado.codigo,
                 Vendedor = _vendedorAsignado.nombre,
@@ -2287,7 +2340,7 @@ namespace PosOnLine.Src.Pos
                     Deposito = _depositoAsignado.nombre,
                     Signo = _tipoDocumentoNotaEntrega.signo,
                     PrecioFinal = s.PrecioFinal,
-                    AutoCliente = _gestionCliente.Cliente.Id,
+                    AutoCliente = _cliId,
                     Decimales = s.Ficha.decimales,
                     ContenidoEmpaque = s.Ficha.empaqueContenido,
                     CantidadUnd = s.TotalUnd,
@@ -2351,7 +2404,7 @@ namespace PosOnLine.Src.Pos
                     AutoDeposito = s.Ficha.autoDeposito,
                     AutoConcepto = _conceptoSalida.id,
                     Modulo = "Ventas",
-                    Entidad = _gestionCliente.Cliente.Nombre,
+                    Entidad = _cliNombreRazonSocial,
                     Signo = -1,
                     Cantidad = s.Cantidad,
                     CantidadBono = 0.0m,
@@ -2597,6 +2650,14 @@ namespace PosOnLine.Src.Pos
 
         public void CambiarPrecio()
         {
+            if (_modoFuncion == EnumModoFuncion.NotaCredito) { return; }
+            if (_gestionItem.DataItemActual == null) { return; }
+            if (_gCambioPrecio == null) 
+            {
+                _gCambioPrecio = Sistema.MiFabrica.CreateInstace_PosCambioPrecioPrd();
+                if (_gCambioPrecio == null) { return; }
+            }
+            //
             _gSolicitarPermiso.Inicializa();
             _gSolicitarPermiso.Inicia();
             if (!_gSolicitarPermiso.IsOk)
@@ -2605,20 +2666,16 @@ namespace PosOnLine.Src.Pos
             }
             var _usu = _gSolicitarPermiso.GetUsuario;
             var _psw = _gSolicitarPermiso.GetPassword;
-            if (Helpers.VerificarPermiso.Verificar(_usu, _psw))
+            var _usuAutoria = Helpers.VerificarPermiso.Verificar(_usu, _psw);
+            if (_usuAutoria != null)
             {
                 _gCambioPrecio.Inicializa();
-                if (_gestionItem.DataItemActual != null)
+                _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
+                _gCambioPrecio.setUsuarioAutoriza(_usuAutoria);
+                _gCambioPrecio.Inicia();
+                if (_gCambioPrecio.CambioPrecioIsOk)
                 {
-                    if (_modoFuncion != EnumModoFuncion.NotaCredito)
-                    {
-                        _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
-                        _gCambioPrecio.Inicia();
-                        if (_gCambioPrecio.CambioPrecioIsOk)
-                        {
-                            _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
-                        }
-                    }
+                    _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
                 }
             }
         }
@@ -2810,13 +2867,22 @@ namespace PosOnLine.Src.Pos
             var saldoPendiente = isCredito ? importeDocumento : 0.0m;
             var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
 
+
+            //
+            var _cliId = _clienteFicha.Id;
+            var _cliNombreRazonSocial = _clienteFicha.Nombre;
+            var _cliCiRif = _clienteFicha.CiRif;
+            var _cliDirFiscal = _clienteFicha.DireccionFiscal;
+            var _cliCodigo = _clienteFicha.Codigo;
+            var _cliTelefono = _clienteFicha.Telefono;
+            //
             var fichaOOB = new OOB.Documento.Agregar.Factura.Ficha()
             {
                 idOperador = Sistema.PosEnUso.id,
                 DocumentoNro = documento,
-                RazonSocial = _gestionCliente.Cliente.Nombre,
-                DirFiscal = _gestionCliente.Cliente.DireccionFiscal,
-                CiRif = _gestionCliente.Cliente.CiRif,
+                RazonSocial = _cliNombreRazonSocial,
+                DirFiscal = _cliDirFiscal,
+                CiRif = _cliCiRif,
                 Tipo = _tipoDocumentoNotaEntrega.codigo,
                 Exento = BaseExenta,
                 Base1 = MontoBase1,
@@ -2836,8 +2902,8 @@ namespace PosOnLine.Src.Pos
                 TasaRetencionIslr = 0.0m,
                 RetencionIva = 0.0m,
                 RetencionIslr = 0.0m,
-                AutoCliente = _gestionCliente.Cliente.Id,
-                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                AutoCliente = _cliId,
+                CodigoCliente = _cliCodigo,
                 Control = _serieNotaEntrega.Control,
                 OrdenCompra = "",
                 Dias = 0,
@@ -2852,7 +2918,7 @@ namespace PosOnLine.Src.Pos
                 Aplica = "",
                 ComprobanteRetencion = "",
                 SubTotalNeto = subTotalNeto,
-                Telefono = _gestionCliente.Cliente.Telefono,
+                Telefono = _cliTelefono,
                 FactorCambio = factorCambio,
                 CodigoVendedor = _vendedorAsignado.codigo,
                 Vendedor = _vendedorAsignado.nombre,
@@ -2962,7 +3028,7 @@ namespace PosOnLine.Src.Pos
                     Deposito = _depositoAsignado.nombre,
                     Signo = _tipoDocumentoVenta.signo,
                     PrecioFinal = s.PrecioFinal,
-                    AutoCliente = _gestionCliente.Cliente.Id,
+                    AutoCliente = _cliId,
                     Decimales = s.Ficha.decimales,
                     ContenidoEmpaque = s.Ficha.empaqueContenido,
                     CantidadUnd = s.TotalUnd,
@@ -3026,7 +3092,7 @@ namespace PosOnLine.Src.Pos
                     AutoDeposito = s.Ficha.autoDeposito,
                     AutoConcepto = _conceptoVenta.id,
                     Modulo = "Ventas",
-                    Entidad = _gestionCliente.Cliente.Nombre,
+                    Entidad = _cliNombreRazonSocial,
                     Signo = -1,
                     Cantidad = s.Cantidad,
                     CantidadBono = 0.0m,
@@ -3057,10 +3123,10 @@ namespace PosOnLine.Src.Pos
                 Nota = "",
                 Importe = importeDocumento,
                 Acumulado = isCredito ? 0.0m : importeDocumento,
-                AutoCliente = _gestionCliente.Cliente.Id,
-                Cliente = _gestionCliente.Cliente.Nombre,
-                CiRif = _gestionCliente.Cliente.CiRif,
-                CodigoCliente = _gestionCliente.Cliente.Codigo,
+                AutoCliente = _cliId,
+                Cliente = _cliNombreRazonSocial,
+                CiRif = _cliCiRif,
+                CodigoCliente = _cliCodigo,
                 EstatusCancelado = isCredito ? "0" : "1",
                 Resta = isCredito ? importeDocumento : 0.0m,
                 EstatusAnulado = "0",
@@ -3100,7 +3166,7 @@ namespace PosOnLine.Src.Pos
                 fichaOOB.DocCxCPago = null;
                 fichaOOB.ClienteSaldo = new OOB.Documento.Agregar.Factura.FichaClienteSaldo()
                 {
-                    AutoCliente = _gestionCliente.Cliente.Id,
+                    AutoCliente = _cliId,
                     MontoActualizar = importeDocumentoDivisa,
                 };
             }
@@ -3115,10 +3181,10 @@ namespace PosOnLine.Src.Pos
                     Nota = "",
                     Importe = importeDocumento,
                     Acumulado = 0.0m,
-                    AutoCliente = _gestionCliente.Cliente.Id,
-                    Cliente = _gestionCliente.Cliente.Nombre,
-                    CiRif = _gestionCliente.Cliente.CiRif,
-                    CodigoCliente = _gestionCliente.Cliente.Codigo,
+                    AutoCliente = _cliId,
+                    Cliente = _cliNombreRazonSocial,
+                    CiRif = _cliCiRif,
+                    CodigoCliente = _cliCodigo,
                     EstatusCancelado = "0",
                     Resta = 0.0m,
                     EstatusAnulado = "0",
@@ -3157,13 +3223,13 @@ namespace PosOnLine.Src.Pos
                     Usuario = Sistema.Usuario.nombre,
                     MontoRecibido = montoRecibido,
                     Cobrador = _cobradorAsignado.nombre,
-                    AutoCliente = _gestionCliente.Cliente.Id,
-                    Cliente = _gestionCliente.Cliente.Nombre,
-                    CiRif = _gestionCliente.Cliente.CiRif,
-                    Codigo = _gestionCliente.Cliente.Codigo,
+                    AutoCliente = _cliId,
+                    Cliente = _cliNombreRazonSocial,
+                    CiRif = _cliCiRif,
+                    Codigo = _cliCodigo,
                     EstatusAnulado = "0",
-                    Direccion = _gestionCliente.Cliente.DireccionFiscal,
-                    Telefono = _gestionCliente.Cliente.Telefono,
+                    Direccion = _cliDirFiscal,
+                    Telefono = _cliTelefono,
                     AutoCobrador = _cobradorAsignado.id,
                     Anticipos = 0.0m,
                     Cambio = montoCambio,
@@ -3365,9 +3431,9 @@ namespace PosOnLine.Src.Pos
                     nombre = pm.nombre,
                     telefono = pm.telefono,
                     //
-                    clienteDirFiscal = _gestionCliente.Cliente.DireccionFiscal,
-                    clienteNombre = _gestionCliente.Cliente.Nombre,
-                    clienteRif = _gestionCliente.Cliente.CiRif,
+                    clienteDirFiscal = _cliDirFiscal,
+                    clienteNombre = _cliNombreRazonSocial,
+                    clienteRif = _cliCiRif,
                     codigoDocumento = _tipoDocumentoDevVenta.codigo,
                     tipoDocumento = _tipoDocumentoDevVenta.tipo,
                     montoDocumento = importeDocumento,

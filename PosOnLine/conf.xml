@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>localhost</Instancia>
-    <Catalogo>everest</Catalogo>
+    <Instancia>10.10.100.111</Instancia>
+    <Catalogo>zufu</Catalogo>
   </Servidor>
-  <IdEquipo>1</IdEquipo>
-  <CodigoSucursalActiva>01</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
-  <codigoDepositoActiva>01</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
-  <SerieFactura>1</SerieFactura>
+  <IdEquipo>4</IdEquipo>
+  <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
+  <SerieFactura>1</SerieFactura> 
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
   <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->

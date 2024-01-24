@@ -85,6 +85,10 @@ namespace PosOnLine.Src.VentaAdm
             _datConf.setDeposito(id);
         }
 
+        //
+        public void CargarFicha(object ficha)
+        {
+        }
     }
 
 }

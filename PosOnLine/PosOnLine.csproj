@@ -57,6 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Fiscal\LibFoxFiscal.dll</HintPath>
     </Reference>
+    <Reference Include="LibUtilitis">
+      <HintPath>..\..\..\LibUtilitis\LibUtilitis\bin\Debug\LibUtilitis.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="MySql.Data, Version=6.8.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -108,6 +111,7 @@
     <Compile Include="Data\Infra\IUsuario.cs" />
     <Compile Include="Data\Infra\IVendedor.cs" />
     <Compile Include="Data\Infra\IVenta.cs" />
+    <Compile Include="Data\Infra\IVentaZufu.cs" />
     <Compile Include="Data\Prov\Agencia.cs" />
     <Compile Include="Data\Prov\Cierre.cs" />
     <Compile Include="Data\Prov\Cliente.cs" />
@@ -128,6 +132,7 @@
     <Compile Include="Data\Prov\Usuario.cs" />
     <Compile Include="Data\Prov\Vendedor.cs" />
     <Compile Include="Data\Prov\Venta.cs" />
+    <Compile Include="Data\Prov\VentaZufu.cs" />
     <Compile Include="Gestion.cs" />
     <Compile Include="Helpers\ficha.cs" />
     <Compile Include="Helpers\fichaSeleccion.cs" />
@@ -352,6 +357,11 @@
     <Compile Include="OOB\Venta\Item\Registrar\Ficha.cs" />
     <Compile Include="OOB\Venta\Item\Registrar\FichaDeposito.cs" />
     <Compile Include="OOB\Venta\Item\Registrar\FichaItem.cs" />
+    <Compile Include="OOB\Venta\Item\Zufu\ActualizarPrecio\ObtenerData\Ficha.cs" />
+    <Compile Include="OOB\Venta\Item\Zufu\ActualizarPrecio\ObtenerData\Prd.cs" />
+    <Compile Include="OOB\Venta\Item\Zufu\ActualizarPrecio\Actualizar\Data.cs" />
+    <Compile Include="OOB\Venta\Item\Zufu\ActualizarPrecio\Actualizar\Ficha.cs" />
+    <Compile Include="OOB\Venta\Item\Zufu\ActualizarPrecio\Actualizar\LogReg.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sistema.cs" />
@@ -405,6 +415,7 @@
       <DependentUpon>CambioPrecioFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\CambioPrecio\ICambioPrecio.cs" />
+    <Compile Include="Src\CambioPrecio\IVista.cs" />
     <Compile Include="Src\Cierre\NoFiscal\CierreFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -448,9 +459,74 @@
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
+    <Compile Include="Src\ILista_SeleccionItem.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\data.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\dataPanel.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\Imp.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\precio.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Vista\Idata.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Vista\IdataPanel.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Vista\IPrecio.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Vista\IVista.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\PanelInformativo\Handler\Imp.cs" />
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\PanelInformativo\Vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\PanelInformativo\Vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Zufu\CambioPrecioPrdComp\PanelInformativo\Vista\IVista.cs" />
+    <Compile Include="Src\Zufu\IPosZufuCambioPrecioPrd.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Handler\Editar.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Handler\Agregar.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Handler\dataFicha.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Vista\IEditar.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Vista\IAgregar.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Vista\IDataFicha.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Handler\data.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Handler\Imp.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Handler\ImpBusqueda.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Handler\ImpTipoBusq.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Vista\IBusqueda.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Vista\ITipoBusq.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Handler\dataList.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Handler\Imp.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Handler\ImpLista.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IdataList.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IListaCliente.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IVista.cs" />
+    <Compile Include="Src\Zufu\IPosZufuCliente.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\Abandonar\Imp.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\Abandonar\IAbandonar.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\baseImp.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\IBoton.cs" />
     <Compile Include="Src\Identificacion\ILogin.cs" />
     <Compile Include="Src\IFabrica.cs" />
     <Compile Include="Src\ILista.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\Salir\ISalir.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\Salir\Imp.cs" />
+    <Compile Include="Src\_\Ctrl\Seleccion\Combo\ICombo.cs" />
+    <Compile Include="Src\_\Ctrl\Seleccion\ITextoBuscar.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\Procesar\Imp.cs" />
+    <Compile Include="Src\_\Ctrl\Boton\Procesar\IProcesar.cs" />
     <Compile Include="Src\Item\IModo.cs" />
     <Compile Include="Src\Item\ModoAdm\IModoAdm.cs" />
     <Compile Include="Src\Item\ModoAdm\ImpModoAdm.cs" />
@@ -747,6 +823,19 @@
     <Compile Include="Src\SolicitarPermiso\SolicitarPermisoFrm.Designer.cs">
       <DependentUpon>SolicitarPermisoFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Handler\ImpHnd.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Vista\IAgregarEditar.cs" />
+    <Compile Include="Src\Zufu\ClienteComp\Cliente\Vista\IVista.cs" />
+    <Compile Include="Src\_\Precio\Imp.cs" />
+    <Compile Include="Src\_\Precio\baseImp.cs" />
+    <Compile Include="Src\_\Precio\IPrecio.cs" />
+    <Compile Include="Src\_\Precio\Moneda.cs" />
     <EmbeddedResource Include="Helpers\Imprimir\Grafico\Cuadre.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -904,6 +993,21 @@
     <EmbeddedResource Include="Src\SolicitarPermiso\SolicitarPermisoFrm.resx">
       <DependentUpon>SolicitarPermisoFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Zufu\CambioPrecioPrdComp\PanelInformativo\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Zufu\ClienteComp\AgregarEditar\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Zufu\ClienteComp\Cliente\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Zufu\ClienteComp\Listar\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Helpers\Imprimir\Grafico\ds.xsc">
       <DependentUpon>ds.xsd</DependentUpon>
     </None>
@@ -970,6 +1074,11 @@
     <Content Include="Lib\Fiscal\LibFoxFiscal.dll" />
     <Content Include="Lib\Fiscal\TfhkaNet.dll" />
     <None Include="Resources\bt_vendedor.png" />
+    <None Include="Resources\bt_consulta_16.png" />
+    <None Include="Resources\bt_consulta_20.png" />
+    <None Include="Resources\bt_consulta_24.png" />
+    <None Include="Resources\bt_consulta_32.png" />
+    <None Include="Resources\bt_consulta_48.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -987,6 +1096,11 @@
     <Content Include="Src\Imagenes\bt_click.png" />
     <Content Include="Src\Imagenes\bt_cliente.png" />
     <Content Include="Src\Imagenes\bt_consulta.png" />
+    <Content Include="Src\Imagenes\bt_consulta_16.png" />
+    <Content Include="Src\Imagenes\bt_consulta_20.png" />
+    <Content Include="Src\Imagenes\bt_consulta_24.png" />
+    <Content Include="Src\Imagenes\bt_consulta_32.png" />
+    <Content Include="Src\Imagenes\bt_consulta_48.png" />
     <Content Include="Src\Imagenes\bt_descuento.png" />
     <Content Include="Src\Imagenes\bt_directorio.png" />
     <Content Include="Src\Imagenes\bt_documentos.png" />

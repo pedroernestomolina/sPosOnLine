@@ -28,7 +28,6 @@ namespace PosVerificador.Src.Principal
         string GetDocumento { get; }
         string GetCliente { get; }
 
-
+        void DarAltaTodosDocumento();
     }
-
 }
