@@ -38,6 +38,7 @@ namespace PosOnLine.Src.Reportes.Cierre.Resumen
                     g.mpCodigo ,
                     g.mpDescripcion,
                     g.tasaDivisa,
+                    g.lote,
                 }).Select(s => new { key = s.Key, data = s.ToList() }).ToList();
 
             var xd = 0;

@@ -96,6 +96,7 @@ namespace PosOnLine.Src.Pago.Procesar
             }
         }
 
+
         public decimal MontoDivisa
         {
             get
@@ -119,7 +120,7 @@ namespace PosOnLine.Src.Pago.Procesar
             get
             {
                 var x = 0.0m;
-                x = _subtotalMonto-Descuento;
+                x = (_subtotalMonto-Descuento)+_montoPorCargoIgtf;
                 return x;
             }
         }
@@ -355,6 +356,7 @@ namespace PosOnLine.Src.Pago.Procesar
                 _gValidarCambio.Inicializa();
             }
             _dataRecolectar.Limpiar();
+            _montoPorCargoIgtf = 0.0m;
         }
 
         public void setDescuento(decimal porct)
@@ -383,7 +385,7 @@ namespace PosOnLine.Src.Pago.Procesar
                 if (msg == DialogResult.Yes)
                 {
                     _montoValidar = MontoCambioDar_MonedaNacional;
-                    if (_montoValidar >0m)
+                    if (_montoValidar>=0m)
                     {
                         if (_gValidarCambio == null)
                         {
@@ -499,6 +501,18 @@ namespace PosOnLine.Src.Pago.Procesar
             return _dataRecolectar;
         }
 
+
+        public void LimpiarFicha()
+        {
+            Limpiar();
+            _montoValidar = 0;
+        }
+
+        private decimal _montoPorCargoIgtf = 0.0m;
+        public void AplicarMontoCargoPorIgtf(decimal monto)
+        {
+            _montoPorCargoIgtf = monto;
+        }
     }
 
 }

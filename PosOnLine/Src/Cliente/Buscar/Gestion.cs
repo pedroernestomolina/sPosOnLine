@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Cliente.Buscar
 {
-    public class Gestion
+    public class Gestion  
     {
         public enum enumMetodoBusqueda { SinDefinir = 1, CiRif = 1, Nombre };
 

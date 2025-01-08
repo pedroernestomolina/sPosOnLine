@@ -18,7 +18,8 @@ namespace PosOnLine.Src.Producto.Lista
         private decimal _p3;
         private decimal _p1Divisa;
         private decimal _p2Divisa;
-        private decimal _p3Divisa; 
+        private decimal _p3Divisa;
+        private byte[] _imagen;
 
 
         public OOB.Producto.Lista.Ficha Item { get { return _item; } }
@@ -52,6 +53,25 @@ namespace PosOnLine.Src.Producto.Lista
                 return x;
             } 
         }
+        public string cantidadEx_St
+        {
+            get
+            {
+                var x = 0.0m;
+                if (_item.Contenido > 0)
+                {
+                    x = _item.ExDisponible;
+                }
+                if ((x- (int)x)>0)
+                {
+                    return x.ToString("n3");
+                }
+                else 
+                {
+                    return x.ToString("n0");
+                }
+            }
+        }
 
         public string Empaque_1 { get { return _item.descEmp_1 + "/ (" + _item.contEmp_1.ToString("n0") + ")"; } }
         public string Empaque_2 { get { return _item.descEmp_2 + "/ (" + _item.contEmp_2.ToString("n0") + ")"; } }
@@ -83,6 +103,7 @@ namespace PosOnLine.Src.Producto.Lista
             _p2Divisa = _p2 / tasaCambio;
             _p3Divisa = _p3 / tasaCambio;
             this.tasaCambio = tasaCambio;
+            _imagen = it.imagen;
 
             _exEmpCompra = 0;
             _exEmpInv = 0;
@@ -175,6 +196,7 @@ namespace PosOnLine.Src.Producto.Lista
         public string GetDescEmpInv { get { return _dscEmpInv; } }
         public int GetInvEmpUnd { get { return _exEmpUnd; } }
         public string GetDescEmpUnd { get { return _dscEmpUnd; } }
+        public byte[] GetImagen { get { return _imagen; } }
 
     }
 

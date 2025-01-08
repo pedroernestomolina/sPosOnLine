@@ -53,9 +53,13 @@ namespace PosOnLine.Helpers.Imprimir
             public decimal Total { get; set; }
             public decimal TotalDivisa { get; set; }
             public decimal CambioDar{ get; set; }
-
             public string EstacionEquipo { get; set; }
             public string Usuario { get; set; }
+            //
+            public decimal TasaIGTF { get; set; }
+            public decimal MontoIGTF { get; set; }
+            public bool AplicaIGTF { get; set; }
+
 
             public decimal SubTotalItemFull 
             { 
@@ -110,6 +114,10 @@ namespace PosOnLine.Helpers.Imprimir
                 //
                 DocumentoAplica_Fecha = DateTime.Now;
                 DocumentoAplica_SerialFiscal = "";
+                //
+                TasaIGTF = 0.0m;
+                MontoIGTF = 0.0m;
+                AplicaIGTF = false;
             }
             public decimal VueltoEfectivo { get; set; }
             public decimal VueltoDivisa { get; set; }
@@ -180,12 +188,12 @@ namespace PosOnLine.Helpers.Imprimir
         {
             public string descripcion { get; set; }
             public decimal monto { get; set; }
-
-
+            public bool esDivisa { get; set; }
             public MetodoPago()
             {
                 descripcion = "";
                 monto = 0.0m;
+                esDivisa = false;
             }
         }
 

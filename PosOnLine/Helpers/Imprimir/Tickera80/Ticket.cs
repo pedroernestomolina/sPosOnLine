@@ -207,9 +207,10 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                     empCont = 0;
                     empDesc = "";
                 }
+                
+                //public string simporte { get { return "Bs " + importe.ToString("n2"); } }
+                public string simporte { get { return "" + importe.ToString("n2"); } }
 
-
-                public string simporte { get { return "Bs " + importe.ToString("n2"); } }
                 public List<string> sdescripcion
                 {
                     get

@@ -89,10 +89,17 @@ namespace PosOnLine.Src.Producto.Lista.ModoAdm
         private string Precio()
         {
             var p = "";
+            //p += _neto.ToString("n2");
             if (_admDivisa)
             {
+                p += "$" + (_fullDivisa / ((_tasaIva / 100) + 1)).ToString("n2");
+                p += "/ ( $ " + _fullDivisa.ToString("n2") + ")";
                 var _monedaLocal=(_fullDivisa*_tasaCambio);
-                p += _monedaLocal.ToString("n2") + "/ ( $ " + _fullDivisa.ToString("n2") + ")";
+                //p += _monedaLocal.ToString("n2") + "/ ( $ " + _fullDivisa.ToString("n2") + ")";
+                //p += _monedaLocal.ToString("n2");
+                p += "\n";
+                p += _monedaLocal.ToString("n2");
+                //p += " ( $ " + _fullDivisa.ToString("n2") + ")";
             }
             else 
             {

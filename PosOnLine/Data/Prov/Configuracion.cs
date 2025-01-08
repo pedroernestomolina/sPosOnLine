@@ -113,7 +113,7 @@ namespace PosOnLine.Data.Prov
             }
             if (m1 <= 0m)
             {
-                result.Mensaje = "TASA DIVISA INCORRECTA, NO PUEDE SEWR CERO (0)";
+                result.Mensaje = "TASA DIVISA INCORRECTA, NO PUEDE SER CERO (0)";
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
@@ -302,6 +302,44 @@ namespace PosOnLine.Data.Prov
             result.Entidad = rt;
 
             return result;
+        }
+        public OOB.Resultado.FichaEntidad<OOB.Configuracion.Configuracion_IGTF> 
+            Configuracion_IGTF()
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Configuracion.Configuracion_IGTF>();
+            //
+            var r01 = MyData.Configuracion_IGTF();
+            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            {
+                result.Mensaje = r01.Mensaje;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                return result;
+            }
+            if (r01.Entidad != null) 
+            {
+                var m1 = ConvertirToDecimal(r01.Entidad.TasaIGTF);
+                result.Entidad = new OOB.Configuracion.Configuracion_IGTF()
+                {
+                    ActivarIGTF = r01.Entidad.ActivarIGTF.Trim().ToUpper() == "SI",
+                    TasaIGTF = m1,
+                };
+            }
+            //
+            return result;
+        }
+
+        private decimal ConvertirToDecimal(string mnt)
+        {
+            var m1 = 0.0m;
+            var cnf = mnt;
+            if (cnf.Trim() != "")
+            {
+                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                //var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                Decimal.TryParse(cnf, style, culture, out m1);
+            }
+            return m1;
         }
     }
 }

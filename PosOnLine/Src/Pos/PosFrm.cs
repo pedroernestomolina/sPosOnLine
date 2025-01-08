@@ -71,6 +71,7 @@ namespace PosOnLine.Src.Pos
             var f1 = new Font("Serif", 10, FontStyle.Regular);
             var f2 = new Font("Serif", 8, FontStyle.Regular);
 
+            DGV_DETALLE.RowHeadersVisible = false;
             DGV_DETALLE.AllowUserToAddRows = false;
             DGV_DETALLE.AllowUserToDeleteRows = false;
             DGV_DETALLE.AutoGenerateColumns = false;
@@ -456,6 +457,14 @@ namespace PosOnLine.Src.Pos
 
         private void PosVenta_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Alt && e.KeyCode == Keys.F11)
+            {
+                GuardarPedido();
+            }
+            if (e.Alt && e.KeyCode == Keys.F12)
+            {
+                AbrirPedido();
+            }
             if (e.Alt && e.Control && e.KeyCode == Keys.N) 
             {
                 NotaEntrega();
@@ -492,6 +501,20 @@ namespace PosOnLine.Src.Pos
             {
                 Totalizar();
             }
+        }
+
+        private void AbrirPedido()
+        {
+            _controlador.AbrirPedido();
+            ActualizarCliente();
+            ActualizarTotal();
+            ActualizarModo();
+            IrFoco();
+        }
+        private void GuardarPedido()
+        {
+            _controlador.GuardarPedido();
+            Actualizar();
         }
 
         private void NotaEntrega()

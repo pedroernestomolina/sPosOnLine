@@ -36,29 +36,6 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha> 
-            Sistema_Serie_GetFichaById(string id)
-        {
-            var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha>();
-
-            var r01 = MyData.Sistema_Serie_GetFichaById(id);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var ent = r01.Entidad;
-            result.Entidad = new OOB.Sistema.SerieFiscal.Entidad.Ficha()
-            {
-                Auto = ent.Auto,
-                Control = ent.Control,
-                Serie = ent.Serie
-            };
-
-            return result;
-        }
         public OOB.Resultado.FichaEntidad<OOB.Sistema.Transporte.Entidad.Ficha> 
             Sistema_Transporte_GetFichaById(string id)
         {
@@ -252,40 +229,6 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-        public OOB.Resultado.Lista<OOB.Sistema.SerieFiscal.Entidad.Ficha> 
-            Sistema_Serie_GetLista()
-        {
-            var result = new OOB.Resultado.Lista<OOB.Sistema.SerieFiscal.Entidad.Ficha>();
-
-            var r01 = MyData.Sistema_Serie_GetLista();
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var lst = new List<OOB.Sistema.SerieFiscal.Entidad.Ficha>();
-            if (r01.Lista != null)
-            {
-                if (r01.Lista.Count > 0)
-                {
-                    lst = r01.Lista.Select(s =>
-                    {
-                        var nr = new OOB.Sistema.SerieFiscal.Entidad.Ficha()
-                        {
-                            Auto = s.Auto,
-                            Control = s.Control,
-                            Serie = s.Serie,
-                        };
-                        return nr;
-                    }).ToList();
-                }
-            }
-            result.ListaD = lst;
-
-            return result;
-        }
         public OOB.Resultado.Lista<OOB.Sistema.Transporte.Entidad.Ficha> 
             Sistema_Transporte_GetLista()
         {
@@ -375,28 +318,6 @@ namespace PosOnLine.Data.Prov
             };
             return result;
         }
-        public OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha> 
-            Sistema_Serie_GetFichaBySerie(string serie)
-        {
-            var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.SerieFiscal.Entidad.Ficha>();
 
-            var r01 = MyData.Sistema_Serie_GetFichaByNombre(serie);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var ent = r01.Entidad;
-            result.Entidad = new OOB.Sistema.SerieFiscal.Entidad.Ficha()
-            {
-                Auto = ent.Auto,
-                Control = ent.Control,
-                Serie = ent.Serie
-            };
-
-            return result;
-        }
     }
 }

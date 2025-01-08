@@ -39,6 +39,7 @@ namespace PosOnLine.Src.Pago.Procesar
             TB_ELECT_2.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
             TB_ELECT_3.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
             ActualizaMontoResta();
+            ActualizarIGTG();
         }
 
         private void Limpiar()
@@ -111,7 +112,8 @@ namespace PosOnLine.Src.Pago.Procesar
                     panel12.BackColor = Color.Navy;
                     L_RESTA_CAMBIO_DAR.Text = "Cambio Dar";
                     L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoCambioDar_MonedaNacional.ToString("n2");
-                    L_RESTA_DIVISA.Text = "$" + _controlador.MontoCambioDar_Divisa.ToString("n2");
+                    //L_RESTA_DIVISA.Text = "$" + _controlador.MontoCambioDar_Divisa.ToString("n2");
+                    L_RESTA_DIVISA.Text = "$" + _controlador.MontoCambioDar_Divisa_Tasa_POS.ToString("n2");
                 }
             }
             TB_DIVISA_MONTO.Text = _controlador.MontoDivisa.ToString("n2");
@@ -251,7 +253,10 @@ namespace PosOnLine.Src.Pago.Procesar
             L_REF_4.Text = _controlador.PagoElectronico_REF_4;
             L_CNT_DIVISA_RECOMIENDA.Text = _controlador.GetCntDivisaRecomendar.ToString();
             ActualizaMontoResta();
+            ActualizarMonto();
+            ActualizarIGTG();
         }
+
         private void TB_EFECTIVO_Leave(object sender, EventArgs e)
         {
             var monto = 0.0m;
@@ -295,7 +300,13 @@ namespace PosOnLine.Src.Pago.Procesar
             L_REF_4.Text = _controlador.PagoElectronico_REF_4;
             ActualizaMontoResta();
         }
-       
+
+        private void ActualizarIGTG()
+        {
+            L_TASA_IGTF.Text = string.Format("IGTF ({0:n2}%)",_controlador.TasaIGTF);
+            L_MONTO_IGTF.Text = string.Format("{0:n2}",_controlador.MontoPorIGTF);
+        }
+     
     }
 
 }

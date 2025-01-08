@@ -46,8 +46,10 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         {
             _costo = costo;
         }
+        decimal _posTasaCambio;
         public void setPosTasaCambio(decimal tasa)
         {
+            _posTasaCambio = tasa;
         }
         public void setPosTasaIva(decimal tasa)
         {
@@ -98,7 +100,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         private decimal costoConBono(decimal costo)
         {
             var rt = 0m;
-            rt = Math.Round(costo / ((100m - _tasaBono) / 100m), 2, MidpointRounding.AwayFromZero);
+            //rt = Math.Round(costo / ((100m - _tasaBono) / 100m), 2, MidpointRounding.AwayFromZero);
+            rt = Math.Round(((costo * _tasaDivisaAct) / _posTasaCambio ), 2, MidpointRounding.AwayFromZero);
             return rt;
         }
         private decimal precioSinBono(decimal precio)
@@ -107,6 +110,11 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             var tBono = (1m + (_tasaBono / 100m));
             rt = Math.Round(precio / tBono, 2, MidpointRounding.AwayFromZero);
             return rt;
+        }
+        decimal _tasaDivisaAct;
+        public void setTasaDivisaActual(decimal tasaDivAct)
+        {
+            _tasaDivisaAct = tasaDivAct;
         }
     }
 }

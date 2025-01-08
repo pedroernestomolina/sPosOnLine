@@ -55,6 +55,7 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         private void TB_PRECIO_NUEVO_Leave(object sender, EventArgs e)
         {
             var _precio = decimal.Parse(TB_PRECIO_NUEVO.Text);
+            
             _controlador.setPrecioNuevo(_precio);
             L_UTILIDAD_NUEVA.Text = _controlador.DataPanel.utilidadNueva.ToString("n2") + "%";
         }

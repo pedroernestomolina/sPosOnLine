@@ -34,5 +34,7 @@ namespace PosOnLine.Data.Infra
             Configuracion_ValorMaximoPorcentajeDescuento();
         OOB.Resultado.FichaEntidad<bool>
             Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+        OOB.Resultado.FichaEntidad<PosOnLine.OOB.Configuracion.Configuracion_IGTF>
+            Configuracion_IGTF();
     }
 }

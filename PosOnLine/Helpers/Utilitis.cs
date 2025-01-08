@@ -128,7 +128,8 @@ namespace PosOnLine.Helpers
                                         case "F":
                                             break;
                                         case "T80":
-                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80.Documento();
+                                            //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80.Documento();
+                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80.DocumentoEver();
                                             break;
                                         case "T80B":
                                             Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80Basico.Documento();
@@ -322,6 +323,30 @@ namespace PosOnLine.Helpers
                                     {
                                         Sistema.Modo_Despliegue_Logo_Base = false;
                                     }
+                                }
+                                if (nv.LocalName.ToUpper().Trim() == "ACTIVAR_MODO_PEDIDO")
+                                {
+                                    Sistema.Modo_Pedido= false;
+                                    if (nv.InnerText.Trim().ToUpper() == "SI")
+                                    {
+                                        Sistema.Modo_Pedido = true;
+                                    }
+                                }
+                                if (nv.LocalName.ToUpper().Trim() == "CARGAR_SOLO_PEDIDO") 
+                                {
+                                    Sistema.CargarSolo_Pedido = false;
+                                    if (nv.InnerText.Trim().ToUpper() == "SI")
+                                    {
+                                        Sistema.CargarSolo_Pedido = true;
+                                    }
+                                }
+                                if (nv.LocalName.ToUpper().Trim() == "MAXIMO_NUMERO_PEDIDO") 
+                                {
+                                    Sistema.MaximoNumeroPedidoPermitido = int.Parse(nv.InnerText.Trim()); 
+                                }
+                                if (nv.LocalName.ToUpper().Trim() == "DEFINE_MEDIOPAGO_PAGOMOVIL")
+                                {
+                                    Sistema.DefineMedioPagoxPagoMovil=nv.InnerText.Trim().ToUpper();
                                 }
                             }
                         }

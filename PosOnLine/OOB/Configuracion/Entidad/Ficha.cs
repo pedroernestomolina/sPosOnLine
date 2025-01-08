@@ -20,6 +20,7 @@ namespace PosOnLine.OOB.Configuracion.Entidad
         public string idMedioPagoDivisa { get; set; }
         public string idMedioPagoElectronico { get; set; }
         public string idMedioPagoOtros { get; set; }
+        public string idMedioPagoxPagoMovil { get; set; }
         public string idConceptoVenta { get; set; }
         public string idConceptoDevVenta { get; set; }
         public string idConceptoSalida { get; set; }
@@ -109,6 +110,7 @@ namespace PosOnLine.OOB.Configuracion.Entidad
             idMedioPagoDivisa = "";
             idMedioPagoEfectivo = "";
             idMedioPagoElectronico = "";
+            idMedioPagoxPagoMovil = "";
             idMedioPagoOtros = "";
             idConceptoDevVenta = "";
             idConceptoSalida = "";

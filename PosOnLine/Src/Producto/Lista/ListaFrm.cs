@@ -31,6 +31,7 @@ namespace PosOnLine.Src.Producto.Lista
             var f1 = new Font("Serif", 10, FontStyle.Regular);
             var f2 = new Font("Serif", 6, FontStyle.Regular);
 
+            DGV.RowHeadersVisible = false;
             DGV.AllowUserToAddRows = false;
             DGV.AutoGenerateColumns = false;
             DGV.AllowUserToResizeRows = false;
@@ -57,14 +58,14 @@ namespace PosOnLine.Src.Producto.Lista
             c3.DefaultCellStyle.Font = f1;
 
             var c4 = new DataGridViewTextBoxColumn();
-            c4.DataPropertyName = "CantidadEx";
+            c4.DataPropertyName = "CantidadEx_ST";
             c4.HeaderText = "Ex/(Unidad)";
             c4.Visible = true;
             c4.Width = 90;
             c4.HeaderCell.Style.Font = f;
             c4.DefaultCellStyle.Font = f1;
             c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            c4.DefaultCellStyle.Format ="n1";
+            c4.DefaultCellStyle.Format ="n3";
             c4.Name = "CNT";
 
             var c5 = new DataGridViewTextBoxColumn();
@@ -185,6 +186,12 @@ namespace PosOnLine.Src.Producto.Lista
             L_EMP_INV.Text = _controlador.GetDescEmpInv;
             L_EX_EMP_UND.Text = _controlador.GetInvEmpUnd.ToString();
             L_EMP_UND.Text = _controlador.GetDescEmpUnd;
+            //
+            PB_IMAGEN.Image = Properties.Resources.bt_imagen_2;
+            if (_controlador.GetImagen != null) 
+            {
+                PB_IMAGEN.Image = _controlador.GetImagen;
+            }
         }
 
         private void DGV_KeyDown(object sender, KeyEventArgs e)

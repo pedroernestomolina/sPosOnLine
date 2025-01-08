@@ -20,5 +20,6 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         void setModoBonoIncluido(bool modo);
         decimal PrecioSinBono(decimal precio);
         void Refresh();
+        void setTasaDivisaActual(decimal tasaDivAct);
     }
 }

@@ -115,6 +115,12 @@
             this.panel30 = new System.Windows.Forms.Panel();
             this.BT_CREDITO = new System.Windows.Forms.Button();
             this.panel31 = new System.Windows.Forms.Panel();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel29 = new System.Windows.Forms.Panel();
+            this.L_MONTO_IGTF = new System.Windows.Forms.Label();
+            this.panel32 = new System.Windows.Forms.Panel();
+            this.L_TASA_IGTF = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -155,6 +161,10 @@
             this.tableLayoutPanel10.SuspendLayout();
             this.panel24.SuspendLayout();
             this.panel30.SuspendLayout();
+            this.panel23.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
+            this.panel29.SuspendLayout();
+            this.panel32.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -666,14 +676,15 @@
             this.tableLayoutPanel11.ColumnCount = 1;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel11.Controls.Add(this.panel26, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.panel23, 0, 1);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 3;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.38397F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.61603F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.25F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.75F));
             this.tableLayoutPanel11.Size = new System.Drawing.Size(171, 274);
             this.tableLayoutPanel11.TabIndex = 26;
             // 
@@ -1259,6 +1270,80 @@
             this.panel31.Size = new System.Drawing.Size(153, 68);
             this.panel31.TabIndex = 4;
             // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.tableLayoutPanel13);
+            this.panel23.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel23.Location = new System.Drawing.Point(1, 67);
+            this.panel23.Margin = new System.Windows.Forms.Padding(1);
+            this.panel23.Name = "panel23";
+            this.panel23.Padding = new System.Windows.Forms.Padding(2);
+            this.panel23.Size = new System.Drawing.Size(169, 63);
+            this.panel23.TabIndex = 27;
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.ColumnCount = 1;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.Controls.Add(this.panel29, 0, 1);
+            this.tableLayoutPanel13.Controls.Add(this.panel32, 0, 0);
+            this.tableLayoutPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanel13.Margin = new System.Windows.Forms.Padding(1);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 2;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(165, 59);
+            this.tableLayoutPanel13.TabIndex = 27;
+            // 
+            // panel29
+            // 
+            this.panel29.Controls.Add(this.L_MONTO_IGTF);
+            this.panel29.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel29.Location = new System.Drawing.Point(1, 30);
+            this.panel29.Margin = new System.Windows.Forms.Padding(1);
+            this.panel29.Name = "panel29";
+            this.panel29.Padding = new System.Windows.Forms.Padding(2);
+            this.panel29.Size = new System.Drawing.Size(163, 28);
+            this.panel29.TabIndex = 26;
+            // 
+            // L_MONTO_IGTF
+            // 
+            this.L_MONTO_IGTF.BackColor = System.Drawing.Color.Transparent;
+            this.L_MONTO_IGTF.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_MONTO_IGTF.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_MONTO_IGTF.ForeColor = System.Drawing.Color.Black;
+            this.L_MONTO_IGTF.Location = new System.Drawing.Point(2, 2);
+            this.L_MONTO_IGTF.Name = "L_MONTO_IGTF";
+            this.L_MONTO_IGTF.Size = new System.Drawing.Size(159, 24);
+            this.L_MONTO_IGTF.TabIndex = 3;
+            this.L_MONTO_IGTF.Text = "9,999,000.00";
+            this.L_MONTO_IGTF.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel32
+            // 
+            this.panel32.Controls.Add(this.L_TASA_IGTF);
+            this.panel32.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel32.Location = new System.Drawing.Point(1, 1);
+            this.panel32.Margin = new System.Windows.Forms.Padding(1);
+            this.panel32.Name = "panel32";
+            this.panel32.Padding = new System.Windows.Forms.Padding(2);
+            this.panel32.Size = new System.Drawing.Size(163, 27);
+            this.panel32.TabIndex = 26;
+            // 
+            // L_TASA_IGTF
+            // 
+            this.L_TASA_IGTF.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_TASA_IGTF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_TASA_IGTF.Location = new System.Drawing.Point(2, 2);
+            this.L_TASA_IGTF.Name = "L_TASA_IGTF";
+            this.L_TASA_IGTF.Size = new System.Drawing.Size(159, 23);
+            this.L_TASA_IGTF.TabIndex = 1;
+            this.L_TASA_IGTF.Text = "IGTF (3.0%)";
+            this.L_TASA_IGTF.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // ProcesarFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1311,6 +1396,10 @@
             this.tableLayoutPanel10.ResumeLayout(false);
             this.panel24.ResumeLayout(false);
             this.panel30.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.panel29.ResumeLayout(false);
+            this.panel32.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1410,5 +1499,11 @@
         private Lib.Controles.Numero.NumeroDecimal TB_OTRO;
         private Lib.Controles.Numero.NumeroEntero TB_DIVISA_CNT;
         private System.Windows.Forms.Label L_CNT_DIVISA_RECOMIENDA;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
+        private System.Windows.Forms.Panel panel29;
+        private System.Windows.Forms.Label L_MONTO_IGTF;
+        private System.Windows.Forms.Panel panel32;
+        private System.Windows.Forms.Label L_TASA_IGTF;
     }
 }

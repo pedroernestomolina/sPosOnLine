@@ -90,12 +90,41 @@ namespace PosOnLine.Helpers.Imprimir.Fiscal
                 _lstDet.Add(_det);
             }
             var _lstMP = new List<LibFoxFiscal.LibFoxFiscal.IFacturaMedioPago>();
-            var _mp = new LibFoxFiscal.LibFoxFiscal.FacturaMedioPago()
+            if (_ds.encabezado.AplicaIGTF)
             {
-                Monto = _ds.metodoPago.Sum(s => s.monto),
-                Posicion = 1,
-            };
-            _lstMP.Add(_mp);
+                //
+                //APLICA IGTF SE ACUMULA TODO LO QUE NO ES DIVISA EN UN SOLO MEDIO DE PAGO Y SE RESTA EL MONTO DEL IGTF
+                var _mp1 = new LibFoxFiscal.LibFoxFiscal.FacturaMedioPago()
+                {
+                    Monto = _ds.metodoPago.Where(w=>w.esDivisa==false).Sum(s => s.monto),
+                    Posicion = 1,
+                };
+                _mp1.Monto -= _ds.encabezado.MontoIGTF;
+                _lstMP.Add(_mp1);
+
+                //
+                //APLICA IGTF SE ACUMULA TODO LO QUE ES DIVISA EN UN SOLO MEDIO DE PAGO Y SE SUMA EL MONTO DEL IGTF
+                var _mp2 = new LibFoxFiscal.LibFoxFiscal.FacturaMedioPago()
+                {
+                    Monto = _ds.metodoPago.Where(w => w.esDivisa).Sum(s => s.monto),
+                    Posicion = 21,
+                };
+                _mp2.Monto += _ds.encabezado.MontoIGTF;
+                if (_mp2.Monto > 0) 
+                {
+                    _lstMP.Add(_mp2);
+                }
+            }
+            else 
+            {
+                //SI NO APLICA IGTF SE ACUMULA TODO EN UN SOLO MEDIO DE PAGO
+                var _mp = new LibFoxFiscal.LibFoxFiscal.FacturaMedioPago()
+                {
+                    Monto = _ds.metodoPago.Sum(s => s.monto),
+                    Posicion = 1,
+                };
+                _lstMP.Add(_mp);
+            }
             _ficha.Detalles = _lstDet;
             _ficha.MediosPago = _lstMP;
             try

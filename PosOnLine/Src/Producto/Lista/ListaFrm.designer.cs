@@ -117,6 +117,8 @@
             this.L_EMP_UND = new System.Windows.Forms.Label();
             this.panel42 = new System.Windows.Forms.Panel();
             this.L_PRD_DETALLE = new System.Windows.Forms.Label();
+            this.panel43 = new System.Windows.Forms.Panel();
+            this.PB_IMAGEN = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -175,6 +177,8 @@
             this.panel40.SuspendLayout();
             this.panel41.SuspendLayout();
             this.panel42.SuspendLayout();
+            this.panel43.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_IMAGEN)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -289,7 +293,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(1);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(2);
-            this.panel4.Size = new System.Drawing.Size(646, 478);
+            this.panel4.Size = new System.Drawing.Size(645, 478);
             this.panel4.TabIndex = 0;
             // 
             // DGV
@@ -298,7 +302,7 @@
             this.DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGV.Location = new System.Drawing.Point(2, 2);
             this.DGV.Name = "DGV";
-            this.DGV.Size = new System.Drawing.Size(642, 474);
+            this.DGV.Size = new System.Drawing.Size(641, 474);
             this.DGV.TabIndex = 1;
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
@@ -307,11 +311,11 @@
             // 
             this.panel5.Controls.Add(this.tableLayoutPanel2);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(1061, 1);
+            this.panel5.Location = new System.Drawing.Point(1060, 1);
             this.panel5.Margin = new System.Windows.Forms.Padding(1);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(2);
-            this.panel5.Size = new System.Drawing.Size(74, 478);
+            this.panel5.Size = new System.Drawing.Size(75, 478);
             this.panel5.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -330,7 +334,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(70, 474);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(71, 474);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel8
@@ -341,7 +345,7 @@
             this.panel8.Margin = new System.Windows.Forms.Padding(1);
             this.panel8.Name = "panel8";
             this.panel8.Padding = new System.Windows.Forms.Padding(2);
-            this.panel8.Size = new System.Drawing.Size(68, 156);
+            this.panel8.Size = new System.Drawing.Size(69, 156);
             this.panel8.TabIndex = 2;
             // 
             // BT_BAJAR
@@ -353,7 +357,7 @@
             this.BT_BAJAR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_BAJAR.Location = new System.Drawing.Point(2, 2);
             this.BT_BAJAR.Name = "BT_BAJAR";
-            this.BT_BAJAR.Size = new System.Drawing.Size(64, 152);
+            this.BT_BAJAR.Size = new System.Drawing.Size(65, 152);
             this.BT_BAJAR.TabIndex = 1;
             this.BT_BAJAR.UseVisualStyleBackColor = true;
             this.BT_BAJAR.Click += new System.EventHandler(this.BT_BAJAR_Click);
@@ -366,7 +370,7 @@
             this.panel7.Margin = new System.Windows.Forms.Padding(1);
             this.panel7.Name = "panel7";
             this.panel7.Padding = new System.Windows.Forms.Padding(2);
-            this.panel7.Size = new System.Drawing.Size(68, 156);
+            this.panel7.Size = new System.Drawing.Size(69, 156);
             this.panel7.TabIndex = 1;
             // 
             // BT_ENTER
@@ -376,7 +380,7 @@
             this.BT_ENTER.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BT_ENTER.Location = new System.Drawing.Point(2, 2);
             this.BT_ENTER.Name = "BT_ENTER";
-            this.BT_ENTER.Size = new System.Drawing.Size(64, 152);
+            this.BT_ENTER.Size = new System.Drawing.Size(65, 152);
             this.BT_ENTER.TabIndex = 2;
             this.BT_ENTER.UseVisualStyleBackColor = true;
             this.BT_ENTER.Click += new System.EventHandler(this.BT_ENTER_Click);
@@ -389,7 +393,7 @@
             this.panel6.Margin = new System.Windows.Forms.Padding(1);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(2);
-            this.panel6.Size = new System.Drawing.Size(68, 156);
+            this.panel6.Size = new System.Drawing.Size(69, 156);
             this.panel6.TabIndex = 0;
             // 
             // BT_SUBIR
@@ -401,7 +405,7 @@
             this.BT_SUBIR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_SUBIR.Location = new System.Drawing.Point(2, 2);
             this.BT_SUBIR.Name = "BT_SUBIR";
-            this.BT_SUBIR.Size = new System.Drawing.Size(64, 152);
+            this.BT_SUBIR.Size = new System.Drawing.Size(65, 152);
             this.BT_SUBIR.TabIndex = 0;
             this.BT_SUBIR.UseVisualStyleBackColor = true;
             this.BT_SUBIR.Click += new System.EventHandler(this.BT_SUBIR_Click);
@@ -411,7 +415,7 @@
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.panel11.Controls.Add(this.tableLayoutPanel4);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(649, 1);
+            this.panel11.Location = new System.Drawing.Point(648, 1);
             this.panel11.Margin = new System.Windows.Forms.Padding(1);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(410, 478);
@@ -995,6 +999,7 @@
             this.tableLayoutPanel10.Controls.Add(this.panel33, 1, 1);
             this.tableLayoutPanel10.Controls.Add(this.panel34, 1, 2);
             this.tableLayoutPanel10.Controls.Add(this.panel39, 1, 3);
+            this.tableLayoutPanel10.Controls.Add(this.panel43, 0, 0);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel10.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0);
@@ -1263,6 +1268,27 @@
             this.L_PRD_DETALLE.Text = "INFORMACION DETALLADA DEL PRODCUTO MAXIMO DOOS LINEAS ";
             this.L_PRD_DETALLE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel43
+            // 
+            this.panel43.Controls.Add(this.PB_IMAGEN);
+            this.panel43.Location = new System.Drawing.Point(1, 1);
+            this.panel43.Margin = new System.Windows.Forms.Padding(1);
+            this.panel43.Name = "panel43";
+            this.panel43.Padding = new System.Windows.Forms.Padding(2);
+            this.tableLayoutPanel10.SetRowSpan(this.panel43, 4);
+            this.panel43.Size = new System.Drawing.Size(191, 98);
+            this.panel43.TabIndex = 4;
+            // 
+            // PB_IMAGEN
+            // 
+            this.PB_IMAGEN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PB_IMAGEN.Location = new System.Drawing.Point(2, 2);
+            this.PB_IMAGEN.Name = "PB_IMAGEN";
+            this.PB_IMAGEN.Size = new System.Drawing.Size(187, 94);
+            this.PB_IMAGEN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PB_IMAGEN.TabIndex = 1;
+            this.PB_IMAGEN.TabStop = false;
+            // 
             // ListaFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1334,6 +1360,8 @@
             this.panel40.ResumeLayout(false);
             this.panel41.ResumeLayout(false);
             this.panel42.ResumeLayout(false);
+            this.panel43.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PB_IMAGEN)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1429,6 +1457,8 @@
         private System.Windows.Forms.Label L_EMP_UND;
         private System.Windows.Forms.Panel panel42;
         private System.Windows.Forms.Label L_PRD_DETALLE;
+        private System.Windows.Forms.Panel panel43;
+        private System.Windows.Forms.PictureBox PB_IMAGEN;
 
     }
 }

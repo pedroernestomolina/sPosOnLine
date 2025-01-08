@@ -63,6 +63,7 @@ namespace PosOnLine
                 {
                     _gestionPrincipal = new Src.Principal.Gestion();
                     _gestionPrincipal.Inicializa();
+                    _gestionPrincipal.setFomrMontarPedido(Sistema.CargarSolo_Pedido);
                     _gestionPrincipal.Inicia();
                 }
             }

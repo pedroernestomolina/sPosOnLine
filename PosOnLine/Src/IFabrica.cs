@@ -22,5 +22,8 @@ namespace PosOnLine.Src
             CreateInstace_PosCliente();
         CambioPrecio.ICambioPrecio 
             CreateInstace_PosCambioPrecioPrd();
+        //
+        ReglasNegocio.IReglas
+            CreateInstace_ReglasNegocio();
     }
 }

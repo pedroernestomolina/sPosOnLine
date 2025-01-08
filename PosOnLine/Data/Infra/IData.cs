@@ -12,7 +12,9 @@ namespace PosOnLine.Data.Infra
         IVendedor, IPermiso, IReportePos, IAgencia, ICierre,
         IMovCaja,
         IProducto_ModoAdm,
-        IVentaZufu
+        IVentaZufu,
+        IPedido,
+        IDocumento_Agregar
     {
         OOB.Resultado.FichaEntidad<DateTime> 
             FechaServidor();

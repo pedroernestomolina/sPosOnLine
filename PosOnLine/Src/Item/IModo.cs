@@ -28,6 +28,7 @@ namespace PosOnLine.Src.Item
         data Item { get; }
         BindingList<data> Items { get; }
         data DataItemActual { get; }
+        decimal TotalIva { get; }
 
 
         void setGestionMultiplicar(Multiplicar.Gestion _gestionMultiplicar);

@@ -33,12 +33,19 @@ namespace PosOnLine.Src
         public Pos.ICliente 
             CreateInstace_PosCliente()
         {
-            return new VentaAdm.Gestion();
+            //return new VentaAdm.Gestion();
+            return new Zufu.ClienteComp.Cliente.Handler.Imp();
         }
         public CambioPrecio.ICambioPrecio 
             CreateInstace_PosCambioPrecioPrd()
         {
             return new Src.CambioPrecio.CambioPrecio();
+        }
+
+
+        public ReglasNegocio.IReglas CreateInstace_ReglasNegocio()
+        {
+            return new ReglasNegocio.ReglaNegocioEverestMotor();
         }
     }
 }

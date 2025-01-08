@@ -13,16 +13,15 @@ namespace PosOnLine.Src.Anular
         private string _motivo;
         private bool _anularIsOk;
         private bool _procesarIsOk;
-
+        //
         public string Motivo { get { return _motivo; } }
-
+        //
         public ImpAnular()
         {
             _motivo = "";
             _anularIsOk = false;
             _procesarIsOk = false;
         }
-
         public void Inicializa()
         {
             _motivo = "";

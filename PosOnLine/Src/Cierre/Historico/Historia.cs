@@ -115,7 +115,7 @@ namespace PosOnLine.Src.Cierre.Historico
                 dat.montoVentaCredito = _dat.montoVentaCredito;
                 dat.devoluciones_s = _dat.devoluciones_s;
                 dat.credito_s = _dat.credito_s;
-                dat.cambio_s = _dat.cambio_s;
+                //dat.cambio_s = _dat.cambio_s;
 
                 //desgloze segun sistema
                 dat.efectivo_s = _dat.efectivo_s;

@@ -99,8 +99,10 @@
     <Compile Include="Data\Infra\IData.cs" />
     <Compile Include="Data\Infra\IDeposito.cs" />
     <Compile Include="Data\Infra\IDocumento.cs" />
+    <Compile Include="Data\Infra\IDocumento_Agregar.cs" />
     <Compile Include="Data\Infra\IJornada.cs" />
     <Compile Include="Data\Infra\IMovCaja.cs" />
+    <Compile Include="Data\Infra\IPedido.cs" />
     <Compile Include="Data\Infra\IPendiente.cs" />
     <Compile Include="Data\Infra\IPermiso.cs" />
     <Compile Include="Data\Infra\IProducto.cs" />
@@ -120,14 +122,22 @@
     <Compile Include="Data\Prov\DataPrv.cs" />
     <Compile Include="Data\Prov\Deposito.cs" />
     <Compile Include="Data\Prov\Documento.cs" />
+    <Compile Include="Data\Prov\Documento_Agregar_Factura.cs" />
+    <Compile Include="Data\Prov\Documento_Agregar_NotaCredito.cs" />
+    <Compile Include="Data\Prov\Documento_Agregar_NotaEntrega.cs" />
     <Compile Include="Data\Prov\Jornada.cs" />
     <Compile Include="Data\Prov\MovCaja.cs" />
+    <Compile Include="Data\Prov\Pedido_GetIdBy_Numero.cs" />
+    <Compile Include="Data\Prov\Pedido_Guardar.cs" />
+    <Compile Include="Data\Prov\Pedido_ListaResumen.cs" />
+    <Compile Include="Data\Prov\Pedido_TrasladarVenta.cs" />
     <Compile Include="Data\Prov\Pendiente.cs" />
     <Compile Include="Data\Prov\Permiso.cs" />
     <Compile Include="Data\Prov\Producto.cs" />
     <Compile Include="Data\Prov\Producto_ModoAdm.cs" />
     <Compile Include="Data\Prov\ReportesPos.cs" />
     <Compile Include="Data\Prov\Sistema.cs" />
+    <Compile Include="Data\Prov\Sistema_SeriesFiscal.cs" />
     <Compile Include="Data\Prov\Sucursal.cs" />
     <Compile Include="Data\Prov\Usuario.cs" />
     <Compile Include="Data\Prov\Vendedor.cs" />
@@ -167,7 +177,11 @@
     <Compile Include="Helpers\Imprimir\Tickera80Basico\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80Basico\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\CuadreDoc.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80\DocumentoEver.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80\DocumentoZufu.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Documento.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80\TicketEver.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80\TicketZufu.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Ticket.cs" />
     <Compile Include="Helpers\IProcesar.cs" />
     <Compile Include="Helpers\Msg.cs" />
@@ -210,6 +224,7 @@
     <Compile Include="OOB\Configuracion\Actualizar\Ficha.cs" />
     <Compile Include="OOB\Configuracion\BusquedaCliente\Ficha.cs" />
     <Compile Include="OOB\Configuracion\CambioSucursalDeposito\Ficha.cs" />
+    <Compile Include="OOB\Configuracion\Configuracion_IGTF.cs" />
     <Compile Include="OOB\Configuracion\Entidad\Enumerados.cs" />
     <Compile Include="OOB\Configuracion\Entidad\Ficha.cs" />
     <Compile Include="OOB\Configuracion\Enumerados.cs" />
@@ -287,6 +302,11 @@
     <Compile Include="OOB\MovCaja\Lista\Filtro.cs" />
     <Compile Include="OOB\MovCaja\Registrar\Detalle.cs" />
     <Compile Include="OOB\MovCaja\Registrar\Ficha.cs" />
+    <Compile Include="OOB\Pedido\Guardar\Ficha.cs" />
+    <Compile Include="OOB\Pedido\ListaResumen\Entidad.cs" />
+    <Compile Include="OOB\Pedido\ListaResumen\Filtros.cs" />
+    <Compile Include="OOB\Pedido\ListaResumen\Resumen.cs" />
+    <Compile Include="OOB\Pedido\TrasladarVenta\Ficha.cs" />
     <Compile Include="OOB\Pendiente\DejarCta\Ficha.cs" />
     <Compile Include="OOB\Pendiente\DejarCta\FichaItem.cs" />
     <Compile Include="OOB\Pendiente\Lista\Ficha.cs" />
@@ -460,6 +480,39 @@
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
     <Compile Include="Src\ILista_SeleccionItem.cs" />
+    <Compile Include="Src\Pedido\Lista\data.cs" />
+    <Compile Include="Src\Pedido\Lista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Pedido\Lista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Pedido\Lista\HndListaPedidos.cs" />
+    <Compile Include="Src\Pedido\Lista\Idata.cs" />
+    <Compile Include="Src\Pedido\Lista\IListaPedidos.cs" />
+    <Compile Include="Src\Pedido\SolicitarNumeroPedido\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Pedido\SolicitarNumeroPedido\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Pedido\SolicitarNumeroPedido\HndSolicitud.cs" />
+    <Compile Include="Src\Pedido\SolicitarNumeroPedido\ISolicitud.cs" />
+    <Compile Include="Src\Pos\PosPedidoFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Pos\PosPedidoFrm.designer.cs">
+      <DependentUpon>PosPedidoFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\Principal\PrincipalPedidoFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Principal\PrincipalPedidoFrm.designer.cs">
+      <DependentUpon>PrincipalPedidoFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\ReglasNegocio\ReglaNegocioEverestMotor.cs" />
+    <Compile Include="Src\ReglasNegocio\ReglaNegocioZufu.cs" />
+    <Compile Include="Src\ReglasNegocio\IReglas.cs" />
     <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\data.cs" />
     <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\dataPanel.cs" />
     <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\Imp.cs" />
@@ -903,6 +956,18 @@
     <EmbeddedResource Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.resx">
       <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\Pedido\Lista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Pedido\SolicitarNumeroPedido\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Pos\PosPedidoFrm.resx">
+      <DependentUpon>PosPedidoFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Principal\PrincipalPedidoFrm.resx">
+      <DependentUpon>PrincipalPedidoFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\Producto\Lista\ModoAdm\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1048,6 +1113,18 @@
     <Content Include="CambiosVersion.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="conf_cristal_01.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="conf_cristal.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="conf_everest.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="conf.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -1079,6 +1156,7 @@
     <None Include="Resources\bt_consulta_24.png" />
     <None Include="Resources\bt_consulta_32.png" />
     <None Include="Resources\bt_consulta_48.png" />
+    <None Include="Resources\bt_imagen_2.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -1113,6 +1191,7 @@
     <Content Include="Src\Imagenes\bt_entrada_salida_dinero_32.png" />
     <Content Include="Src\Imagenes\bt_entrada_salida_dinero_48.png" />
     <Content Include="Src\Imagenes\bt_gaveta.png" />
+    <Content Include="Src\Imagenes\bt_imagen_2.png" />
     <Content Include="Src\Imagenes\bt_mult.png" />
     <Content Include="Src\Imagenes\bt_notaPendiente.png" />
     <Content Include="Src\Imagenes\bt_ofertas.png" />

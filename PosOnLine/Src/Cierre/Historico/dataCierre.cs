@@ -31,7 +31,8 @@ namespace PosOnLine.Src.Cierre.Historico
         public string nroCierre { get { return _ficha.cierreNro.ToString().Trim().PadLeft(8, '0'); } }
 
         //desgloze segun sistema
-        public decimal efectivo_s { get { return (_ficha.mEfectivo_s - _ficha.montoVueltoPorEfectivo); } }
+        //public decimal efectivo_s { get { return (_ficha.mEfectivo_s - _ficha.montoVueltoPorEfectivo); } }
+        public decimal efectivo_s { get { return (_ficha.efectivo ); } }
         public decimal divisa_s { get { return _ficha.cheque; } }
         public decimal electronico_s { get { return _ficha.debito; } }
         public decimal otros_s { get { return _ficha.otros; } }
@@ -39,7 +40,8 @@ namespace PosOnLine.Src.Cierre.Historico
         public int cnt_efectivo_s { get { return _ficha.cntEfectivo_s; } }
         public int cnt_electronico_s { get { return _ficha.cntElectronico_s; } }
         public int cnt_otros_s { get { return _ficha.cntOtros_s; } }
-        public decimal cuadre_s { get { return _ficha.SegunSistema - cambio_s; } }
+        //public decimal cuadre_s { get { return _ficha.SegunSistema - cambio_s; } }
+        public decimal cuadre_s { get { return _ficha.SegunSistema ; } }
 
         //desgloze segun usuario
         public decimal efectivo_u { get { return (_ficha.mefectivo); } }

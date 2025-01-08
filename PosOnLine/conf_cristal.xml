@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuracion>
+  <Servidor>
+    <Instancia>localhost</Instancia>
+    <Catalogo>smcristal</Catalogo>
+  </Servidor>
+  <IdEquipo>1</IdEquipo>
+  <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
+  <SerieFactura>Nen</SerieFactura> 
+  <SerieNCredito>1D</SerieNCredito>
+  <SerieNEntrega>Nen</SerieNEntrega>
+  <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
+  <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
+  <ModoImpresionNCredito>T80</ModoImpresionNCredito>
+  <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
+  <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
+  <HabilitarAbrirDocPendOtrosUsuarios>no</HabilitarAbrirDocPendOtrosUsuarios>
+  <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>no</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
+  <DatosNegocioTicket>
+    <Rif>J123456789-0</Rif>
+    <Nombre>SM CRISTAL LOS GUAYOS, CA</Nombre>
+    <Direccion>AVENIDA PRINCIPAL, LOS GUAYOS</Direccion>
+  </DatosNegocioTicket>
+  <Venta_Adm>
+    <Activar>No</Activar>
+  </Venta_Adm>
+  <Impresora_Fiscal>
+    <Activar>NO</Activar>  <!-- SI, NO -->
+    <Puerto>0</Puerto> 
+  </Impresora_Fiscal>
+  <Simbolo_Divisa_Ticket>$</Simbolo_Divisa_Ticket> <!-- POR DEFECTO $, PERO PUEDE SER Ref-->
+</Configuracion>

@@ -43,14 +43,17 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         public int cntOtros { get { return _resumen.cntotros-_resumen.cntotros_anu; } }
 
         public decimal montoEfectivo { get { return (_resumen.mEfectivo - _resumen.mEfectivo_anu) - _resumen.montoPorVueltoEfectivo; } }
-        public decimal montoDivisa { get { return cntDivisa * _factorCambio; } } // (_resumen.mDivisa - _resumen.mDivisa_anu) - _resumen.montoPorVueltoDivisa; } }//_resumen.mDivisaTotal; 
+        //public decimal montoDivisa { get { return cntDivisa * _factorCambio; } } // (_resumen.mDivisa - _resumen.mDivisa_anu) - _resumen.montoPorVueltoDivisa; } }//_resumen.mDivisaTotal; 
+        public decimal montoDivisa { get { return cntDivisa * tasaPromedioDivisa; } } // (_resumen.mDivisa - _resumen.mDivisa_anu) - _resumen.montoPorVueltoDivisa; } }//_resumen.mDivisaTotal; 
         public decimal montoElectronico { get { return _resumen.mElectronico - _resumen.mElectronico_anu; } }
         public decimal montoOtros { get { return _resumen.mOtros-_resumen.mOtros_anu; } }
 
         public int cntCambio { get { return _resumen.cnt_cambio-_resumen.cntCambio_anu; } }
-        public decimal montoCambio { get { return _resumen.m_cambio - _resumen.mCambio_anu - _resumen.montoPorVueltoEfectivo - _resumen.montoPorVueltoDivisa; } }
+        //public decimal montoCambio { get { return _resumen.m_cambio - _resumen.mCambio_anu - _resumen.montoPorVueltoEfectivo - _resumen.montoPorVueltoDivisa; } }
+        public decimal montoCambio { get { return (_resumen.montoPorVueltoEfectivo + _resumen.montoPorVueltoDivisa); } }
 
-        public decimal montoDesgloze { get { return ((montoEfectivo + montoDivisa + montoElectronico + montoOtros) - (montoCambio)); } }
+        //public decimal montoDesgloze { get { return ((montoEfectivo + montoDivisa + montoElectronico + montoOtros) - (montoCambio)); } }
+        public decimal montoDesgloze { get { return ((montoEfectivo + montoDivisa + montoElectronico + montoOtros)); } }
         public decimal montoEntrada { get { return (_entradaEfectivo + _entradaTarjeta + _entradaDivisa + _entradaOtro); } }
         public decimal montoEntradaDivisa { get { return _entradaDivisa; } }
         public decimal Diferencia { get { return (montoEntrada - montoDesgloze) - GetVueltoPorPagoMovil; } }
@@ -140,7 +143,8 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         public void setCntDivisa(int cntDivisa)
         {
             _entradaCntDivisa = cntDivisa;
-            _entradaDivisa = _factorCambio * cntDivisa;
+            //_entradaDivisa = _factorCambio * cntDivisa;
+            _entradaDivisa = tasaPromedioDivisa* cntDivisa;
         }
 
         public void setOtro(decimal mOtro)
@@ -364,7 +368,24 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         }
 
 
-        public decimal tasaPromedioDivisa { get { return _factorCambio; } }
+        //public decimal tasaPromedioDivisa { get { return _factorCambio; } }
+        public decimal tasaPromedioDivisa 
+        { 
+            get 
+            {
+                decimal mt = (_resumen.mDivisaTotal - _resumen.montoPorVueltoDivisa);
+                decimal ct = (_resumen.CntDivisaTotal - _resumen.cntDivisaPorVueltoDivisa);
+                if (ct > 0) 
+                {
+                    return mt / ct;
+                }
+                else
+                {
+                    return 0;
+                }
+            } 
+        }
+
         //public decimal DesglozeDinero { get { return montoVenta - montoDocCredito; } }
         public decimal DesglozeDinero 
         { 

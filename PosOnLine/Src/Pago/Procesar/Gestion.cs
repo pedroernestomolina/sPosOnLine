@@ -33,6 +33,18 @@ namespace PosOnLine.Src.Pago.Procesar
         public decimal MontoRecibido { get { return _pago.MontoRecibido; } }
         public decimal MontoCambioDar_MonedaNacional { get { return _pago.MontoCambioDar_MonedaNacional; } }
         public decimal MontoCambioDar_Divisa { get { return _pago.MontoCambioDar_Divisa; } }
+        public decimal MontoCambioDar_Divisa_Tasa_POS
+        {
+            get
+            {
+                var x = 0.0m;
+                if (_factorCambio > 0)
+                {
+                    x = MontoCambioDar_MonedaNacional / _factorCambio;
+                }
+                return x;
+            }
+        }
         public decimal DescuentoPorct { get { return _pago.DescuentoPorct; } }
         public bool LimpiarPagosIsOk { get { return _limpiarPagosIsOk; } }
         public string PagoElectronico_LOTE_1 { get { return _pago.PagoElectronico_LOTE(1); } }
@@ -70,6 +82,12 @@ namespace PosOnLine.Src.Pago.Procesar
             _limpiarPagosIsOk = false;
             _pago.Limpiar();
             _entCliente = null;
+            //
+            _aplicarIGTF = false;
+            _tasaIgtf = 0.0m;
+            _montoAplicarIgtf = 0.0m;
+            _baseAplicaIgtfMonDiv =0.0m;
+            _baseAplicaIgtfMonAct = 0.0m;
         }
 
         ProcesarFrm frm;
@@ -118,8 +136,10 @@ namespace PosOnLine.Src.Pago.Procesar
             _pago.setMontoPagar(monto);
         }
 
+        private decimal _factorCambio;
         public void setTasaCambio(decimal tasa)
         {
+            _factorCambio = tasa;
             _pago.setTasaCambio(tasa);
         }
 
@@ -137,6 +157,13 @@ namespace PosOnLine.Src.Pago.Procesar
         public void AddDivisa(decimal monto)
         {
             _pago.AddDivisa(monto);
+            if (_aplicarIGTF) 
+            {
+                _montoAplicarIgtf = (monto * _tasaIgtf / 100) * _factorCambio;
+                _pago.AplicarMontoCargoPorIgtf(_montoAplicarIgtf);
+                _baseAplicaIgtfMonDiv = monto;
+                _baseAplicaIgtfMonAct = monto * _factorCambio;
+            }
         }
 
         public void AddElectronico(decimal monto, int p)
@@ -232,6 +259,30 @@ namespace PosOnLine.Src.Pago.Procesar
         public dataRecolectar DataPagoRecolectar { get { return _pago.DataPagoRecolectar; } }
         public bool TipoDocumento_IsNotaCredito { get { return _isNotaCredito; } }
 
-    }
 
+        public void Limpiar()
+        {
+            _pago.LimpiarFicha();
+        }
+
+        //
+        private bool _aplicarIGTF = false;
+        private decimal _tasaIgtf = 0.0m;
+        private decimal _montoAplicarIgtf = 0.0m;
+        private decimal _baseAplicaIgtfMonDiv =0.0m;
+        private decimal _baseAplicaIgtfMonAct = 0.0m;
+        public bool AplicarIGTF { get { return _aplicarIGTF; } }
+        public decimal TasaIGTF { get { return _tasaIgtf; } }
+        public decimal MontoPorIGTF { get { return _montoAplicarIgtf; } }
+        public decimal BaseAplicaIGTFMonAct { get { return _baseAplicaIgtfMonAct; } }
+        public decimal BaseAplicaIGTFMonDiv { get { return _baseAplicaIgtfMonDiv; } }
+        public void setTasaIGTF(decimal tasa)
+        {
+            _tasaIgtf = tasa;
+        }
+        public void setAplicarIGTF(bool aplicar)
+        {
+            _aplicarIGTF = aplicar;
+        }
+    }
 }

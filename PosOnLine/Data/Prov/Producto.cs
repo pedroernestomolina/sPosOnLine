@@ -211,7 +211,7 @@ namespace PosOnLine.Data.Prov
             Producto_GetLista(OOB.Producto.Lista.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Producto.Lista.Ficha>();
-
+            //
             var filtroDTO = new DtoLibPos.Producto.Lista.Filtro()
             {
                 AutoDeposito = filtro.autoDeposito,
@@ -226,7 +226,7 @@ namespace PosOnLine.Data.Prov
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
-
+            //
             var lst = new List<OOB.Producto.Lista.Ficha>();
             if (r01.Lista != null) 
             {
@@ -273,13 +273,17 @@ namespace PosOnLine.Data.Prov
                             contEmpInv = s.contEmpInv,
                             descEmpCompra = s.descEmpCompra,
                             descEmpInv = s.descEmpInv,
+                            //
+                            histPrecio = (s.histPrecio == null ? "" : "1"),
+                            //
+                            imagen= s.imagen,
                         };
                         return nr;
                     }).ToList();
                 }
             }
             result.ListaD = lst;
-
+            //
             return result;
         }
         public OOB.Resultado.FichaEntidad<OOB.Producto.Existencia.Entidad.Ficha> 

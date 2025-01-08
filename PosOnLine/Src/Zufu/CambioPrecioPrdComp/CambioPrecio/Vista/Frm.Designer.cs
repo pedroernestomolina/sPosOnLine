@@ -45,7 +45,6 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.TB_PRECIO_NUEVO = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel14 = new System.Windows.Forms.Panel();
             this.panel15 = new System.Windows.Forms.Panel();
             this.CHB_APLICANDO_BONO = new System.Windows.Forms.CheckBox();
@@ -62,6 +61,7 @@
             this.BT_SALIR = new System.Windows.Forms.Button();
             this.panel20 = new System.Windows.Forms.Panel();
             this.BT_PANEL_INF = new System.Windows.Forms.Button();
+            this.TB_PRECIO_NUEVO = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -305,20 +305,6 @@
             this.panel13.Size = new System.Drawing.Size(162, 28);
             this.panel13.TabIndex = 4;
             // 
-            // TB_PRECIO_NUEVO
-            // 
-            this.TB_PRECIO_NUEVO.BackColor = System.Drawing.Color.Yellow;
-            this.TB_PRECIO_NUEVO.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TB_PRECIO_NUEVO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_PRECIO_NUEVO.Location = new System.Drawing.Point(2, 2);
-            this.TB_PRECIO_NUEVO.Name = "TB_PRECIO_NUEVO";
-            this.TB_PRECIO_NUEVO.Size = new System.Drawing.Size(137, 26);
-            this.TB_PRECIO_NUEVO.TabIndex = 0;
-            this.TB_PRECIO_NUEVO.Text = "0";
-            this.TB_PRECIO_NUEVO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TB_PRECIO_NUEVO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CTRL_KeyDown);
-            this.TB_PRECIO_NUEVO.Leave += new System.EventHandler(this.TB_PRECIO_NUEVO_Leave);
-            // 
             // panel14
             // 
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -516,6 +502,20 @@
             this.BT_PANEL_INF.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.BT_PANEL_INF.UseVisualStyleBackColor = true;
             this.BT_PANEL_INF.Click += new System.EventHandler(this.BT_PANEL_INF_Click);
+            // 
+            // TB_PRECIO_NUEVO
+            // 
+            this.TB_PRECIO_NUEVO.BackColor = System.Drawing.Color.Yellow;
+            this.TB_PRECIO_NUEVO.Dock = System.Windows.Forms.DockStyle.Left;
+            this.TB_PRECIO_NUEVO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_PRECIO_NUEVO.Location = new System.Drawing.Point(2, 2);
+            this.TB_PRECIO_NUEVO.Name = "TB_PRECIO_NUEVO";
+            this.TB_PRECIO_NUEVO.Size = new System.Drawing.Size(137, 26);
+            this.TB_PRECIO_NUEVO.TabIndex = 0;
+            this.TB_PRECIO_NUEVO.Text = "0";
+            this.TB_PRECIO_NUEVO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TB_PRECIO_NUEVO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CTRL_KeyDown);
+            this.TB_PRECIO_NUEVO.Leave += new System.EventHandler(this.TB_PRECIO_NUEVO_Leave);
             // 
             // Frm
             // 

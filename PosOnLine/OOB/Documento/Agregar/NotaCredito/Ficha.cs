@@ -128,8 +128,9 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
         //
         public string estatusFiscal { get; set; }
         public int zFiscal { get; set; }
-
-
+        //
+        public bool AplicarLibroVenta { get; set; }
+        //
         public Ficha()
         {
             idOperador = -1;
@@ -250,6 +251,8 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
             //
             estatusFiscal = "";
             zFiscal = -1;
+            //
+            AplicarLibroVenta = false;
         }
     }
 }

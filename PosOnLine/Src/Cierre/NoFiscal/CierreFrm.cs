@@ -28,6 +28,13 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         {
             Limpiar();
             ActualizarData();
+
+            //
+            TB_OTRO.ReadOnly = true;
+            TB_OTRO.Text = _controlador.montoOtros.ToString();
+            _controlador.setOtro(_controlador.montoOtros);
+            ActualizaDiferencia();
+            //
         }
 
         private void ActualizarData()
@@ -50,7 +57,7 @@ namespace PosOnLine.Src.Cierre.NoFiscal
             L_MONTO_DOC_CONTADO.Text = _controlador.montoDocContado.ToString("n2");
             L_MONTO_DOC_CREDITO.Text = _controlador.montoDocCredito.ToString("n2");
 
-            L_CNT_DIVISA.Text = _controlador.cntDivisa.ToString("n0")+" x "+_controlador.tasaPromedioDivisa.ToString("n2");
+            L_CNT_DIVISA.Text = _controlador.cntDivisa.ToString("n0")+" x "+_controlador.tasaPromedioDivisa.ToString("n3");
             L_CNT_TARJETAS.Text = _controlador.cntElectronico.ToString("n0");
             L_CNT_OTROS.Text = _controlador.cntOtros.ToString("n0");
 
@@ -77,6 +84,14 @@ namespace PosOnLine.Src.Cierre.NoFiscal
             L_DESGLOZE.Text ="DESGLOZE DINERO POR: "+_controlador.DesglozeDinero.ToString("n2"); 
             //
             L_VUELTO_PAGO_MOVIL.Text = _controlador.GetVueltoPorPagoMovil.ToString("n2");
+            //
+            
+            TB_EFECTIVO.Enabled = true;
+            if (_controlador.montoEfectivo < 0)
+            {
+                TB_EFECTIVO.Enabled = false;
+                _controlador.setEfectivo(_controlador.montoEfectivo );
+            }
 
             ActualizaDiferencia();
         }
@@ -98,7 +113,7 @@ namespace PosOnLine.Src.Cierre.NoFiscal
             {
                 L_DIFERENCIA_TEXTO.Text = "";
             }
-            L_DIFERENCIA.Text = _controlador.Diferencia.ToString("n2");
+            L_DIFERENCIA.Text = Math.Abs(_controlador.Diferencia).ToString("n2");
         }
 
         private void Limpiar()

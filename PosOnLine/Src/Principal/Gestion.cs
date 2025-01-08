@@ -101,13 +101,23 @@ namespace PosOnLine.Src.Principal
         }
 
         PrincipalFrm frm;
+        PrincipalPedidoFrm frmPedido;
         public void Inicia()
         {
             if (CargarData()) 
             {
-                frm = new PrincipalFrm();
-                frm.setControlador(this);
-                frm.ShowDialog();
+                if (_habilitarFormMontarPedido) 
+                {
+                    frmPedido = new PrincipalPedidoFrm();
+                    frmPedido.setControlador(this);
+                    frmPedido.ShowDialog();
+                }
+                else 
+                {
+                    frm = new PrincipalFrm();
+                    frm.setControlador(this);
+                    frm.ShowDialog();
+                }
             }
         }
 
@@ -147,6 +157,7 @@ namespace PosOnLine.Src.Principal
                 Sistema.ConfiguracionActual = r02.Entidad;
                 Sistema.ConfiguracionActual.idDeposito = Sistema.Deposito.id;
                 Sistema.ConfiguracionActual.idSucursal = Sistema.Sucursal.id;
+                Sistema.ConfiguracionActual.idMedioPagoxPagoMovil = Sistema.DefineMedioPagoxPagoMovil;
 
                 var r04 = Sistema.MyData.Sistema_Empresa_GetFicha();
                 Sistema.DatosEmpresa = r04.Entidad;
@@ -218,11 +229,28 @@ namespace PosOnLine.Src.Principal
                 {
                     _gCliente = Sistema.MiFabrica.CreateInstace_PosCliente();
                 }
-                frm.setVisibilidad(false);
+
+                if (_habilitarFormMontarPedido)
+                {
+                    frmPedido.setVisibilidad(false);
+                }
+                else 
+                {
+                    frm.setVisibilidad(false);
+                }
                 _gestionPos.setCtrlCliente(_gCliente);
                 _gestionPos.Inicializa();
+                _gestionPos.setHabilitarModoPedido(_habilitarFormMontarPedido);
                 _gestionPos.Inicia();
-                frm.setVisibilidad(true);
+
+                if (_habilitarFormMontarPedido)
+                {
+                    frmPedido.setVisibilidad(true);
+                }
+                else
+                {
+                    frm.setVisibilidad(true);
+                }
             }
         }
 
@@ -461,6 +489,11 @@ namespace PosOnLine.Src.Principal
 
         public DateTime Get_FechaUltBoletin { get { return Sistema.FechaUltimoBoletinDescargado; } }
 
-    }
 
+        private bool _habilitarFormMontarPedido;
+        public void setFomrMontarPedido(bool opc)
+        {
+            _habilitarFormMontarPedido = opc;
+        }
+    }
 }

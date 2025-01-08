@@ -127,6 +127,12 @@ namespace PosOnLine.OOB.Documento.Entidad
         //
         public string estatusFiscal { get; set; }
         public bool IsFiscal { get { return estatusFiscal.Trim().ToUpper() == "1"; } }
+        //
+        public bool aplicaIGTF { get; set; }
+        public decimal tasaIGTF { get; set; }
+        public decimal baseAplicaIGTFMonAct { get; set; }
+        public decimal baseAplicaIGTFMonDiv { get; set; }
+        public decimal montoIGTF { get; set; }
 
 
         public Ficha()
@@ -243,6 +249,12 @@ namespace PosOnLine.OOB.Documento.Entidad
             CntDivisaAplicaBonoPorPagoDivisa = 0m;
             //
             estatusFiscal = "";
+            //
+            aplicaIGTF = false;
+            tasaIGTF = 0.0m;
+            montoIGTF = 0.0m;
+            baseAplicaIGTFMonAct = 0.0m;
+            baseAplicaIGTFMonDiv = 0.0m;
         }
         public bool isContado { get { return CondicionPago.Trim().ToUpper() == "CONTADO"; } }
     }

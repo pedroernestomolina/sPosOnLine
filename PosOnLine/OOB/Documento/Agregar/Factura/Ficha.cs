@@ -255,6 +255,20 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             //
             estatusFiscal = false;
             zFiscal = -1;
+            //
+            aplicarIGTF = false;
+            tasaIGTF = 0.0m;
+            baseAplicaIGTFMonAct = 0.0m;
+            baseAplicaIGTFMonDiv = 0.0m;
+            montoIGTF = 0.0m;
         }
+
+        public bool aplicarIGTF { get; set; }
+        public decimal tasaIGTF { get; set; }
+        public decimal baseAplicaIGTFMonAct { get; set; }
+        public decimal baseAplicaIGTFMonDiv { get; set; }
+        public decimal montoIGTF { get; set; }
+        //
+        public bool AplicarLiBroVenta { get; set; }
     }
 }

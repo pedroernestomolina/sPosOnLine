@@ -106,5 +106,11 @@ namespace PosOnLine
 
         //FABRICA DE MODULOS DEL SISTEMA
         public static Src.IFabrica MiFabrica;
+
+        //
+        public static bool Modo_Pedido;
+        public static bool CargarSolo_Pedido;
+        public static int MaximoNumeroPedidoPermitido;
+        public static string DefineMedioPagoxPagoMovil;
     }
 }

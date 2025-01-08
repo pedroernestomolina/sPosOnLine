@@ -112,6 +112,7 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 _pActual.setPosTasaCambio(_item.TasaCambio);
                 _pActual.setPosTasaIva(_item.Ficha.tasaIva);
                 _pActual.setModoBonoIncluido(_precioSeAplicaConBono);
+                _pActual.setTasaDivisaActual(_prd.TasaActual);
                 _pActual.Refresh();
                 _precioActual = _pActual.Get_PrecioVta.Get_PNeto;
                 //
@@ -128,6 +129,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
 
         public void setPrecioCambiar(decimal precio)
         {
+            _pNuevo.setTasaDivisaActual(_prd.TasaActual);
+
             _pNuevo.setPosPrecioNeto(precio);
             _pNuevo.Refresh();
         }

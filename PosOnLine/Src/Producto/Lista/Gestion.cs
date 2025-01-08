@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -405,6 +407,29 @@ namespace PosOnLine.Src.Producto.Lista
         public string IdItemSeleccionado { get { return ItemSeleccionado.Auto; } }
         public void setFiltroPrdListar(OOB.Producto.Lista.Filtro filtro)
         {
+        }
+
+        public System.Drawing.Image GetImagen 
+        {
+            get 
+            {
+                if ((data)_bs.Current != null)
+                {
+                    var img = ((data)_bs.Current).GetImagen;
+                    if (img.Length > 0)
+                    {
+                        using (MemoryStream ms = new MemoryStream(img))
+                        {
+                            return Image.FromStream(ms);
+                        }
+                    }
+                    else { return null; }
+                }
+                else 
+                {
+                    return null;
+                }
+            }
         }
     }
 }

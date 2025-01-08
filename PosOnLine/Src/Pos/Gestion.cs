@@ -11,9 +11,9 @@ namespace PosOnLine.Src.Pos
 
     public class Gestion
     {
+        private ReglasNegocio.IReglas rglaNegocio;
 
         public enum EnumModoFuncion { Facturacion = 1, NotaCredito, NotaEntrega };
-
 
         private string _claveAcceso;
         private decimal _tasaCambioActual;
@@ -39,6 +39,7 @@ namespace PosOnLine.Src.Pos
         private OOB.Sistema.MedioPago.Entidad.Ficha _medioPagoDivisa;
         private OOB.Sistema.MedioPago.Entidad.Ficha _medioPagoElectronico;
         private OOB.Sistema.MedioPago.Entidad.Ficha _medioPagoOtro;
+        private OOB.Sistema.MedioPago.Entidad.Ficha _medioPagoxPagoMovil;
 
         private OOB.Documento.Entidad.Ficha _docAplicarNotaCredito;
         private EnumModoFuncion _modoFuncion;
@@ -64,29 +65,32 @@ namespace PosOnLine.Src.Pos
         private System.Windows.Forms.PrintDialog printDialog2;
         private System.Drawing.Printing.PrintDocument printDocument2;
         //
-        private OOB.Vendedor.Entidad.Ficha _vendedorPorDefecto; 
+        private OOB.Vendedor.Entidad.Ficha _vendedorPorDefecto;
         //
         private Pos.ICliente _gestionCliente;
         private CambioPrecio.ICambioPrecio _gCambioPrecio;
+        //
+        private bool _activarIGTF = false;
+        private decimal _tasaIGTF = 0.0m;
 
 
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
         public string UsuarioActual { get { return Sistema.Usuario.codigo + Environment.NewLine + Sistema.Usuario.nombre; } }
         public string EquipoEstacion { get { return Sistema.EquipoEstacion; } }
         //public string ClienteData { get { return _gestionCliente.ClienteData; } }
-        public string ClienteData 
+        public string ClienteData
         {
-            get 
+            get
             {
                 var rt = "";
                 if (_clienteFicha != null)
                 {
-                    rt = _clienteFicha.CiRif + Environment.NewLine + 
-                        _clienteFicha.Nombre + Environment.NewLine + 
+                    rt = _clienteFicha.CiRif + Environment.NewLine +
+                        _clienteFicha.Nombre + Environment.NewLine +
                         _clienteFicha.DireccionFiscal;
                 }
                 return rt;
-            } 
+            }
         }
         public int CantItem { get { return _gestionItem.CantItem; } }
         public decimal TotalPeso { get { return _gestionItem.TotalPeso; } }
@@ -118,6 +122,8 @@ namespace PosOnLine.Src.Pos
         private Anular.IAnular _gAnular;
         public Gestion(Anular.IAnular ctrAnular)
         {
+            rglaNegocio = Sistema.MiFabrica.CreateInstace_ReglasNegocio();
+
             _gAnular = ctrAnular;
 
             printDialog2 = new PrintDialog();
@@ -143,7 +149,7 @@ namespace PosOnLine.Src.Pos
             _gestionListar = Sistema.MiFabrica.CreateInstace_PosGestionListar();
             _gestionMayor = Sistema.MiFabrica.CreateInstace_PosGestionMayor();
             _gestionConsultor = Sistema.MiFabrica.CreateInstace_PosGestionConsultor();
-            _gestionItem = Sistema.MiFabrica.CreateInstace_PosGestionItem(); 
+            _gestionItem = Sistema.MiFabrica.CreateInstace_PosGestionItem();
 
             _gestionBuscar = new Producto.Buscar.Gestion();
             _gestionBuscar.setGestionLista(_gestionListar);
@@ -191,16 +197,29 @@ namespace PosOnLine.Src.Pos
         }
 
         PosFrm frm;
+        PosPedidoFrm frmPedido;
         public void Inicia()
         {
             if (CargarData())
             {
-                if (frm == null)
+                if (_habilitarModoPedido)
                 {
-                    frm = new PosFrm();
-                    frm.setControlador(this);
+                    if (frmPedido == null)
+                    {
+                        frmPedido = new PosPedidoFrm();
+                        frmPedido.setControlador(this);
+                    }
+                    frmPedido.ShowDialog();
                 }
-                frm.ShowDialog();
+                else
+                {
+                    if (frm == null)
+                    {
+                        frm = new PosFrm();
+                        frm.setControlador(this);
+                    }
+                    frm.ShowDialog();
+                }
             }
         }
 
@@ -336,6 +355,17 @@ namespace PosOnLine.Src.Pos
                 Helpers.Msg.Error(r02_J.Mensaje);
                 return false;
             }
+            OOB.Resultado.FichaEntidad<OOB.Sistema.MedioPago.Entidad.Ficha> r02_K;
+            if (Sistema.ConfiguracionActual.idMedioPagoxPagoMovil.Trim() != "")
+            {
+                r02_K = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoxPagoMovil);
+                if (r02_K.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_K.Mensaje);
+                    return false;
+                }
+                _medioPagoxPagoMovil = r02_K.Entidad;
+            }
 
             var filtro = new OOB.Venta.Item.Lista.Filtro()
             {
@@ -369,6 +399,16 @@ namespace PosOnLine.Src.Pos
             }
             _habilitarBonoPagoDivisa = r05.Entidad;
             _dsctoBonoPagoDivisa = r06.Entidad;
+
+
+            var r07 = Sistema.MyData.Configuracion_IGTF();
+            if (r07.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r07.Mensaje);
+                return false;
+            }
+            _activarIGTF = r07.Entidad.ActivarIGTF;
+            _tasaIGTF = r07.Entidad.TasaIGTF;
 
 
             _permitirBusquedaPorDescripcion = Sistema.ConfiguracionActual.BusquedaPorDescripcion_Activa;
@@ -485,7 +525,7 @@ namespace PosOnLine.Src.Pos
             if (cadena == "") { return; }
 
             if (Sistema.Activar_VentasAdm)
-                if (_clienteFicha==null) 
+                if (_clienteFicha == null)
                 {
                     Helpers.Msg.Alerta("POR FAVOR, DEBES PRIMERO SELECCIONAR UN CLIENTE PRIMERO");
                     return;
@@ -504,7 +544,7 @@ namespace PosOnLine.Src.Pos
                 var _tarifaPrecioManejar = _precioManejar;
                 if (_precioManejar == "")
                 {
-                    if (_clienteFicha != null) 
+                    if (_clienteFicha != null)
                     {
                         _tarifaPrecioManejar = _clienteFicha.TarifaPrecio;
                     }
@@ -518,6 +558,7 @@ namespace PosOnLine.Src.Pos
                 _gestionBuscar.GestionListar.setCantidadVisible(true);
                 _gestionBuscar.GestionListar.setPrecioVisible(false);
                 _gestionBuscar.setTarifaPrecio(_tarifaPrecioManejar);
+
                 _gestionBuscar.ActivarBusqueda(cadena, _permitirBusquedaPorDescripcion);
                 if (_gestionBuscar.BusquedaIsOk)
                 {
@@ -591,11 +632,11 @@ namespace PosOnLine.Src.Pos
                     {
                         var _idSucursal = Sistema.ConfiguracionActual.idSucursal;
                         var _idDeposito = Sistema.ConfiguracionActual.idDeposito;
-                        var _idVendedor= Sistema.ConfiguracionActual.idVendedor;
-                        if (Sistema.Activar_VentasAdm) 
+                        var _idVendedor = Sistema.ConfiguracionActual.idVendedor;
+                        if (Sistema.Activar_VentasAdm)
                         {
                             _idSucursal = _gestionCliente.GetSucursalId;
-                            _idDeposito= _gestionCliente.GetDepositoId;
+                            _idDeposito = _gestionCliente.GetDepositoId;
                             _idVendedor = _gestionCliente.GetVendedorId;
                         }
                         _gestionItem.DejarCtaPendiente(_clienteFicha, _idSucursal, _idDeposito, _idVendedor);
@@ -628,7 +669,7 @@ namespace PosOnLine.Src.Pos
                             {
                                 _clienteFicha = null;
                                 var v00 = Sistema.MyData.Cliente_GetFicha(_gestionPendiente.CtaPediente.Ficha.idCliente);
-                                if (v00.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                                if (v00.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                                 {
                                     Helpers.Msg.Error(v00.Mensaje);
                                     return;
@@ -680,7 +721,7 @@ namespace PosOnLine.Src.Pos
             {
                 if (CantRenglones > 0)
                 {
-                    if (_clienteFicha== null)
+                    if (_clienteFicha == null)
                     {
                         Helpers.Msg.Error("DEBE SELECCIONAR UN CLIENTE PARA PROCESAR DOCUMENTO");
                         return;
@@ -701,6 +742,11 @@ namespace PosOnLine.Src.Pos
                         _gestionProcesarPago.setDataCliente(_clienteFicha);
                         _gestionProcesarPago.setImporte(_gestionItem.Importe);
                         _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
+                        //
+                        // IGTF
+                        _gestionProcesarPago.setTasaIGTF(_tasaIGTF);
+                        _gestionProcesarPago.setAplicarIGTF(_activarIGTF);
+                        //
                         _gestionProcesarPago.Inicia();
                         if (_gestionProcesarPago.PagoIsOk)
                         {
@@ -736,10 +782,18 @@ namespace PosOnLine.Src.Pos
                         var msg = MessageBox.Show("Procesar Nota De Entrega ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                         if (msg == DialogResult.Yes)
                         {
+                            var rt = _gestionItem.Importe;
+                            if (rglaNegocio.MontoAplicarNotaEntregaSinIva())
+                            {
+                                var MontoIva = _gestionItem.TotalIva;
+                                rt -= MontoIva;
+                                rt = Math.Round(rt, 2);
+                            }
+
                             _gestionProcesarPago.Inicializar();
                             _gestionProcesarPago.setCliente(ClienteData);
                             _gestionProcesarPago.setDataCliente(_clienteFicha);
-                            _gestionProcesarPago.setImporte(_gestionItem.Importe);
+                            _gestionProcesarPago.setImporte(rt);
                             _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
                             _gestionProcesarPago.Inicia();
                             if (_gestionProcesarPago.PagoIsOk)
@@ -794,7 +848,7 @@ namespace PosOnLine.Src.Pos
             var subTotal = _gestionItem.Importe - dsctoMonto;
             var netoMonto = _gestionItem.Items.Sum(s => s.VentaNeta);
             var netoMontoDivisa = 0m;
-            if (_tasaCambioActual > 0) 
+            if (_tasaCambioActual > 0)
             {
                 netoMontoDivisa = netoMonto / _tasaCambioActual;
             }
@@ -818,7 +872,7 @@ namespace PosOnLine.Src.Pos
             {
                 idOperador = Sistema.PosEnUso.id,
                 DocumentoNro = documento,
-                RazonSocial = _cliNombreRazonSocial ,
+                RazonSocial = _cliNombreRazonSocial,
                 DirFiscal = _cliDirFiscal,
                 CiRif = _cliCiRif,
                 Tipo = _tipoDocumentoVenta.codigo,
@@ -922,6 +976,13 @@ namespace PosOnLine.Src.Pos
                 CantDivisaPorVueltoEnDivisa = dataPagoRecolectada.CantDivisaPorVueltoEnDivisa,
                 estatusPorBonoPorPagoDivisa = dataPagoRecolectada.estatusPorBonoPorPagoDivisa,
                 estatusPorVueltoEnPagoMovil = dataPagoRecolectada.AplicaPagoMovil ? "1" : "0",
+                //
+                aplicarIGTF = _gestionProcesarPago.AplicarIGTF,
+                tasaIGTF = _gestionProcesarPago.TasaIGTF,
+                baseAplicaIGTFMonAct = _gestionProcesarPago.BaseAplicaIGTFMonAct,
+                baseAplicaIGTFMonDiv = _gestionProcesarPago.BaseAplicaIGTFMonDiv,
+                montoIGTF = _gestionProcesarPago.MontoPorIGTF,
+                AplicarLiBroVenta = _serieFactura.EstatusAplicaLibroVenta,
             };
 
             var medidas = _gestionItem.Items.
@@ -935,7 +996,7 @@ namespace PosOnLine.Src.Pos
                             }).
                             ToList();
             fichaOOB.Medidas = medidas;
-            
+
             var detalles = _gestionItem.Items.Select(s =>
             {
                 var nr = new OOB.Documento.Agregar.Factura.FichaDetalle()
@@ -1120,7 +1181,7 @@ namespace PosOnLine.Src.Pos
                     Importe = importeDocumento,
                     Acumulado = 0.0m,
                     AutoCliente = _cliId,
-                    Cliente = _cliNombreRazonSocial, 
+                    Cliente = _cliNombreRazonSocial,
                     CiRif = _cliCiRif,
                     CodigoCliente = _cliCodigo,
                     EstatusCancelado = "0",
@@ -1147,12 +1208,12 @@ namespace PosOnLine.Src.Pos
                     RestaDivisa = 0m,
                     ImporteNetoDivisa = 0m,
                 };
-                var _montoRecibidoDivisa=0m;
-                var _cambioDivisa=0m;
-                if (factorCambio >0)
+                var _montoRecibidoDivisa = 0m;
+                var _cambioDivisa = 0m;
+                if (factorCambio > 0)
                 {
-                    _montoRecibidoDivisa= Math.Round(montoRecibido / factorCambio, 2, MidpointRounding.AwayFromZero);
-                    _cambioDivisa=Math.Round(montoCambio/ factorCambio, 2, MidpointRounding.AwayFromZero);
+                    _montoRecibidoDivisa = Math.Round(montoRecibido / factorCambio, 2, MidpointRounding.AwayFromZero);
+                    _cambioDivisa = Math.Round(montoCambio / factorCambio, 2, MidpointRounding.AwayFromZero);
                 }
                 var pR = new OOB.Documento.Agregar.Factura.FichaCxCRecibo()
                 {
@@ -1209,7 +1270,7 @@ namespace PosOnLine.Src.Pos
                     var referencia = "";
                     var montoRecibe = it.MontoRecibido;
                     var _montoRecibeDivisa = 0m;
-                    var _aplicaFactorConversion="";
+                    var _aplicaFactorConversion = "";
 
                     switch (it.Modo)
                     {
@@ -1220,11 +1281,11 @@ namespace PosOnLine.Src.Pos
                             PMontoEfectivo += montoRecibe;
                             CntEfectivo += 1;
                             //
-                            if (factorCambio>0)
+                            if (factorCambio > 0)
                             {
                                 _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
                             }
-                            _aplicaFactorConversion="1";
+                            _aplicaFactorConversion = "1";
                             break;
 
                         case Pago.Procesar.Enumerados.ModoPago.Divisa:
@@ -1239,25 +1300,34 @@ namespace PosOnLine.Src.Pos
                             CntDivisa = (int)it.Cantidad;
                             //
                             _montoRecibeDivisa = it.Cantidad;
-                            _aplicaFactorConversion="0";
+                            _aplicaFactorConversion = "0";
                             break;
 
                         case Pago.Procesar.Enumerados.ModoPago.Electronico:
                             if (it.Id != 4) //DEBITO
                             {
-                                autoMedioPago = _medioPagoElectronico.id;
-                                codigoMedioPago = _medioPagoElectronico.codigo;
-                                descMedioPago = _medioPagoElectronico.nombre;
+                                if (it.Id == 3 && _medioPagoxPagoMovil!=null)
+                                {
+                                    autoMedioPago = _medioPagoxPagoMovil.id;
+                                    codigoMedioPago = _medioPagoxPagoMovil.codigo;
+                                    descMedioPago = _medioPagoxPagoMovil.nombre;
+                                }
+                                else 
+                                {
+                                    autoMedioPago = _medioPagoElectronico.id;
+                                    codigoMedioPago = _medioPagoElectronico.codigo;
+                                    descMedioPago = _medioPagoElectronico.nombre;
+                                }
                                 lote = it.Lote;
                                 referencia = it.Referencia;
                                 PMontoElectronico += montoRecibe;
                                 CntElectronico += 1;
                                 //
-                                if (factorCambio>0)
+                                if (factorCambio > 0)
                                 {
                                     _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
                                 }
-                                _aplicaFactorConversion="1";
+                                _aplicaFactorConversion = "1";
                             }
                             else //OTROS
                             {
@@ -1269,11 +1339,11 @@ namespace PosOnLine.Src.Pos
                                 PMontoOtro += montoRecibe;
                                 CntOtro += 1;
                                 //
-                                if (factorCambio>0)
+                                if (factorCambio > 0)
                                 {
                                     _montoRecibeDivisa = Math.Round(montoRecibe / factorCambio, 4, MidpointRounding.AwayFromZero);
                                 }
-                                _aplicaFactorConversion="1";
+                                _aplicaFactorConversion = "1";
                             }
                             break;
                     }
@@ -1352,13 +1422,13 @@ namespace PosOnLine.Src.Pos
                 mCambio = montoCambio,
                 cntCambio = montoCambio > 0 ? 1 : 0,
                 //
-                montoVueltoPorEfectivo=dataPagoRecolectada.MontoPorVueltoEnEfectivo,
-                montoVueltoPorDivisa=dataPagoRecolectada.MontoPorVueltoEnDivisa,
-                montoVueltoPorPagoMovil=dataPagoRecolectada.MontoPorVueltoEnPagoMovil,
+                montoVueltoPorEfectivo = dataPagoRecolectada.MontoPorVueltoEnEfectivo,
+                montoVueltoPorDivisa = dataPagoRecolectada.MontoPorVueltoEnDivisa,
+                montoVueltoPorPagoMovil = dataPagoRecolectada.MontoPorVueltoEnPagoMovil,
                 cntDivisaPorVueltoDivisa = dataPagoRecolectada.CantDivisaPorVueltoEnDivisa,
             };
             fichaOOB.SerieFiscal = new OOB.Documento.Agregar.Factura.FichaSerie() { auto = _serieFactura.Auto };
-            if (dataPagoRecolectada.AplicaPagoMovil) 
+            if (dataPagoRecolectada.AplicaPagoMovil)
             {
                 var pm = dataPagoRecolectada.DataPagoMovil;
                 fichaOOB.PagoMovil = new OOB.Documento.Agregar.Factura.FichaPagoMovil()
@@ -1382,18 +1452,29 @@ namespace PosOnLine.Src.Pos
                 };
             }
             fichaOOB.estatusFiscal = Sistema.ImprimirFactura.IsModoFiscal;
-            if (Sistema.ImprimirFactura.IsModoFiscal) 
+            if (Sistema.ImprimirFactura.IsModoFiscal)
             {
-                var f01 = Sistema.FiscalTfhka.Informacion();
-                if (f01.Resultado == LibFoxFiscal.Resultado.EnumResultado.ERROR)
+                var ModoTest = false;
+                if (ModoTest)
                 {
-                    Helpers.Msg.Error(f01.MensajeError);
-                    return;
+                    fichaOOB.SerieFiscal = null;
+                    fichaOOB.DocumentoNro = "TEST";
+                    fichaOOB.Control = "TEST";
+                    fichaOOB.zFiscal = 0;
                 }
-                fichaOOB.SerieFiscal = null;
-                fichaOOB.DocumentoNro = (f01.Entidad.UltimaFacturaGenerada + 1).ToString().Trim().PadLeft(10, '0');
-                fichaOOB.Control = f01.Entidad.Serial;
-                fichaOOB.zFiscal = f01.Entidad.UltimoZGenerado + 1;
+                else
+                {
+                    var f01 = Sistema.FiscalTfhka.Informacion();
+                    if (f01.Resultado == LibFoxFiscal.Resultado.EnumResultado.ERROR)
+                    {
+                        Helpers.Msg.Error(f01.MensajeError);
+                        return;
+                    }
+                    fichaOOB.SerieFiscal = null;
+                    fichaOOB.DocumentoNro = (f01.Entidad.UltimaFacturaGenerada + 1).ToString().Trim().PadLeft(10, '0');
+                    fichaOOB.Control = f01.Entidad.Serial;
+                    fichaOOB.zFiscal = f01.Entidad.UltimoZGenerado + 1;
+                }
             }
             var r01 = Sistema.MyData.Documento_Agregar_Factura(fichaOOB);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
@@ -1422,7 +1503,7 @@ namespace PosOnLine.Src.Pos
                     _ImprimirDoc = Sistema.ImprimirFactura;
                     printDocument2.Print();
                 }
-                else 
+                else
                 {
                     Sistema.ImprimirFactura.ImprimirDoc();
                 }
@@ -1430,6 +1511,7 @@ namespace PosOnLine.Src.Pos
 
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
+            _gestionProcesarPago.Limpiar();
             Inicializa();
             Reiniciar();
         }
@@ -1535,7 +1617,7 @@ namespace PosOnLine.Src.Pos
             var subTotal = _gestionItem.Importe - dsctoMonto;
             var netoMonto = _gestionItem.Items.Sum(s => s.VentaNeta);
             var netoMontoDivisa = 0m;
-            if (_tasaCambioActual > 0) 
+            if (_tasaCambioActual > 0)
             {
                 netoMontoDivisa = Math.Round(netoMonto / _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
             }
@@ -1556,7 +1638,7 @@ namespace PosOnLine.Src.Pos
                 };
             }
             var _serie = _serieNotaCredito;
-            if (!_docAplicarNotaCredito.IsFiscal) 
+            if (!_docAplicarNotaCredito.IsFiscal)
             {
                 _serie = _serieNotaEntrega;
             }
@@ -1573,7 +1655,7 @@ namespace PosOnLine.Src.Pos
             var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
             var fichaOOB = new OOB.Documento.Agregar.NotaCredito.Ficha()
             {
-                idOperador=Sistema.PosEnUso.id,
+                idOperador = Sistema.PosEnUso.id,
                 DocumentoNro = documento,
                 RazonSocial = _cliNombreRazonSocial,
                 DirFiscal = _cliDirFiscal,
@@ -1597,7 +1679,7 @@ namespace PosOnLine.Src.Pos
                 TasaRetencionIslr = 0.0m,
                 RetencionIva = 0.0m,
                 RetencionIslr = 0.0m,
-                AutoCliente = _cliId, 
+                AutoCliente = _cliId,
                 CodigoCliente = _cliCodigo,
                 Control = _serie.Control,
                 OrdenCompra = "",
@@ -1615,7 +1697,7 @@ namespace PosOnLine.Src.Pos
                 SubTotalNeto = subTotalNeto,
                 Telefono = _cliTelefono,
                 FactorCambio = factorCambio,
-                CodigoVendedor =  _vendedorAsignado.codigo,
+                CodigoVendedor = _vendedorAsignado.codigo,
                 Vendedor = _vendedorAsignado.nombre,
                 AutoVendedor = _vendedorAsignado.id,
                 FechaPedido = DateTime.Now.Date,
@@ -1811,7 +1893,7 @@ namespace PosOnLine.Src.Pos
                 Acumulado = isCredito ? 0.0m : importeDocumento,
                 AutoCliente = _cliId,
                 Cliente = _cliNombreRazonSocial,
-                CiRif = _cliCiRif, 
+                CiRif = _cliCiRif,
                 CodigoCliente = _cliCodigo,
                 EstatusCancelado = isCredito ? "0" : "1",
                 Resta = isCredito ? importeDocumento : 0.0m,
@@ -1863,7 +1945,7 @@ namespace PosOnLine.Src.Pos
                     AutoCliente = _cliId,
                     Cliente = _cliNombreRazonSocial,
                     CiRif = _cliCiRif,
-                    CodigoCliente = _cliCodigo, 
+                    CodigoCliente = _cliCodigo,
                     EstatusCancelado = "0",
                     Resta = 0.0m,
                     EstatusAnulado = "0",
@@ -1902,7 +1984,7 @@ namespace PosOnLine.Src.Pos
                     Usuario = Sistema.Usuario.nombre,
                     MontoRecibido = (-1) * montoRecibido,
                     Cobrador = _cobradorAsignado.nombre,
-                    AutoCliente = _cliId, 
+                    AutoCliente = _cliId,
                     Cliente = _cliNombreRazonSocial,
                     CiRif = _cliCiRif,
                     Codigo = _cliCodigo,
@@ -2054,7 +2136,7 @@ namespace PosOnLine.Src.Pos
                 fichaOOB.DocCxCPago.Documento = pD;
                 fichaOOB.DocCxCPago.MetodoPago = pM;
             }
-            else 
+            else
             {
                 fichaOOB.DocCxCPago = null;
             }
@@ -2583,6 +2665,10 @@ namespace PosOnLine.Src.Pos
                 //
                 DocumentoAplica_Fecha = xr1.Entidad.Fecha,
                 DocumentoAplica_SerialFiscal = xr1.Entidad.Control,
+                //
+                AplicaIGTF = xr1.Entidad.aplicaIGTF,
+                MontoIGTF = xr1.Entidad.montoIGTF,
+                TasaIGTF = xr1.Entidad.tasaIGTF,
             };
             xdata.item = new List<Helpers.Imprimir.data.Item>();
             foreach (var rg in xr1.Entidad.items)
@@ -2612,7 +2698,7 @@ namespace PosOnLine.Src.Pos
             {
                 if (Math.Abs(mp.cntDivisa) >= 1)
                 {
-                    var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo("+Sistema.SimboloDivisa_AlImprimirTicket + mp.cntDivisa.ToString() + ")", monto = mp.montoRecibido };
+                    var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo(" + Sistema.SimboloDivisa_AlImprimirTicket + mp.cntDivisa.ToString() + ")", monto = mp.montoRecibido, esDivisa = true };
                     xdata.metodoPago.Add(pag);
                 }
                 else
@@ -2652,7 +2738,7 @@ namespace PosOnLine.Src.Pos
         {
             if (_modoFuncion == EnumModoFuncion.NotaCredito) { return; }
             if (_gestionItem.DataItemActual == null) { return; }
-            if (_gCambioPrecio == null) 
+            if (_gCambioPrecio == null)
             {
                 _gCambioPrecio = Sistema.MiFabrica.CreateInstace_PosCambioPrecioPrd();
                 if (_gCambioPrecio == null) { return; }
@@ -2736,25 +2822,25 @@ namespace PosOnLine.Src.Pos
         }
 
 
-        public string PagoImporteDivisaBono 
+        public string PagoImporteDivisaBono
         {
-            get 
+            get
             {
                 if (Sistema.Modo_Despliegue_Solo_Divisa)
                     return pagoDivisaConBonoDscto_SoloEnDivisa();
                 else
                     return pagoDivisaConBonoDscto_EnDivisaBolivar();
-            } 
+            }
         }
         private bool _habilitarBonoPagoDivisa;
         private decimal _dsctoBonoPagoDivisa;
         private string pagoDivisaConBonoDscto_SoloEnDivisa()
         {
             var rt = "";
-            if (_habilitarBonoPagoDivisa) 
+            if (_habilitarBonoPagoDivisa)
             {
-                rt += "Con Bono ("+_dsctoBonoPagoDivisa.ToString("n2")+"%): ";
-                var _impDivisa= Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
+                rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
+                var _impDivisa = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
                 var _pagoDivisa = (_impDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
                 rt += _pagoDivisa.ToString("n2") + "$";
             }
@@ -2824,7 +2910,7 @@ namespace PosOnLine.Src.Pos
                 }
                 _vendedorAsignado = t01.Entidad;
             }
-            if (_vendedorAsignado == null) 
+            if (_vendedorAsignado == null)
             {
                 _vendedorAsignado = _vendedorPorDefecto;
             }
@@ -3481,6 +3567,192 @@ namespace PosOnLine.Src.Pos
             _gestionCliente.Limpiar();
             Inicializa();
             Reiniciar();
+        }
+
+
+        public void GuardarPedido()
+        {
+            if (Sistema.Modo_Pedido)
+            {
+                if (!IsNotaCredito)
+                {
+                    if (CantRenglones == 0)
+                        return;
+                    try
+                    {
+                        var numeroPedido = solicitarNumeroPedido(Pedido.SolicitarNumeroPedido.ModoSolicitud.Guardar);
+                        if (numeroPedido > 0)
+                        {
+                            var ficha = new OOB.Pedido.Guardar.Ficha()
+                            {
+                                idOperador = Sistema.PosEnUso.id,
+                                numeroTarj = numeroPedido,
+                                montoMonAct = Importe,
+                                montoMonDiv = ImporteDivisa,
+                                factorCambio = _tasaCambioActual,
+                                cntItems = _gestionItem.CantRenglones,
+                            };
+                            var rt = Sistema.MyData.Pedido_Guardar(ficha);
+                            PantallaInicial();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Helpers.Msg.Error(ex.Message);
+                        return;
+                    }
+                }
+            }
+        }
+        private Pedido.SolicitarNumeroPedido.ISolicitud _solicitarNumPedido;
+        private int solicitarNumeroPedido(Pedido.SolicitarNumeroPedido.ModoSolicitud modo)
+        {
+            if (_solicitarNumPedido==null)
+            {
+                _solicitarNumPedido= new Pedido.SolicitarNumeroPedido.HndSolicitud();
+            }
+            _solicitarNumPedido.Inicializa();
+            _solicitarNumPedido.setModoSolicitud(modo);
+            _solicitarNumPedido.Inicia();
+            if (_solicitarNumPedido.ProcesarIsOK)
+            {
+                return _solicitarNumPedido.GetNumeroPedidoTarjeta;
+            }
+            else 
+            {
+                return -1;
+            }
+        }
+        private void PantallaInicial()
+        {
+            _clienteFicha = null;
+            _docAplicarNotaCredito = null;
+            _modoFuncion = EnumModoFuncion.Facturacion;
+            _vendedorAsignado = _vendedorPorDefecto;
+            _gestionCliente.Inicializa();
+            _gestionCliente.Limpiar();
+            _gestionItem.Limpiar();
+            _gestionItem.setItemActualInicializar();
+        }
+
+        public void AbrirPedido()
+        {
+            if (Sistema.Modo_Pedido)
+            {
+                if (!IsNotaCredito)
+                {
+                    try
+                    {
+                        var numeroPedido = solicitarNumeroPedido(Pedido.SolicitarNumeroPedido.ModoSolicitud.Abrir);
+                        if (numeroPedido > 0)
+                        {
+                            _abrirTarjetaPedido(numeroPedido);
+                            /*
+                            var rt1 = Sistema.MyData.Pedido_GetIdBy_Numero(numeroPedido);
+                            var _idTarj = rt1.Entidad;
+                            var ficha = new OOB.Pedido.TrasladarVenta.Ficha()
+                            {
+                                idTarjeta = _idTarj,
+                                idOperador = Sistema.PosEnUso.id,
+                            };
+                            var rt2 = Sistema.MyData.Pedido_TrasladarVenta(ficha);
+
+                            var filtro = new OOB.Venta.Item.Lista.Filtro()
+                            {
+                                idOperador = Sistema.PosEnUso.id,
+                            };
+                            var rt3 = Sistema.MyData.Venta_Item_GetLista(filtro);
+                            if (rt3.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                            {
+                                throw new Exception(rt3.Mensaje);
+                            }
+                            _gestionItem.setData(rt3.ListaD, _tasaCambioActual);
+                             */
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Helpers.Msg.Error(ex.Message);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private bool _habilitarModoPedido;
+        public void setHabilitarModoPedido(bool opc)
+        {
+            _habilitarModoPedido = opc;
+        }
+
+        public void ListarPedidos()
+        {
+            if (Sistema.Modo_Pedido)
+            {
+                if (!IsNotaCredito)
+                {
+                    try
+                    {
+                        var filtros = new OOB.Pedido.ListaResumen.Filtros();
+                        var rt1= Sistema.MyData.Pedido_GetListaResumen(filtros);
+                        if (rt1.Entidad.HayPedidos)
+                        {
+                            MostrarPedidos(rt1.Entidad.Pedidos);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Helpers.Msg.Error(ex.Message);
+                        return;
+                    }
+                }
+            }
+        }
+        private Pedido.Lista.IListaPedidos _mostrarPedidos;
+        private void MostrarPedidos(List<OOB.Pedido.ListaResumen.Resumen> list)
+        {
+            if (_mostrarPedidos == null) 
+            {
+                _mostrarPedidos = new Pedido.Lista.HndListaPedidos();
+            }
+            _mostrarPedidos.Inicializa();
+            _mostrarPedidos.setData(list);
+            _mostrarPedidos.Inicia();
+            if (_mostrarPedidos.AbrirTarjetaIsOk)
+            {
+                try 
+                {
+                    _abrirTarjetaPedido(((Pedido.Lista.data)_mostrarPedidos.TarjetaPedidoAbrir).Item.tarjetaNum);
+                }
+                catch(Exception ex)
+                {
+                    Helpers.Msg.Error(ex.Message);
+                    return;
+                }
+            }
+        }
+
+        private void _abrirTarjetaPedido(int tarjetaNum)
+        {
+            var rt1 = Sistema.MyData.Pedido_GetIdBy_Numero(tarjetaNum);
+            var _idTarj = rt1.Entidad;
+            var ficha = new OOB.Pedido.TrasladarVenta.Ficha()
+            {
+                idTarjeta = _idTarj,
+                idOperador = Sistema.PosEnUso.id,
+            };
+            var rt2 = Sistema.MyData.Pedido_TrasladarVenta(ficha);
+
+            var filtro = new OOB.Venta.Item.Lista.Filtro()
+            {
+                idOperador = Sistema.PosEnUso.id,
+            };
+            var rt3 = Sistema.MyData.Venta_Item_GetLista(filtro);
+            if (rt3.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(rt3.Mensaje);
+            }
+            _gestionItem.setData(rt3.ListaD, _tasaCambioActual);
         }
     }
 }

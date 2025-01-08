@@ -88,6 +88,10 @@ namespace PosOnLine.Src.Producto.Buscar
                                 return;
                             }
                             var _lst = r04.ListaD.ToList();
+                            if (codBuscar== "#")
+                            {
+                                _lst = _lst.Where(w => w.histPrecio != "").ToList();
+                            }
                             _gestionListar.Inicializa();
                             if (Sistema.ConfiguracionActual.ValidarExistencia_Activa)
                             {

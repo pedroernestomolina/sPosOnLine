@@ -816,5 +816,19 @@ namespace PosOnLine.Src.Item.ModoAdm
         {
             IncrementarItem(it, cnt);
         }
+
+
+        public decimal TotalIva
+        {
+            get
+            {
+                var rt = 0.0m;
+                if (Items != null && Items.Count > 0)
+                {
+                    rt = Items.Sum(t => t.MontoImpuesto);
+                }
+                return rt;
+            }
+        }
     }
 }

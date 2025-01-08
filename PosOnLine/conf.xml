@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>10.10.100.111</Instancia>
-    <Catalogo>zufu</Catalogo>
+    <Instancia>localhost</Instancia>
+    <Catalogo>smcristal</Catalogo>
   </Servidor>
-  <IdEquipo>4</IdEquipo>
-  <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <IdEquipo>3</IdEquipo>
+  <CodigoSucursalActiva>01</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
   <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
-  <SerieFactura>1</SerieFactura> 
-  <SerieNCredito>1D</SerieNCredito>
-  <SerieNEntrega>Nen</SerieNEntrega>
+  <SerieFactura>N3</SerieFactura> 
+  <SerieNCredito>3D</SerieNCredito>
+  <SerieNEntrega>N3</SerieNEntrega>
   <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
   <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
   <ModoImpresionNCredito>T80</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
-  <HabilitarAbrirDocPendOtrosUsuarios>si</HabilitarAbrirDocPendOtrosUsuarios>
-  <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
+  <HabilitarAbrirDocPendOtrosUsuarios>no</HabilitarAbrirDocPendOtrosUsuarios>
+  <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>no</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>
-    <Rif>J30821934-7</Rif>
-    <Nombre>PITA MARKET, CA</Nombre>
-    <Direccion>VALENCIA, MERCADO MAYORISTA, LOCAL 21, SECTOR TOCUYITO, MERCADO DE MAYORISTA </Direccion>
+    <Rif>J123456789-0</Rif>
+    <Nombre>SM CRISTAL LOS GUAYOS, CA</Nombre>
+    <Direccion>AVENIDA PRINCIPAL, LOS GUAYOS</Direccion>
   </DatosNegocioTicket>
   <Venta_Adm>
     <Activar>No</Activar>
   </Venta_Adm>
   <Impresora_Fiscal>
-    <Activar>no</Activar>  <!-- SI, NO -->
+    <Activar>NO</Activar>  <!-- SI, NO -->
     <Puerto>0</Puerto> 
   </Impresora_Fiscal>
   <Simbolo_Divisa_Ticket>$</Simbolo_Divisa_Ticket> <!-- POR DEFECTO $, PERO PUEDE SER Ref-->

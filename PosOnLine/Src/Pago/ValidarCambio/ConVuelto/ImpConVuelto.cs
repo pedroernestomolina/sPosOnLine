@@ -43,6 +43,11 @@ namespace PosOnLine.Src.Pago.ValidarCambio.ConVuelto
         ValidarCambioFrm _frm;
         public void Inicia()
         {
+            if (_montoValidar == 0m) 
+            {
+                _procesarIsOk = true;
+                return;
+            }
             if (CargarData())
             {
                 if (_frm == null)
@@ -128,7 +133,7 @@ namespace PosOnLine.Src.Pago.ValidarCambio.ConVuelto
             get
             {
                 var rt = (_cntDivisaEnt * _tasaCambio);
-                rt += (rt * (_porctBonoPorPagoDivisa / 100));
+                //rt += (rt * (_porctBonoPorPagoDivisa / 100));
                 return rt;
             }
         }

@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Producto.Lista
 {
-    
     public class Ficha
     {
-
         public string Auto { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
@@ -45,6 +43,8 @@ namespace PosOnLine.OOB.Producto.Lista
         public decimal pfullDivEmp_3 { get; set; }
         //
         public bool EsAdmDivisa { get { return EstatusDivisa.Trim().ToUpper() == "1"; } }
+        //
+        public byte[] imagen { get; set; }
 
 
         public Ficha()
@@ -86,12 +86,16 @@ namespace PosOnLine.OOB.Producto.Lista
             contEmpInv = 0;
             descEmpCompra = "";
             descEmpInv = "";
+            //
+            histPrecio = "";
+            //
+            imagen =new byte[0];
         }
         //
         public int contEmpCompra { get; set; }
         public int contEmpInv { get; set; }
         public string  descEmpCompra { get; set; }
         public string descEmpInv { get; set; }
+        public string histPrecio { get; set; }
     }
-
 }
