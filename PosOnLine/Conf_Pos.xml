@@ -3,8 +3,8 @@
   <Modo_Despliegue_Solo_Divisa>NO</Modo_Despliegue_Solo_Divisa> <!-- SI, *NO -->
   <Modo_Vuelto_Gestionar>SI</Modo_Vuelto_Gestionar> <!-- SI, *NO -->
   <Modo_Despliegue_Logo_Base>SI</Modo_Despliegue_Logo_Base>  <!-- *SI, NO-->
-  <Activar_Modo_Pedido>NO</Activar_Modo_Pedido>  <!-- SI, *NO-->
-  <Cargar_Solo_Pedido>NO</Cargar_Solo_Pedido>  <!-- SI, *NO-->
+  <Activar_Modo_Pedido>SI</Activar_Modo_Pedido>  <!-- SI, *NO-->
+  <Cargar_Solo_Pedido>SI</Cargar_Solo_Pedido>  <!-- SI, *NO-->
   <Maximo_Numero_Pedido>100</Maximo_Numero_Pedido>  <!-- SI, *NO-->
   <Define_MedioPago_PagoMovil></Define_MedioPago_PagoMovil>  <!-- ID MEDIO PAGO -->
 </Configuracion>

@@ -2,7 +2,7 @@
 <Configuracion>
   <Servidor>
     <Instancia>localhost</Instancia>
-    <Catalogo>smcristal</Catalogo>
+    <Catalogo>pan001</Catalogo>
   </Servidor>
   <IdEquipo>3</IdEquipo>
   <CodigoSucursalActiva>01</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->

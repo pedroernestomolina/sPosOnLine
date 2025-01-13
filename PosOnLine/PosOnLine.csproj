@@ -1157,6 +1157,9 @@
     <None Include="Resources\bt_consulta_32.png" />
     <None Include="Resources\bt_consulta_48.png" />
     <None Include="Resources\bt_imagen_2.png" />
+    <None Include="Resources\pedido_32.png" />
+    <None Include="Resources\pedido_48.png" />
+    <None Include="Resources\pedido_24.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -1218,6 +1221,9 @@
     <Content Include="Src\Imagenes\configuracion.png" />
     <Content Include="Src\Imagenes\limpiar.png" />
     <Content Include="Src\Imagenes\LOGO_BASE.png" />
+    <Content Include="Src\Imagenes\pedido_24.png" />
+    <Content Include="Src\Imagenes\pedido_32.png" />
+    <Content Include="Src\Imagenes\pedido_48.png" />
     <Content Include="Src\Imagenes\ZUFU.jpg" />
     <Content Include="Src\Sonidos\alerta.wav" />
     <Content Include="Src\Sonidos\error.wav" />

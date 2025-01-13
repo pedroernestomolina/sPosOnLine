@@ -493,6 +493,10 @@ namespace PosOnLine.Src.Pos
             {
                 AbrirCtaEnPendiente();
             }
+            if (e.KeyCode == Keys.F7)
+            {
+                ListarPedidos();
+            }
             if (e.KeyCode == Keys.Delete)
             {
                 AnularVenta();
@@ -587,6 +591,19 @@ namespace PosOnLine.Src.Pos
         {
             IrFoco();
             _controlador.MOV_ENTRADA_SALIDA_DINERO_CAJA();
+        }
+        //
+        private void BT_PEDIDOS_Click(object sender, EventArgs e)
+        {
+            ListarPedidos();
+        }
+        private void ListarPedidos()
+        {
+            _controlador.ListarPedidos();
+            ActualizarCliente();
+            ActualizarTotal();
+            ActualizarModo();
+            IrFoco();
         }
     }
 }
