@@ -146,5 +146,9 @@ namespace PosOnLine.Src.CambioPrecio
         public void setUsuarioAutoriza(object usuario)
         {
         }
+
+
+        private bool _activarVariosCambiosIsOk;
+        public bool ActivarVariosCambiosIsOk { get { return _activarVariosCambiosIsOk; } }
     }
 }

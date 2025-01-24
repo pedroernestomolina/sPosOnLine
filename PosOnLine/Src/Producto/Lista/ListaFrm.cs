@@ -129,6 +129,7 @@ namespace PosOnLine.Src.Producto.Lista
 
         private void Salida()
         {
+            _controlador.setSalirMismaLista();
             this.Close();
         }
 
@@ -246,7 +247,5 @@ namespace PosOnLine.Src.Producto.Lista
         {
             this.Close();
         }
-
     }
-
 }

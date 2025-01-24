@@ -110,5 +110,10 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         {
             TB_PRECIO_NUEVO.Focus();
         }
+
+        private void CHB_CAMBIAR_VARIOS_PRECIOS_CheckedChanged(object sender, EventArgs e)
+        {
+            _controlador.setCambiarVariosPrecios();
+        }
     }
 }

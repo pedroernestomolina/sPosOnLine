@@ -170,5 +170,14 @@ namespace PosOnLine.Src.Producto.Lista.ModoAdm
                 return false;
             }
         }
+
+
+        public bool GetSalirMismaLista
+        {
+            get { return true; }
+        }
+        public void InicializaSeguirMismaLista()
+        {
+        }
     }
 }

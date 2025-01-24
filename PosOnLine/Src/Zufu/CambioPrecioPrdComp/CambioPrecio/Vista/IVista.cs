@@ -18,5 +18,6 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         void Procesar();
         void AplicarBono(bool modo);
         void setPrecioNuevo(decimal precio);
+        void setCambiarVariosPrecios();
     }
 }

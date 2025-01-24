@@ -174,5 +174,11 @@ namespace PosOnLine.Src.Producto.Buscar
         {
             _habilitarVentaMayor = p;
         }
+
+        public bool SeguirMismaLista { get { return _gestionListar.GetSalirMismaLista; } }
+        public void InicializaSeguirMismaLista()
+        {
+            _gestionListar.InicializaSeguirMismaLista();
+        }
     }
 }

@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Producto.Lista
 {
-
     public class Gestion: IListaModo
     {
 
@@ -430,6 +429,17 @@ namespace PosOnLine.Src.Producto.Lista
                     return null;
                 }
             }
+        }
+
+        private bool _salirMismaLista;
+        public bool GetSalirMismaLista { get { return _salirMismaLista; } }
+        public void setSalirMismaLista()
+        {
+            _salirMismaLista = true;
+        }
+        public void InicializaSeguirMismaLista()
+        {
+            _salirMismaLista = false;
         }
     }
 }

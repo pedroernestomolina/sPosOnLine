@@ -558,15 +558,20 @@ namespace PosOnLine.Src.Pos
                 _gestionBuscar.GestionListar.setCantidadVisible(true);
                 _gestionBuscar.GestionListar.setPrecioVisible(false);
                 _gestionBuscar.setTarifaPrecio(_tarifaPrecioManejar);
+                _gestionBuscar.InicializaSeguirMismaLista();
 
-                _gestionBuscar.ActivarBusqueda(cadena, _permitirBusquedaPorDescripcion);
-                if (_gestionBuscar.BusquedaIsOk)
+                do
                 {
-                    _gestionItem.Inicializar();
-                    _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada);
+                    _gestionBuscar.ActivarBusqueda(cadena, _permitirBusquedaPorDescripcion);
+                    if (_gestionBuscar.BusquedaIsOk)
+                    {
+                        _gestionItem.Inicializar();
+                        _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada);
+                    }
+                    else
+                        _gestionItem.setItemActualInicializar();
                 }
-                else
-                    _gestionItem.setItemActualInicializar();
+                while (_gestionBuscar.SeguirMismaLista!=true);
             }
 
         }
@@ -1306,13 +1311,13 @@ namespace PosOnLine.Src.Pos
                         case Pago.Procesar.Enumerados.ModoPago.Electronico:
                             if (it.Id != 4) //DEBITO
                             {
-                                if (it.Id == 3 && _medioPagoxPagoMovil!=null)
+                                if (it.Id == 3 && _medioPagoxPagoMovil != null)
                                 {
                                     autoMedioPago = _medioPagoxPagoMovil.id;
                                     codigoMedioPago = _medioPagoxPagoMovil.codigo;
                                     descMedioPago = _medioPagoxPagoMovil.nombre;
                                 }
-                                else 
+                                else
                                 {
                                     autoMedioPago = _medioPagoElectronico.id;
                                     codigoMedioPago = _medioPagoElectronico.codigo;
@@ -2734,6 +2739,7 @@ namespace PosOnLine.Src.Pos
             _ImprimirDoc = null;
         }
 
+        private OOB.Usuario.Entidad.Ficha _usuAutoria;
         public void CambiarPrecio()
         {
             if (_modoFuncion == EnumModoFuncion.NotaCredito) { return; }
@@ -2744,16 +2750,7 @@ namespace PosOnLine.Src.Pos
                 if (_gCambioPrecio == null) { return; }
             }
             //
-            _gSolicitarPermiso.Inicializa();
-            _gSolicitarPermiso.Inicia();
-            if (!_gSolicitarPermiso.IsOk)
-            {
-                return;
-            }
-            var _usu = _gSolicitarPermiso.GetUsuario;
-            var _psw = _gSolicitarPermiso.GetPassword;
-            var _usuAutoria = Helpers.VerificarPermiso.Verificar(_usu, _psw);
-            if (_usuAutoria != null)
+            if (_gCambioPrecio.ActivarVariosCambiosIsOk && _usuAutoria != null)
             {
                 _gCambioPrecio.Inicializa();
                 _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
@@ -2762,6 +2759,29 @@ namespace PosOnLine.Src.Pos
                 if (_gCambioPrecio.CambioPrecioIsOk)
                 {
                     _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
+                }
+            }
+            else
+            {
+                _gSolicitarPermiso.Inicializa();
+                _gSolicitarPermiso.Inicia();
+                if (!_gSolicitarPermiso.IsOk)
+                {
+                    return;
+                }
+                var _usu = _gSolicitarPermiso.GetUsuario;
+                var _psw = _gSolicitarPermiso.GetPassword;
+                _usuAutoria = Helpers.VerificarPermiso.Verificar(_usu, _psw);
+                if (_usuAutoria != null)
+                {
+                    _gCambioPrecio.Inicializa();
+                    _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
+                    _gCambioPrecio.setUsuarioAutoriza(_usuAutoria);
+                    _gCambioPrecio.Inicia();
+                    if (_gCambioPrecio.CambioPrecioIsOk)
+                    {
+                        _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
+                    }
                 }
             }
         }
@@ -3607,9 +3627,9 @@ namespace PosOnLine.Src.Pos
         private Pedido.SolicitarNumeroPedido.ISolicitud _solicitarNumPedido;
         private int solicitarNumeroPedido(Pedido.SolicitarNumeroPedido.ModoSolicitud modo)
         {
-            if (_solicitarNumPedido==null)
+            if (_solicitarNumPedido == null)
             {
-                _solicitarNumPedido= new Pedido.SolicitarNumeroPedido.HndSolicitud();
+                _solicitarNumPedido = new Pedido.SolicitarNumeroPedido.HndSolicitud();
             }
             _solicitarNumPedido.Inicializa();
             _solicitarNumPedido.setModoSolicitud(modo);
@@ -3618,7 +3638,7 @@ namespace PosOnLine.Src.Pos
             {
                 return _solicitarNumPedido.GetNumeroPedidoTarjeta;
             }
-            else 
+            else
             {
                 return -1;
             }
@@ -3694,7 +3714,7 @@ namespace PosOnLine.Src.Pos
                     try
                     {
                         var filtros = new OOB.Pedido.ListaResumen.Filtros();
-                        var rt1= Sistema.MyData.Pedido_GetListaResumen(filtros);
+                        var rt1 = Sistema.MyData.Pedido_GetListaResumen(filtros);
                         if (rt1.Entidad.HayPedidos)
                         {
                             MostrarPedidos(rt1.Entidad.Pedidos);
@@ -3711,7 +3731,7 @@ namespace PosOnLine.Src.Pos
         private Pedido.Lista.IListaPedidos _mostrarPedidos;
         private void MostrarPedidos(List<OOB.Pedido.ListaResumen.Resumen> list)
         {
-            if (_mostrarPedidos == null) 
+            if (_mostrarPedidos == null)
             {
                 _mostrarPedidos = new Pedido.Lista.HndListaPedidos();
             }
@@ -3720,11 +3740,11 @@ namespace PosOnLine.Src.Pos
             _mostrarPedidos.Inicia();
             if (_mostrarPedidos.AbrirTarjetaIsOk)
             {
-                try 
+                try
                 {
                     _abrirTarjetaPedido(((Pedido.Lista.data)_mostrarPedidos.TarjetaPedidoAbrir).Item.tarjetaNum);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Helpers.Msg.Error(ex.Message);
                     return;

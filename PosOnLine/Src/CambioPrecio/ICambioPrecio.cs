@@ -13,5 +13,6 @@ namespace PosOnLine.Src.CambioPrecio
         decimal PrecioNuevo { get; }
         void setDataItem(Item.data data);
         void setUsuarioAutoriza(object usuario);
+        bool ActivarVariosCambiosIsOk { get; }
     }
 }

@@ -31,7 +31,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel16 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.CHB_CAMBIAR_VARIOS_PRECIOS = new System.Windows.Forms.CheckBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -45,6 +49,7 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
+            this.TB_PRECIO_NUEVO = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel14 = new System.Windows.Forms.Panel();
             this.panel15 = new System.Windows.Forms.Panel();
             this.CHB_APLICANDO_BONO = new System.Windows.Forms.CheckBox();
@@ -61,10 +66,12 @@
             this.BT_SALIR = new System.Windows.Forms.Button();
             this.panel20 = new System.Windows.Forms.Panel();
             this.BT_PANEL_INF = new System.Windows.Forms.Button();
-            this.TB_PRECIO_NUEVO = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.panel16.SuspendLayout();
+            this.panel17.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -117,14 +124,41 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.tableLayoutPanel5);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(1, 1);
-            this.panel2.Margin = new System.Windows.Forms.Padding(1);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(2);
-            this.panel2.Size = new System.Drawing.Size(453, 38);
+            this.panel2.Size = new System.Drawing.Size(455, 40);
             this.panel2.TabIndex = 0;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.46154F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.53846F));
+            this.tableLayoutPanel5.Controls.Add(this.panel16, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.panel17, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(455, 40);
+            this.tableLayoutPanel5.TabIndex = 0;
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.label1);
+            this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel16.Location = new System.Drawing.Point(1, 1);
+            this.panel16.Margin = new System.Windows.Forms.Padding(1);
+            this.panel16.Name = "panel16";
+            this.panel16.Padding = new System.Windows.Forms.Padding(2);
+            this.panel16.Size = new System.Drawing.Size(264, 38);
+            this.panel16.TabIndex = 0;
             // 
             // label1
             // 
@@ -134,10 +168,35 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(2, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(449, 34);
-            this.label1.TabIndex = 0;
+            this.label1.Size = new System.Drawing.Size(260, 34);
+            this.label1.TabIndex = 1;
             this.label1.Text = "Cambio Precio";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel17
+            // 
+            this.panel17.Controls.Add(this.CHB_CAMBIAR_VARIOS_PRECIOS);
+            this.panel17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel17.Location = new System.Drawing.Point(267, 1);
+            this.panel17.Margin = new System.Windows.Forms.Padding(1);
+            this.panel17.Name = "panel17";
+            this.panel17.Padding = new System.Windows.Forms.Padding(2);
+            this.panel17.Size = new System.Drawing.Size(187, 38);
+            this.panel17.TabIndex = 1;
+            // 
+            // CHB_CAMBIAR_VARIOS_PRECIOS
+            // 
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.AutoSize = true;
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.Location = new System.Drawing.Point(2, 2);
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.Name = "CHB_CAMBIAR_VARIOS_PRECIOS";
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.Size = new System.Drawing.Size(183, 34);
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.TabIndex = 0;
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.Text = "Cambiar Varios Precios";
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.UseVisualStyleBackColor = true;
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.CheckedChanged += new System.EventHandler(this.CHB_CAMBIAR_VARIOS_PRECIOS_CheckedChanged);
             // 
             // panel3
             // 
@@ -304,6 +363,20 @@
             this.panel13.Padding = new System.Windows.Forms.Padding(2);
             this.panel13.Size = new System.Drawing.Size(162, 28);
             this.panel13.TabIndex = 4;
+            // 
+            // TB_PRECIO_NUEVO
+            // 
+            this.TB_PRECIO_NUEVO.BackColor = System.Drawing.Color.Yellow;
+            this.TB_PRECIO_NUEVO.Dock = System.Windows.Forms.DockStyle.Left;
+            this.TB_PRECIO_NUEVO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_PRECIO_NUEVO.Location = new System.Drawing.Point(2, 2);
+            this.TB_PRECIO_NUEVO.Name = "TB_PRECIO_NUEVO";
+            this.TB_PRECIO_NUEVO.Size = new System.Drawing.Size(137, 26);
+            this.TB_PRECIO_NUEVO.TabIndex = 0;
+            this.TB_PRECIO_NUEVO.Text = "0";
+            this.TB_PRECIO_NUEVO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TB_PRECIO_NUEVO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CTRL_KeyDown);
+            this.TB_PRECIO_NUEVO.Leave += new System.EventHandler(this.TB_PRECIO_NUEVO_Leave);
             // 
             // panel14
             // 
@@ -503,20 +576,6 @@
             this.BT_PANEL_INF.UseVisualStyleBackColor = true;
             this.BT_PANEL_INF.Click += new System.EventHandler(this.BT_PANEL_INF_Click);
             // 
-            // TB_PRECIO_NUEVO
-            // 
-            this.TB_PRECIO_NUEVO.BackColor = System.Drawing.Color.Yellow;
-            this.TB_PRECIO_NUEVO.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TB_PRECIO_NUEVO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_PRECIO_NUEVO.Location = new System.Drawing.Point(2, 2);
-            this.TB_PRECIO_NUEVO.Name = "TB_PRECIO_NUEVO";
-            this.TB_PRECIO_NUEVO.Size = new System.Drawing.Size(137, 26);
-            this.TB_PRECIO_NUEVO.TabIndex = 0;
-            this.TB_PRECIO_NUEVO.Text = "0";
-            this.TB_PRECIO_NUEVO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TB_PRECIO_NUEVO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CTRL_KeyDown);
-            this.TB_PRECIO_NUEVO.Leave += new System.EventHandler(this.TB_PRECIO_NUEVO_Leave);
-            // 
             // Frm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -534,6 +593,10 @@
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.panel16.ResumeLayout(false);
+            this.panel17.ResumeLayout(false);
+            this.panel17.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
@@ -570,7 +633,6 @@
         private System.Windows.Forms.Button BT_ACEPTAR;
         private System.Windows.Forms.Button BT_SALIR;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Panel panel9;
@@ -592,5 +654,10 @@
         private System.Windows.Forms.Label L_UTILIDAD_NUEVA;
         private System.Windows.Forms.Panel panel20;
         private System.Windows.Forms.Button BT_PANEL_INF;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox CHB_CAMBIAR_VARIOS_PRECIOS;
     }
 }

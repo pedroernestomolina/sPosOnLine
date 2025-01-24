@@ -188,5 +188,13 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             //
             _cambioPrecioIsOk = true;
         }
+
+
+        private bool _activarVariosCambiosIsOk;
+        public bool ActivarVariosCambiosIsOk { get { return _activarVariosCambiosIsOk; } }
+        public void setCambiarVariosPrecios()
+        {
+            _activarVariosCambiosIsOk = !_activarVariosCambiosIsOk;
+        }
     }
 }
