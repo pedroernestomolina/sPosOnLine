@@ -13,7 +13,6 @@ namespace PosOnLine.Src.Producto.Lista
 {
     public class Gestion: IListaModo
     {
-
         private OOB.Producto.Lista.Ficha _itemSeleccionado;
         private bool _itemSeleccionadoIsOk; 
         private BindingSource _bs;
@@ -441,5 +440,7 @@ namespace PosOnLine.Src.Producto.Lista
         {
             _salirMismaLista = false;
         }
+        //
+        public bool ProductoSeleccionadoIsPesado { get { return ItemSeleccionado.IsPesado; } }
     }
 }

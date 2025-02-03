@@ -274,7 +274,7 @@ namespace PosOnLine.Src.Item
             _autoDeposito = _depositoAsignado.id;
         }
 
-        public void RegistraItem(string idPrd, string tarifa)
+        public void RegistraItem(string idPrd, string tarifa, int cnt=1)
         {
             var _fecha= new DateTime(2000,1,1);
             var r00 = Sistema.MyData.Servicio_GetFechaUltBoletin();
@@ -299,7 +299,7 @@ namespace PosOnLine.Src.Item
             r01.Entidad.setFactorCambio(_tasaCambio);
             if (!r01.Entidad.IsPesado)
             {
-                Registrar(r01.Entidad, 1, tarifa);
+                Registrar(r01.Entidad, cnt, tarifa);
             }
             else
             {

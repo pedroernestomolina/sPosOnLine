@@ -45,7 +45,7 @@ namespace PosOnLine.Src.Item
 
 
         void Inicializar();
-        void RegistraItem(string autoPrd, string tipoPrecio);
+        void RegistraItem(string autoPrd, string tipoPrecio, int cnt=1);
         bool AnularVentaIsOk { get; }
         void AnularVenta(bool p);
         void DevolucionItem(bool p);

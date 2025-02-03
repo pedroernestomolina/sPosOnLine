@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.Producto.Buscar
 {
-    
     public class Gestion
     {
-
         private string _autoPrd;
         private string _autoDepositoAsignado;
         private string _tarifaPrecio;
@@ -180,5 +178,7 @@ namespace PosOnLine.Src.Producto.Buscar
         {
             _gestionListar.InicializaSeguirMismaLista();
         }
+
+        public bool ProductoSeleccionadoIsPesado { get { return _gestionListar.ProductoSeleccionadoIsPesado; } }
     }
 }

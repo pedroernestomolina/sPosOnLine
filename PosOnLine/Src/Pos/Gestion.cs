@@ -562,11 +562,25 @@ namespace PosOnLine.Src.Pos
 
                 do
                 {
+                    _gestionBuscar.setTarifaPrecio(_tarifaPrecioManejar);
                     _gestionBuscar.ActivarBusqueda(cadena, _permitirBusquedaPorDescripcion);
                     if (_gestionBuscar.BusquedaIsOk)
                     {
-                        _gestionItem.Inicializar();
-                        _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada);
+                        if (!_gestionBuscar.ProductoSeleccionadoIsPesado)
+                        {
+                            _gMultiplicar.Inicializa();
+                            _gMultiplicar.Inicia();
+                            if (_gMultiplicar.MultiplicarIsOk)
+                            {
+                                _gestionItem.Inicializar();
+                                _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _gMultiplicar.CantidadIngresar);
+                            }
+                        }
+                        else 
+                        {
+                            _gestionItem.Inicializar();
+                            _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada);
+                        }
                     }
                     else
                         _gestionItem.setItemActualInicializar();

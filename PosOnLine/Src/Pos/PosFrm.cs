@@ -232,6 +232,7 @@ namespace PosOnLine.Src.Pos
         }
         private void BuscarProducto()
         {
+            
             _controlador.BuscarProducto(TB_BUSCAR.Text.Trim().ToUpper());
             Actualizar();
             ActivarBuscar();

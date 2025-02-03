@@ -225,7 +225,7 @@ namespace PosOnLine.Src.Item.ModoAdm
             _autoDeposito = _depositoAsignado.id;
         }
 
-        public void RegistraItem(string idPrd, string tarifa)
+        public void RegistraItem(string idPrd, string tarifa, int cnt=1)
         {
             try
             {

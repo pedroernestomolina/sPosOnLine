@@ -276,7 +276,7 @@ namespace PosOnLine.Data.Prov
                             //
                             histPrecio = (s.histPrecio == null ? "" : "1"),
                             //
-                            imagen= s.imagen,
+                            imagen= s.imagen==null ? new byte[0] : s.imagen,
                         };
                         return nr;
                     }).ToList();
