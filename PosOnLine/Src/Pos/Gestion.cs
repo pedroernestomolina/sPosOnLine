@@ -1133,20 +1133,27 @@ namespace PosOnLine.Src.Pos
             }).ToList();
             fichaOOB.MovKardex = kardex;
 
+            var importeDocumentoCxc = importeDocumento;
+            var importeDocumentoDivisaCxc = importeDocumentoDivisa;
+            if (isCredito) 
+            {
+                importeDocumentoCxc = _totalImporteMonActConBono;
+                importeDocumentoDivisaCxc = _totalImporteMonDivConBono;
+            }
             fichaOOB.DocCxC = new OOB.Documento.Agregar.Factura.FichaCxC()
             {
                 CCobranza = 0.0m,
                 CCobranzap = 0.0m,
                 TipoDocumento = _tipoDocumentoVenta.siglas,
                 Nota = "",
-                Importe = importeDocumento,
-                Acumulado = isCredito ? 0.0m : importeDocumento,
+                Importe = importeDocumentoCxc,
+                Acumulado = isCredito ? 0.0m : importeDocumentoCxc,
                 AutoCliente = _cliId,
                 Cliente = _cliNombreRazonSocial,
                 CiRif = _cliCiRif,
                 CodigoCliente = _cliCodigo,
                 EstatusCancelado = isCredito ? "0" : "1",
-                Resta = isCredito ? importeDocumento : 0.0m,
+                Resta = isCredito ? importeDocumentoCxc : 0.0m,
                 EstatusAnulado = "0",
                 Numero = "",
                 AutoAgencia = "0000000001",
@@ -1161,12 +1168,12 @@ namespace PosOnLine.Src.Pos
                 Dias = 0,
                 CastigoP = 0.0m,
                 CierreFtp = "",
-                MontoDivisa = importeDocumentoDivisa,
+                MontoDivisa = importeDocumentoDivisaCxc,
                 TasaDivisa = factorCambio,
                 //
-                AcumuladoDivisa = isCredito ? 0.0m : importeDocumentoDivisa,
+                AcumuladoDivisa = isCredito ? 0.0m : importeDocumentoDivisaCxc,
                 CodigoSucursal = _sucursalAsignada.codigo,
-                RestaDivisa = isCredito ? importeDocumentoDivisa : 0.0m,
+                RestaDivisa = isCredito ? importeDocumentoDivisaCxc : 0.0m,
                 ImporteNetoDivisa = Math.Round(netoMontoDivisa, 2, MidpointRounding.AwayFromZero),
             };
 
@@ -2868,26 +2875,39 @@ namespace PosOnLine.Src.Pos
         }
         private bool _habilitarBonoPagoDivisa;
         private decimal _dsctoBonoPagoDivisa;
+        private decimal _totalImporteMonDivConBono = 0m;
+        private decimal _totalImporteMonActConBono = 0m;
         private string pagoDivisaConBonoDscto_SoloEnDivisa()
         {
             var rt = "";
+            _totalImporteMonDivConBono = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
+            _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
             if (_habilitarBonoPagoDivisa)
             {
                 rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
                 var _impDivisa = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
+                _totalImporteMonDivConBono = Math.Round(_impDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
+
                 var _pagoDivisa = (_impDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
                 rt += _pagoDivisa.ToString("n2") + "$";
             }
             return rt.Trim();
         }
+
         private string pagoDivisaConBonoDscto_EnDivisaBolivar()
         {
             var rt = "";
+            _totalImporteMonDivConBono = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
+            _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
             if (_habilitarBonoPagoDivisa)
             {
                 rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
 
                 var _importDivisa = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
+                _totalImporteMonDivConBono = Math.Round(_importDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
+
                 var _pagoDivisa = Math.Round(_importDivisa / (1 + (_dsctoBonoPagoDivisa / 100)), 2, MidpointRounding.AwayFromZero);
                 _pagoDivisa = _pagoDivisa - (_pagoDivisa - (int)_pagoDivisa);
 
