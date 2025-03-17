@@ -226,7 +226,15 @@ namespace PosOnLine.Helpers
                                         Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra = true;
                                     }
                                 }
-
+                                if (nv.LocalName.ToUpper().Trim() == "HABILITAR_LOOP_AL_ACTIVAR_MODO_BUSQUEDA")
+                                {
+                                    Sistema.HabilitarLoopAlActivarModoBusqueda= false;
+                                    if (nv.InnerText.Trim().ToUpper() == "SI")
+                                    {
+                                        Sistema.HabilitarLoopAlActivarModoBusqueda = true;
+                                    }
+                                }
+                                
                                 if (nv.LocalName.ToUpper().Trim() == "DATOSNEGOCIOTICKET")
                                 {
                                     foreach (XmlNode mi in nv.ChildNodes)

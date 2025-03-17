@@ -30,4 +30,5 @@
     <Puerto>0</Puerto> 
   </Impresora_Fiscal>
   <Simbolo_Divisa_Ticket>$</Simbolo_Divisa_Ticket> <!-- POR DEFECTO $, PERO PUEDE SER Ref-->
+  <HABILITAR_LOOP_AL_ACTIVAR_MODO_BUSQUEDA>si</HABILITAR_LOOP_AL_ACTIVAR_MODO_BUSQUEDA>
 </Configuracion>

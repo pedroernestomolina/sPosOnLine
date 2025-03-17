@@ -112,5 +112,8 @@ namespace PosOnLine
         public static bool CargarSolo_Pedido;
         public static int MaximoNumeroPedidoPermitido;
         public static string DefineMedioPagoxPagoMovil;
+
+        //
+        public static bool HabilitarLoopAlActivarModoBusqueda = false;
     }
 }

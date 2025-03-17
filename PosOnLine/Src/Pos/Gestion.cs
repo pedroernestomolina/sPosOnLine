@@ -568,12 +568,26 @@ namespace PosOnLine.Src.Pos
                     {
                         if (!_gestionBuscar.ProductoSeleccionadoIsPesado)
                         {
-                            _gMultiplicar.Inicializa();
-                            _gMultiplicar.Inicia();
-                            if (_gMultiplicar.MultiplicarIsOk)
+                            var _cnt = 0;
+                            if (_gestionBuscar.EstatusModoBusquedaPorCodigoBarra)
+                                _cnt = 1;
+                            else 
+                            {
+                                _gMultiplicar.Inicializa();
+                                _gMultiplicar.Inicia();
+                                if (_gMultiplicar.MultiplicarIsOk)
+                                {
+                                    _cnt = _gMultiplicar.CantidadIngresar;
+                                    /*
+                                    _gestionItem.Inicializar();
+                                    _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _gMultiplicar.CantidadIngresar);
+                                     */
+                                }
+                            }
+                           if (_cnt > 0m)
                             {
                                 _gestionItem.Inicializar();
-                                _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _gMultiplicar.CantidadIngresar);
+                                _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _cnt);
                             }
                         }
                         else 
@@ -585,9 +599,8 @@ namespace PosOnLine.Src.Pos
                     else
                         _gestionItem.setItemActualInicializar();
                 }
-                while (_gestionBuscar.SeguirMismaLista!=true);
+                while ((_gestionBuscar.SeguirMismaLista != true && Sistema.HabilitarLoopAlActivarModoBusqueda) && !_gestionBuscar.EstatusModoBusquedaPorCodigoBarra);
             }
-
         }
 
         public void AnularVenta()

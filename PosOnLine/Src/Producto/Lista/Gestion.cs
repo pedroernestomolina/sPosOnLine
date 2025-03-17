@@ -441,6 +441,19 @@ namespace PosOnLine.Src.Producto.Lista
             _salirMismaLista = false;
         }
         //
-        public bool ProductoSeleccionadoIsPesado { get { return ItemSeleccionado.IsPesado; } }
+        public bool ProductoSeleccionadoIsPesado 
+        { 
+            get 
+            {
+                if (ItemSeleccionado != null)
+                {
+                    return ItemSeleccionado.IsPesado;
+                }
+                else 
+                {
+                    return false;
+                }
+            } 
+        }
     }
 }

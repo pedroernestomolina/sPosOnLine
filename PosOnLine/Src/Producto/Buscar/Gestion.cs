@@ -33,8 +33,10 @@ namespace PosOnLine.Src.Producto.Buscar
         }
 
 
+        private bool _estatusModoBusquedaCodigoBarra;
         public void ActivarBusqueda(string buscar, bool activarBusquedaPorDescripcion = true)
         {
+            _estatusModoBusquedaCodigoBarra = false; 
             _autoPrd = "";
             var codBuscar = buscar.Trim().ToUpper();
             if (codBuscar == "")
@@ -109,6 +111,7 @@ namespace PosOnLine.Src.Producto.Buscar
                         _autoPrd = r03.Auto;
                         if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
                         {
+                            _estatusModoBusquedaCodigoBarra = true;
                             return;
                         }
                     }
@@ -118,6 +121,7 @@ namespace PosOnLine.Src.Producto.Buscar
                     _autoPrd = r02.Auto;
                     if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
                     {
+                        _estatusModoBusquedaCodigoBarra = true;
                         return;
                     }
                 }
@@ -127,6 +131,7 @@ namespace PosOnLine.Src.Producto.Buscar
                 _autoPrd = r01.Auto;
                 if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
                 {
+                    _estatusModoBusquedaCodigoBarra = true;
                     return;
                 }
             }
@@ -180,5 +185,6 @@ namespace PosOnLine.Src.Producto.Buscar
         }
 
         public bool ProductoSeleccionadoIsPesado { get { return _gestionListar.ProductoSeleccionadoIsPesado; } }
+        public bool EstatusModoBusquedaPorCodigoBarra { get { return _estatusModoBusquedaCodigoBarra; } } 
     }
 }
