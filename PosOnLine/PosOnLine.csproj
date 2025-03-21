@@ -511,6 +511,19 @@
       <DependentUpon>PrincipalPedidoFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Producto\Buscar\Gestion.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\data.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\Idata.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\ILista.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\IListaProducto.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\ImpLista.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\ImpListaModo.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\ImpListaProducto.cs" />
+    <Compile Include="Src\Producto\Lista\ZUFU\vistas\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Producto\Lista\ZUFU\vistas\Frm.designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Src\ReglasNegocio\ReglaNegocioEverestMotor.cs" />
     <Compile Include="Src\ReglasNegocio\ReglaNegocioZufu.cs" />
     <Compile Include="Src\ReglasNegocio\IReglas.cs" />
@@ -568,19 +581,6 @@
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IListaCliente.cs" />
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IVista.cs" />
     <Compile Include="Src\Zufu\IPosZufuCliente.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\data.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\Idata.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\ILista.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\IListaProducto.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\ImpLista.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\ImpListaModo.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\ImpListaProducto.cs" />
-    <Compile Include="Src\Zufu\ListaProducto\vistas\Frm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Src\Zufu\ListaProducto\vistas\Frm.designer.cs">
-      <DependentUpon>Frm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\Imp.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\IAbandonar.cs" />
     <Compile Include="Src\_\Ctrl\Boton\baseImp.cs" />
@@ -985,6 +985,9 @@
     <EmbeddedResource Include="Src\Producto\Lista\ModoAdm\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\Producto\Lista\ZUFU\vistas\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\MovCaja.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -1085,9 +1088,6 @@
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Zufu\ClienteComp\Listar\Vista\Frm.resx">
-      <DependentUpon>Frm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Src\Zufu\ListaProducto\vistas\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Helpers\Imprimir\Grafico\ds.xsc">

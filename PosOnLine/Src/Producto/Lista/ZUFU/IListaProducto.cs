@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Src.Zufu.ListaProducto
+namespace PosOnLine.Src.Producto.Lista.ZUFU
 {
     public interface IListaProducto: IGestion
     {

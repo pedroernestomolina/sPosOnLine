@@ -12,8 +12,7 @@ namespace PosOnLine.Src
         public Producto.Lista.IListaModo 
             CreateInstace_PosGestionListar()
         {
-            //return new Producto.Lista.Gestion();
-            return new Zufu.ListaProducto.ImpListaModo();
+            return new Producto.Lista.ZUFU.ImpListaModo();
         }
         public PrecioMayor.IModo 
             CreateInstace_PosGestionMayor()

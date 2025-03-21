@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace PosOnLine.Src.Zufu.ListaProducto.vistas
+namespace PosOnLine.Src.Producto.Lista.ZUFU.vistas
 {
     public partial class Frm : Form
     {
-        private ListaProducto.IListaProducto _controlador;
+        private ZUFU.IListaProducto _controlador;
         //
         private void InicializarDGV()
         {
@@ -67,7 +67,7 @@ namespace PosOnLine.Src.Zufu.ListaProducto.vistas
             InitializeComponent();
             InicializarDGV();
         }
-        public void setControlador(ListaProducto.IListaProducto ctr)
+        public void setControlador(ZUFU.IListaProducto ctr)
         {
             _controlador = ctr;
         }

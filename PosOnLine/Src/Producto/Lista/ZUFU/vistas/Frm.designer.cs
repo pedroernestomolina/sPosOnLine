@@ -1,4 +1,4 @@
-﻿namespace PosOnLine.Src.Zufu.ListaProducto.vistas
+﻿namespace PosOnLine.Src.Producto.Lista.ZUFU.vistas
 {
     partial class Frm
     {

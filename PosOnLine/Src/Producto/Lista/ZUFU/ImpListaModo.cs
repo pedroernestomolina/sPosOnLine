@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace PosOnLine.Src.Zufu.ListaProducto
+namespace PosOnLine.Src.Producto.Lista.ZUFU
 {
     public class ImpListaModo : PosOnLine.Src.Producto.Lista.IListaModo
     {
