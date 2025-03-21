@@ -42,10 +42,16 @@ namespace PosOnLine.Src
             return new Src.CambioPrecio.CambioPrecio();
         }
 
-
-        public ReglasNegocio.IReglas CreateInstace_ReglasNegocio()
+        public ReglasNegocio.IReglas 
+            CreateInstace_ReglasNegocio()
         {
             return new ReglasNegocio.ReglaNegocioEverestMotor();
+        }
+        //
+        public Producto.Buscar.IBuscarModo 
+            CreateInstace_PosGestionBuscar()
+        {
+            return new Producto.Buscar.ZUFU.Imp();
         }
     }
 }

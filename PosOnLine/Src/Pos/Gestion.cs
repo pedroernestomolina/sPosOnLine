@@ -46,7 +46,7 @@ namespace PosOnLine.Src.Pos
         private bool _permitirBusquedaPorDescripcion;
         //private Producto.Lista.Gestion _gestionListar;
         private Producto.Lista.IListaModo _gestionListar;
-        private Producto.Buscar.Gestion _gestionBuscar;
+        private Producto.Buscar.IBuscarModo _gestionBuscar;
         //private Consultor.Gestion _gestionConsultor;
         private Consultor.IModo _gestionConsultor;
         //private Item.Gestion _gestionItem;
@@ -150,10 +150,9 @@ namespace PosOnLine.Src.Pos
             _gestionMayor = Sistema.MiFabrica.CreateInstace_PosGestionMayor();
             _gestionConsultor = Sistema.MiFabrica.CreateInstace_PosGestionConsultor();
             _gestionItem = Sistema.MiFabrica.CreateInstace_PosGestionItem();
+            _gestionBuscar = Sistema.MiFabrica.CreateInstace_PosGestionBuscar();
 
-            _gestionBuscar = new Producto.Buscar.Gestion();
             _gestionBuscar.setGestionLista(_gestionListar);
-            _gestionBuscar.setGestionPrecioMayor(_gestionMayor);
             _gestionConsultor.setGestionBuscar(_gestionBuscar);
             _gestionMultiplicar = new Multiplicar.Gestion();
             _gestionPendiente = new Pendiente.Gestion();
@@ -453,7 +452,6 @@ namespace PosOnLine.Src.Pos
             Helpers.PassWord.setClave(_claveAcceso);
             _gestionBuscar.setDepositoAsignado(_depositoAsignado);
             _gestionBuscar.setTarifaPrecio(_precioManejar);
-            _gestionBuscar.setHabilitarVentaMayor(Sistema.Sucursal.HabilitarVentaMayor);
             _gestionConsultor.setTarifaPrecio(_precioManejar);
             _gestionItem.Inicializar();
             _gestionItem.setDepositoAsignado(_depositoAsignado);
@@ -554,12 +552,6 @@ namespace PosOnLine.Src.Pos
                     }
                 }
 
-                _gestionBuscar.setHabilitarVentaMayor(Sistema.Sucursal.HabilitarVentaMayor);
-                _gestionBuscar.GestionListar.setCantidadVisible(true);
-                _gestionBuscar.GestionListar.setPrecioVisible(false);
-                _gestionBuscar.setTarifaPrecio(_tarifaPrecioManejar);
-                _gestionBuscar.InicializaSeguirMismaLista();
-
                 do
                 {
                     _gestionBuscar.setTarifaPrecio(_tarifaPrecioManejar);
@@ -610,23 +602,17 @@ namespace PosOnLine.Src.Pos
                                     if (_gMultiplicar.MultiplicarIsOk)
                                     {
                                         _cnt = _gMultiplicar.CantidadIngresar;
-                                        /*
-                                        _gestionItem.Inicializar();
-                                        _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _gMultiplicar.CantidadIngresar);
-                                         */
                                     }
                                 }
                                 if (_cnt > 0m)
                                 {
                                     _gestionItem.Inicializar();
-                                    //_gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _cnt);
                                     _gestionItem.RegistraItem(_autoPrd, _tarifaPrecio, _cnt);
                                 }
                             }
                             else
                             {
                                 _gestionItem.Inicializar();
-                                //_gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada);
                                 _gestionItem.RegistraItem(_autoPrd, _tarifaPrecio);
                             }
                         }

@@ -19,25 +19,16 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private bool _habilitarBonoDivisa; 
         private IListaProducto _listaPrd;
         //
-        private bool _isCantidadVisible;
-        private bool _isPrecioVisible;
-        //
         public bool ItemSeleccionIsOk { get { return _listaPrd.ItemSeleccionadoIsOk; } }
         public string IdItemSeleccionado { get { return ItemSeleccionado.Auto; } }
         public bool GetSalirMismaLista { get { return _listaPrd.SalirListaIsOk; } }
         public OOB.Producto.Lista.Ficha ItemSeleccionado { get { return (OOB.Producto.Lista.Ficha)_listaPrd.ItemSeleccionado; } }
-        //
-        public bool IsCantidadVisible { get { return _isCantidadVisible; } }
-        public bool IsPrecioVisible { get { return _isPrecioVisible; } }
         //
         public ImpListaModo()
         {
             _lst = null;
             _tasaCambio = 0m;
             _listaPrd = new ImpListaProducto();
-            //
-            _isCantidadVisible = true;
-            _isPrecioVisible = true;
         }
         public void Inicializa()
         {
@@ -61,14 +52,6 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
                 Helpers.Msg.Error(e.Message);
                 return ;
             }
-        }
-        public void setCantidadVisible(bool valor) 
-        {
-            _isCantidadVisible = valor;
-        }
-        public void setPrecioVisible(bool valor)
-        {
-            _isPrecioVisible = valor;
         }
         //03/04
         public void setFiltroPrdListar(OOB.Producto.Lista.Filtro filtro)

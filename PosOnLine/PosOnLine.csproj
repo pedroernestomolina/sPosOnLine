@@ -510,7 +510,10 @@
     <Compile Include="Src\Principal\PrincipalPedidoFrm.designer.cs">
       <DependentUpon>PrincipalPedidoFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Producto\Buscar\Gestion.cs" />
+    <Compile Include="Src\Producto\Buscar\baseBuscarModo.cs" />
+    <Compile Include="Src\Producto\Buscar\IBuscarModo.cs" />
+    <Compile Include="Src\Producto\Buscar\ModoAdm\Imp.cs" />
+    <Compile Include="Src\Producto\Buscar\ZUFU\Imp.cs" />
     <Compile Include="Src\Producto\Lista\ZUFU\data.cs" />
     <Compile Include="Src\Producto\Lista\ZUFU\Idata.cs" />
     <Compile Include="Src\Producto\Lista\ZUFU\ILista.cs" />
@@ -859,7 +862,6 @@
     <Compile Include="Src\Principal\PrincipalFrm.Designer.cs">
       <DependentUpon>PrincipalFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Producto\Buscar\Gestion_copy.cs" />
     <Compile Include="Src\Producto\Lista\ELIMINAR\data.cs" />
     <Compile Include="Src\Producto\Lista\ELIMINAR\Gestion.cs" />
     <Compile Include="Src\Producto\Lista\ELIMINAR\ListaFrm.cs">

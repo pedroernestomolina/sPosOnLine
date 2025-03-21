@@ -17,6 +17,8 @@ namespace PosOnLine.Src
             CreateInstace_PosGestionConsultor();
         Item.IModo 
             CreateInstace_PosGestionItem();
+        Producto.Buscar.IBuscarModo 
+            CreateInstace_PosGestionBuscar();
         //
         Pos.ICliente
             CreateInstace_PosCliente();

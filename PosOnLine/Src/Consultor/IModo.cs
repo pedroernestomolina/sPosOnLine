@@ -9,7 +9,7 @@ namespace PosOnLine.Src.Consultor
 {
     public interface IModo
     {
-        void setGestionBuscar(Producto.Buscar.Gestion _gestionBuscar);
+        void setGestionBuscar(Producto.Buscar.IBuscarModo _gestionBuscar);
         void setTarifaPrecio(string _precioManejar);
         void setFactorCambio(decimal _tasaCambioActual);
 

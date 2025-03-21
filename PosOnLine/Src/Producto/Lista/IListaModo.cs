@@ -16,8 +16,6 @@ namespace PosOnLine.Src.Producto.Lista
         void Inicializa();
         void Inicia();
         void setData(List<OOB.Producto.Lista.Ficha> lst, decimal tasaCambio);
-        void setCantidadVisible(bool p);
-        void setPrecioVisible(bool p);
         void setFiltroPrdListar(OOB.Producto.Lista.Filtro filtro);
         bool GetSalirMismaLista { get; }
     }

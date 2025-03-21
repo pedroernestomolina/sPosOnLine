@@ -41,10 +41,16 @@ namespace PosOnLine.Src
             //return new CambioPrecio.CambioPrecio();
             return new Zufu.CambioPrecioPrdComp.CambioPrecio.Handler.Imp();
         }
-        
-        public ReglasNegocio.IReglas CreateInstace_ReglasNegocio()
+        public ReglasNegocio.IReglas 
+            CreateInstace_ReglasNegocio()
         {
             return new ReglasNegocio.ReglaNegocioZufu();
+        }
+        //
+        public Producto.Buscar.IBuscarModo 
+            CreateInstace_PosGestionBuscar()
+        {
+            return new Producto.Buscar.ZUFU.Imp();
         }
     }
 }

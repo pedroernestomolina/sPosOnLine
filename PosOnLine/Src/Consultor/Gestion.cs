@@ -13,7 +13,7 @@ namespace PosOnLine.Src.Consultor
         private string _tarifaPrecio;
         private data _dataPrd;
         private bool _busquedaIsOk; 
-        private Producto.Buscar.Gestion _gestionBuscar;
+        private Producto.Buscar.IBuscarModo _gestionBuscar;
 
 
         public decimal FactorCambio { get { return _factorCambio; } }
@@ -59,9 +59,6 @@ namespace PosOnLine.Src.Consultor
         public void BuscarProducto(string buscar)
         {
             _busquedaIsOk = false;
-            _gestionBuscar.setHabilitarVentaMayor(false);
-            _gestionBuscar.GestionListar.setCantidadVisible(false);
-            _gestionBuscar.GestionListar.setPrecioVisible(false);
             _gestionBuscar.ActivarBusqueda(buscar);
             if (_gestionBuscar.BusquedaIsOk) 
             {
@@ -101,8 +98,6 @@ namespace PosOnLine.Src.Consultor
 
         public void Inicializa()
         {
-            _gestionBuscar.GestionListar.setCantidadVisible(false);
-            _gestionBuscar.GestionListar.setPrecioVisible(false);
         }
 
         ConsultorFrm frm;
@@ -124,7 +119,7 @@ namespace PosOnLine.Src.Consultor
             return true;
         }
 
-        public void setGestionBuscar(Producto.Buscar.Gestion _ctrBuscar)
+        public void setGestionBuscar(Producto.Buscar.IBuscarModo _ctrBuscar)
         {
             _gestionBuscar = _ctrBuscar;
         }

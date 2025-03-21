@@ -12,7 +12,7 @@ namespace PosOnLine.Src.Consultor.ModoAdm
         private decimal _factorCambio;
         private string _tarifaPrecio;
         private bool _busquedaIsOk; 
-        private Producto.Buscar.Gestion _gestionBuscar;
+        private Producto.Buscar.IBuscarModo _gestionBuscar;
         private string _cadenaBus;
         private IPrdConsultar _prd;
 
@@ -51,7 +51,7 @@ namespace PosOnLine.Src.Consultor.ModoAdm
         }
 
 
-        public void setGestionBuscar(Producto.Buscar.Gestion ctr)
+        public void setGestionBuscar(Producto.Buscar.IBuscarModo ctr)
         {
             _gestionBuscar = ctr;
         }
@@ -82,7 +82,6 @@ namespace PosOnLine.Src.Consultor.ModoAdm
         private void BuscarProducto(string buscar)
         {
             _busquedaIsOk = false;
-            _gestionBuscar.setHabilitarVentaMayor(false);
             _gestionBuscar.ActivarBusqueda(buscar);
             if (_gestionBuscar.BusquedaIsOk)
             {
