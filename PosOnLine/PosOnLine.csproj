@@ -862,14 +862,6 @@
     <Compile Include="Src\Principal\PrincipalFrm.Designer.cs">
       <DependentUpon>PrincipalFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Producto\Lista\ELIMINAR\data.cs" />
-    <Compile Include="Src\Producto\Lista\ELIMINAR\Gestion.cs" />
-    <Compile Include="Src\Producto\Lista\ELIMINAR\ListaFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Src\Producto\Lista\ELIMINAR\ListaFrm.designer.cs">
-      <DependentUpon>ListaFrm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Src\Reportes\Cierre\Detalle\Movimiento.cs" />
     <Compile Include="Src\Reportes\Cierre\PagoMovil\Movimiento.cs" />
     <Compile Include="Src\Reportes\Cierre\Resumen\Movimiento.cs" />
@@ -1058,9 +1050,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Principal\PrincipalFrm.resx">
       <DependentUpon>PrincipalFrm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Src\Producto\Lista\ELIMINAR\ListaFrm.resx">
-      <DependentUpon>ListaFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\PagoDetalle.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
