@@ -20,6 +20,5 @@ namespace PosOnLine.Src.Producto.Lista
         void setPrecioVisible(bool p);
         void setFiltroPrdListar(OOB.Producto.Lista.Filtro filtro);
         bool GetSalirMismaLista { get; }
-        void InicializaSeguirMismaLista();
     }
 }

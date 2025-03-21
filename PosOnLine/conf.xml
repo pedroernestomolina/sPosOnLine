@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>10.10.100.155</Instancia>
+    <Instancia>192.168.100.240</Instancia>
     <Catalogo>zufu</Catalogo>
   </Servidor>
   <IdEquipo>3</IdEquipo>
@@ -14,9 +14,9 @@
   <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
   <ModoImpresionNCredito>T80</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
-  <ActivarModoSoloDocPendiente>No</ActivarModoSoloDocPendiente>
-  <HabilitarAbrirDocPendOtrosUsuarios>no</HabilitarAbrirDocPendOtrosUsuarios>
-  <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>no</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
+  <ActivarModoSoloDocPendiente>SI</ActivarModoSoloDocPendiente>
+  <HabilitarAbrirDocPendOtrosUsuarios>SI</HabilitarAbrirDocPendOtrosUsuarios>
+  <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>
     <Rif>J123456789-0</Rif>
     <Nombre>SM CRISTAL LOS GUAYOS, CA</Nombre>

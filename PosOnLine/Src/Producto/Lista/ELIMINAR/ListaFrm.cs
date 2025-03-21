@@ -129,13 +129,14 @@ namespace PosOnLine.Src.Producto.Lista
 
         private void Salida()
         {
-            _controlador.setSalirMismaLista();
+            //_controlador.setSalirMismaLista();
             this.Close();
         }
 
         private BindingSource _source;
         private void ListaFrm_Load(object sender, EventArgs e)
         {
+            /*
             _source = _controlador.Source;
             _source.CurrentChanged += _source_CurrentChanged;
             DGV.DataSource = _source;
@@ -155,6 +156,7 @@ namespace PosOnLine.Src.Producto.Lista
             L_PRD_DETALLE.Text = _controlador.GetProducto_Det;
             L_TITULO_PRECIO_BONO.Text = _controlador.GetTituloPrecioBono;
             ActualizarPanelInformativo();
+             * */
         }
 
         void _source_CurrentChanged(object sender, EventArgs e)
@@ -164,6 +166,7 @@ namespace PosOnLine.Src.Producto.Lista
 
         private void ActualizarPanelInformativo()
         {
+            /*
             L_PRD_DETALLE.Text = _controlador.GetProducto_Det;
 
             P_EMP1.Visible = _controlador.GetEmp_1_IsOk;
@@ -193,6 +196,7 @@ namespace PosOnLine.Src.Producto.Lista
             {
                 PB_IMAGEN.Image = _controlador.GetImagen;
             }
+             */ 
         }
 
         private void DGV_KeyDown(object sender, KeyEventArgs e)
@@ -216,7 +220,7 @@ namespace PosOnLine.Src.Producto.Lista
 
         private void SubirItem()
         {
-            _controlador.Subir();
+           // _controlador.Subir();
         }
 
         private void BT_BAJAR_Click(object sender, EventArgs e)
@@ -226,7 +230,7 @@ namespace PosOnLine.Src.Producto.Lista
 
         private void BajarItem()
         {
-            _controlador.Bajar();
+            //_controlador.Bajar();
         }
      
         public void setControlador(Gestion ctr)
@@ -240,7 +244,7 @@ namespace PosOnLine.Src.Producto.Lista
         }        
         private void SeleccionarItem()
         {
-            _controlador.Seleccionar();
+            //_controlador.Seleccionar();
         }
 
         public void Cerrar()

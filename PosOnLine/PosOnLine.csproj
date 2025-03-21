@@ -510,6 +510,7 @@
     <Compile Include="Src\Principal\PrincipalPedidoFrm.designer.cs">
       <DependentUpon>PrincipalPedidoFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Src\Producto\Buscar\Gestion.cs" />
     <Compile Include="Src\ReglasNegocio\ReglaNegocioEverestMotor.cs" />
     <Compile Include="Src\ReglasNegocio\ReglaNegocioZufu.cs" />
     <Compile Include="Src\ReglasNegocio\IReglas.cs" />
@@ -567,6 +568,19 @@
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IListaCliente.cs" />
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IVista.cs" />
     <Compile Include="Src\Zufu\IPosZufuCliente.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\data.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\Idata.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\ILista.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\IListaProducto.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\ImpLista.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\ImpListaModo.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\ImpListaProducto.cs" />
+    <Compile Include="Src\Zufu\ListaProducto\vistas\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Zufu\ListaProducto\vistas\Frm.designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\Imp.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\IAbandonar.cs" />
     <Compile Include="Src\_\Ctrl\Boton\baseImp.cs" />
@@ -845,13 +859,13 @@
     <Compile Include="Src\Principal\PrincipalFrm.Designer.cs">
       <DependentUpon>PrincipalFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Producto\Buscar\Gestion.cs" />
-    <Compile Include="Src\Producto\Lista\data.cs" />
-    <Compile Include="Src\Producto\Lista\Gestion.cs" />
-    <Compile Include="Src\Producto\Lista\ListaFrm.cs">
+    <Compile Include="Src\Producto\Buscar\Gestion_copy.cs" />
+    <Compile Include="Src\Producto\Lista\ELIMINAR\data.cs" />
+    <Compile Include="Src\Producto\Lista\ELIMINAR\Gestion.cs" />
+    <Compile Include="Src\Producto\Lista\ELIMINAR\ListaFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Src\Producto\Lista\ListaFrm.designer.cs">
+    <Compile Include="Src\Producto\Lista\ELIMINAR\ListaFrm.designer.cs">
       <DependentUpon>ListaFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Reportes\Cierre\Detalle\Movimiento.cs" />
@@ -1040,7 +1054,7 @@
     <EmbeddedResource Include="Src\Principal\PrincipalFrm.resx">
       <DependentUpon>PrincipalFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\Producto\Lista\ListaFrm.resx">
+    <EmbeddedResource Include="Src\Producto\Lista\ELIMINAR\ListaFrm.resx">
       <DependentUpon>ListaFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\PagoDetalle.rdlc">
@@ -1071,6 +1085,9 @@
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Zufu\ClienteComp\Listar\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Zufu\ListaProducto\vistas\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Helpers\Imprimir\Grafico\ds.xsc">

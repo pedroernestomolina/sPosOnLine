@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Producto.Lista
 {
+    /*
     public class Gestion: IListaModo
     {
         private OOB.Producto.Lista.Ficha _itemSeleccionado;
@@ -456,4 +457,5 @@ namespace PosOnLine.Src.Producto.Lista
             } 
         }
     }
+     * */
 }

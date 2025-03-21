@@ -38,122 +38,96 @@ namespace PosOnLine.Src.Producto.Buscar
         {
             _estatusModoBusquedaCodigoBarra = false; 
             _autoPrd = "";
-            var codBuscar = buscar.Trim().ToUpper();
-            if (codBuscar == "")
+            try
             {
-                return;
-            }
-            var r01 = Sistema.MyData.Producto_BusquedaByCodigoBarra(codBuscar);
-            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r01.Mensaje);
-                return ;
-            }
-            if (r01.Auto == "")
-            {
-                var r02 = Sistema.MyData.Producto_BusquedaByPlu(codBuscar);
-                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                var codBuscar = buscar.Trim().ToUpper();
+                if (codBuscar == "")
                 {
-                    Helpers.Msg.Error(r02.Mensaje);
                     return;
                 }
-                if (r02.Auto == "")
+
+                var r01 = Sistema.MyData.Producto_BusquedaByCodigoBarra(codBuscar);
+                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
-                    var r03 = Sistema.MyData.Producto_BusquedaByCodigo(codBuscar);
-                    if (r03.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                    {
-                        Helpers.Msg.Error(r03.Mensaje);
-                        return;
-                    }
-                    if (r03.Auto == "")
-                    {
-                        if (activarBusquedaPorDescripcion)
-                        {
-                            var filtro = new OOB.Producto.Lista.Filtro()
-                            {
-                                autoDeposito = _autoDepositoAsignado,
-                                cadena = codBuscar,
-                                idPrecioManejar = _tarifaPrecio,
-                            };
-                            var r04 = Sistema.MyData.Producto_GetLista(filtro);
-                            if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                            {
-                                Helpers.Msg.Error(r04.Mensaje);
-                                return;
-                            }
-                            var r05 = Sistema.MyData.Configuracion_FactorDivisa();
-                            if (r05.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                            {
-                                Helpers.Msg.Error(r05.Mensaje);
-                                return;
-                            }
-                            var _lst = r04.ListaD.ToList();
-                            if (codBuscar== "#")
-                            {
-                                _lst = _lst.Where(w => w.histPrecio != "").ToList();
-                            }
-                            _gestionListar.Inicializa();
-                            if (Sistema.ConfiguracionActual.ValidarExistencia_Activa)
-                            {
-                                _lst = _lst.Where(w => w.ExDisponible > 0).ToList();
-                            }
-                            _gestionListar.setData(_lst, r05.Entidad);
-                            _gestionListar.setFiltroPrdListar(filtro);
-                            _gestionListar.Inicia();
-                            if (_gestionListar.ItemSeleccionIsOk)
-                            {
-                                _autoPrd = _gestionListar.IdItemSeleccionado;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        _autoPrd = r03.Auto;
-                        if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
-                        {
-                            _estatusModoBusquedaCodigoBarra = true;
-                            return;
-                        }
-                    }
+                    throw new Exception(r01.Mensaje);
                 }
-                else
+                if (r01.Auto.Trim() != "") 
                 {
-                    _autoPrd = r02.Auto;
-                    if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
-                    {
-                        _estatusModoBusquedaCodigoBarra = true;
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                _autoPrd = r01.Auto;
-                if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
-                {
+                    _autoPrd = r01.Auto;
                     _estatusModoBusquedaCodigoBarra = true;
                     return;
                 }
+
+                var r02 = Sistema.MyData.Producto_BusquedaByPlu(codBuscar);
+                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r02.Mensaje);
+                }
+                if (r02.Auto.Trim() != "") 
+                {
+                    _autoPrd = r02.Auto;
+                    _estatusModoBusquedaCodigoBarra = true;
+                    return;
+                }
+
+                var r03 = Sistema.MyData.Producto_BusquedaByCodigo(codBuscar);
+                if (r03.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r03.Mensaje);
+                }
+                if (r03.Auto.Trim() != "") 
+                {
+                    _autoPrd = r03.Auto;
+                    _estatusModoBusquedaCodigoBarra = true;
+                    return;
+                }
+
+                if (activarBusquedaPorDescripcion)
+                {
+                    buscaPorDescripcion(codBuscar);
+                }
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+            }
+        }
+
+        private void buscaPorDescripcion(string codBuscar)
+        {
+            var filtro = new OOB.Producto.Lista.Filtro()
+            {
+                autoDeposito = _autoDepositoAsignado,
+                cadena = codBuscar,
+                idPrecioManejar = _tarifaPrecio,
+            };
+            var r01 = Sistema.MyData.Producto_GetLista(filtro);
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            var r02 = Sistema.MyData.Configuracion_FactorDivisa();
+            if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r02.Mensaje);
             }
 
-            if (!string.IsNullOrEmpty(_autoPrd))
+            var _lst = r01.ListaD.ToList();
+            if (codBuscar == "#")
             {
-                if (_habilitarVentaMayor)
-                {
-                    _gestionMayor.Inicializa();
-                    _gestionMayor.setAutoProducto(_autoPrd);
-                    _gestionMayor.setTarifaPrecio(_tarifaPrecio);
-                    _gestionMayor.Inicia();
-                    if (_gestionMayor.PrecioSeleccionadoIsOk)
-                    {
-                        _autoPrd = _gestionMayor.AutoProducto;
-                        _tarifaPrecio = _gestionMayor.TarifaSeleccionada;
-                    }
-                    else 
-                    {
-                        _autoPrd = "";
-                    }
-                }
+                _lst = _lst.Where(w => w.histPrecio != "").ToList();
+            }
+            _gestionListar.Inicializa();
+            if (Sistema.ConfiguracionActual.ValidarExistencia_Activa)
+            {
+                _lst = _lst.Where(w => w.ExDisponible > 0).ToList();
+            }
+            _gestionListar.setData(_lst, r02.Entidad);
+            _gestionListar.setFiltroPrdListar(filtro);
+            _gestionListar.Inicia();
+            if (_gestionListar.ItemSeleccionIsOk)
+            {
+                _autoPrd = _gestionListar.IdItemSeleccionado;
             }
         }
 
@@ -181,7 +155,6 @@ namespace PosOnLine.Src.Producto.Buscar
         public bool SeguirMismaLista { get { return _gestionListar.GetSalirMismaLista; } }
         public void InicializaSeguirMismaLista()
         {
-            _gestionListar.InicializaSeguirMismaLista();
         }
 
         public bool ProductoSeleccionadoIsPesado { get { return _gestionListar.ProductoSeleccionadoIsPesado; } }

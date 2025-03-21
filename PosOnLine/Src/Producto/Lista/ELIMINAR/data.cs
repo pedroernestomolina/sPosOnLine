@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.Producto.Lista
 {
-
+    /*
     public class data
     {
 
@@ -199,5 +199,6 @@ namespace PosOnLine.Src.Producto.Lista
         public byte[] GetImagen { get { return _imagen; } }
 
     }
+     * */
 
 }

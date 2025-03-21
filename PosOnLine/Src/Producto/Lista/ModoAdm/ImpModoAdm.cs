@@ -176,9 +176,6 @@ namespace PosOnLine.Src.Producto.Lista.ModoAdm
         {
             get { return true; }
         }
-        public void InicializaSeguirMismaLista()
-        {
-        }
         //
         public bool ProductoSeleccionadoIsPesado { get { return false; } }
     }

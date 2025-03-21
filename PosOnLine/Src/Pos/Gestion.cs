@@ -566,34 +566,69 @@ namespace PosOnLine.Src.Pos
                     _gestionBuscar.ActivarBusqueda(cadena, _permitirBusquedaPorDescripcion);
                     if (_gestionBuscar.BusquedaIsOk)
                     {
-                        if (!_gestionBuscar.ProductoSeleccionadoIsPesado)
+
+                        var _autoPrd = _gestionBuscar.AutoProducto;
+                        var _tarifaPrecio = _tarifaPrecioManejar;
+                        if (!string.IsNullOrEmpty(_gestionBuscar.AutoProducto))
                         {
-                            var _cnt = 0;
-                            if (_gestionBuscar.EstatusModoBusquedaPorCodigoBarra)
-                                _cnt = 1;
-                            else 
+                            if (Sistema.Sucursal.HabilitarVentaMayor)
                             {
-                                _gMultiplicar.Inicializa();
-                                _gMultiplicar.Inicia();
-                                if (_gMultiplicar.MultiplicarIsOk)
+                                var _seg = 1;
+                                if (!Sistema.HabilitarTiposEmpaqueAlBuscarPorCodigoDeBarra)
                                 {
-                                    _cnt = _gMultiplicar.CantidadIngresar;
-                                    /*
-                                    _gestionItem.Inicializar();
-                                    _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _gMultiplicar.CantidadIngresar);
-                                     */
+                                    _seg = 0;
+                                }
+                                if (_seg == 1)
+                                {
+                                    _gestionMayor.Inicializa();
+                                    _gestionMayor.setAutoProducto(_gestionBuscar.AutoProducto);
+                                    _gestionMayor.setTarifaPrecio(_tarifaPrecioManejar);
+                                    _gestionMayor.Inicia();
+                                    if (_gestionMayor.PrecioSeleccionadoIsOk)
+                                    {
+                                        _autoPrd = _gestionMayor.AutoProducto;
+                                        _tarifaPrecio = _gestionMayor.TarifaSeleccionada;
+                                    }
+                                    else 
+                                    {
+                                        _tarifaPrecio = "";
+                                    }
                                 }
                             }
-                           if (_cnt > 0m)
+                        }
+                        if (_autoPrd != "" && _tarifaPrecio != "") 
+                        {
+                            if (!_gestionBuscar.ProductoSeleccionadoIsPesado)
+                            {
+                                var _cnt = 0;
+                                if (_gestionBuscar.EstatusModoBusquedaPorCodigoBarra)
+                                    _cnt = 1;
+                                else
+                                {
+                                    _gMultiplicar.Inicializa();
+                                    _gMultiplicar.Inicia();
+                                    if (_gMultiplicar.MultiplicarIsOk)
+                                    {
+                                        _cnt = _gMultiplicar.CantidadIngresar;
+                                        /*
+                                        _gestionItem.Inicializar();
+                                        _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _gMultiplicar.CantidadIngresar);
+                                         */
+                                    }
+                                }
+                                if (_cnt > 0m)
+                                {
+                                    _gestionItem.Inicializar();
+                                    //_gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _cnt);
+                                    _gestionItem.RegistraItem(_autoPrd, _tarifaPrecio, _cnt);
+                                }
+                            }
+                            else
                             {
                                 _gestionItem.Inicializar();
-                                _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada, _cnt);
+                                //_gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada);
+                                _gestionItem.RegistraItem(_autoPrd, _tarifaPrecio);
                             }
-                        }
-                        else 
-                        {
-                            _gestionItem.Inicializar();
-                            _gestionItem.RegistraItem(_gestionBuscar.AutoProducto, _gestionBuscar.TarifaPrecioSeleccionada);
                         }
                     }
                     else
