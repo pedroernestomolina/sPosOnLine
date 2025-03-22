@@ -11,7 +11,6 @@ namespace PosOnLine.Src.Producto.Lista
     {
         bool ItemSeleccionIsOk { get; }
         string IdItemSeleccionado { get; }
-        bool ProductoSeleccionadoIsPesado { get; }
         //
         void Inicializa();
         void Inicia();

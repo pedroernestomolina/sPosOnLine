@@ -53,24 +53,8 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
                 return ;
             }
         }
-        //03/04
         public void setFiltroPrdListar(OOB.Producto.Lista.Filtro filtro)
         {
-        }
-        //
-        public bool ProductoSeleccionadoIsPesado 
-        { 
-            get 
-            {
-                if (ItemSeleccionado != null)
-                {
-                    return ItemSeleccionado.IsPesado;
-                }
-                else 
-                {
-                    return false;
-                }
-            } 
         }
         //
         private void cargarData()

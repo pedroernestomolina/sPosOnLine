@@ -28,7 +28,7 @@ namespace PosOnLine.Src.Item
         private decimal _prdPrecioNetoInf;
         private decimal _prdIvaInf;
         private int _prdContenidoInf;
-        private Multiplicar.Gestion _gestionMultiplicar;
+        private Pos.IMultiplicar _gestionMultiplicar;
         private Devolucion.Gestion _gestionDevolucion;
         private Pendiente.Gestion _gestionPendiente;
         private bool _dejarPendienteIsOk; 
@@ -299,7 +299,19 @@ namespace PosOnLine.Src.Item
             r01.Entidad.setFactorCambio(_tasaCambio);
             if (!r01.Entidad.IsPesado)
             {
-                Registrar(r01.Entidad, cnt, tarifa);
+                if (cnt == 0m)
+                {
+                    _gestionMultiplicar.Inicializa();
+                    _gestionMultiplicar.Inicia();
+                    if (_gestionMultiplicar.ProcesarIsOk)
+                    {
+                        Registrar(r01.Entidad, _gestionMultiplicar.Cantidad, tarifa);
+                    }
+                }
+                else
+                {
+                    Registrar(r01.Entidad, cnt, tarifa);
+                }
             }
             else
             {
@@ -838,7 +850,7 @@ namespace PosOnLine.Src.Item
             _itemActual = null;
         }
 
-        public void setGestionMultiplicar(Src.Multiplicar.Gestion gestion)
+        public void setGestionMultiplicar(Pos.IMultiplicar gestion)
         {
             _gestionMultiplicar = gestion;
         }

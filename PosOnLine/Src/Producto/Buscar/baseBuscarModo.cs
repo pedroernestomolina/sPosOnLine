@@ -101,7 +101,6 @@ namespace PosOnLine.Src.Producto.Buscar
         public abstract void buscaPorDescripcion(string codBuscar);
         //
         public bool SeguirMismaLista { get { return _gestionListar.GetSalirMismaLista; } }
-        public bool ProductoSeleccionadoIsPesado { get { return _gestionListar.ProductoSeleccionadoIsPesado; } }
         public bool EstatusModoBusquedaPorCodigoBarra { get { return _estatusModoBusquedaCodigoBarra; } } 
     }
 }

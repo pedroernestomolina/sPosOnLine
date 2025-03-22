@@ -31,7 +31,7 @@ namespace PosOnLine.Src.Item
         decimal TotalIva { get; }
 
 
-        void setGestionMultiplicar(Multiplicar.Gestion _gestionMultiplicar);
+        void setGestionMultiplicar(Pos.IMultiplicar _gestionMultiplicar);
         void setGestionPendiente(Pendiente.Gestion _gestionPendiente);
         void setDepositoAsignado(OOB.Deposito.Entidad.Ficha _depositoAsignado);
         void setTarifaPrecio(string _precioManejar);

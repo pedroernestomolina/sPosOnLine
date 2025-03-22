@@ -14,8 +14,8 @@ namespace PosOnLine.Src.Producto.Buscar
         string AutoProducto { get; }
         bool BusquedaIsOk { get; }
         bool EstatusModoBusquedaPorCodigoBarra { get; }
-        bool ProductoSeleccionadoIsPesado { get; }
         bool SeguirMismaLista { get; }
+        //
         void setDepositoAsignado(PosOnLine.OOB.Deposito.Entidad.Ficha _depositoAsignado);
         void setGestionLista(PosOnLine.Src.Producto.Lista.IListaModo ctr);
         void setTarifaPrecio(string tarifa);

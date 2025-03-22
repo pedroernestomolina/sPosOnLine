@@ -7,17 +7,12 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.Pos
 {
-    
     public interface IMultiplicar
     {
-
-        bool MultiplicarIsOk { get; }
-        int CantidadIngresar { get; }
-
-
+        bool ProcesarIsOk { get; }
+        int Cantidad { get; }
+        //
         void Inicializa();
         void Inicia();
-
     }
-
 }

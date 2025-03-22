@@ -44,20 +44,15 @@ namespace PosOnLine.Src.Pos
         private OOB.Documento.Entidad.Ficha _docAplicarNotaCredito;
         private EnumModoFuncion _modoFuncion;
         private bool _permitirBusquedaPorDescripcion;
-        //private Producto.Lista.Gestion _gestionListar;
         private Producto.Lista.IListaModo _gestionListar;
         private Producto.Buscar.IBuscarModo _gestionBuscar;
-        //private Consultor.Gestion _gestionConsultor;
         private Consultor.IModo _gestionConsultor;
-        //private Item.Gestion _gestionItem;
         private Item.IModo _gestionItem;
-        private Multiplicar.Gestion _gestionMultiplicar;
         private Pago.Procesar.Gestion _gestionProcesarPago;
         private Pendiente.Gestion _gestionPendiente;
         private PassWord.Gestion _gestionPassW;
         private bool _isTickeraOk;
         private Helpers.Imprimir.IDocumento _ImprimirDoc;
-        //private PrecioMayor.Gestion _gestionMayor;
         private PrecioMayor.IModo _gestionMayor;
         private SolicitarPermiso.ISolicitarPermiso _gSolicitarPermiso;
         private IMultiplicar _gMultiplicar;
@@ -77,7 +72,6 @@ namespace PosOnLine.Src.Pos
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
         public string UsuarioActual { get { return Sistema.Usuario.codigo + Environment.NewLine + Sistema.Usuario.nombre; } }
         public string EquipoEstacion { get { return Sistema.EquipoEstacion; } }
-        //public string ClienteData { get { return _gestionCliente.ClienteData; } }
         public string ClienteData
         {
             get
@@ -137,32 +131,21 @@ namespace PosOnLine.Src.Pos
             _modoFuncion = EnumModoFuncion.Facturacion;
             _permitirBusquedaPorDescripcion = false;
 
-            //03/04
-            //_gestionMayor = new PrecioMayor.Gestion();
-            //_gestionListar = new Producto.Lista.Gestion();
-            //_gestionConsultor = new Consultor.Gestion();
-            //_gestionItem = new Item.Gestion();
-            //_gestionListar = new Producto.Lista.ModoAdm.ImpModoAdm();
-            //_gestionMayor = new PrecioMayor.ModoAdm.ImpModoAdm();
-            //_gestionConsultor = new Consultor.ModoAdm.ImpModoAdm();
-            //_gestionItem = new Item.ModoAdm.ImpModoAdm();
             _gestionListar = Sistema.MiFabrica.CreateInstace_PosGestionListar();
             _gestionMayor = Sistema.MiFabrica.CreateInstace_PosGestionMayor();
             _gestionConsultor = Sistema.MiFabrica.CreateInstace_PosGestionConsultor();
             _gestionItem = Sistema.MiFabrica.CreateInstace_PosGestionItem();
             _gestionBuscar = Sistema.MiFabrica.CreateInstace_PosGestionBuscar();
-
+            _gMultiplicar =new Multiplicar.Imp();
             _gestionBuscar.setGestionLista(_gestionListar);
             _gestionConsultor.setGestionBuscar(_gestionBuscar);
-            _gestionMultiplicar = new Multiplicar.Gestion();
+
             _gestionPendiente = new Pendiente.Gestion();
             _gestionItem.Hnd_Item_Cambio += _gestionItem_Hnd_Item_Cambio;
-            _gestionItem.setGestionMultiplicar(_gestionMultiplicar);
+            _gestionItem.setGestionMultiplicar(_gMultiplicar);
             _gestionItem.setGestionPendiente(_gestionPendiente);
             _gestionProcesarPago = new Pago.Procesar.Gestion();
             _gSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
-            //
-            _gMultiplicar = _gestionMultiplicar;
             //
             _clienteFicha = null;
         }
@@ -520,49 +503,43 @@ namespace PosOnLine.Src.Pos
 
         public void BuscarProducto(string cadena)
         {
-            if (cadena == "") { return; }
-
-            if (Sistema.Activar_VentasAdm)
-                if (_clienteFicha == null)
-                {
-                    Helpers.Msg.Alerta("POR FAVOR, DEBES PRIMERO SELECCIONAR UN CLIENTE PRIMERO");
-                    return;
-                }
-
-            if (_precioManejar == "") //MODO LIBRE, debe indicar un cliente, para mostrar precio
+            try
             {
-                if (_clienteFicha == null)
-                {
-                    Helpers.Msg.Alerta("DEBES INDICAR/SELECCIONAR UN CLIENTE POR FAVOR");
-                    return;
-                }
-            }
-            if (_modoFuncion != EnumModoFuncion.NotaCredito)
-            {
-                var _tarifaPrecioManejar = _precioManejar;
-                if (_precioManejar == "")
-                {
-                    if (_clienteFicha != null)
+                if (cadena == "") { return; }
+                if (Sistema.Activar_VentasAdm)
+                    if (_clienteFicha == null)
                     {
-                        _tarifaPrecioManejar = _clienteFicha.TarifaPrecio;
+                        throw new Exception("POR FAVOR, DEBES PRIMERO SELECCIONAR UN CLIENTE PRIMERO");
                     }
-                    else
+                if (_precioManejar == "") //MODO LIBRE, debe indicar un cliente, para mostrar precio
+                {
+                    if (_clienteFicha == null)
                     {
-                        _tarifaPrecioManejar = "1";
+                        throw new Exception("DEBES INDICAR/SELECCIONAR UN CLIENTE POR FAVOR");
                     }
                 }
-
-                do
+                if (_modoFuncion != EnumModoFuncion.NotaCredito)
                 {
-                    _gestionBuscar.setTarifaPrecio(_tarifaPrecioManejar);
-                    _gestionBuscar.ActivarBusqueda(cadena, _permitirBusquedaPorDescripcion);
-                    if (_gestionBuscar.BusquedaIsOk)
+                    var _tarifaPrecioManejar = _precioManejar;
+                    if (_precioManejar == "")
                     {
-
-                        var _autoPrd = _gestionBuscar.AutoProducto;
-                        var _tarifaPrecio = _tarifaPrecioManejar;
-                        if (!string.IsNullOrEmpty(_gestionBuscar.AutoProducto))
+                        if (_clienteFicha != null)
                         {
+                            _tarifaPrecioManejar = _clienteFicha.TarifaPrecio;
+                        }
+                        else
+                        {
+                            _tarifaPrecioManejar = "1";
+                        }
+                    }
+                    do
+                    {
+                        _gestionBuscar.setTarifaPrecio(_tarifaPrecioManejar);
+                        _gestionBuscar.ActivarBusqueda(cadena, _permitirBusquedaPorDescripcion);
+                        if (_gestionBuscar.BusquedaIsOk)
+                        {
+                            var _autoPrd = _gestionBuscar.AutoProducto;
+                            var _tarifaPrecio = _tarifaPrecioManejar;
                             if (Sistema.Sucursal.HabilitarVentaMayor)
                             {
                                 var _seg = 1;
@@ -581,46 +558,31 @@ namespace PosOnLine.Src.Pos
                                         _autoPrd = _gestionMayor.AutoProducto;
                                         _tarifaPrecio = _gestionMayor.TarifaSeleccionada;
                                     }
-                                    else 
+                                    else
                                     {
                                         _tarifaPrecio = "";
                                     }
                                 }
                             }
-                        }
-                        if (_autoPrd != "" && _tarifaPrecio != "") 
-                        {
-                            if (!_gestionBuscar.ProductoSeleccionadoIsPesado)
+                            if (_tarifaPrecio != "")
                             {
-                                var _cnt = 0;
-                                if (_gestionBuscar.EstatusModoBusquedaPorCodigoBarra)
-                                    _cnt = 1;
-                                else
-                                {
-                                    _gMultiplicar.Inicializa();
-                                    _gMultiplicar.Inicia();
-                                    if (_gMultiplicar.MultiplicarIsOk)
-                                    {
-                                        _cnt = _gMultiplicar.CantidadIngresar;
-                                    }
-                                }
-                                if (_cnt > 0m)
-                                {
-                                    _gestionItem.Inicializar();
-                                    _gestionItem.RegistraItem(_autoPrd, _tarifaPrecio, _cnt);
-                                }
-                            }
-                            else
-                            {
+                                var _cnt = 1;
+                                if (!_gestionBuscar.EstatusModoBusquedaPorCodigoBarra)
+                                    _cnt = 0;
                                 _gestionItem.Inicializar();
-                                _gestionItem.RegistraItem(_autoPrd, _tarifaPrecio);
+                                _gestionItem.RegistraItem(_autoPrd, _tarifaPrecio, _cnt);
                             }
                         }
+                        else
+                            _gestionItem.setItemActualInicializar();
                     }
-                    else
-                        _gestionItem.setItemActualInicializar();
+                    while ((_gestionBuscar.SeguirMismaLista != true && Sistema.HabilitarLoopAlActivarModoBusqueda) && !_gestionBuscar.EstatusModoBusquedaPorCodigoBarra);
                 }
-                while ((_gestionBuscar.SeguirMismaLista != true && Sistema.HabilitarLoopAlActivarModoBusqueda) && !_gestionBuscar.EstatusModoBusquedaPorCodigoBarra);
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Alerta(e.Message);
+                return;
             }
         }
 
@@ -2862,9 +2824,9 @@ namespace PosOnLine.Src.Pos
                         }
                         _gMultiplicar.Inicializa();
                         _gMultiplicar.Inicia();
-                        if (_gMultiplicar.MultiplicarIsOk)
+                        if (_gMultiplicar.ProcesarIsOk)
                         {
-                            _gestionItem.SetCantIncrementar(it, _gMultiplicar.CantidadIngresar);
+                            _gestionItem.SetCantIncrementar(it, _gMultiplicar.Cantidad);
                         }
                     }
                 }

@@ -111,7 +111,6 @@ namespace PosOnLine.Src.Producto.Lista.ModoAdm
                 {
                     var nr = new imp_dataPrd();
                     nr.setPrd(rg.key.auto, rg.key.codigo, rg.key.nombre, rg.key.exDisponible, rg.key.plu);
-
                     //
                     IEmp hnd_Compra = new imp_emp();
                     hnd_Compra.setContEmp(rg.key.contEmpCompra);
@@ -170,13 +169,9 @@ namespace PosOnLine.Src.Producto.Lista.ModoAdm
                 return false;
             }
         }
-
-
         public bool GetSalirMismaLista
         {
             get { return true; }
         }
-        //
-        public bool ProductoSeleccionadoIsPesado { get { return false; } }
     }
 }

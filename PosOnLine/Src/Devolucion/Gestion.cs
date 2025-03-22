@@ -20,7 +20,7 @@ namespace PosOnLine.Src.Devolucion
 
         private BindingList<Item.data> _bl;
         private BindingSource _bs;
-        private Multiplicar.Gestion _gMult;
+        private Multiplicar.Imp _gMult;
 
 
         public decimal MontoSubTotal { get { return _bl.Sum(f => f.MontoTotal()); } }
@@ -32,7 +32,7 @@ namespace PosOnLine.Src.Devolucion
             _bl = new BindingList<Item.data>();
             _bs = new BindingSource();
             _bs.DataSource = _bl;
-            _gMult = new Multiplicar.Gestion();
+            _gMult = new Multiplicar.Imp();
         }
 
 
@@ -137,7 +137,7 @@ namespace PosOnLine.Src.Devolucion
                 var it = (Item.data)_bs.Current;
                 _gMult.Inicializa();
                 _gMult.Inicia();
-                if (_gMult.MultiplicarIsOk)
+                if (_gMult.ProcesarIsOk)
                 {
                     if (_gMult.Cantidad >= it.Cantidad)
                     {

@@ -782,7 +782,7 @@
     <Compile Include="Src\IGestion.cs" />
     <Compile Include="Src\Item\data.cs" />
     <Compile Include="Src\Item\Gestion.cs" />
-    <Compile Include="Src\Multiplicar\Gestion.cs" />
+    <Compile Include="Src\Multiplicar\Imp.cs" />
     <Compile Include="Src\Multiplicar\MultiplicarFrm.cs">
       <SubType>Form</SubType>
     </Compile>
