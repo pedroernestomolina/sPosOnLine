@@ -498,6 +498,7 @@
     </Compile>
     <Compile Include="Src\Pedido\SolicitarNumeroPedido\HndSolicitud.cs" />
     <Compile Include="Src\Pedido\SolicitarNumeroPedido\ISolicitud.cs" />
+    <Compile Include="Src\Pos\IListaPorPlu.cs" />
     <Compile Include="Src\Pos\PosPedidoFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -584,6 +585,7 @@
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IListaCliente.cs" />
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IVista.cs" />
     <Compile Include="Src\Zufu\IPosZufuCliente.cs" />
+    <Compile Include="Src\Zufu\ListaPorPlu\Imp.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\Imp.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\IAbandonar.cs" />
     <Compile Include="Src\_\Ctrl\Boton\baseImp.cs" />

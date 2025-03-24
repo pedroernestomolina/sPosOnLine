@@ -127,55 +127,6 @@ namespace PosOnLine.Src.Item
 
                     if (_modoFactura)
                     {
-
-                        //var autoPrd = it.Ficha.autoProducto;
-                        //var t01 = Sistema.MyData.Producto_GetFichaById(autoPrd);
-                        //if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                        //{
-                        //    Helpers.Msg.Error(t01.Mensaje);
-                        //    return false;
-                        //}
-
-                        //switch (_tarifaPrecio)
-                        //{
-                        //    case "1":
-                        //        pneto = t01.Entidad.pneto_1;
-                        //        tarifa = "1";
-                        //        pdivisa = t01.Entidad.pdf_1;
-                        //        break;
-                        //    case "2":
-                        //        pneto = t01.Entidad.pneto_2;
-                        //        tarifa = "2";
-                        //        pdivisa = t01.Entidad.pdf_2;
-                        //        break;
-                        //    case "3":
-                        //        pneto = t01.Entidad.pneto_3;
-                        //        tarifa = "3";
-                        //        pdivisa = t01.Entidad.pdf_3;
-                        //        break;
-                        //    case "4":
-                        //        pneto = t01.Entidad.pneto_4;
-                        //        tarifa = "4";
-                        //        pdivisa = t01.Entidad.pdf_4;
-                        //        break;
-                        //    case "5":
-                        //        pneto = t01.Entidad.pneto_5;
-                        //        tarifa = "5";
-                        //        pdivisa = t01.Entidad.pdf_5;
-                        //        break;
-                        //}
-
-                        //if (_habilitarPos_precio_5_para_venta_mayor)
-                        //{
-                        //    var xcnt = Items.Where(f => f.Ficha.autoProducto == autoPrd).Sum(f => f.Cantidad);
-                        //    if ((xcnt - 1) >= t01.Entidad.contenido_5)
-                        //    {
-                        //        pneto = t01.Entidad.pneto_5;
-                        //        tarifa = "5";
-                        //        pdivisa = t01.Entidad.pdf_5;
-                        //    }
-                        //}
-
                         var ficha = new OOB.Venta.Item.ActualizarCantidad.Disminuir.Ficha()
                         {
                             idOperador = it.Ficha.idOperador,
@@ -766,57 +717,6 @@ namespace PosOnLine.Src.Item
                             var pneto = it.Ficha.pneto;
                             var tarifa = it.Ficha.tarifaPrecio;
                             var pdivisa = it.Ficha.pfullDivisa;
-
-                            //var autoPrd = it.Ficha.autoProducto;
-                            //var t01 = Sistema.MyData.Producto_GetFichaById(autoPrd);
-                            //if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                            //{
-                            //    Helpers.Msg.Error(t01.Mensaje);
-                            //    return;
-                            //}
-
-                            //var pneto = 0.0m;
-                            //var tarifa = "";
-                            //var pdivisa = 0.0m;
-                            //switch (_tarifaPrecio)
-                            //{
-                            //    case "1":
-                            //        pneto = t01.Entidad.pneto_1;
-                            //        tarifa = "1";
-                            //        pdivisa = t01.Entidad.pdf_1;
-                            //        break;
-                            //    case "2":
-                            //        pneto = t01.Entidad.pneto_2;
-                            //        tarifa = "2";
-                            //        pdivisa = t01.Entidad.pdf_2;
-                            //        break;
-                            //    case "3":
-                            //        pneto = t01.Entidad.pneto_3;
-                            //        tarifa = "3";
-                            //        pdivisa = t01.Entidad.pdf_3;
-                            //        break;
-                            //    case "4":
-                            //        pneto = t01.Entidad.pneto_4;
-                            //        tarifa = "4";
-                            //        pdivisa = t01.Entidad.pdf_4;
-                            //        break;
-                            //    case "5":
-                            //        pneto = t01.Entidad.pneto_5;
-                            //        tarifa = "5";
-                            //        pdivisa = t01.Entidad.pdf_5;
-                            //        break;
-                            //}
-
-                            //if (_habilitarPos_precio_5_para_venta_mayor) 
-                            //{
-                            //    var xcnt = Items.Where(f => f.Ficha.autoProducto == autoPrd).Sum(f => f.Cantidad);
-                            //    if ((xcnt - 1) >= t01.Entidad.contenido_5)
-                            //    {
-                            //        pneto = t01.Entidad.pneto_5;
-                            //        tarifa = "5";
-                            //        pdivisa = t01.Entidad.pdf_5;
-                            //    }
-                            //}
 
                             var ficha = new OOB.Venta.Item.ActualizarCantidad.Disminuir.Ficha()
                             {

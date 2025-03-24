@@ -488,13 +488,6 @@ namespace PosOnLine.Src.Pos
 
         public void Consultor()
         {
-            var r01 = Sistema.MyData.Configuracion_Habilitar_Precio5_VentaMayor();
-            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r01.Mensaje);
-                return;
-            }
-
             _gestionConsultor.Inicializa();
             _gestionConsultor.setFactorCambio(_tasaCambioActual);
             _gestionConsultor.Inicia();
@@ -1544,33 +1537,26 @@ namespace PosOnLine.Src.Pos
             _gestionItem.setItemActualInicializar();
         }
 
+        private IListaPorPlu _gestionListaPorPlu;
         public void ListaPlu()
         {
             if (!IsNotaCredito)
             {
-                var filtro = new OOB.Producto.Lista.Filtro()
-                {
-                    autoDeposito = _depositoAsignado.id,
-                    cadena = "",
-                    idPrecioManejar = _precioManejar,
-                    isPorPlu = true,
-                };
-                var r04 = Sistema.MyData.Producto_GetLista(filtro);
-                if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                {
-                    Helpers.Msg.Error(r04.Mensaje);
-                    return;
+                if (_gestionListaPorPlu == null)
+                { 
+                    _gestionListaPorPlu= Sistema.MiFabrica.CreateInstace_PosListaPorPlu();
+                    if (_gestionListaPorPlu == null) 
+                    {
+                        Helpers.Msg.Alerta("OPCION NO IMPLEMENTADA");
+                        return;
+                    }
                 }
-                _gestionListar.Inicializa();
-                _gestionListar.setData(r04.ListaD, _tasaCambioActual);
-                _gestionListar.setFiltroPrdListar(filtro);
-                _gestionListar.Inicia();
-                if (_gestionListar.ItemSeleccionIsOk)
-                {
-                    _gestionItem.Inicializar();
-                    var _autoPrd = _gestionListar.IdItemSeleccionado;
-                    _gestionItem.RegistraItem(_autoPrd, _precioManejar);
-                }
+                _gestionListaPorPlu.Inicializa();
+                _gestionListaPorPlu.setPrecioTarifa(_precioManejar);
+                _gestionListaPorPlu.setIdDepositoBuscar(_depositoAsignado.id);
+                _gestionListaPorPlu.setGestionListaModo(_gestionListar);
+                _gestionListaPorPlu.setGestionItemModo(_gestionItem);
+                _gestionListaPorPlu.Gestiona();
             }
         }
 

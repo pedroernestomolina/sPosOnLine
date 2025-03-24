@@ -53,5 +53,11 @@ namespace PosOnLine.Src
         {
             return new Producto.Buscar.ZUFU.Imp();
         }
+        //
+        public Pos.IListaPorPlu 
+            CreateInstace_PosListaPorPlu()
+        {
+            return null;
+        }
     }
 }

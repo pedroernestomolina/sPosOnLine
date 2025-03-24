@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>192.168.100.240</Instancia>
+    <Instancia>10.10.100.155</Instancia>
     <Catalogo>zufu</Catalogo>
   </Servidor>
   <IdEquipo>3</IdEquipo>

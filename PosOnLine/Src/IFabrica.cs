@@ -27,5 +27,8 @@ namespace PosOnLine.Src
         //
         ReglasNegocio.IReglas
             CreateInstace_ReglasNegocio();
+        //
+        Pos.IListaPorPlu 
+            CreateInstace_PosListaPorPlu();
     }
 }
