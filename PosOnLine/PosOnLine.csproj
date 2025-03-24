@@ -498,6 +498,7 @@
     </Compile>
     <Compile Include="Src\Pedido\SolicitarNumeroPedido\HndSolicitud.cs" />
     <Compile Include="Src\Pedido\SolicitarNumeroPedido\ISolicitud.cs" />
+    <Compile Include="Src\Pos\IClientePorDefecto.cs" />
     <Compile Include="Src\Pos\IListaPorPlu.cs" />
     <Compile Include="Src\Pos\PosPedidoFrm.cs">
       <SubType>Form</SubType>
@@ -553,6 +554,7 @@
       <DependentUpon>Frm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Zufu\CambioPrecioPrdComp\PanelInformativo\Vista\IVista.cs" />
+    <Compile Include="Src\Zufu\ClientePorDefecto\Imp.cs" />
     <Compile Include="Src\Zufu\IPosZufuCambioPrecioPrd.cs" />
     <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Handler\Editar.cs" />
     <Compile Include="Src\Zufu\ClienteComp\AgregarEditar\Handler\Agregar.cs" />
@@ -756,16 +758,16 @@
       <DependentUpon>CnfSucDepFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\Configuracion\SucursalDeposito\Gestion.cs" />
-    <Compile Include="Src\Consultor\ConsultorFrm.cs">
+    <Compile Include="Src\Consultor\ZUFU\ConsultorFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Src\Consultor\ConsultorFrm.Designer.cs">
+    <Compile Include="Src\Consultor\ZUFU\ConsultorFrm.Designer.cs">
       <DependentUpon>ConsultorFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Src\Consultor\data.cs" />
-    <Compile Include="Src\Consultor\Existencia.cs" />
-    <Compile Include="Src\Consultor\Gestion.cs" />
-    <Compile Include="Src\Consultor\Precio.cs" />
+    <Compile Include="Src\Consultor\ZUFU\data.cs" />
+    <Compile Include="Src\Consultor\ZUFU\Existencia.cs" />
+    <Compile Include="Src\Consultor\ZUFU\Gestion.cs" />
+    <Compile Include="Src\Consultor\ZUFU\Precio.cs" />
     <Compile Include="Src\Devolucion\dataDev.cs" />
     <Compile Include="Src\Devolucion\DevolucionFrm.cs">
       <SubType>Form</SubType>
@@ -1014,7 +1016,7 @@
     <EmbeddedResource Include="Src\Configuracion\SucursalDeposito\CnfSucDepFrm.resx">
       <DependentUpon>CnfSucDepFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\Consultor\ConsultorFrm.resx">
+    <EmbeddedResource Include="Src\Consultor\ZUFU\ConsultorFrm.resx">
       <DependentUpon>ConsultorFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Devolucion\DevolucionFrm.resx">

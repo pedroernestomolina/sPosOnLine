@@ -5,19 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Src.Consultor
+namespace PosOnLine.Src.Consultor.ZUFU
 {
-
     public class data
     {
-
         private OOB.Producto.Entidad.Ficha _ficha;
         private Precio _precio_1;
         private Precio _precio_2;
         private Precio _precio_3;
         private Existencia _existencia;
-
-
+        //
         public string CodigoPrd { get { return _ficha.CodigoPrd; } }
         public string CodigoPlu { get { return _ficha.CodigoPLU; } }
         public string CodigoBarra { get; set; }
@@ -45,8 +42,7 @@ namespace PosOnLine.Src.Consultor
                 return rt ;
             }
         }
-
-
+        //
         public data() 
         {
             _precio_1 = new Precio();
@@ -54,15 +50,13 @@ namespace PosOnLine.Src.Consultor
             _precio_3 = new Precio();
             _existencia = new Existencia();
         }
-
         public void setData(OOB.Producto.Entidad.Ficha fichaPrd, string _tarifaPrecio, OOB.Producto.Existencia.Entidad.Ficha fichaEx, decimal factorCambio)
         {
             _ficha = fichaPrd;
-            _precio_1.Limpiar();
-            _precio_2.Limpiar();
-            _precio_3.Limpiar();
-            _existencia.Limpiar();
-
+            _precio_1.Inicializa();
+            _precio_2.Inicializa();
+            _precio_3.Inicializa();
+            _existencia.Inicializa();
             switch (_tarifaPrecio)
             {
                 case "1":
@@ -91,7 +85,5 @@ namespace PosOnLine.Src.Consultor
             }
             _existencia.setData(fichaEx, 1);
         }
-
     }
-
 }

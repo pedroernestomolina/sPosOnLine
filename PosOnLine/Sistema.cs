@@ -16,6 +16,29 @@ namespace PosOnLine
             public bool Activar { get; set; }
             public int Puerto { get; set; }
         }
+        public class ClientePorDefecto
+        {
+            public bool HabilitarOpcion { get; set; }
+            public string IdCli { get; set; }
+            public string CodigoCli { get; set; }
+            public string CiRifCli { get; set; }
+            public string NombreCli { get; set; }
+            public string DirFiscalCli { get; set; }
+            public string TelefonoCli { get; set; }
+            public string EstatusCli { get; set; }
+            public string EstatusCreditoCli { get; set; }
+            public ClientePorDefecto()
+            {
+                IdCli = "";
+                CodigoCli = "";
+                CiRifCli = "";
+                NombreCli="";
+                DirFiscalCli = "";
+                TelefonoCli = "";
+                EstatusCli = "";
+                EstatusCreditoCli = "";
+            }
+        }
 
         static public IData MyData;
         static public Lib.Controles.BalanzaSoloPeso.IBalanza MyBalanza;
@@ -115,5 +138,8 @@ namespace PosOnLine
 
         //
         public static bool HabilitarLoopAlActivarModoBusqueda = false;
+
+        //
+        public static ClientePorDefecto FichaClientexDefecto = new ClientePorDefecto();
     }
 }

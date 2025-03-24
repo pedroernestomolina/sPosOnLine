@@ -30,5 +30,8 @@ namespace PosOnLine.Src
         //
         Pos.IListaPorPlu 
             CreateInstace_PosListaPorPlu();
+        //
+        Pos.IClientePorDefecto 
+            CreateInstace_ClientePorDefecto();
     }
 }

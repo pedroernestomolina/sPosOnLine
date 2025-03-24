@@ -59,5 +59,11 @@ namespace PosOnLine.Src
         {
             return null;
         }
+        //
+        public Pos.IClientePorDefecto 
+            CreateInstace_ClientePorDefecto()
+        {
+            return null;
+        }
     }
 }

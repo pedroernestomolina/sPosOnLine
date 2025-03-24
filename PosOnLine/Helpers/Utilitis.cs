@@ -235,6 +235,42 @@ namespace PosOnLine.Helpers
                                     }
                                 }
                                 
+                                if (nv.LocalName.ToUpper().Trim() == "CLIENTE_POR_DEFECTO")
+                                {
+                                    foreach (XmlNode mi in nv.ChildNodes)
+                                    {
+                                        if (mi.LocalName.Trim().ToUpper() == "HABILITAR_OPCION")
+                                        {
+                                            Sistema.FichaClientexDefecto.HabilitarOpcion = mi.InnerText.Trim().ToUpper()=="SI";
+                                        }
+                                        if (mi.LocalName.Trim().ToUpper() == "ID_BUSCAR")
+                                        {
+                                            Sistema.FichaClientexDefecto.IdCli = mi.InnerText.Trim().ToUpper();
+                                        }
+                                        if (mi.LocalName.Trim().ToUpper() == "CODIGO_ASIGNAR")
+                                        {
+                                            Sistema.FichaClientexDefecto.CodigoCli = mi.InnerText.Trim().ToUpper();
+                                        }
+                                        if (mi.LocalName.Trim().ToUpper() == "CIRIF_ASIGNAR")
+                                        {
+                                            Sistema.FichaClientexDefecto.CiRifCli = mi.InnerText.Trim().ToUpper();
+                                        }
+                                        if (mi.LocalName.Trim().ToUpper() == "NOMBRE_ASIGNAR")
+                                        {
+                                            Sistema.FichaClientexDefecto.NombreCli = mi.InnerText.Trim().ToUpper();
+                                        }
+                                        if (mi.LocalName.Trim().ToUpper() == "DIRFISCAL_ASIGNAR")
+                                        {
+                                            Sistema.FichaClientexDefecto.DirFiscalCli= mi.InnerText.Trim();
+                                        }
+                                        if (mi.LocalName.Trim().ToUpper() == "TELEFONO_ASIGNAR")
+                                        {
+                                            Sistema.FichaClientexDefecto.TelefonoCli = mi.InnerText.Trim().ToUpper();
+                                        }
+                                    }
+                                }
+
+                                
                                 if (nv.LocalName.ToUpper().Trim() == "DATOSNEGOCIOTICKET")
                                 {
                                     foreach (XmlNode mi in nv.ChildNodes)

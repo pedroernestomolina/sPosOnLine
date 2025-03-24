@@ -14,7 +14,7 @@
   <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
   <ModoImpresionNCredito>T80</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
-  <ActivarModoSoloDocPendiente>SI</ActivarModoSoloDocPendiente>
+  <ActivarModoSoloDocPendiente>no</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>SI</HabilitarAbrirDocPendOtrosUsuarios>
   <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>
@@ -31,4 +31,13 @@
   </Impresora_Fiscal>
   <Simbolo_Divisa_Ticket>$</Simbolo_Divisa_Ticket> <!-- POR DEFECTO $, PERO PUEDE SER Ref-->
   <HABILITAR_LOOP_AL_ACTIVAR_MODO_BUSQUEDA>si</HABILITAR_LOOP_AL_ACTIVAR_MODO_BUSQUEDA>
+  <Cliente_Por_Defecto>
+    <Habilitar_Opcion>SI</Habilitar_Opcion>
+    <Id_Buscar>0000000001</Id_Buscar>
+    <Codigo_Asignar></Codigo_Asignar>
+    <CiRif_Asignar>V7127658</CiRif_Asignar>
+    <Nombre_Asignar>PEDRO MOLINA</Nombre_Asignar>
+    <DirFiscal_Asignar>SAN DIEGO, CARABOBO</DirFiscal_Asignar>
+    <Telefono_Asignar></Telefono_Asignar>
+  </Cliente_Por_Defecto>
 </Configuracion>

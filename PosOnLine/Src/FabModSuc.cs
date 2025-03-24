@@ -22,7 +22,7 @@ namespace PosOnLine.Src
         public Consultor.IModo 
             CreateInstace_PosGestionConsultor()
         {
-            return new Consultor.Gestion();
+            return new Consultor.ZUFU.Gestion();
         }
         public Item.IModo 
             CreateInstace_PosGestionItem()
@@ -57,6 +57,12 @@ namespace PosOnLine.Src
             CreateInstace_PosListaPorPlu()
         {
             return new Zufu.ListaPorPlu.Imp();
+        }
+        //
+        public Pos.IClientePorDefecto 
+            CreateInstace_ClientePorDefecto()
+        {
+            return new Zufu.ClientePorDefecto.Imp();
         }
     }
 }

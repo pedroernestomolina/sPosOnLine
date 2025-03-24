@@ -455,6 +455,9 @@ namespace PosOnLine.Src.Pos
                     Helpers.Msg.Error(v00.Mensaje);
                     return false;
                 }
+                v00.Entidad.CiRif = _docAplicarNotaCredito.CiRif;
+                v00.Entidad.Nombre = _docAplicarNotaCredito.RazonSocial;
+                v00.Entidad.DireccionFiscal = _docAplicarNotaCredito.DirFiscal;
                 _clienteFicha = v00.Entidad;
                 _gestionCliente.CargarFicha(_clienteFicha);
             }
@@ -488,9 +491,15 @@ namespace PosOnLine.Src.Pos
 
         public void Consultor()
         {
+            _gestionBuscar.setDepositoAsignado(_depositoAsignado);
+            _gestionBuscar.setTarifaPrecio(_precioManejar);
+            _gestionBuscar.setGestionLista(_gestionListar);
+            //
             _gestionConsultor.Inicializa();
-            _gestionConsultor.setFactorCambio(_tasaCambioActual);
+            _gestionConsultor.setGestionBuscar(_gestionBuscar);
+            _gestionConsultor.setTarifaPrecio(_precioManejar);
             _gestionConsultor.Inicia();
+            //
             _gestionItem.setItemActualInicializar();
         }
 
@@ -723,94 +732,111 @@ namespace PosOnLine.Src.Pos
             _gestionItem.setData(r01.ListaD, _tasaCambioActual);
         }
 
+        private IClientePorDefecto _gestionClientePorDefecto;
         public void Totalizar()
         {
-            if (Importe > 0)
+            try
             {
-                if (CantRenglones > 0)
+                if (Importe > 0)
                 {
-                    if (_clienteFicha == null)
+                    if (CantRenglones > 0)
                     {
-                        Helpers.Msg.Error("DEBE SELECCIONAR UN CLIENTE PARA PROCESAR DOCUMENTO");
-                        return;
-                    }
-                    if (Sistema.ModoSoloDocPendiente)
-                    {
-                        Helpers.Msg.Error("OPCION NO PERMITIDA," + Environment.NewLine + "SOLO PODRAS DEJAR EL DOCUMENTO EN PENDIENTE" + Environment.NewLine + "VERIFICA POR FAVOR...");
-                        return;
-                    }
-                    if (_modoFuncion == EnumModoFuncion.Facturacion)
-                    {
-                        if (!PassWIsOk(Sistema.FuncionPosElaborarFacturaVenta))
+                        if (_clienteFicha == null)
                         {
-                            return;
+                            if (_gestionClientePorDefecto == null) 
+                            {
+                                _gestionClientePorDefecto = Sistema.MiFabrica.CreateInstace_ClientePorDefecto();
+                            }
+                            if (_gestionClientePorDefecto!=null && Sistema.FichaClientexDefecto.HabilitarOpcion)
+                            {
+                                _clienteFicha = (OOB.Cliente.Entidad.Ficha)_gestionClientePorDefecto.GetClientePorDefecto();
+                            }
+                            else 
+                            {
+                                throw new Exception("DEBES SELECCIONAR UN CLIENTE");
+                            }
                         }
-                        _gestionProcesarPago.Inicializar();
-                        _gestionProcesarPago.setCliente(ClienteData);
-                        _gestionProcesarPago.setDataCliente(_clienteFicha);
-                        _gestionProcesarPago.setImporte(_gestionItem.Importe);
-                        _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
-                        //
-                        // IGTF
-                        _gestionProcesarPago.setTasaIGTF(_tasaIGTF);
-                        _gestionProcesarPago.setAplicarIGTF(_activarIGTF);
-                        //
-                        _gestionProcesarPago.Inicia();
-                        if (_gestionProcesarPago.PagoIsOk)
+                        if (Sistema.ModoSoloDocPendiente)
                         {
-                            ProcesarFactura();
+                            throw new Exception("OPCION NO PERMITIDA," + Environment.NewLine + "SOLO PODRAS DEJAR EL DOCUMENTO EN PENDIENTE" + Environment.NewLine + "VERIFICA POR FAVOR...");
                         }
-                    }
-                    else if (_modoFuncion == EnumModoFuncion.NotaCredito)
-                    {
-                        var msg = MessageBox.Show("Procesar Nota De Crédito ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                        if (msg == DialogResult.Yes)
+                        if (_modoFuncion == EnumModoFuncion.Facturacion)
                         {
+                            if (!PassWIsOk(Sistema.FuncionPosElaborarFacturaVenta))
+                            {
+                                return;
+                            }
                             _gestionProcesarPago.Inicializar();
                             _gestionProcesarPago.setCliente(ClienteData);
+                            _gestionProcesarPago.setDataCliente(_clienteFicha);
                             _gestionProcesarPago.setImporte(_gestionItem.Importe);
                             _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
-                            _gestionProcesarPago.setNotaCredito(true);
-                            if (_docAplicarNotaCredito.isContado)
+                            //
+                            // IGTF
+                            _gestionProcesarPago.setTasaIGTF(_tasaIGTF);
+                            _gestionProcesarPago.setAplicarIGTF(_activarIGTF);
+                            //
+                            _gestionProcesarPago.Inicia();
+                            if (_gestionProcesarPago.PagoIsOk)
                             {
-                                _gestionProcesarPago.Inicia();
-                                if (_gestionProcesarPago.PagoIsOk)
+                                ProcesarFactura();
+                            }
+                        }
+                        else if (_modoFuncion == EnumModoFuncion.NotaCredito)
+                        {
+                            var msg = MessageBox.Show("Procesar Nota De Crédito ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                            if (msg == DialogResult.Yes)
+                            {
+                                _gestionProcesarPago.Inicializar();
+                                _gestionProcesarPago.setCliente(ClienteData);
+                                _gestionProcesarPago.setImporte(_gestionItem.Importe);
+                                _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
+                                _gestionProcesarPago.setNotaCredito(true);
+                                if (_docAplicarNotaCredito.isContado)
+                                {
+                                    _gestionProcesarPago.Inicia();
+                                    if (_gestionProcesarPago.PagoIsOk)
+                                    {
+                                        ProcesarNotaCredito();
+                                    }
+                                }
+                                else
                                 {
                                     ProcesarNotaCredito();
                                 }
                             }
-                            else
-                            {
-                                ProcesarNotaCredito();
-                            }
                         }
-                    }
-                    else
-                    {
-                        var msg = MessageBox.Show("Procesar Nota De Entrega ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                        if (msg == DialogResult.Yes)
+                        else
                         {
-                            var rt = _gestionItem.Importe;
-                            if (rglaNegocio.MontoAplicarNotaEntregaSinIva())
+                            var msg = MessageBox.Show("Procesar Nota De Entrega ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                            if (msg == DialogResult.Yes)
                             {
-                                var MontoIva = _gestionItem.TotalIva;
-                                rt -= MontoIva;
-                                rt = Math.Round(rt, 2);
-                            }
+                                var rt = _gestionItem.Importe;
+                                if (rglaNegocio.MontoAplicarNotaEntregaSinIva())
+                                {
+                                    var MontoIva = _gestionItem.TotalIva;
+                                    rt -= MontoIva;
+                                    rt = Math.Round(rt, 2);
+                                }
 
-                            _gestionProcesarPago.Inicializar();
-                            _gestionProcesarPago.setCliente(ClienteData);
-                            _gestionProcesarPago.setDataCliente(_clienteFicha);
-                            _gestionProcesarPago.setImporte(rt);
-                            _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
-                            _gestionProcesarPago.Inicia();
-                            if (_gestionProcesarPago.PagoIsOk)
-                            {
-                                ProcesarNotaEntreag_2();
+                                _gestionProcesarPago.Inicializar();
+                                _gestionProcesarPago.setCliente(ClienteData);
+                                _gestionProcesarPago.setDataCliente(_clienteFicha);
+                                _gestionProcesarPago.setImporte(rt);
+                                _gestionProcesarPago.setTasaCambio(_tasaCambioActual);
+                                _gestionProcesarPago.Inicia();
+                                if (_gestionProcesarPago.PagoIsOk)
+                                {
+                                    ProcesarNotaEntreag_2();
+                                }
                             }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
             }
             _gestionItem.setItemActualInicializar();
         }
@@ -2800,7 +2826,6 @@ namespace PosOnLine.Src.Pos
             {
                 if (PassWIsOk(Sistema.FuncionPosTeclaMultiplicar))
                 {
-                    //_gestionItem.Multiplicar();
                     if (Item != null)
                     {
                         var it = (Item.data)Item;
@@ -2824,7 +2849,6 @@ namespace PosOnLine.Src.Pos
             {
                 if (PassWIsOk(Sistema.FuncionPosTeclaSumar))
                 {
-                    //_gestionItem.Incrementar();
                     if (Item != null)
                     {
                         var it = (Item.data)Item;
