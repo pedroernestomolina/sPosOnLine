@@ -133,7 +133,9 @@ namespace PosOnLine.Data.Prov
                 baseAplicaIGTFMonDiv = ficha.baseAplicaIGTFMonDiv,
                 montoIGTF = ficha.montoIGTF,
                 //
-                estatusMostrarLibroVenta = ficha.AplicarLiBroVenta?"1":"",
+                estatusMostrarLibroVenta = ficha.AplicarLiBroVenta ? "1" : "",
+                // 
+                estatusCredito = ficha.EstatusCredito,
             };
             var detalles = ficha.Detalles.Select(s =>
             {

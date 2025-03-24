@@ -270,5 +270,7 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public decimal montoIGTF { get; set; }
         //
         public bool AplicarLiBroVenta { get; set; }
+        //
+        public string EstatusCredito { get; set; }
     }
 }

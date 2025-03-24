@@ -1017,6 +1017,7 @@ namespace PosOnLine.Src.Pos
                 baseAplicaIGTFMonDiv = _gestionProcesarPago.BaseAplicaIGTFMonDiv,
                 montoIGTF = _gestionProcesarPago.MontoPorIGTF,
                 AplicarLiBroVenta = _serieFactura.EstatusAplicaLibroVenta,
+                EstatusCredito = isCredito ? "1" : "0",
             };
 
             var medidas = _gestionItem.Items.
