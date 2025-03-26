@@ -524,12 +524,16 @@ namespace PosOnLine.Src.Configuracion
 
         private void ND_LIMITE_SUPERIOR_Leave(object sender, EventArgs e)
         {
+            if (ND_LIMITE_SUPERIOR.Text.Trim() == "") return;
+            //
             var v= decimal.Parse(ND_LIMITE_SUPERIOR.Text);
             _controlador.setLimiteSuperior(v);
         }
 
         private void ND_LIMITE_INFERIOR_Leave(object sender, EventArgs e)
         {
+            if (ND_LIMITE_INFERIOR.Text.Trim() == "") return;
+            //
             var v = decimal.Parse(ND_LIMITE_INFERIOR.Text);
             _controlador.setLimiteInferior(v);
         }

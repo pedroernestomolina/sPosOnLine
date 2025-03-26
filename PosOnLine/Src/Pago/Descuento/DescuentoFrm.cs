@@ -66,6 +66,8 @@ namespace PosOnLine.Src.Pago.Descuento
 
         private void TB_CANTIDAD_Leave(object sender, EventArgs e)
         {
+            if (TB_CANTIDAD.Text.Trim() == "") return;
+            //
             _controlador.setPorcentaje(decimal.Parse(TB_CANTIDAD.Text.Trim()));
         }
 

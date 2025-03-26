@@ -120,10 +120,10 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         {
             L_FECHA_HORA.Text = "";
             L_USUARIO.Text = "";
-            TB_EFECTIVO.Text = "0";
-            TB_CNT_DIVISA.Text = "0";
-            TB_OTRO.Text = "0";
-            TB_TARJETA.Text = "0";
+            TB_EFECTIVO.Text = "";
+            TB_CNT_DIVISA.Text = "";
+            TB_OTRO.Text = "";
+            TB_TARJETA.Text = "";
         }
 
         public void setControlador(Gestion ctr)
@@ -203,6 +203,8 @@ namespace PosOnLine.Src.Cierre.NoFiscal
 
         private void TB_CNT_DIVISA_Leave(object sender, EventArgs e)
         {
+            if (TB_CNT_DIVISA.Text.Trim() == "") return;
+            //
             var cntDivisa = int.Parse(TB_CNT_DIVISA.Text);
             _controlador.setCntDivisa(cntDivisa);
             ActualizarData();
@@ -210,6 +212,8 @@ namespace PosOnLine.Src.Cierre.NoFiscal
 
         private void TB_EFECTIVO_Leave(object sender, EventArgs e)
         {
+            if (TB_EFECTIVO.Text.Trim() == "") return;
+            //
             var mEfectivo = decimal.Parse(TB_EFECTIVO.Text);
             _controlador.setEfectivo(mEfectivo);
             ActualizarData();
@@ -217,6 +221,8 @@ namespace PosOnLine.Src.Cierre.NoFiscal
 
         private void TB_TARJETA_Leave(object sender, EventArgs e)
         {
+            if (TB_TARJETA.Text.Trim() == "") return;
+            //
             var mTarjeta = decimal.Parse(TB_TARJETA.Text);
             _controlador.setTarjeta(mTarjeta);
             ActualizarData();
@@ -224,6 +230,8 @@ namespace PosOnLine.Src.Cierre.NoFiscal
 
         private void TB_OTRO_Leave(object sender, EventArgs e)
         {
+            if (TB_OTRO.Text.Trim() == "") return;
+            //
             var mOtro = decimal.Parse(TB_OTRO.Text);
             _controlador.setOtro(mOtro);
             ActualizarData();

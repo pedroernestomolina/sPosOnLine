@@ -98,18 +98,24 @@ namespace PosOnLine.Src.Pago.ValidarCambio.ConVuelto
 
         private void TB_MONTO_EFECTIVO_Leave(object sender, EventArgs e)
         {
+            if (TB_MONTO_EFECTIVO.Text.Trim() == "") return;
+            //
             var _monto= decimal.Parse(TB_MONTO_EFECTIVO.Text);
             _controlador.PagoPorEfectivo(_monto);
             Actualizar();
         }
         private void TB_CANT_DIVISA_Leave(object sender, EventArgs e)
         {
+            if (TB_CANT_DIVISA.Text.Trim() == "") return;
+            //
             var _cnt = int.Parse(TB_CANT_DIVISA.Text);
             _controlador.PagoPorDivisa(_cnt);
             Actualizar();
         }
         private void TB_MONTO_PAGO_MOVIL_Leave(object sender, EventArgs e)
         {
+            if (TB_MONTO_PAGO_MOVIL.Text.Trim() == "") return;
+            //
             var _monto = decimal.Parse(TB_MONTO_PAGO_MOVIL.Text);
             _controlador.PagoPorPagoMovil(_monto);
             Actualizar();
@@ -121,8 +127,5 @@ namespace PosOnLine.Src.Pago.ValidarCambio.ConVuelto
             L_TOTAL.Text = _controlador.GetVueltoMonto.ToString("n2");
             L_VUELTO.Text = _controlador.GetVueltoDesc;
         }
-
-
     }
-
 }

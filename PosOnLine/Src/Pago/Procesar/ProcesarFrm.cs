@@ -64,14 +64,14 @@ namespace PosOnLine.Src.Pago.Procesar
             L_REF_2.Text = "";
             L_REF_3.Text = "";
             L_REF_4.Text = "";
-            TB_EFECTIVO.Text = "0";
-            TB_DIVISA_CNT.Text = "0";
-            TB_DIVISA_MONTO.Text = "0.00";
-            TB_MONTO_RECIBIDO.Text = "0.00";
-            TB_ELECT_1.Text = "0";
-            TB_ELECT_2.Text = "0";
-            TB_ELECT_3.Text = "0";
-            TB_OTRO.Text = "0";
+            TB_EFECTIVO.Text = "";
+            TB_DIVISA_CNT.Text = "";
+            TB_DIVISA_MONTO.Text = "";
+            TB_MONTO_RECIBIDO.Text = "";
+            TB_ELECT_1.Text = "";
+            TB_ELECT_2.Text = "";
+            TB_ELECT_3.Text = "";
+            TB_OTRO.Text = "";
             L_CNT_DIVISA_RECOMIENDA.Text = "";
             ActualizaMontoResta();
         }
@@ -259,6 +259,8 @@ namespace PosOnLine.Src.Pago.Procesar
 
         private void TB_EFECTIVO_Leave(object sender, EventArgs e)
         {
+            if (TB_EFECTIVO.Text.Trim() == "") return;
+            //
             var monto = 0.0m;
             monto = decimal.Parse(TB_EFECTIVO.Text);
             _controlador.AddEfectivo(monto);
@@ -266,6 +268,8 @@ namespace PosOnLine.Src.Pago.Procesar
         }
         private void TB_ELECT_1_Leave(object sender, EventArgs e)
         {
+            if (TB_ELECT_1.Text.Trim() == "") return;
+            //
             var monto = 0.0m;
             monto = decimal.Parse(TB_ELECT_1.Text);
             _controlador.AddElectronico(monto, 1);
@@ -275,6 +279,8 @@ namespace PosOnLine.Src.Pago.Procesar
         }
         private void TB_ELECT_2_Leave(object sender, EventArgs e)
         {
+            if (TB_ELECT_2.Text.Trim() == "") return;
+            //
             var monto = 0.0m;
             monto = decimal.Parse(TB_ELECT_2.Text);
             _controlador.AddElectronico(monto, 2);
@@ -284,6 +290,8 @@ namespace PosOnLine.Src.Pago.Procesar
         }
         private void TB_ELECT_3_Leave(object sender, EventArgs e)
         {
+            if (TB_ELECT_3.Text.Trim() == "") return;
+            //
             var monto = 0.0m;
             monto = decimal.Parse(TB_ELECT_3.Text);
             _controlador.AddElectronico(monto, 3);
@@ -293,6 +301,8 @@ namespace PosOnLine.Src.Pago.Procesar
         }
         private void TB_OTRO_Leave(object sender, EventArgs e)
         {
+            if (TB_OTRO.Text.Trim() == "") return;
+            //
             var monto = 0.0m;
             monto = decimal.Parse(TB_OTRO.Text);
             _controlador.AddElectronico(monto, 4);
@@ -306,7 +316,5 @@ namespace PosOnLine.Src.Pago.Procesar
             L_TASA_IGTF.Text = string.Format("IGTF ({0:n2}%)",_controlador.TasaIGTF);
             L_MONTO_IGTF.Text = string.Format("{0:n2}",_controlador.MontoPorIGTF);
         }
-     
     }
-
 }

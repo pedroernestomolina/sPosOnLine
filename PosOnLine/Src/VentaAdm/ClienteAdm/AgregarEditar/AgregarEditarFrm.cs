@@ -370,11 +370,15 @@ namespace PosOnLine.Src.VentaAdm.ClienteAdm.AgregarEditar
 
         private void TB_DSCTO_Leave(object sender, EventArgs e)
         {
+            if (TB_DSCTO.Text.Trim() == "") return;
+            //
             _controlador.setDscto(decimal.Parse(TB_DSCTO.Text));
 
         }
         private void TB_CARGO_Leave(object sender, EventArgs e)
         {
+            if (TB_CARGO.Text.Trim() == "") return;
+            //
             _controlador.setCargo(decimal.Parse(TB_CARGO.Text));
         }
 
@@ -385,6 +389,8 @@ namespace PosOnLine.Src.VentaAdm.ClienteAdm.AgregarEditar
 
         private void TB_LIMITE_CREDITO_Leave(object sender, EventArgs e)
         {
+            if (TB_LIMITE_CREDITO.Text.Trim() == "") return;
+            //
             _controlador.setLimiteCredito(decimal.Parse(TB_LIMITE_CREDITO.Text));
         }
 
@@ -392,7 +398,6 @@ namespace PosOnLine.Src.VentaAdm.ClienteAdm.AgregarEditar
         {
             _controlador.setLimiteDoc(int.Parse(TB_LIMITE_DOC.Text));
         }
-
     }
 
 }

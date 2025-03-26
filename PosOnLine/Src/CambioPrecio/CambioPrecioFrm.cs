@@ -90,6 +90,8 @@ namespace PosOnLine.Src.CambioPrecio
         }
         private void TB_PRECIO_NUEVO_Leave(object sender, EventArgs e)
         {
+            if (TB_PRECIO_NUEVO.Text.Trim() == "") return;
+            //
             _controlador.setPrecioNuevo(decimal.Parse(TB_PRECIO_NUEVO.Text));
         }
     }

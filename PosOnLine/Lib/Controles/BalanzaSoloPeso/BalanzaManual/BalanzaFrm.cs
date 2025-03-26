@@ -60,6 +60,7 @@ namespace PosOnLine.Lib.Controles.BalanzaSoloPeso.BalanzaManual
 
         private void BalanzaFrm_Load(object sender, EventArgs e)
         {
+            TB_PESO.Text = "";
             TB_PESO.Focus();
         }
 
@@ -70,7 +71,5 @@ namespace PosOnLine.Lib.Controles.BalanzaSoloPeso.BalanzaManual
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
-
     }
-
 }

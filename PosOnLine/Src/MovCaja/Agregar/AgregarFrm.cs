@@ -134,6 +134,8 @@ namespace PosOnLine.Src.MovCaja.Agregar
         }
         private void TB_MONTO_Leave(object sender, EventArgs e)
         {
+            if (TB_MONTO.Text.Trim() == "") return;
+            //
             var _monto = decimal.Parse(TB_MONTO.Text);
             _controlador.SetMontoMov(_monto);
             CalculaTotal();
@@ -145,6 +147,8 @@ namespace PosOnLine.Src.MovCaja.Agregar
         }
         private void TB_FACTOR_CAMBIO_Leave(object sender, EventArgs e)
         {
+            if (TB_FACTOR_CAMBIO.Text.Trim() == "") return;
+            //
             var _monto = decimal.Parse(TB_FACTOR_CAMBIO.Text);
             _controlador.setFactorCambio(_monto);
             CalculaTotal();
@@ -205,7 +209,9 @@ namespace PosOnLine.Src.MovCaja.Agregar
         }
         private void TB_MONTO_MEDIO_Leave(object sender, EventArgs e)
         {
-            var _monto= decimal.Parse( TB_MONTO_MEDIO.Text);
+            if (TB_MONTO_MEDIO.Text.Trim() == "") return;
+            //
+            var _monto= decimal.Parse(TB_MONTO_MEDIO.Text);
             _controlador.setMontoMedio(_monto);
             ActualizaImporteMedio();
         }

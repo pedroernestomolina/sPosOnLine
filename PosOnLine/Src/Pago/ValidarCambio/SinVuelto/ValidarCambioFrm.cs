@@ -27,12 +27,14 @@ namespace PosOnLine.Src.Pago.ValidarCambio.SinVuelto
 
         private void ValidarCambioFrm_Load(object sender, EventArgs e)
         {
-            TB_MONTO.Text = "0";
+            TB_MONTO.Text = "";
             IrFoco();
         }
 
         private void TB_MONTO_Leave(object sender, EventArgs e)
         {
+            if (TB_MONTO.Text.Trim() == "") return;
+            //
             var monto= decimal.Parse(TB_MONTO.Text);
             _controlador.setMontoCapturado(monto);
         }

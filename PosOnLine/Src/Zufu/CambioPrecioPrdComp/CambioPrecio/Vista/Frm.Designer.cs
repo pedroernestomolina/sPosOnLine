@@ -373,7 +373,6 @@
             this.TB_PRECIO_NUEVO.Name = "TB_PRECIO_NUEVO";
             this.TB_PRECIO_NUEVO.Size = new System.Drawing.Size(137, 26);
             this.TB_PRECIO_NUEVO.TabIndex = 0;
-            this.TB_PRECIO_NUEVO.Text = "0";
             this.TB_PRECIO_NUEVO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TB_PRECIO_NUEVO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CTRL_KeyDown);
             this.TB_PRECIO_NUEVO.Leave += new System.EventHandler(this.TB_PRECIO_NUEVO_Leave);
