@@ -76,6 +76,8 @@ namespace PosOnLine.Src.Pedido.SolicitarNumeroPedido
 
         private void TB_NUM_Validating(object sender, CancelEventArgs e)
         {
+            if (TB_NUM.Text.Trim() == "") return;
+            //
             var num = int.Parse(TB_NUM.Text);
             e.Cancel = !(_controlador.VerificarMaximoNumeroPermitidoIsOk(num));
         }

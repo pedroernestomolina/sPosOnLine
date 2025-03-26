@@ -217,6 +217,8 @@ namespace PosOnLine.Src.MovCaja.Agregar
         }
         private void TB_CANT_MEDIO_Leave(object sender, EventArgs e)
         {
+            if (TB_CANT_MEDIO.Text.Trim() == "") return;
+            //
             var _cnt= int.Parse(TB_CANT_MEDIO.Text);
             _controlador.setCantMedio(_cnt);
             ActualizaImporteMedio();

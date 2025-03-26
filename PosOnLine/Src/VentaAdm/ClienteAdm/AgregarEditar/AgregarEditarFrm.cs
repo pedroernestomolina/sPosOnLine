@@ -384,6 +384,8 @@ namespace PosOnLine.Src.VentaAdm.ClienteAdm.AgregarEditar
 
         private void TB_DIAS_CREDITO_Leave(object sender, EventArgs e)
         {
+            if (TB_DIAS_CREDITO.Text.Trim() == "") return;
+            //
             _controlador.setDiasCredito(int.Parse(TB_DIAS_CREDITO.Text));
         }
 
@@ -396,6 +398,8 @@ namespace PosOnLine.Src.VentaAdm.ClienteAdm.AgregarEditar
 
         private void TB_LIMITE_DOC_Leave(object sender, EventArgs e)
         {
+            if (TB_LIMITE_DOC.Text.Trim() == "") return;
+            //
             _controlador.setLimiteDoc(int.Parse(TB_LIMITE_DOC.Text));
         }
     }

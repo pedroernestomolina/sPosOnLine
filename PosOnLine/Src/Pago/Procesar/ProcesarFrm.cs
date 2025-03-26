@@ -245,6 +245,8 @@ namespace PosOnLine.Src.Pago.Procesar
 
         private void TB_DIVISA_CNT_Leave(object sender, EventArgs e)
         {
+            if (TB_DIVISA_CNT.Text.Trim() == "") return;
+            //
             var monto = 0.0m;
             monto = decimal.Parse(TB_DIVISA_CNT.Text);
             _controlador.AddDivisa(monto);

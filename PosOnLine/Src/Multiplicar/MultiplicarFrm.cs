@@ -80,7 +80,7 @@ namespace PosOnLine.Src.Multiplicar
         }
         private void Limpiar()
         {
-            TB_CANTIDAD.Text = "0";
+            TB_CANTIDAD.Text = "";
         }
         private void Salir()
         {

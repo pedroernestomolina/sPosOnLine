@@ -29,6 +29,7 @@ namespace LibControles
         protected override void OnTextChanged(EventArgs e)
         {
             var textBox = (TextBox)this;
+            /*
             if (textBox.Text.Trim() == "")
             {
                 textBox.Text = "0";
@@ -38,6 +39,7 @@ namespace LibControles
                 // Posiciona el cursor en la misma posición
                 textBox.SelectionStart = Math.Max(0, textBox.TextLength - charsAfterCursor);
             }
+             */
 
             // Comprueba si el valor del TextBox se ajusta a un valor válido
             if (Regex.IsMatch(textBox.Text, @"^(?:\d*)?$"))
