@@ -178,9 +178,11 @@
     <Compile Include="Helpers\Imprimir\Tickera80Basico\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\DocumentoEver.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80\DocumentoPan.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\DocumentoZufu.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\TicketEver.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80\TicketPan.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\TicketZufu.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Ticket.cs" />
     <Compile Include="Helpers\IProcesar.cs" />
@@ -480,6 +482,23 @@
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
     <Compile Include="Src\ILista_SeleccionItem.cs" />
+    <Compile Include="Src\Pago\dataRecolectar.cs" />
+    <Compile Include="Src\Pago\IPago.cs" />
+    <Compile Include="Src\Pago\IProcesar.cs" />
+    <Compile Include="Src\Pago\Pago.cs" />
+    <Compile Include="Src\Pago\PagoDetalle.cs" />
+    <Compile Include="Src\Pago\PgDivisa.cs" />
+    <Compile Include="Src\Pago\PgPunto.cs" />
+    <Compile Include="Src\Pago\ZUFU\ImpPago.cs" />
+    <Compile Include="Src\Pago\ZUFU\ImpProcesar.cs" />
+    <Compile Include="Src\Pago\ZUFU\IPagoZufu.cs" />
+    <Compile Include="Src\Pago\ZUFU\IProcesarZufu.cs" />
+    <Compile Include="Src\Pago\ZUFU\vistas\ProcesarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Pago\ZUFU\vistas\ProcesarFrm.Designer.cs">
+      <DependentUpon>ProcesarFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Src\Pedido\Lista\data.cs" />
     <Compile Include="Src\Pedido\Lista\Frm.cs">
       <SubType>Form</SubType>
@@ -967,6 +986,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Pago\ValidarCambio\SinVuelto\ValidarCambioFrm.resx">
       <DependentUpon>ValidarCambioFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Pago\ZUFU\vistas\ProcesarFrm.resx">
+      <DependentUpon>ProcesarFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Pedido\Lista\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>

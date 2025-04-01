@@ -1,0 +1,297 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace PosOnLine.Src.Pago.ZUFU
+{
+    public class ImpProcesar: IProcesarZufu
+    {
+        private string _cliente;
+        private bool _limpiarPagosIsOk;
+        private bool _pagoIsOk;
+        private IPagoZufu _pago;
+        private LoteReferencia.Gestion _gestionLoteReferencia;
+        private Descuento.Gestion _gestionDescuento;
+        private bool _isNotaCredito;
+        private OOB.Cliente.Entidad.Ficha _entCliente;
+        //
+        public string ClienteData { get { return _cliente; } }
+        public decimal SubTotalMontoPagar { get { return _pago.SubTotalMontoPagar; } }
+        public decimal TasaCambio { get { return _pago.TasaCambio; } }
+        public decimal MontoPagar { get { return _pago.MontoPagar; } }
+        public decimal MontoPagarDivisa { get { return _pago.MontoPagarDivisa; } }
+        public decimal MontoResta_MonedaNacional { get { return _pago.MontoResta_MonedaNacional; } }
+        public decimal MontoResta_Divisa { get { return _pago.MontoResta_Divisa; } }
+        public decimal MontoDivisa { get { return _pago.MontoDivisa; } }
+        public decimal MontoRecibido { get { return _pago.MontoRecibido; } }
+        public decimal MontoCambioDar_MonedaNacional { get { return _pago.MontoCambioDar_MonedaNacional; } }
+        public decimal MontoCambioDar_Divisa { get { return _pago.MontoCambioDar_Divisa; } }
+        public decimal MontoCambioDar_Divisa_Tasa_POS
+        {
+            get
+            {
+                var x = 0.0m;
+                if (_factorCambio > 0)
+                {
+                    x = MontoCambioDar_MonedaNacional / _factorCambio;
+                }
+                return x;
+            }
+        }
+        public decimal DescuentoPorct { get { return _pago.DescuentoPorct; } }
+        public bool LimpiarPagosIsOk { get { return _limpiarPagosIsOk; } }
+        public string PagoElectronico_LOTE_1 { get { return _pago.PagoElectronico_LOTE(1); } }
+        public string PagoElectronico_REF_1 { get { return _pago.PagoElectronico_REF(1); } }
+        public string PagoElectronico_LOTE_2 { get { return _pago.PagoElectronico_LOTE(2); } }
+        public string PagoElectronico_REF_2 { get { return _pago.PagoElectronico_REF(2); } }
+        public string PagoElectronico_LOTE_3 { get { return _pago.PagoElectronico_LOTE(3); } }
+        public string PagoElectronico_REF_3 { get { return _pago.PagoElectronico_REF(3); } }
+        public string PagoElectronico_LOTE_4 { get { return _pago.PagoElectronico_LOTE(4); } }
+        public string PagoElectronico_REF_4 { get { return _pago.PagoElectronico_REF(4); } }
+        public bool PagoIsOk { get { return _pagoIsOk; } }
+        public List<PagoDetalle> PagoDetalles { get { return _pago.Detalle; } }
+        public bool IsCreditoOk { get { return _pago.IsCredito; } }
+        //
+        public decimal MontoCambioDar { get { return _pago.MontoCambioDar; } }
+        //
+        public ImpProcesar()
+        {
+            _isNotaCredito = false;
+            _entCliente = null;
+            _gestionLoteReferencia = new LoteReferencia.Gestion();
+            _gestionDescuento = new Descuento.Gestion();
+            _pago = new ImpPago();
+            _pago.setGestionLoteRef(_gestionLoteReferencia);
+            _pago.setGestionDescuento(_gestionDescuento);
+        }
+        public void Inicializar()
+        {
+            _isNotaCredito = false;
+            _cliente = "";
+            _pagoIsOk = false;
+            _limpiarPagosIsOk = false;
+            _pago.Limpiar();
+            _entCliente = null;
+            //
+            _aplicarIGTF = false;
+            _tasaIgtf = 0.0m;
+            _montoAplicarIgtf = 0.0m;
+            _baseAplicaIgtfMonDiv =0.0m;
+            _baseAplicaIgtfMonAct = 0.0m;
+        }
+
+        ProcesarFrm frm;
+        public void Inicia()
+        {
+            if (cargarData()) 
+            {
+                if (frm == null) 
+                {
+                    frm = new ProcesarFrm();
+                    frm.setControlador(this);
+                }
+                frm.ShowDialog();
+            }
+        }
+        public void setCliente(string data)
+        {
+            _cliente = data;
+        }
+
+        public void setImporte(decimal monto)
+        {
+            _pago.setMontoPagar(monto);
+        }
+
+        private decimal _factorCambio;
+        public void setTasaCambio(decimal tasa)
+        {
+            _factorCambio = tasa;
+            _pago.setTasaCambio(tasa);
+        }
+
+        public void Calculadora()
+        {
+            Helpers.Utilitis.Calculadora();
+        }
+
+
+        public void AddEfectivo(decimal monto)
+        {
+            _pago.AddEfectivo(monto);
+        }
+
+        public void AddDivisa(decimal monto)
+        {
+            _pago.AddDivisa(monto);
+            if (_aplicarIGTF) 
+            {
+                _montoAplicarIgtf = (monto * _tasaIgtf / 100) * _factorCambio;
+                _pago.AplicarMontoCargoPorIgtf(_montoAplicarIgtf);
+                _baseAplicaIgtfMonDiv = monto;
+                _baseAplicaIgtfMonAct = monto * _factorCambio;
+            }
+        }
+
+        public void AddElectronico(decimal monto, int p)
+        {
+            _pago.AddElectronico(monto, p);
+        }
+
+        public void LimpiarPagos()
+        {
+            _limpiarPagosIsOk = false;
+            if (Helpers.Msg.Procesar("Limpiar Metodos De Pagos?"))
+            {
+                _pago.Limpiar();
+                _limpiarPagosIsOk = true;
+            }
+        }
+
+        public void Procesar()
+        {
+            _pago.setDataCliente(_entCliente);
+            _pago.setNotaCredito(_isNotaCredito);
+            _pagoIsOk = _pago.Procesar();
+        }
+
+        public void DarDescuento()
+        {
+            if (_isNotaCredito)
+            {
+                Helpers.Msg.Alerta("OPCION NO PERMITIDA PARA TIPO DE DOCUMENTO EN PROCESO");
+                return;
+            }
+            else 
+            {
+                if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaDescuento))
+                {
+                    _pago.DarDescuento();
+                }
+            }
+        }
+
+        public void DarCredito()
+        {
+            if (_isNotaCredito)
+            {
+                Helpers.Msg.Alerta("OPCION NO PERMITIDA PARA TIPO DE DOCUMENTO EN PROCESO");
+                return;
+            }
+            else 
+            {
+                if (Sistema.Sucursal.HabilitarVentaCredito)
+                {
+                    if (_entCliente.IsClienteCredito)
+                    {
+                        if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosTeclaCredito))
+                        {
+                            _pago.DarCredito();
+                            _pagoIsOk = _pago.IsCredito;
+                        }
+                    }
+                    else 
+                    {
+                        Helpers.Msg.Error("CLIENTE NO HABILITADO PARA CREDITO");
+                        return;
+                    }
+                }
+                else 
+                {
+                    Helpers.Msg.Error("SUCURSAL NO HABILITADA PARA GENERAR VENTA A CREDITO");
+                    return;
+                }
+            }
+        }
+
+        public void setDescuento(decimal dsctoFinal)
+        {
+            _pago.setDescuento(dsctoFinal);
+        }
+        public void setNotaCredito(bool estatus)
+        {
+            _isNotaCredito = estatus;
+        }
+        public void setDataCliente(OOB.Cliente.Entidad.Ficha ent)
+        {
+            _entCliente = ent;
+        }
+
+        public bool PagoMovilIsOk { get { return _pago.PagoMovilIsOk; } }
+        public PagoMovil.data PagoMovilData { get { return _pago.PagoMovilData; } }
+        public decimal GetPagoOtro { get { return _pago.GetPagoOtro; } }
+        public decimal GetCntDivisaRecomendar { get { return _pago.GetCntDivisaRecomendar; } }
+
+        public dataRecolectar DataPagoRecolectar { get { return _pago.DataPagoRecolectar; } }
+        public bool TipoDocumento_IsNotaCredito { get { return _isNotaCredito; } }
+
+
+        public void Limpiar()
+        {
+            _pago.LimpiarFicha();
+        }
+
+        //
+        private bool _aplicarIGTF = false;
+        private decimal _tasaIgtf = 0.0m;
+        private decimal _montoAplicarIgtf = 0.0m;
+        private decimal _baseAplicaIgtfMonDiv =0.0m;
+        private decimal _baseAplicaIgtfMonAct = 0.0m;
+        public bool AplicarIGTF { get { return _aplicarIGTF; } }
+        public decimal TasaIGTF { get { return _tasaIgtf; } }
+        public decimal MontoPorIGTF { get { return _montoAplicarIgtf; } }
+        public decimal BaseAplicaIGTFMonAct { get { return _baseAplicaIgtfMonAct; } }
+        public decimal BaseAplicaIGTFMonDiv { get { return _baseAplicaIgtfMonDiv; } }
+        public void setTasaIGTF(decimal tasa)
+        {
+            _tasaIgtf = tasa;
+        }
+        public void setAplicarIGTF(bool aplicar)
+        {
+            _aplicarIGTF = aplicar;
+        }
+        //
+        private bool _estatusBonoPorPagoDivisa;
+        private decimal _porctBonoPorPagoDivisa;
+        private bool cargarData()
+        {
+            try
+            {
+                var r01 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                var r02 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r02.Mensaje);
+                }
+                _estatusBonoPorPagoDivisa = r01.Entidad;
+                _porctBonoPorPagoDivisa = r02.Entidad;
+                _pago.setActivarBonoPorPagoDivisa(r01.Entidad);
+                _pago.setPorctBonoPorPagoDivisa(r02.Entidad);
+                Test();
+                //
+                return true;
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+                return false;
+            }
+        }
+        public void Test()
+        {
+            if (_estatusBonoPorPagoDivisa)
+            {
+                var modo = !_pago.GetModoBonoPorPagoDivisa;
+                _pago.setActivarBonoPorPagoDivisa(modo);
+                _pago.ActualizaDivisa();
+            }
+        }
+    }
+}

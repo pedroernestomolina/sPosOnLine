@@ -82,7 +82,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                                                         " = " + _ds.encabezado.MontoBonoPorPagoDivisa.ToString("n2");
 
             _tick.Documento.bonoDscto = @" => Bono(%) = " + _c2.ToString("n2");
-
+            _tick.Documento.saldoPendiente = _ds.encabezado.SaldoPendientDiv > 0m ? "Monto ($) Por Cobrar: " + _ds.encabezado.SaldoPendientDiv.ToString("n2") : "";
 
             _tick.Documento.ImageQR = _imagenQR;
             _tick.Documento.vueltoEfectivo = _ds.encabezado.VueltoEfectivo <= 0m ? "" : "Bs " + _ds.encabezado.VueltoEfectivo.ToString("n2");

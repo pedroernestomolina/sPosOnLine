@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
-    public class Documento : IDocumento
+    public class DocumentoPan : IDocumento
     {
         private data _ds;
-        private Ticket _tick;
+        private TicketPan _tick;
         private string _data;
         private Bitmap _imagenQR;
 
 
-        public Documento()
+        public DocumentoPan()
         {
-            _tick = new Ticket();
+            _tick = new TicketPan();
         }
 
 
@@ -77,15 +77,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             {
                 _c2 = 100 - (_c1 * 100 / tot);
             }
-            _tick.Documento.bonoDivisa = @" => "+Sistema.SimboloDivisa_AlImprimirTicket +
-                                                        _ds.encabezado.CntDivisaAplicaBonoPorPagoDivisa.ToString() +
-                                                        " = " + _ds.encabezado.MontoBonoPorPagoDivisa.ToString("n2");
-
-            _tick.Documento.bonoDscto = @" => Bono(%) = " + _c2.ToString("n2");
-
-            _tick.Documento.saldoPendiente = _ds.encabezado.SaldoPendientDiv > 0m
-                ? "Monto ($) Por Cobrar: ($) " + _ds.encabezado.SaldoPendientDiv.ToString("n2")
-                : "";
+            _tick.Documento.bonoDivisa = "";
+            _tick.Documento.bonoDscto = "";
+            _tick.Documento.saldoPendiente = "";
 
             _tick.Documento.ImageQR = _imagenQR;
             _tick.Documento.vueltoEfectivo = _ds.encabezado.VueltoEfectivo <= 0m ? "" : "Bs " + _ds.encabezado.VueltoEfectivo.ToString("n2");
@@ -95,7 +89,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             foreach (var r in _ds.item)
             {
-                var it = new Ticket.DatosDocumento.Item()
+                var it = new TicketPan.DatosDocumento.Item()
                 {
                     cantidad = r.Cantidad,
                     precio = Math.Round(r.PrecioFull, 2, MidpointRounding.AwayFromZero),
@@ -112,7 +106,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             foreach (var r in _ds.metodoPago)
             {
-                var it = new Ticket.DatosDocumento.MedioPago()
+                var it = new TicketPan.DatosDocumento.MedioPago()
                 {
                     descripcion = r.descripcion,
                     monto = "Bs " + r.monto.ToString("n2"),
@@ -126,7 +120,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 var _cnt = r.cant.ToString("n0").Trim().PadLeft(10, ' ')+", ";
                 var _peso = r.peso.ToString("n3").Trim().PadLeft(10, ' ')+", ";
                 var _volumen = r.volumen.ToString("n3").Trim().PadLeft(10, ' ');
-                var it = new Ticket.DatosDocumento.MedidaEmp()
+                var it = new TicketPan.DatosDocumento.MedidaEmp()
                 {
                     nombre= _desc+_cnt+_peso+_volumen,
                 };

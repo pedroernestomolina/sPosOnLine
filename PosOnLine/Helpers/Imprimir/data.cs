@@ -118,6 +118,8 @@ namespace PosOnLine.Helpers.Imprimir
                 TasaIGTF = 0.0m;
                 MontoIGTF = 0.0m;
                 AplicaIGTF = false;
+                //
+                SaldoPendientDiv = 0m;
             }
             public decimal VueltoEfectivo { get; set; }
             public decimal VueltoDivisa { get; set; }
@@ -130,6 +132,8 @@ namespace PosOnLine.Helpers.Imprimir
             //
             public string DocumentoAplica_SerialFiscal { get; set; }
             public DateTime DocumentoAplica_Fecha { get; set; }
+            //
+            public decimal SaldoPendientDiv { get; set; }
         }
 
         public class Item

@@ -115,6 +115,12 @@ namespace PosOnLine.Helpers
                                             Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
                                             Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
+                                        case "T80PAN":
+                                            Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80.DocumentoPan();
+                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.DocumentoPan();
+                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80.DocumentoPan();
+                                            break;
+
                                     }
                                 }
 

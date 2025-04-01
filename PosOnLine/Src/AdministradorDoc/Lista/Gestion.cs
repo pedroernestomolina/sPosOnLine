@@ -236,6 +236,8 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                     BonoPorPagoDivisa = xr1.Entidad.BonoPorPagoDivisa,
                     MontoBonoPorPagoDivisa = xr1.Entidad.MontoBonoPorPagoDivisa,
                     CntDivisaAplicaBonoPorPagoDivisa = xr1.Entidad.CntDivisaAplicaBonoPorPagoDivisa,
+                    //
+                    SaldoPendientDiv= xr1.Entidad.SaldoPendiente,
                 };
                 xdata.item = new List<Helpers.Imprimir.data.Item>();
                 foreach (var rg in xr1.Entidad.items)

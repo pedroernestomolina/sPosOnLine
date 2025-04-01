@@ -48,7 +48,10 @@ namespace PosOnLine.Src.Pos
         private Producto.Buscar.IBuscarModo _gestionBuscar;
         private Consultor.IModo _gestionConsultor;
         private Item.IModo _gestionItem;
-        private Pago.Procesar.Gestion _gestionProcesarPago;
+
+        //private Pago.Procesar.Gestion _gestionProcesarPago;
+        private Pago.IProcesar _gestionProcesarPago;
+
         private Pendiente.Gestion _gestionPendiente;
         private PassWord.Gestion _gestionPassW;
         private bool _isTickeraOk;
@@ -144,7 +147,10 @@ namespace PosOnLine.Src.Pos
             _gestionItem.Hnd_Item_Cambio += _gestionItem_Hnd_Item_Cambio;
             _gestionItem.setGestionMultiplicar(_gMultiplicar);
             _gestionItem.setGestionPendiente(_gestionPendiente);
-            _gestionProcesarPago = new Pago.Procesar.Gestion();
+
+            //_gestionProcesarPago = new Pago.Procesar.Gestion();
+            _gestionProcesarPago = new Pago.ZUFU.ImpProcesar();
+
             _gSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
             //
             _clienteFicha = null;
@@ -891,7 +897,6 @@ namespace PosOnLine.Src.Pos
             var importeDocumentoDivisa = _gestionProcesarPago.MontoPagarDivisa;
             var documento = "";
             var factorCambio = _tasaCambioActual;
-            var saldoPendiente = isCredito ? importeDocumento : 0.0m;
             var dataPagoRecolectada = _gestionProcesarPago.DataPagoRecolectar;
 
             //
@@ -901,6 +906,22 @@ namespace PosOnLine.Src.Pos
             var _cliDirFiscal = _clienteFicha.DireccionFiscal;
             var _cliCodigo = _clienteFicha.Codigo;
             var _cliTelefono = _clienteFicha.Telefono;
+            //
+            var _porctBonoPorPagoDivisa = dataPagoRecolectada.PorctBonoPorPagoDivisa;
+            var _montoBonoPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoPorPagoDivisa, 2, MidpointRounding.AwayFromZero);
+            var _estatusPorBonoPorPagoDivisa = dataPagoRecolectada.estatusPorBonoPorPagoDivisa;
+            var _montoBonoEnDivisaPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoEnDivisaPorPagoDivisa, 2, MidpointRounding.AwayFromZero);
+            var _saldoPendiente = 0m;
+            if (isCredito)
+            {
+                _porctBonoPorPagoDivisa = _dsctoBonoPagoDivisa;
+                var _importeDivisa = Math.Round(importeDocumentoDivisa, 2, MidpointRounding.AwayFromZero);
+                var _totalImporteMonDivConBono = Math.Round(_importeDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                _montoBonoPorPagoDivisa = Math.Round(importeDocumento-(_totalImporteMonDivConBono * _tasaCambioActual), 2, MidpointRounding.AwayFromZero);
+                _montoBonoEnDivisaPorPagoDivisa = Math.Round(_importeDivisa - _totalImporteMonDivConBono, 2, MidpointRounding.AwayFromZero);
+                _estatusPorBonoPorPagoDivisa = "1";
+                _saldoPendiente = _importeDivisa - _montoBonoEnDivisaPorPagoDivisa;
+            }
             //
             var fichaOOB = new OOB.Documento.Agregar.Factura.Ficha()
             {
@@ -962,7 +983,7 @@ namespace PosOnLine.Src.Pos
                 DirDespacho = "",
                 Estacion = Sistema.EquipoEstacion,
                 Renglones = _gestionItem.CantRenglones,
-                SaldoPendiente = saldoPendiente,
+                SaldoPendiente = _saldoPendiente,
                 ComprobanteRetencionIslr = "",
                 DiasValidez = 0,
                 AutoUsuario = Sistema.Usuario.id,
@@ -1000,15 +1021,15 @@ namespace PosOnLine.Src.Pos
                 CierreFtp = "",
                 Prefijo = _sucursalAsignada.codigo + Sistema.IdEquipo,
                 //
-                PorctBonoPorPagoDivisa = dataPagoRecolectada.PorctBonoPorPagoDivisa,
-                MontoBonoPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
-                MontoBonoEnDivisaPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoEnDivisaPorPagoDivisa, 2, MidpointRounding.AwayFromZero),
+                PorctBonoPorPagoDivisa = _porctBonoPorPagoDivisa,
+                MontoBonoPorPagoDivisa = _montoBonoPorPagoDivisa,
+                MontoBonoEnDivisaPorPagoDivisa = _montoBonoEnDivisaPorPagoDivisa,
                 CantDivisaAplicaBonoPorPagoDivisa = dataPagoRecolectada.CantDivisaAplicaBonoPorPagoDivisa,
                 MontoPorVueltoEnEfectivo = Math.Round(dataPagoRecolectada.MontoPorVueltoEnEfectivo, 2, MidpointRounding.AwayFromZero),
                 MontoPorVueltoEnDivisa = Math.Round(dataPagoRecolectada.MontoPorVueltoEnDivisa, 2, MidpointRounding.AwayFromZero),
                 MontoPorVueltoEnPagoMovil = Math.Round(dataPagoRecolectada.MontoPorVueltoEnPagoMovil, 2, MidpointRounding.AwayFromZero),
                 CantDivisaPorVueltoEnDivisa = dataPagoRecolectada.CantDivisaPorVueltoEnDivisa,
-                estatusPorBonoPorPagoDivisa = dataPagoRecolectada.estatusPorBonoPorPagoDivisa,
+                estatusPorBonoPorPagoDivisa = _estatusPorBonoPorPagoDivisa,
                 estatusPorVueltoEnPagoMovil = dataPagoRecolectada.AplicaPagoMovil ? "1" : "0",
                 //
                 aplicarIGTF = _gestionProcesarPago.AplicarIGTF,
@@ -2622,139 +2643,144 @@ namespace PosOnLine.Src.Pos
 
         private Helpers.Imprimir.data CargarDataDocumento(string idDoc)
         {
-            var xr1 = Sistema.MyData.Documento_GetById(idDoc);
-            if (xr1.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            try
             {
-                Helpers.Msg.Error(xr1.Mensaje);
+                var xr1 = Sistema.MyData.Documento_GetById(idDoc);
+                if (xr1.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(xr1.Mensaje);
+                }
+                var xr2 = Sistema.MyData.Documento_Get_MetodosPago_ByIdRecibo(xr1.Entidad.AutoReciboCxC);
+                if (xr2.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(xr2.Mensaje);
+                }
+                var xdata = new Helpers.Imprimir.data();
+                xdata.isAnulado = xr1.Entidad.EstatusAnulado == "1";
+                xdata.negocio = new Helpers.Imprimir.data.Negocio()
+                {
+                    Nombre = Sistema.DatosEmpresa.Nombre,
+                    CiRif = Sistema.DatosEmpresa.CiRif,
+                    Direccion = Sistema.DatosEmpresa.Direccion,
+                    Telefonos = Sistema.DatosEmpresa.Telefono,
+                };
+                var docNombre = "";
+                switch (xr1.Entidad.Tipo.Trim().ToUpper())
+                {
+                    case "01":
+                        docNombre = "FACTURA";
+                        break;
+                    case "02":
+                        docNombre = "NOTA DE DEBITO";
+                        break;
+                    case "03":
+                        docNombre = "NOTA DE CREDITO";
+                        break;
+                    case "04":
+                        docNombre = "NOTA DE ENTREGA";
+                        break;
+                }
+                xdata.encabezado = new Helpers.Imprimir.data.Encabezado()
+                {
+                    CiRifCli = xr1.Entidad.CiRif,
+                    DireccionCli = xr1.Entidad.DirFiscal,
+                    DocumentoCondicionPago = xr1.Entidad.CondicionPago,
+                    DocumentoControl = xr1.Entidad.Control,
+                    DocumentoDiasCredito = xr1.Entidad.Dias,
+                    DocumentoFecha = xr1.Entidad.Fecha,
+                    DocumentoFechaVencimiento = xr1.Entidad.FechaVencimiento,
+                    DocumentoNombre = docNombre,
+                    DocumentoNro = xr1.Entidad.DocumentoNro,
+                    DocumentoSerie = xr1.Entidad.Serie,
+                    DocumentoAplica = xr1.Entidad.Aplica,
+                    NombreCli = xr1.Entidad.RazonSocial,
+                    FactorCambio = xr1.Entidad.FactorCambio,
+                    SubTotal = xr1.Entidad.SubTotal,
+                    Descuento = xr1.Entidad.Descuento,
+                    Total = xr1.Entidad.Total,
+                    TotalDivisa = xr1.Entidad.MontoDivisa,
+                    EstacionEquipo = xr1.Entidad.Estacion,
+                    Usuario = xr1.Entidad.Usuario,
+                    CambioDar = xr1.Entidad.Cambio,
+                    DocumentoHora = xr1.Entidad.Hora,
+                    TelefonoCli = xr1.Entidad.Telefono,
+                    CodigoCli = xr1.Entidad.CodigoCliente,
+                    DescuentoPorc = xr1.Entidad.Descuento1p,
+                    Cargo = xr1.Entidad.Cargos,
+                    CargoPorc = xr1.Entidad.Cargosp,
+                    VueltoEfectivo = xr1.Entidad.MontoPorVueltoEnEfectivo,
+                    VueltoDivisa = xr1.Entidad.MontoPorVueltoEnDivisa,
+                    VueltoPagoMovil = xr1.Entidad.MontoPorVueltoEnPagoMovil,
+                    CntDivisaVueltoDivisa = xr1.Entidad.CantDivisaPorVueltoEnDivisa,
+                    //
+                    BonoPorPagoDivisa = xr1.Entidad.BonoPorPagoDivisa,
+                    MontoBonoPorPagoDivisa = xr1.Entidad.MontoBonoPorPagoDivisa,
+                    CntDivisaAplicaBonoPorPagoDivisa = xr1.Entidad.CntDivisaAplicaBonoPorPagoDivisa,
+                    //
+                    DocumentoAplica_Fecha = xr1.Entidad.Fecha,
+                    DocumentoAplica_SerialFiscal = xr1.Entidad.Control,
+                    //
+                    AplicaIGTF = xr1.Entidad.aplicaIGTF,
+                    MontoIGTF = xr1.Entidad.montoIGTF,
+                    TasaIGTF = xr1.Entidad.tasaIGTF,
+                    //
+                    SaldoPendientDiv = xr1.Entidad.SaldoPendiente,
+                };
+                xdata.item = new List<Helpers.Imprimir.data.Item>();
+                foreach (var rg in xr1.Entidad.items)
+                {
+                    var nr = new Helpers.Imprimir.data.Item()
+                    {
+                        NombrePrd = rg.Nombre,
+                        CodigoPrd = rg.Codigo,
+                        Cantidad = rg.Cantidad,
+                        Contenido = rg.ContenidoEmpaque,
+                        DepositoCodigo = rg.CodigoDeposito,
+                        DepositoDesc = rg.Deposito,
+                        Empaque = rg.Empaque,
+                        Importe = rg.TotalNeto,
+                        ImporteDivisa = rg.TotalNeto,
+                        Precio = rg.PrecioItem,
+                        PrecioDivisa = rg.PrecioItem,
+                        TotalUnd = rg.CantidadUnd,
+                        TasaIva = rg.Tasa,
+                        ImporteFull = rg.Total,
+                    };
+                    xdata.item.Add(nr);
+                }
+                xdata.metodoPago = new List<Helpers.Imprimir.data.MetodoPago>();
+                foreach (var mp in xr2.ListaD)
+                {
+                    if (Math.Abs(mp.cntDivisa) >= 1)
+                    {
+                        var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo(" + Sistema.SimboloDivisa_AlImprimirTicket + mp.cntDivisa.ToString() + ")", monto = mp.montoRecibido, esDivisa = true };
+                        xdata.metodoPago.Add(pag);
+                    }
+                    else
+                    {
+                        var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = mp.descMedioPago, monto = mp.montoRecibido };
+                        xdata.metodoPago.Add(pag);
+                    }
+                }
+                xdata.medidaEmp = xr1.Entidad.medidas.Select(s =>
+                {
+                    var med = new Helpers.Imprimir.data.MedidaEmp()
+                    {
+                        cant = s.cant,
+                        desc = s.desc,
+                        peso = s.peso,
+                        volumen = s.volumen,
+                    };
+                    return med;
+                }).ToList();
+                //
+                return xdata;
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
                 return null;
             }
-
-            var xr2 = Sistema.MyData.Documento_Get_MetodosPago_ByIdRecibo(xr1.Entidad.AutoReciboCxC);
-            if (xr2.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(xr2.Mensaje);
-                return null;
-            }
-
-            var xdata = new Helpers.Imprimir.data();
-            xdata.isAnulado = xr1.Entidad.EstatusAnulado == "1";
-            xdata.negocio = new Helpers.Imprimir.data.Negocio()
-            {
-                Nombre = Sistema.DatosEmpresa.Nombre,
-                CiRif = Sistema.DatosEmpresa.CiRif,
-                Direccion = Sistema.DatosEmpresa.Direccion,
-                Telefonos = Sistema.DatosEmpresa.Telefono,
-            };
-            var docNombre = "";
-            switch (xr1.Entidad.Tipo.Trim().ToUpper())
-            {
-                case "01":
-                    docNombre = "FACTURA";
-                    break;
-                case "02":
-                    docNombre = "NOTA DE DEBITO";
-                    break;
-                case "03":
-                    docNombre = "NOTA DE CREDITO";
-                    break;
-                case "04":
-                    docNombre = "NOTA DE ENTREGA";
-                    break;
-            }
-            xdata.encabezado = new Helpers.Imprimir.data.Encabezado()
-            {
-                CiRifCli = xr1.Entidad.CiRif,
-                DireccionCli = xr1.Entidad.DirFiscal,
-                DocumentoCondicionPago = xr1.Entidad.CondicionPago,
-                DocumentoControl = xr1.Entidad.Control,
-                DocumentoDiasCredito = xr1.Entidad.Dias,
-                DocumentoFecha = xr1.Entidad.Fecha,
-                DocumentoFechaVencimiento = xr1.Entidad.FechaVencimiento,
-                DocumentoNombre = docNombre,
-                DocumentoNro = xr1.Entidad.DocumentoNro,
-                DocumentoSerie = xr1.Entidad.Serie,
-                DocumentoAplica = xr1.Entidad.Aplica,
-                NombreCli = xr1.Entidad.RazonSocial,
-                FactorCambio = xr1.Entidad.FactorCambio,
-                SubTotal = xr1.Entidad.SubTotal,
-                Descuento = xr1.Entidad.Descuento,
-                Total = xr1.Entidad.Total,
-                TotalDivisa = xr1.Entidad.MontoDivisa,
-                EstacionEquipo = xr1.Entidad.Estacion,
-                Usuario = xr1.Entidad.Usuario,
-                CambioDar = xr1.Entidad.Cambio,
-                DocumentoHora = xr1.Entidad.Hora,
-                TelefonoCli = xr1.Entidad.Telefono,
-                CodigoCli = xr1.Entidad.CodigoCliente,
-                DescuentoPorc = xr1.Entidad.Descuento1p,
-                Cargo = xr1.Entidad.Cargos,
-                CargoPorc = xr1.Entidad.Cargosp,
-                VueltoEfectivo = xr1.Entidad.MontoPorVueltoEnEfectivo,
-                VueltoDivisa = xr1.Entidad.MontoPorVueltoEnDivisa,
-                VueltoPagoMovil = xr1.Entidad.MontoPorVueltoEnPagoMovil,
-                CntDivisaVueltoDivisa = xr1.Entidad.CantDivisaPorVueltoEnDivisa,
-                //
-                BonoPorPagoDivisa = xr1.Entidad.BonoPorPagoDivisa,
-                MontoBonoPorPagoDivisa = xr1.Entidad.MontoBonoPorPagoDivisa,
-                CntDivisaAplicaBonoPorPagoDivisa = xr1.Entidad.CntDivisaAplicaBonoPorPagoDivisa,
-                //
-                DocumentoAplica_Fecha = xr1.Entidad.Fecha,
-                DocumentoAplica_SerialFiscal = xr1.Entidad.Control,
-                //
-                AplicaIGTF = xr1.Entidad.aplicaIGTF,
-                MontoIGTF = xr1.Entidad.montoIGTF,
-                TasaIGTF = xr1.Entidad.tasaIGTF,
-            };
-            xdata.item = new List<Helpers.Imprimir.data.Item>();
-            foreach (var rg in xr1.Entidad.items)
-            {
-                var nr = new Helpers.Imprimir.data.Item()
-                {
-                    NombrePrd = rg.Nombre,
-                    CodigoPrd = rg.Codigo,
-                    Cantidad = rg.Cantidad,
-                    Contenido = rg.ContenidoEmpaque,
-                    DepositoCodigo = rg.CodigoDeposito,
-                    DepositoDesc = rg.Deposito,
-                    Empaque = rg.Empaque,
-                    Importe = rg.TotalNeto,
-                    ImporteDivisa = rg.TotalNeto,
-                    Precio = rg.PrecioItem,
-                    PrecioDivisa = rg.PrecioItem,
-                    TotalUnd = rg.CantidadUnd,
-                    TasaIva = rg.Tasa,
-                    ImporteFull = rg.Total,
-                };
-                xdata.item.Add(nr);
-            }
-
-            xdata.metodoPago = new List<Helpers.Imprimir.data.MetodoPago>();
-            foreach (var mp in xr2.ListaD)
-            {
-                if (Math.Abs(mp.cntDivisa) >= 1)
-                {
-                    var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = "Efectivo(" + Sistema.SimboloDivisa_AlImprimirTicket + mp.cntDivisa.ToString() + ")", monto = mp.montoRecibido, esDivisa = true };
-                    xdata.metodoPago.Add(pag);
-                }
-                else
-                {
-                    var pag = new Helpers.Imprimir.data.MetodoPago() { descripcion = mp.descMedioPago, monto = mp.montoRecibido };
-                    xdata.metodoPago.Add(pag);
-                }
-            }
-            xdata.medidaEmp = xr1.Entidad.medidas.Select(s =>
-            {
-                var med = new Helpers.Imprimir.data.MedidaEmp()
-                {
-                    cant = s.cant,
-                    desc = s.desc,
-                    peso = s.peso,
-                    volumen = s.volumen,
-                };
-                return med;
-            }).ToList();
-
-            return xdata;
         }
 
         public void Imprimir(System.Drawing.Printing.PrintPageEventArgs e)

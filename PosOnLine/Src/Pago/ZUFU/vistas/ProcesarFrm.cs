@@ -1,0 +1,312 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+
+namespace PosOnLine.Src.Pago.ZUFU
+{
+    public partial class ProcesarFrm: Form
+    {
+        private IProcesarZufu _controlador;
+        //
+        public ProcesarFrm()
+        {
+            InitializeComponent();
+        }
+        public void setControlador(IProcesarZufu ctr)
+        {
+            _controlador = ctr;
+        }
+        private void Frm_Load(object sender, EventArgs e)
+        {
+            Limpiar();
+            L_CLIENTE.Text = _controlador.ClienteData;
+            L_SUBTOTAL_MONTO_PAGAR.Text = _controlador.SubTotalMontoPagar.ToString("n2");
+            L_TASA_CAMBIO.Text = _controlador.TasaCambio.ToString("n3");
+            L_VENTA_MONEDA_NACIONAL.Text = _controlador.MontoPagar.ToString("n2");
+            L_VENTA_DIVISA.Text = "$" + _controlador.MontoPagarDivisa.ToString("n2");
+            L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoResta_MonedaNacional.ToString("n2");
+            L_RESTA_DIVISA.Text = "$" + _controlador.MontoResta_Divisa.ToString("n2");
+            L_CNT_DIVISA_RECOMIENDA.Text = "";
+            TB_ELECT_1.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
+            TB_ELECT_2.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
+            TB_ELECT_3.Enabled = (!_controlador.TipoDocumento_IsNotaCredito);
+            ActualizaMontoResta();
+            ActualizarIGTG();
+        }
+        private void Frm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                DarDescuento();
+            }
+            if (e.KeyCode == Keys.F3)
+            {
+                DarCredito();
+            }
+        }
+        private void TB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+        private void BT_LIMPIAR_Click(object sender, EventArgs e)
+        {
+            Limpieza();
+        }
+        private void BT_CALCULADORA_Click(object sender, EventArgs e)
+        {
+            ActivarCalculadora();
+        }
+        private void BT_DESCUENTO_Click(object sender, EventArgs e)
+        {
+            DarDescuento();
+        }
+        private void BT_CREDITO_Click(object sender, EventArgs e)
+        {
+            DarCredito();
+        }
+        private void BT_TEST_Click(object sender, EventArgs e)
+        {
+            Test();
+        }
+        private void BT_PROCESAR_Click(object sender, EventArgs e)
+        {
+            Procesar();
+        }
+        private void BT_SALIDA_Click(object sender, EventArgs e)
+        {
+            Salida();
+        }
+        private void TB_MONTO_RECIBIDO_Leave(object sender, EventArgs e)
+        {
+            if (_controlador.MontoResta_MonedaNacional > 0)
+            {
+                IrFocoPrincipal();
+            }
+            else
+            {
+                BT_PROCESAR.Select();
+            }
+        }
+        private void TB_DIVISA_CNT_Leave(object sender, EventArgs e)
+        {
+            if (TB_DIVISA_CNT.Text.Trim() == "") return;
+            //
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_DIVISA_CNT.Text);
+            _controlador.AddDivisa(monto);
+            TB_OTRO.Text = Math.Round(_controlador.GetPagoOtro, 2, MidpointRounding.AwayFromZero).ToString();
+            L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
+            L_REF_4.Text = _controlador.PagoElectronico_REF_4;
+            L_CNT_DIVISA_RECOMIENDA.Text = _controlador.GetCntDivisaRecomendar.ToString();
+            ActualizaMontoResta();
+            ActualizarMonto();
+            ActualizarIGTG();
+        }
+        private void TB_EFECTIVO_Leave(object sender, EventArgs e)
+        {
+            if (TB_EFECTIVO.Text.Trim() == "") return;
+            //
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_EFECTIVO.Text);
+            _controlador.AddEfectivo(monto);
+            ActualizaMontoResta();
+        }
+        private void TB_ELECT_1_Leave(object sender, EventArgs e)
+        {
+            if (TB_ELECT_1.Text.Trim() == "") return;
+            //
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_ELECT_1.Text);
+            _controlador.AddElectronico(monto, 1);
+            L_LOTE_1.Text = _controlador.PagoElectronico_LOTE_1;
+            L_REF_1.Text = _controlador.PagoElectronico_REF_1;
+            ActualizaMontoResta();
+        }
+        private void TB_ELECT_2_Leave(object sender, EventArgs e)
+        {
+            if (TB_ELECT_2.Text.Trim() == "") return;
+            //
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_ELECT_2.Text);
+            _controlador.AddElectronico(monto, 2);
+            L_LOTE_2.Text = _controlador.PagoElectronico_LOTE_2;
+            L_REF_2.Text = _controlador.PagoElectronico_REF_2;
+            ActualizaMontoResta();
+        }
+        private void TB_ELECT_3_Leave(object sender, EventArgs e)
+        {
+            if (TB_ELECT_3.Text.Trim() == "") return;
+            //
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_ELECT_3.Text);
+            _controlador.AddElectronico(monto, 3);
+            L_LOTE_3.Text = _controlador.PagoElectronico_LOTE_3;
+            L_REF_3.Text = _controlador.PagoElectronico_REF_3;
+            ActualizaMontoResta();
+        }
+        private void TB_OTRO_Leave(object sender, EventArgs e)
+        {
+            if (TB_OTRO.Text.Trim() == "") return;
+            //
+            var monto = 0.0m;
+            monto = decimal.Parse(TB_OTRO.Text);
+            _controlador.AddElectronico(monto, 4);
+            L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
+            L_REF_4.Text = _controlador.PagoElectronico_REF_4;
+            ActualizaMontoResta();
+        }
+        //
+        private void IrFocoPrincipal()
+        {
+            TB_EFECTIVO.Focus();
+        }
+        private void ActivarCalculadora()
+        {
+            _controlador.Calculadora();
+            IrFocoPrincipal();
+        }
+        private void DarDescuento()
+        {
+            _controlador.DarDescuento();
+            ActualizarMonto();
+            ActualizaMontoResta();
+            IrFocoPrincipal();
+        }
+        private void DarCredito()
+        {
+            IrFocoPrincipal();
+            _controlador.DarCredito();
+            if (_controlador.IsCreditoOk)
+            {
+                LimpiarPago();
+                ActualizaMontoResta();
+                this.Close();
+            }
+        }
+        private void Test()
+        {
+            _controlador.Test();
+            TB_OTRO.Text = Math.Round(_controlador.GetPagoOtro, 2, MidpointRounding.AwayFromZero).ToString();
+            L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
+            L_REF_4.Text = _controlador.PagoElectronico_REF_4;
+            L_CNT_DIVISA_RECOMIENDA.Text = _controlador.GetCntDivisaRecomendar.ToString();
+            ActualizaMontoResta();
+            ActualizarMonto();
+            ActualizarIGTG();
+            IrFocoPrincipal();
+        }
+        private void Procesar()
+        {
+            _controlador.Procesar();
+            if (_controlador.PagoIsOk)
+            {
+                this.Close();
+            }
+            IrFocoPrincipal();
+        }
+        private void Salida()
+        {
+            this.Close();
+        }
+        //
+        private void ActualizarMonto()
+        {
+            L_MONTO_VENTA.Text = "Monto Venta,  Descuento: " + _controlador.DescuentoPorct.ToString("n2") + "%";
+            L_VENTA_MONEDA_NACIONAL.Text = _controlador.MontoPagar.ToString("n2");
+            L_VENTA_DIVISA.Text = "$" + _controlador.MontoPagarDivisa.ToString("n2");
+        }
+        private void ActualizaMontoResta()
+        {
+            if (_controlador.IsCreditoOk)
+            {
+                panel12.BackColor = Color.Green;
+                L_RESTA_CAMBIO_DAR.Text = "CREDITO HABILITADO";
+                L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoResta_MonedaNacional.ToString("n2");
+                L_RESTA_DIVISA.Text = "$" + _controlador.MontoResta_Divisa.ToString("n2");
+            }
+            else
+            {
+                if (_controlador.MontoCambioDar_MonedaNacional < 0)
+                {
+                    panel12.BackColor = Color.Maroon;
+                    L_RESTA_CAMBIO_DAR.Text = "Resta/Pendiente";
+                    L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoResta_MonedaNacional.ToString("n2");
+                    L_RESTA_DIVISA.Text = "$" + _controlador.MontoResta_Divisa.ToString("n2");
+                }
+                else
+                {
+                    panel12.BackColor = Color.Navy;
+                    L_RESTA_CAMBIO_DAR.Text = "Cambio Dar";
+                    L_RESTA_MONEDA_NACIONAL.Text = _controlador.MontoCambioDar_MonedaNacional.ToString("n2");
+                    L_RESTA_DIVISA.Text = "$" + _controlador.MontoCambioDar_Divisa_Tasa_POS.ToString("n2");
+                }
+            }
+            TB_DIVISA_MONTO.Text = _controlador.MontoDivisa.ToString("n2");
+            TB_MONTO_RECIBIDO.Text = _controlador.MontoRecibido.ToString("n2");
+        }
+        private void ActualizarIGTG()
+        {
+            L_TASA_IGTF.Text = string.Format("IGTF ({0:n2}%)",_controlador.TasaIGTF);
+            L_MONTO_IGTF.Text = string.Format("{0:n2}",_controlador.MontoPorIGTF);
+        }
+        //
+        private void Limpieza()
+        {
+            _controlador.LimpiarPagos();
+            if (_controlador.LimpiarPagosIsOk)
+            {
+                LimpiarPago();
+                ActualizarMonto();
+                ActualizaMontoResta();
+            }
+            IrFocoPrincipal();
+        }
+        private void Limpiar()
+        {
+            L_MONTO_VENTA.Text = "Monto Venta,  Descuento: " + _controlador.DescuentoPorct.ToString("n2") + "%";
+            L_CLIENTE.Text = "";
+            L_VENTA_MONEDA_NACIONAL.Text = "0.00";
+            L_VENTA_DIVISA.Text = "$0.00";
+            LimpiarPago();
+        }
+        private void LimpiarPago()
+        {
+            TB_EFECTIVO.Select();
+            L_RESTA_MONEDA_NACIONAL.Text = "0.00";
+            L_RESTA_DIVISA.Text = "$0.00";
+            L_LOTE_1.Text = "";
+            L_LOTE_2.Text = "";
+            L_LOTE_3.Text = "";
+            L_LOTE_4.Text = "";
+            L_REF_1.Text = "";
+            L_REF_2.Text = "";
+            L_REF_3.Text = "";
+            L_REF_4.Text = "";
+            TB_EFECTIVO.Text = "";
+            TB_DIVISA_CNT.Text = "";
+            TB_DIVISA_MONTO.Text = "";
+            TB_MONTO_RECIBIDO.Text = "";
+            TB_ELECT_1.Text = "";
+            TB_ELECT_2.Text = "";
+            TB_ELECT_3.Text = "";
+            TB_OTRO.Text = "";
+            L_CNT_DIVISA_RECOMIENDA.Text = "";
+            ActualizaMontoResta();
+        }
+        //
+        private void Salir()
+        {
+            this.Close();
+        }
+    }
+}
