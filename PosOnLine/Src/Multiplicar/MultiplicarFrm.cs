@@ -46,6 +46,8 @@ namespace PosOnLine.Src.Multiplicar
         }
         private void TB_CANTIDAD_Leave(object sender, EventArgs e)
         {
+            if (TB_CANTIDAD.Text.Trim() == "") return;
+            //
             _controlador.setCantidad(int.Parse(TB_CANTIDAD.Text.Trim()));
         }
         private void TB_OK_Click(object sender, EventArgs e)
