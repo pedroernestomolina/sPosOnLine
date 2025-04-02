@@ -83,14 +83,14 @@ namespace PosOnLine.Src.Pago.ZUFU
             _baseAplicaIgtfMonAct = 0.0m;
         }
 
-        ProcesarFrm frm;
+        vistas.ProcesarFrm frm;
         public void Inicia()
         {
             if (cargarData()) 
             {
                 if (frm == null) 
                 {
-                    frm = new ProcesarFrm();
+                    frm = new vistas.ProcesarFrm();
                     frm.setControlador(this);
                 }
                 frm.ShowDialog();

@@ -506,6 +506,11 @@ namespace PosOnLine.Src.Pos
             {
                 Totalizar();
             }
+            if (e.Alt && e.Control && e.KeyCode == Keys.V)
+            {
+                var t = !L_IMPORTE_PAGO_DIVISA_BONO.Visible;
+                L_IMPORTE_PAGO_DIVISA_BONO.Visible =t;
+            }
         }
 
         private void AbrirPedido()

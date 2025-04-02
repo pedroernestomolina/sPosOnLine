@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace PosOnLine.Src.Pago.ZUFU
+namespace PosOnLine.Src.Pago.ZUFU.vistas
 {
     public partial class ProcesarFrm: Form
     {
@@ -42,6 +42,10 @@ namespace PosOnLine.Src.Pago.ZUFU
         }
         private void Frm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Alt && e.Control && e.KeyCode == Keys.V)
+            {
+                Test();
+            }
             if (e.KeyCode == Keys.F2)
             {
                 DarDescuento();
