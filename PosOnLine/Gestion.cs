@@ -35,11 +35,13 @@ namespace PosOnLine
                 {
                     Sistema.FiscalTfhka = new LibFoxFiscal.LibFoxFiscal.Fiscal();
                     Sistema.FiscalTfhka.SetPuerto(Sistema.ImpresoraFiscal.Puerto);
+                    /*
                     if (Sistema.ImprimirFactura.IsModoFiscal) 
                     {
                         Sistema.ImprimirFactura.setHndFiscal(Sistema.FiscalTfhka);
                         Sistema.ImprimirNotaCredito.setHndFiscal(Sistema.FiscalTfhka);
                     }
+                     */
                 }
 
                 var r01 = Sistema.MyData.Configuracion_ModoPos();

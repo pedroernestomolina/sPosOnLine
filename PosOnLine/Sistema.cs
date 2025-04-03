@@ -74,7 +74,8 @@ namespace PosOnLine
         public static string FuncionPosCerrarPos            = "0816170000";
 
         //METODOS DE IMPRESION DOCUMENTO
-        public static Helpers.Imprimir.IDocumento ImprimirFactura;
+        //public static Helpers.Imprimir.IDocumento ImprimirFactura;
+        public static Helpers.Imprimir.IDocumentoNew ImprimirFactura;
         public static Helpers.Imprimir.IDocumento ImprimirNotaCredito;
         public static Helpers.Imprimir.IDocumento ImprimirNotaEntrega;
         public static Helpers.Imprimir.IDocumento ImprimirNotaCreditoNoFiscal;

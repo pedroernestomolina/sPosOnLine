@@ -157,6 +157,11 @@ namespace PosOnLine.Src.Pos
         }
         private void printDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
+            var _imprimirDoc = (Helpers.Imprimir.IDocumentoTicket)Sistema.ImprimirFactura;
+            _imprimirDoc.setControladorTickera(e);
+            _imprimirDoc.setEmpresa(Sistema.DatosEmpresa);
+            _imprimirDoc.ImprimirDoc();
+            /*
             _isTickeraOk = false;
             if (_ImprimirDoc != null)
             {
@@ -165,6 +170,7 @@ namespace PosOnLine.Src.Pos
                 _ImprimirDoc.ImprimirDoc();
             }
             _ImprimirDoc = null;
+             */
         }
 
         private void _gestionItem_Hnd_Item_Cambio(object sender, EventArgs e)
@@ -1514,8 +1520,15 @@ namespace PosOnLine.Src.Pos
                     cierreFtp = "",
                 };
             }
-            fichaOOB.estatusFiscal = Sistema.ImprimirFactura.IsModoFiscal;
-            if (Sistema.ImprimirFactura.IsModoFiscal)
+
+            var isModoFiscal = true;
+            if (Sistema.ImprimirFactura is Helpers.Imprimir.IDocumentoTicket)
+                isModoFiscal = false;
+
+            //fichaOOB.estatusFiscal = Sistema.ImprimirFactura.IsModoFiscal;
+            fichaOOB.estatusFiscal = isModoFiscal;
+            //if (Sistema.ImprimirFactura.IsModoFiscal)
+            if (isModoFiscal)
             {
                 var ModoTest = false;
                 if (ModoTest)
@@ -1560,6 +1573,15 @@ namespace PosOnLine.Src.Pos
                 };
                 Sistema.ImprimirFactura.setData(xdata);
                 Sistema.ImprimirFactura.setImprimirQR(dat);
+                if (Sistema.ImprimirFactura is Helpers.Imprimir.IDocumentoTicket)
+                {
+                    printDocument2.Print();
+                }
+                else 
+                {
+                    Sistema.ImprimirFactura.ImprimirDoc();
+                }
+                /*
                 if (Sistema.ImprimirFactura.IsModoTicket)
                 {
                     _isTickeraOk = true;
@@ -1570,6 +1592,7 @@ namespace PosOnLine.Src.Pos
                 {
                     Sistema.ImprimirFactura.ImprimirDoc();
                 }
+                 */
             }
 
             _gestionItem.Limpiar();

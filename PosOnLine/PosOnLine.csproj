@@ -150,6 +150,10 @@
     <Compile Include="Helpers\Imprimir\data.cs" />
     <Compile Include="Helpers\Imprimir\dataCuadre.cs" />
     <Compile Include="Helpers\Imprimir\dataQR.cs" />
+    <Compile Include="Helpers\Imprimir\baseDocumentoNew.cs" />
+    <Compile Include="Helpers\Imprimir\DatosCliente.cs" />
+    <Compile Include="Helpers\Imprimir\DatosDocumento.cs" />
+    <Compile Include="Helpers\Imprimir\DatosNegocio.cs" />
     <Compile Include="Helpers\Imprimir\Fiscal\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Fiscal\DocumentoNC.cs" />
     <Compile Include="Helpers\Imprimir\Grafico\CuadreDoc.cs" />
@@ -166,7 +170,9 @@
       <DependentUpon>ReporteFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Imprimir\ICuadreCaja.cs" />
+    <Compile Include="Helpers\Imprimir\IDocumentoNew.cs" />
     <Compile Include="Helpers\Imprimir\IDocumento.cs" />
+    <Compile Include="Helpers\Imprimir\ITicket.cs" />
     <Compile Include="Helpers\Imprimir\Tickera58\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera58\Documento.cs" />
     <Compile Include="Helpers\Imprimir\Tickera58\Ticket.cs" />
@@ -178,13 +184,19 @@
     <Compile Include="Helpers\Imprimir\Tickera80Basico\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\CuadreDoc.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\DocumentoEver.cs" />
+    <Compile Include="Helpers\Imprimir\Tickera80\DocumentoMay.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\DocumentoPan.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\DocumentoZufu.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Documento.cs" />
+    <Compile Include="Helpers\Imprimir\DocumentoTicket.cs" />
+    <Compile Include="Helpers\Imprimir\IDocTicket.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\TicketEver.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\TicketPan.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\TicketZufu.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\baseTicket.cs" />
+    <Compile Include="Helpers\Imprimir\Ticket80\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\TicketBasico80\Ticket.cs" />
     <Compile Include="Helpers\IProcesar.cs" />
     <Compile Include="Helpers\Msg.cs" />
     <Compile Include="Helpers\Opcion\Gestion.cs" />

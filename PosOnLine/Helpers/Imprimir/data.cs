@@ -24,7 +24,6 @@ namespace PosOnLine.Helpers.Imprimir
                 Telefonos = "";
             }
         }
-
         public class Encabezado
         {
             public string DocumentoNombre { get; set; }
@@ -135,7 +134,6 @@ namespace PosOnLine.Helpers.Imprimir
             //
             public decimal SaldoPendientDiv { get; set; }
         }
-
         public class Item
         {
             public string NombrePrd { get; set; }
@@ -187,7 +185,6 @@ namespace PosOnLine.Helpers.Imprimir
             }
 
         }
-
         public class MetodoPago 
         {
             public string descripcion { get; set; }
@@ -200,7 +197,6 @@ namespace PosOnLine.Helpers.Imprimir
                 esDivisa = false;
             }
         }
-
         public class MedidaEmp 
         {
             public string desc { get; set; }

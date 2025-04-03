@@ -119,19 +119,21 @@ namespace PosOnLine.Src.Pago.ZUFU.vistas
         }
         private void TB_EFECTIVO_Leave(object sender, EventArgs e)
         {
-            if (TB_EFECTIVO.Text.Trim() == "") return;
-            //
             var monto = 0.0m;
-            monto = decimal.Parse(TB_EFECTIVO.Text);
+            if (TB_EFECTIVO.Text.Trim() != "")
+            {
+                monto = decimal.Parse(TB_EFECTIVO.Text);
+            }
             _controlador.AddEfectivo(monto);
             ActualizaMontoResta();
         }
         private void TB_ELECT_1_Leave(object sender, EventArgs e)
         {
-            if (TB_ELECT_1.Text.Trim() == "") return;
-            //
             var monto = 0.0m;
-            monto = decimal.Parse(TB_ELECT_1.Text);
+            if (TB_ELECT_1.Text.Trim() != "")
+            {
+                monto = decimal.Parse(TB_ELECT_1.Text);
+            }
             _controlador.AddElectronico(monto, 1);
             L_LOTE_1.Text = _controlador.PagoElectronico_LOTE_1;
             L_REF_1.Text = _controlador.PagoElectronico_REF_1;
@@ -139,10 +141,11 @@ namespace PosOnLine.Src.Pago.ZUFU.vistas
         }
         private void TB_ELECT_2_Leave(object sender, EventArgs e)
         {
-            if (TB_ELECT_2.Text.Trim() == "") return;
-            //
             var monto = 0.0m;
-            monto = decimal.Parse(TB_ELECT_2.Text);
+            if (TB_ELECT_2.Text.Trim() != "")
+            {
+                monto = decimal.Parse(TB_ELECT_2.Text);
+            }
             _controlador.AddElectronico(monto, 2);
             L_LOTE_2.Text = _controlador.PagoElectronico_LOTE_2;
             L_REF_2.Text = _controlador.PagoElectronico_REF_2;
@@ -150,10 +153,11 @@ namespace PosOnLine.Src.Pago.ZUFU.vistas
         }
         private void TB_ELECT_3_Leave(object sender, EventArgs e)
         {
-            if (TB_ELECT_3.Text.Trim() == "") return;
-            //
             var monto = 0.0m;
-            monto = decimal.Parse(TB_ELECT_3.Text);
+            if (TB_ELECT_3.Text.Trim() != "") 
+            {
+                monto = decimal.Parse(TB_ELECT_3.Text);
+            }
             _controlador.AddElectronico(monto, 3);
             L_LOTE_3.Text = _controlador.PagoElectronico_LOTE_3;
             L_REF_3.Text = _controlador.PagoElectronico_REF_3;
@@ -161,10 +165,11 @@ namespace PosOnLine.Src.Pago.ZUFU.vistas
         }
         private void TB_OTRO_Leave(object sender, EventArgs e)
         {
-            if (TB_OTRO.Text.Trim() == "") return;
-            //
             var monto = 0.0m;
-            monto = decimal.Parse(TB_OTRO.Text);
+            if (TB_OTRO.Text.Trim() != "")
+            {
+                monto = decimal.Parse(TB_OTRO.Text);
+            }
             _controlador.AddElectronico(monto, 4);
             L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
             L_REF_4.Text = _controlador.PagoElectronico_REF_4;

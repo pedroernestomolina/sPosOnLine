@@ -7,18 +7,14 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir
 {
-    
     public class dataQR
     {
-
         public int idVerificador { get; set; }
         public string autoDoc { get; set; }
         public string autoCierre { get; set; }
         public string numDoc { get; set; }
         public string codDoc { get; set; }
         public decimal montoDoc { get; set; }
-
-
         public dataQR()
         {
             idVerificador = -1;
@@ -28,7 +24,5 @@ namespace PosOnLine.Helpers.Imprimir
             codDoc = "";
             montoDoc = 0m;
         }
-
     }
-
 }

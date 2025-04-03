@@ -291,6 +291,9 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                 { 
                     case data.enumTipoDoc.Factura:
                         Sistema.ImprimirFactura.setData(xdata);
+                        Sistema.ImprimirFactura.ImprimirCopiaDoc();
+                        break;
+                        /*
                         if (Sistema.ImprimirFactura.IsModoTicket)
                         {
                             _isTickeraOk = true;
@@ -301,6 +304,7 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
                             Sistema.ImprimirFactura.ImprimirCopiaDoc();
                         }
                         break;
+                         */
                     case data.enumTipoDoc.NotaCredito:
                         //Sistema.ImprimirNotaCredito.setData(xdata);
                         if (Sistema.ImprimirNotaCredito.IsModoTicket)
