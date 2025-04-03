@@ -27,6 +27,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU.vistas
             DGV.AllowUserToResizeRows = false;
             DGV.AllowUserToResizeColumns = false;
             DGV.AllowUserToOrderColumns = false;
+            DGV.AllowUserToDeleteRows = false;
             DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DGV.MultiSelect = false;
             DGV.ReadOnly = true;

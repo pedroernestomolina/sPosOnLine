@@ -11,24 +11,18 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Cierre.NoFiscal
 {
-
     public partial class CierreFrm : Form
     {
-
-
         private Gestion _controlador;
-
-
+        //
         public CierreFrm()
         {
             InitializeComponent();
         }
-
         private void CierreFrm_Load(object sender, EventArgs e)
         {
             Limpiar();
             ActualizarData();
-
             //
             TB_OTRO.ReadOnly = true;
             TB_OTRO.Text = _controlador.montoOtros.ToString();
@@ -36,66 +30,201 @@ namespace PosOnLine.Src.Cierre.NoFiscal
             ActualizaDiferencia();
             //
         }
-
+        private void CierreFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (_controlador.CierreIsOk || _controlador.AbandonarIsOk)
+            {
+                e.Cancel = false;
+            }
+        }
+        public void setControlador(Gestion ctr)
+        {
+            _controlador=ctr;
+        }
+        private void TB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Cancel = false;
+            _controlador.Imprimir(e);
+        }
+        //
+        private void TB_CNT_DIVISA_Leave(object sender, EventArgs e)
+        {
+            if (TB_CNT_DIVISA.Text.Trim() == "") return;
+            //
+            var cntDivisa = int.Parse(TB_CNT_DIVISA.Text);
+            _controlador.setCntDivisa(cntDivisa);
+            ActualizarData();
+        }
+        private void TB_EFECTIVO_Leave(object sender, EventArgs e)
+        {
+            if (TB_EFECTIVO.Text.Trim() == "") return;
+            //
+            var mEfectivo = decimal.Parse(TB_EFECTIVO.Text);
+            _controlador.setEfectivo(mEfectivo);
+            ActualizarData();
+        }
+        private void TB_TARJETA_Leave(object sender, EventArgs e)
+        {
+            if (TB_TARJETA.Text.Trim() == "") return;
+            //
+            var mTarjeta = decimal.Parse(TB_TARJETA.Text);
+            _controlador.setTarjeta(mTarjeta);
+            ActualizarData();
+        }
+        private void TB_OTRO_Leave(object sender, EventArgs e)
+        {
+            if (TB_OTRO.Text.Trim() == "") return;
+            //
+            var mOtro = decimal.Parse(TB_OTRO.Text);
+            _controlador.setOtro(mOtro);
+            ActualizarData();
+        }
+        //
+        private void BT_DETALLE_Click(object sender, EventArgs e)
+        {
+            ReporteDetalle();
+        }
+        private void BT_NC_DETALLE_Click(object sender, EventArgs e)
+        {
+            NCreditoDetalle();
+        }
+        private void BT_PAGO_RESUMEN_Click(object sender, EventArgs e)
+        {
+            PagoResumen();
+        }
+        private void BT_PagoMovil_Click(object sender, EventArgs e)
+        {
+            PagoMovil();
+        }
+        private void BT_VUELTOS_ENTREGADOS_Click(object sender, EventArgs e)
+        {
+            VueltosEntregados();
+        }
+        private void BT_MOV_CAJA_Click(object sender, EventArgs e)
+        {
+            MovCaja();
+        }
+        private void BT_CREDITO_Click(object sender, EventArgs e)
+        {
+            VentCredito();
+        }
+        private void BT_ACEPTAR_Click(object sender, EventArgs e)
+        {
+            Procesar();
+        }
+        private void BT_SALIDA_Click(object sender, EventArgs e)
+        {
+            _controlador.Salir();
+        }
+        //
+        private void PagoResumen()
+        {
+            _controlador.PagoResumen();
+        }
+        private void ReporteDetalle()
+        {
+            _controlador.ReporteDetalle();
+        }
+        private void NCreditoDetalle()
+        {
+            _controlador.NCreditoDetalle();
+        }
+        private void PagoMovil()
+        {
+            _controlador.PagoMovil();
+        }
+        private void VueltosEntregados()
+        {
+            _controlador.VueltosEntregados();
+        }
+        private void MovCaja()
+        {
+            _controlador.MovCaja();
+        }
+        private void VentCredito()
+        {
+            _controlador.VentCredito();
+        }
+        private void Procesar()
+        {
+            _controlador.Procesar();
+            if (_controlador.CierreIsOk)
+            {
+                if (_controlador.IsTicket)
+                {
+                    printDocument1.Print();
+                }
+                Salir();
+            }
+        }
+        private void Salir()
+        {
+            this.Close();
+        }
         private void ActualizarData()
         {
             L_ESTACION.Text = _controlador.Estacion;
             L_USUARIO.Text = _controlador.Usuario;
             L_FECHA_HORA.Text = _controlador.FechaHoraApertura;
-
+            //
             L_CNT_DOC_FACTURA.Text = _controlador.cntFactura.ToString("n0");
             L_CNT_DOC_NCREDITO.Text = _controlador.cntNCredito.ToString("n0");
             L_CNT_DOC_NENTREGA.Text = _controlador.cntNEntrega.ToString("n0");
-
+            //
             L_MONTO_DOC_FACTURA.Text = _controlador.montoFactura.ToString("n2");
             L_MONTO_DOC_NCREDITO.Text = _controlador.montoNCredito.ToString("n2");
             L_MONTO_DOC_NENTREGA.Text = _controlador.montoNEntrega.ToString("n2");
             L_MONTO_VENTA.Text = _controlador.montoVenta.ToString("n2");
-
+            //
             L_CNT_DOC_CONTADO.Text = _controlador.cntDocContado.ToString("n0");
             L_CNT_DOC_CREDITO.Text = _controlador.cntDocCredito.ToString("n0");
             L_MONTO_DOC_CONTADO.Text = _controlador.montoDocContado.ToString("n2");
             L_MONTO_DOC_CREDITO.Text = _controlador.montoDocCredito.ToString("n2");
-
-            L_CNT_DIVISA.Text = _controlador.cntDivisa.ToString("n0")+" x "+_controlador.tasaPromedioDivisa.ToString("n3");
+            //
+            L_CNT_DIVISA.Text = _controlador.cntDivisa.ToString("n0") + " x " + _controlador.tasaPromedioDivisa.ToString("n3");
             L_CNT_TARJETAS.Text = _controlador.cntElectronico.ToString("n0");
             L_CNT_OTROS.Text = _controlador.cntOtros.ToString("n0");
-
+            //
             L_MONTO_EFECTIVO.Text = _controlador.montoEfectivo.ToString("n2");
             L_MONTO_DIVISA.Text = _controlador.montoDivisa.ToString("n2");
             L_MONTO_TARJETAS.Text = _controlador.montoElectronico.ToString("n2");
             L_MONTO_OTROS.Text = _controlador.montoOtros.ToString("n2");
-
+            //
             L_CNT_CAMBIO.Text = _controlador.cntCambio.ToString("n0");
             L_MONTO_CAMBIO.Text = _controlador.montoCambio.ToString("n2");
-
+            //
             L_MONTO_DESGLOZE.Text = _controlador.montoDesgloze.ToString("n2");
             L_TOTAL_ENTRADA.Text = _controlador.montoEntrada.ToString("n2");
             L_MONTO_POR_DIVISA.Text = _controlador.montoEntradaDivisa.ToString("n2");
-
-            L_CNT_DOC_FACTURA_ANULADA.Text = _controlador.cntFacturaAnulada.ToString("n0");
-            L_MONTO_DOC_FACTURA_ANULADA.Text = _controlador.montoFacturaAnulada.ToString("n2"); 
-            L_CNT_DOC_NCREDITO_ANULADA.Text = _controlador.cntNCreditoAnulada.ToString("n0");
-            L_MONTO_DOC_NCREDITO_ANULADA.Text = _controlador.montoNCreditoAnulada.ToString("n2"); 
-            L_CNT_DOC_NENTREGA_ANULADAS.Text = _controlador.cntNEntregaAnulada.ToString("n0"); 
-            L_MONTO_DOC_NENTREGA_ANULADAS.Text = _controlador.montoNEntregaAnulada.ToString("n2"); 
-
             //
-            L_DESGLOZE.Text ="DESGLOZE DINERO POR: "+_controlador.DesglozeDinero.ToString("n2"); 
+            L_CNT_DOC_FACTURA_ANULADA.Text = _controlador.cntFacturaAnulada.ToString("n0");
+            L_MONTO_DOC_FACTURA_ANULADA.Text = _controlador.montoFacturaAnulada.ToString("n2");
+            L_CNT_DOC_NCREDITO_ANULADA.Text = _controlador.cntNCreditoAnulada.ToString("n0");
+            L_MONTO_DOC_NCREDITO_ANULADA.Text = _controlador.montoNCreditoAnulada.ToString("n2");
+            L_CNT_DOC_NENTREGA_ANULADAS.Text = _controlador.cntNEntregaAnulada.ToString("n0");
+            L_MONTO_DOC_NENTREGA_ANULADAS.Text = _controlador.montoNEntregaAnulada.ToString("n2");
+            //
+            L_DESGLOZE.Text = "DESGLOZE DINERO POR: " + _controlador.DesglozeDinero.ToString("n2");
             //
             L_VUELTO_PAGO_MOVIL.Text = _controlador.GetVueltoPorPagoMovil.ToString("n2");
             //
-            
             TB_EFECTIVO.Enabled = true;
             if (_controlador.montoEfectivo < 0)
             {
                 TB_EFECTIVO.Enabled = false;
-                _controlador.setEfectivo(_controlador.montoEfectivo );
+                _controlador.setEfectivo(_controlador.montoEfectivo);
             }
-
+            //
             ActualizaDiferencia();
         }
-
         private void ActualizaDiferencia()
         {
             L_DIFERENCIA.ForeColor = Color.Yellow;
@@ -115,7 +244,6 @@ namespace PosOnLine.Src.Cierre.NoFiscal
             }
             L_DIFERENCIA.Text = Math.Abs(_controlador.Diferencia).ToString("n2");
         }
-
         private void Limpiar()
         {
             L_FECHA_HORA.Text = "";
@@ -124,153 +252,6 @@ namespace PosOnLine.Src.Cierre.NoFiscal
             TB_CNT_DIVISA.Text = "";
             TB_OTRO.Text = "";
             TB_TARJETA.Text = "";
-        }
-
-        public void setControlador(Gestion ctr)
-        {
-            _controlador=ctr;
-        }
-
-        private void BT_SALIDA_Click(object sender, EventArgs e)
-        {
-            _controlador.Salir();
-        }
-
-        private void Salir()
-        {
-            this.Close();
-        }
-
-        private void TB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                this.SelectNextControl((Control)sender, true, true, true, true);
-            }
-        }
-
-        private void BT_ACEPTAR_Click(object sender, EventArgs e)
-        {
-            Procesar();
-        }
-
-        private void Procesar()
-        {
-            _controlador.Procesar();
-            if (_controlador.CierreIsOk) 
-            {
-                if (_controlador.IsTicket) 
-                {
-                    printDocument1.Print();
-                }
-                Salir();
-            }
-        }
-
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            e.Cancel = false;
-            _controlador.Imprimir(e);
-        }
-
-        private void BT_DETALLE_Click(object sender, EventArgs e)
-        {
-            ReporteDetalle();
-        }
-        private void ReporteDetalle()
-        {
-           _controlador.ReporteDetalle();
-        }
-
-        private void BT_NC_DETALLE_Click(object sender, EventArgs e)
-        {
-            NCreditoDetalle();
-        }
-
-        private void NCreditoDetalle()
-        {
-            _controlador.NCreditoDetalle();
-        }
-
-        private void BT_PAGO_RESUMEN_Click(object sender, EventArgs e)
-        {
-            PagoResumen();
-        }
-        private void PagoResumen()
-        {
-           _controlador.PagoResumen();
-        }
-
-        private void TB_CNT_DIVISA_Leave(object sender, EventArgs e)
-        {
-            if (TB_CNT_DIVISA.Text.Trim() == "") return;
-            //
-            var cntDivisa = int.Parse(TB_CNT_DIVISA.Text);
-            _controlador.setCntDivisa(cntDivisa);
-            ActualizarData();
-        }
-
-        private void TB_EFECTIVO_Leave(object sender, EventArgs e)
-        {
-            if (TB_EFECTIVO.Text.Trim() == "") return;
-            //
-            var mEfectivo = decimal.Parse(TB_EFECTIVO.Text);
-            _controlador.setEfectivo(mEfectivo);
-            ActualizarData();
-        }
-
-        private void TB_TARJETA_Leave(object sender, EventArgs e)
-        {
-            if (TB_TARJETA.Text.Trim() == "") return;
-            //
-            var mTarjeta = decimal.Parse(TB_TARJETA.Text);
-            _controlador.setTarjeta(mTarjeta);
-            ActualizarData();
-        }
-
-        private void TB_OTRO_Leave(object sender, EventArgs e)
-        {
-            if (TB_OTRO.Text.Trim() == "") return;
-            //
-            var mOtro = decimal.Parse(TB_OTRO.Text);
-            _controlador.setOtro(mOtro);
-            ActualizarData();
-        }
-
-        private void CierreFrm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = true;
-            if (_controlador.CierreIsOk || _controlador.AbandonarIsOk) 
-            {
-                e.Cancel = false;
-            }
-        }
-
-        private void BT_PagoMovil_Click(object sender, EventArgs e)
-        {
-            PagoMovil();
-        }
-        private void PagoMovil()
-        {
-            _controlador.PagoMovil();
-        }
-
-        private void BT_VUELTOS_ENTREGADOS_Click(object sender, EventArgs e)
-        {
-            VueltosEntregados();
-        }
-        private void VueltosEntregados()
-        {
-            _controlador.VueltosEntregados();
-        }
-
-        private void BT_MOV_CAJA_Click(object sender, EventArgs e)
-        {
-            MovCaja();
-        }
-        private void MovCaja()
-        {
-            _controlador.MovCaja();
         }
     }
 }

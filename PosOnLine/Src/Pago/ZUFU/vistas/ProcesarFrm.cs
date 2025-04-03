@@ -103,10 +103,11 @@ namespace PosOnLine.Src.Pago.ZUFU.vistas
         }
         private void TB_DIVISA_CNT_Leave(object sender, EventArgs e)
         {
-            if (TB_DIVISA_CNT.Text.Trim() == "") return;
-            //
             var monto = 0.0m;
-            monto = decimal.Parse(TB_DIVISA_CNT.Text);
+            if (TB_DIVISA_CNT.Text.Trim() != "")
+            {
+                monto = decimal.Parse(TB_DIVISA_CNT.Text);
+            };
             _controlador.AddDivisa(monto);
             TB_OTRO.Text = Math.Round(_controlador.GetPagoOtro, 2, MidpointRounding.AwayFromZero).ToString();
             L_LOTE_4.Text = _controlador.PagoElectronico_LOTE_4;
