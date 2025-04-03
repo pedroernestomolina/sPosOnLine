@@ -219,9 +219,12 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         {
             try
             {
-                var filtro = new OOB.Reportes.Pos.Filtro() { idCierre = Sistema.PosEnUso.idAutoArqueoCierre, };
-                var r01 = Sistema.MyData.ReportePos_VueltosEntregados(filtro);
-                var rp1 = new Reportes.Cierre.VueltosEntregado.Movimiento(r01.ListaD);
+                var filtro = new OOB.Reportes.Pos.VentCredito.Filtro() 
+                { 
+                    IdCierre = Sistema.PosEnUso.idAutoArqueoCierre, 
+                };
+                var r01 = Sistema.MyData.ReportePos_VentCredito(filtro);
+                var rp1 = new Reportes.Cierre.VentCredito.Movimiento(r01.ListaD);
                 rp1.Generar();
             }
             catch (Exception e)

@@ -344,6 +344,8 @@
     <Compile Include="OOB\Reportes\Pos\PagoDetalle\Ficha.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoMovil\Ficha.cs" />
     <Compile Include="OOB\Reportes\Pos\PagoResumen\Ficha.cs" />
+    <Compile Include="OOB\Reportes\Pos\VentCredito\Ficha.cs" />
+    <Compile Include="OOB\Reportes\Pos\VentCredito\Filtro.cs" />
     <Compile Include="OOB\Reportes\Pos\VueltosEntregados\Ficha.cs" />
     <Compile Include="OOB\Resultado\Enumerados.cs" />
     <Compile Include="OOB\Resultado\Ficha.cs" />
@@ -551,6 +553,7 @@
     <Compile Include="Src\ReglasNegocio\ReglaNegocioEverestMotor.cs" />
     <Compile Include="Src\ReglasNegocio\ReglaNegocioZufu.cs" />
     <Compile Include="Src\ReglasNegocio\IReglas.cs" />
+    <Compile Include="Src\Reportes\Cierre\VentCredito\Movimiento.cs" />
     <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\data.cs" />
     <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\dataPanel.cs" />
     <Compile Include="Src\Zufu\CambioPrecioPrdComp\CambioPrecio\Handler\Imp.cs" />
@@ -1009,6 +1012,9 @@
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\MovCaja.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\Reportes\VentCredito.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\VueltosEntregado.rdlc">

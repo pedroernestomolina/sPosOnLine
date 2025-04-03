@@ -14,192 +14,223 @@ namespace PosOnLine.Data.Prov
             ReportePos_PagoDetalle(OOB.Reportes.Pos.Filtro filtro)
         {
             var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.PagoDetalle.Ficha>();
-
-            var filtroDTO = new DtoLibPos.Reportes.POS.Filtro();
-            filtroDTO.IdCierre = filtro.idCierre;
-            var r01 = MyData.ReportePos_PagoDetalle(filtroDTO);
-            if (r01.Result ==  DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                rt.Mensaje = r01.Mensaje;
-                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return rt;
-            }
-
-            var list = new List<OOB.Reportes.Pos.PagoDetalle.Ficha>();
-            if (r01.Lista != null)
-            {
-                if (r01.Lista.Count > 0)
+                var filtroDTO = new DtoLibPos.Reportes.POS.Filtro();
+                filtroDTO.IdCierre = filtro.idCierre;
+                var r01 = MyData.ReportePos_PagoDetalle(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
                 {
-                    var gf = r01.Lista.GroupBy(g => 
-                        new 
-                        {
-                            g.autoRecibo, g.documentoNro, g.documentoFecha, g.documentoTipo, g.hora, g.clienteNombre, 
-                            g.clienteCiRif, g.clienteDir, g.clienteTelf, g.cambioDar, g.estatus , g.importe , g.estatusCredito
-                        }).Select(s => new { key = s.Key, data = s.ToList()}).ToList();
-
-                    foreach (var it in gf)
+                    throw new Exception(r01.Mensaje);
+                }
+                var list = new List<OOB.Reportes.Pos.PagoDetalle.Ficha>();
+                if (r01.Lista != null)
+                {
+                    if (r01.Lista.Count > 0)
                     {
-                        var nf = new OOB.Reportes.Pos.PagoDetalle.Ficha()
-                        {
-                            cliCiRif = it.key.clienteCiRif,
-                            cliDir = it.key.clienteDir,
-                            cliNombre = it.key.clienteNombre,
-                            cliTelf = it.key.clienteTelf,
-                            docCambioDar = it.key.cambioDar,
-                            docEstatus = it.key.estatus,
-                            docEstatusCredito = it.key.estatusCredito,
-                            docFecha = it.key.documentoFecha,
-                            docHora = it.key.hora,
-                            docMonto = it.key.importe,
-                            docNumero = it.key.documentoNro,
-                            docTipo = it.key.documentoTipo,
-                            idRecibo = it.key.autoRecibo,
-                        };
-                        var lp= new List<OOB.Reportes.Pos.PagoDetalle.Detalle>();
-                        foreach (var p in it.data) 
-                        {
-                            var np = new OOB.Reportes.Pos.PagoDetalle.Detalle()
+                        var gf = r01.Lista.GroupBy(g =>
+                            new
                             {
-                                loteCntDivisa = p.loteCntDivisa,
-                                medioPagCodigo = p.medioPagoCodigo,
-                                medioPagDesc = p.medioPagoDesc,
-                                montoRecibido = p.montoRecibido,
-                                refTasaDivisa = p.referenciaTasa,
+                                g.autoRecibo,
+                                g.documentoNro,
+                                g.documentoFecha,
+                                g.documentoTipo,
+                                g.hora,
+                                g.clienteNombre,
+                                g.clienteCiRif,
+                                g.clienteDir,
+                                g.clienteTelf,
+                                g.cambioDar,
+                                g.estatus,
+                                g.importe,
+                                g.estatusCredito
+                            }).Select(s => new { key = s.Key, data = s.ToList() }).ToList();
+                        foreach (var it in gf)
+                        {
+                            var nf = new OOB.Reportes.Pos.PagoDetalle.Ficha()
+                            {
+                                cliCiRif = it.key.clienteCiRif,
+                                cliDir = it.key.clienteDir,
+                                cliNombre = it.key.clienteNombre,
+                                cliTelf = it.key.clienteTelf,
+                                docCambioDar = it.key.cambioDar,
+                                docEstatus = it.key.estatus,
+                                docEstatusCredito = it.key.estatusCredito,
+                                docFecha = it.key.documentoFecha,
+                                docHora = it.key.hora,
+                                docMonto = it.key.importe,
+                                docNumero = it.key.documentoNro,
+                                docTipo = it.key.documentoTipo,
+                                idRecibo = it.key.autoRecibo,
                             };
-                            lp.Add(np);
+                            var lp = new List<OOB.Reportes.Pos.PagoDetalle.Detalle>();
+                            foreach (var p in it.data)
+                            {
+                                var np = new OOB.Reportes.Pos.PagoDetalle.Detalle()
+                                {
+                                    loteCntDivisa = p.loteCntDivisa,
+                                    medioPagCodigo = p.medioPagoCodigo,
+                                    medioPagDesc = p.medioPagoDesc,
+                                    montoRecibido = p.montoRecibido,
+                                    refTasaDivisa = p.referenciaTasa,
+                                };
+                                lp.Add(np);
+                            }
+                            nf.pagos = lp;
+                            list.Add(nf);
                         }
-                        nf.pagos = lp;
-                        list.Add(nf);
                     }
                 }
+                rt.ListaD = list;
             }
-            rt.ListaD = list;
-
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return rt;
         }
         public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoResumen.Ficha> 
             ReportePos_PagoResumen(OOB.Reportes.Pos.Filtro filtro)
         {
             var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.PagoResumen.Ficha>();
-
-            var filtroDTO = new DtoLibPos.Reportes.POS.Filtro();
-            filtroDTO.IdCierre = filtro.idCierre;
-            var r01 = MyData.ReportePos_PagoDetalle(filtroDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                rt.Mensaje = r01.Mensaje;
-                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return rt;
-            }
-
-            var list = new List<OOB.Reportes.Pos.PagoResumen.Ficha>();
-            if (r01.Lista != null)
-            {
-                if (r01.Lista.Count > 0)
+                var filtroDTO = new DtoLibPos.Reportes.POS.Filtro();
+                filtroDTO.IdCierre = filtro.idCierre;
+                var r01 = MyData.ReportePos_PagoDetalle(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
                 {
-                    list = r01.Lista.Where(w=>w.estatus.Trim().ToUpper()=="0").Select(s =>
-                    {
-                        var rg = new OOB.Reportes.Pos.PagoResumen.Ficha()
-                        {
-                            loteCntDivisa = s.loteCntDivisa,
-                            montoRecibido = s.montoRecibido,
-                            mpCodigo = s.medioPagoCodigo,
-                            mpDescripcion = s.medioPagoDesc,
-                            refTasaDivisa = s.referenciaTasa,
-                            estatusCredito = s.estatusCredito,
-                            importeDoc = s.importe,
-                        };
-                        return rg;
-                    }).ToList();
+                    throw new Exception(r01.Mensaje);
                 }
+                var list = new List<OOB.Reportes.Pos.PagoResumen.Ficha>();
+                if (r01.Lista != null)
+                {
+                    if (r01.Lista.Count > 0)
+                    {
+                        list = r01.Lista.Where(w => w.estatus.Trim().ToUpper() == "0").Select(s =>
+                        {
+                            var rg = new OOB.Reportes.Pos.PagoResumen.Ficha()
+                            {
+                                loteCntDivisa = s.loteCntDivisa,
+                                montoRecibido = s.montoRecibido,
+                                mpCodigo = s.medioPagoCodigo,
+                                mpDescripcion = s.medioPagoDesc,
+                                refTasaDivisa = s.referenciaTasa,
+                                estatusCredito = s.estatusCredito,
+                                importeDoc = s.importe,
+                            };
+                            return rg;
+                        }).ToList();
+                    }
+                }
+                rt.ListaD = list;
             }
-            rt.ListaD = list;
-
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return rt;
         }
         public OOB.Resultado.Lista<OOB.Reportes.Pos.PagoMovil.Ficha> 
             ReportePos_PagoMovil(OOB.Reportes.Pos.Filtro filtro)
         {
             var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.PagoMovil.Ficha>();
-
-            var filtroDTO = new DtoLibPos.Reportes.POS.Filtro();
-            filtroDTO.IdCierre = filtro.idCierre;
-            var r01 = MyData.ReportePos_PagoMovil(filtroDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                rt.Mensaje = r01.Mensaje;
-                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return rt;
-            }
-
-            var list = new List<OOB.Reportes.Pos.PagoMovil.Ficha>();
-            if (r01.Lista != null)
-            {
-                if (r01.Lista.Count > 0)
+                var filtroDTO = new DtoLibPos.Reportes.POS.Filtro();
+                filtroDTO.IdCierre = filtro.idCierre;
+                var r01 = MyData.ReportePos_PagoMovil(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
                 {
-                    list = r01.Lista.Select(s =>
-                    {
-                        var rg = new OOB.Reportes.Pos.PagoMovil.Ficha()
-                        {
-                            agencia = s.agencia,
-                            docCiRif = s.docCiRif,
-                            docEstatusAnulado = s.docEstatusAnulado,
-                            docFecha = s.docFecha,
-                            docNro = s.docNro,
-                            docRazonSocial = s.docRazonSocial,
-                            pmCiRif = s.pmCiRif,
-                            pmMonto = s.pmMonto,
-                            pmNombre = s.pmNombre,
-                            pmTelefono = s.pmTelefono,
-                        };
-                        return rg;
-                    }).ToList();
+                    throw new Exception(r01.Mensaje);
                 }
+                var list = new List<OOB.Reportes.Pos.PagoMovil.Ficha>();
+                if (r01.Lista != null)
+                {
+                    if (r01.Lista.Count > 0)
+                    {
+                        list = r01.Lista.Select(s =>
+                        {
+                            var rg = new OOB.Reportes.Pos.PagoMovil.Ficha()
+                            {
+                                agencia = s.agencia,
+                                docCiRif = s.docCiRif,
+                                docEstatusAnulado = s.docEstatusAnulado,
+                                docFecha = s.docFecha,
+                                docNro = s.docNro,
+                                docRazonSocial = s.docRazonSocial,
+                                pmCiRif = s.pmCiRif,
+                                pmMonto = s.pmMonto,
+                                pmNombre = s.pmNombre,
+                                pmTelefono = s.pmTelefono,
+                            };
+                            return rg;
+                        }).ToList();
+                    }
+                }
+                rt.ListaD = list;
             }
-            rt.ListaD = list;
-
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return rt;
         }
         public OOB.Resultado.Lista<OOB.Reportes.Pos.VueltosEntregados.Ficha> 
             ReportePos_VueltosEntregados(OOB.Reportes.Pos.Filtro filtro)
         {
             var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.VueltosEntregados.Ficha>();
-
-            var filtroDTO = new DtoLibPos.Reportes.POS.Filtro() { IdCierre = filtro.idCierre };
-            var r01 = MyData.ReportePos_VueltosEntregados(filtroDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-                throw new Exception(r01.Mensaje);
-
-            var lst = new List<OOB.Reportes.Pos.VueltosEntregados.Ficha>();
-            if (r01.Lista != null)
+            //
+            try
             {
-                if (r01.Lista.Count > 0)
+                var filtroDTO = new DtoLibPos.Reportes.POS.Filtro() { IdCierre = filtro.idCierre };
+                var r01 = MyData.ReportePos_VueltosEntregados(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                    throw new Exception(r01.Mensaje);
+                var lst = new List<OOB.Reportes.Pos.VueltosEntregados.Ficha>();
+                if (r01.Lista != null)
                 {
-                    lst = r01.Lista.Select(s =>
+                    if (r01.Lista.Count > 0)
                     {
-                        var nr = new OOB.Reportes.Pos.VueltosEntregados.Ficha()
+                        lst = r01.Lista.Select(s =>
                         {
-                            cntVueltoDivisa = s.cntVueltoDivisa,
-                            documento = s.documento,
-                            entDir = s.entDir,
-                            entNombre = s.entNombre,
-                            entTelf = s.entTelf,
-                            esAnulado = s.esAnulado,
-                            fecha = s.fecha,
-                            hora = s.hora,
-                            montoCambio = s.montoCambio,
-                            montoDoc = s.montoDoc,
-                            montoVueltoDivisa = s.montoVueltoDivisa,
-                            montoVueltoEfectivo = s.montoVueltoEfectivo,
-                            montoVueltoPagoMovil = s.montoVueltoPagoMovil,
-                            siglasDoc=s.siglasDoc,
-                        };
-                        return nr;
-                    }).ToList();
+                            var nr = new OOB.Reportes.Pos.VueltosEntregados.Ficha()
+                            {
+                                cntVueltoDivisa = s.cntVueltoDivisa,
+                                documento = s.documento,
+                                entDir = s.entDir,
+                                entNombre = s.entNombre,
+                                entTelf = s.entTelf,
+                                esAnulado = s.esAnulado,
+                                fecha = s.fecha,
+                                hora = s.hora,
+                                montoCambio = s.montoCambio,
+                                montoDoc = s.montoDoc,
+                                montoVueltoDivisa = s.montoVueltoDivisa,
+                                montoVueltoEfectivo = s.montoVueltoEfectivo,
+                                montoVueltoPagoMovil = s.montoVueltoPagoMovil,
+                                siglasDoc = s.siglasDoc,
+                            };
+                            return nr;
+                        }).ToList();
+                    }
                 }
+                rt.ListaD = lst;
             }
-            rt.ListaD = lst;
-
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            //
             return rt;
         }
         //
@@ -207,61 +238,121 @@ namespace PosOnLine.Data.Prov
             ReportePos_MovCaja(OOB.Reportes.Pos.MovCaja.Filtro filtro)
         {
             var rt = new OOB.Resultado.FichaEntidad<OOB.Reportes.Pos.MovCaja.Ficha>();
-
-            var filtroDTO = new DtoLibPos.Reportes.POS.MovCaja.Filtro() { idOperador = filtro.idOperador };
-            var r01 = MyData.ReportePos_MovCaja(filtroDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                throw new Exception(r01.Mensaje);
-            }
-            var _mov = new List<OOB.Reportes.Pos.MovCaja.FichaMov>();
-            var _det= new List<OOB.Reportes.Pos.MovCaja.FichaDet>();
-            if (r01.Entidad.mov != null)
-            {
-                if (r01.Entidad.mov.Count > 0)
+                var filtroDTO = new DtoLibPos.Reportes.POS.MovCaja.Filtro() { idOperador = filtro.idOperador };
+                var r01 = MyData.ReportePos_MovCaja(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
                 {
-                    _mov= r01.Entidad.mov.Select(s =>
-                    {
-                        var nr = new OOB.Reportes.Pos.MovCaja.FichaMov()
-                        {
-                            idMov=s.idMov,
-                            numeroMov=s.numeroMov,
-                            conceptoMov = s.conceptoMov,
-                            estatusAnuladoMov = s.estatusAnuladoMov,
-                            factorCambioMov = s.factorCambioMov,
-                            fechaMov = s.fechaMov,
-                            montoDivisaMov = s.montoDivisaMov,
-                            montoMov = s.montoMov,
-                            signoMov = s.signoMov,
-                            tipoMov = s.tipoMov,
-                        };
-                        return nr;
-                    }).ToList();
+                    throw new Exception(r01.Mensaje);
                 }
-            }
-            if (r01.Entidad.det != null)
-            {
-                if (r01.Entidad.det.Count > 0)
+                var _mov = new List<OOB.Reportes.Pos.MovCaja.FichaMov>();
+                var _det = new List<OOB.Reportes.Pos.MovCaja.FichaDet>();
+                if (r01.Entidad.mov != null)
                 {
-                    _det = r01.Entidad.det.Select(s =>
+                    if (r01.Entidad.mov.Count > 0)
                     {
-                        var nr = new OOB.Reportes.Pos.MovCaja.FichaDet()
+                        _mov = r01.Entidad.mov.Select(s =>
                         {
-                            cntDivisa = s.cntDivisa,
-                            codigoMed = s.codigoMed,
-                            descMed = s.descMed,
-                            esDivisa = s.esDivisa,
-                            monto = s.monto,
-                        };
-                        return nr;
-                    }).ToList();
+                            var nr = new OOB.Reportes.Pos.MovCaja.FichaMov()
+                            {
+                                idMov = s.idMov,
+                                numeroMov = s.numeroMov,
+                                conceptoMov = s.conceptoMov,
+                                estatusAnuladoMov = s.estatusAnuladoMov,
+                                factorCambioMov = s.factorCambioMov,
+                                fechaMov = s.fechaMov,
+                                montoDivisaMov = s.montoDivisaMov,
+                                montoMov = s.montoMov,
+                                signoMov = s.signoMov,
+                                tipoMov = s.tipoMov,
+                            };
+                            return nr;
+                        }).ToList();
+                    }
                 }
+                if (r01.Entidad.det != null)
+                {
+                    if (r01.Entidad.det.Count > 0)
+                    {
+                        _det = r01.Entidad.det.Select(s =>
+                        {
+                            var nr = new OOB.Reportes.Pos.MovCaja.FichaDet()
+                            {
+                                cntDivisa = s.cntDivisa,
+                                codigoMed = s.codigoMed,
+                                descMed = s.descMed,
+                                esDivisa = s.esDivisa,
+                                monto = s.monto,
+                            };
+                            return nr;
+                        }).ToList();
+                    }
+                }
+                rt.Entidad = new OOB.Reportes.Pos.MovCaja.Ficha()
+                {
+                    mov = _mov,
+                    det = _det,
+                };
             }
-            rt.Entidad = new OOB.Reportes.Pos.MovCaja.Ficha()
+            catch (Exception e)
             {
-                mov = _mov,
-                det = _det,
-            };
+                throw new Exception(e.Message);
+            }
+            //
+            return rt;
+        }
+        //
+        public OOB.Resultado.Lista<OOB.Reportes.Pos.VentCredito.Ficha> 
+            ReportePos_VentCredito(OOB.Reportes.Pos.VentCredito.Filtro filtro)
+        {
+            var rt = new OOB.Resultado.Lista<OOB.Reportes.Pos.VentCredito.Ficha>();
+            //
+            try
+            {
+                var filtroDTO = new DtoLibPos.Reportes.POS.VentCredito.Filtro()
+                {
+                    IdCierre = filtro.IdCierre,
+                };
+                var r01 = MyData.ReportePos_VentCredito(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                var list = new List<OOB.Reportes.Pos.VentCredito.Ficha>();
+                if (r01.Lista != null)
+                {
+                    if (r01.Lista.Count > 0)
+                    {
+                        list = r01.Lista.Select(s =>
+                        {
+                            var nr = new OOB.Reportes.Pos.VentCredito.Ficha()
+                            {
+                                clienteCiRif = s.clienteCiRif,
+                                clienteDir = s.clienteDir,
+                                clienteNombre = s.clienteNombre,
+                                clienteTelf = s.clienteTelf,
+                                docEmision = s.docEmision,
+                                docImporteMonAct = s.docImporteMonAct,
+                                docImporteMonDiv = s.docImporteMonDiv,
+                                docNumero = s.docNumero,
+                                docSaldoPendMonDiv = s.docSaldoPendMonDiv,
+                                factorCambio = s.factorCambio,
+                                montoBonoDiv = s.montoBonoDiv,
+                                porctBonoDiv = s.porctBonoDiv,
+                            };
+                            return nr;
+                        }).ToList();
+                    }
+                }
+                rt.ListaD = list;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            //
             return rt;
         }
     }

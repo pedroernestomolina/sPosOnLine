@@ -20,5 +20,8 @@ namespace PosOnLine.Data.Infra
         //
         OOB.Resultado.FichaEntidad<OOB.Reportes.Pos.MovCaja.Ficha>
             ReportePos_MovCaja(OOB.Reportes.Pos.MovCaja.Filtro filtro);
+        //
+        OOB.Resultado.Lista<OOB.Reportes.Pos.VentCredito.Ficha>
+            ReportePos_VentCredito(OOB.Reportes.Pos.VentCredito.Filtro filtro);
     }
 }
