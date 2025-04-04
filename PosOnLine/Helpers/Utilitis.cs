@@ -87,7 +87,7 @@ namespace PosOnLine.Helpers
 
                                 if (nv.LocalName.ToUpper().Trim() == "MODOIMPRESIONFACTURA")
                                 {
-                                    Helpers.Imprimir.IDocumentoTicket fact;
+                                    Helpers.Imprimir.IDocTicket factTick;
                                     Sistema.ModoFiscalActivo = false;
                                     switch (nv.InnerText.Trim().ToUpper())
                                     {
@@ -97,37 +97,39 @@ namespace PosOnLine.Helpers
                                         case "F":
                                             Sistema.ModoFiscalActivo = true;
                                             //Sistema.ImprimirFactura = new Helpers.Imprimir.Fiscal.Documento();
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Fiscal.DocumentoNC();
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Fiscal.DocumentoNC();
                                             break;
                                         case "T80":
                                             //Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80.Documento();
-                                            fact = new Helpers.Imprimir.DocumentoTicket();
-                                            fact.setTicket(new Helpers.Imprimir.Ticket80.Ticket());
-                                            Sistema.ImprimirFactura = fact;
-
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.Documento();
-                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80.Documento();
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.Documento();
+                                            //Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80.Documento();
+                                            factTick= new Helpers.Imprimir.DocumentoTicket();
+                                            factTick.setTicket(new Helpers.Imprimir.Ticket._80.Ticket());
+                                            Sistema.ImprimirFactura = factTick;
+                                            Sistema.ImprimirNotaCredito = factTick;
+                                            Sistema.ImprimirNotaCreditoNoFiscal = factTick;
                                             break;
                                         case "T80B":
-                                           // Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80Basico.Documento();
-                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            //Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            //Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            factTick = new Helpers.Imprimir.DocumentoTicket();
+                                            factTick.setTicket(new Helpers.Imprimir.Ticket._80Basico.Ticket());
+                                            Sistema.ImprimirFactura = factTick;
+                                            Sistema.ImprimirNotaCredito = factTick;
+                                            Sistema.ImprimirNotaCreditoNoFiscal = factTick;
                                             break;
                                         case "T70":
                                             // Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera70.Documento();
-                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera70.Documento();
+                                            //Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera70.Documento();
                                             break;
                                         case "T58":
-                                            // Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
-                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera58.Documento();
-                                            break;
-                                        case "T80PAN":
-                                            // Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80.DocumentoPan();
-                                            fact = new Helpers.Imprimir.DocumentoTicket();
-                                            fact.setTicket(new Helpers.Imprimir.TicketBasico80.Ticket());
-                                            Sistema.ImprimirFactura = fact;
-
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.DocumentoPan();
-                                            Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera80.DocumentoPan();
+                                            //Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
+                                            //Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera58.Documento();
+                                            factTick= new Helpers.Imprimir.DocumentoTicket();
+                                            factTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            Sistema.ImprimirFactura = factTick;
+                                            Sistema.ImprimirNotaCredito = factTick;
+                                            Sistema.ImprimirNotaCreditoNoFiscal = factTick;
                                             break;
                                     }
                                 }
@@ -162,7 +164,7 @@ namespace PosOnLine.Helpers
                                     switch (nv.InnerText.Trim().ToUpper())
                                     {
                                         case "G":
-                                            Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Grafico.Documento();
+                                            //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Grafico.Documento();
                                             break;
                                         case "F":
                                             //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Fiscal.Documento();

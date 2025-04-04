@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Pos
 {
-
     public class Gestion
     {
         private ReglasNegocio.IReglas rglaNegocio;
@@ -70,8 +69,9 @@ namespace PosOnLine.Src.Pos
         //
         private bool _activarIGTF = false;
         private decimal _tasaIGTF = 0.0m;
-
-
+        //
+        private Helpers.Imprimir.DocumentoTicket _imprimirDocTick;
+        //
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
         public string UsuarioActual { get { return Sistema.Usuario.codigo + Environment.NewLine + Sistema.Usuario.nombre; } }
         public string EquipoEstacion { get { return Sistema.EquipoEstacion; } }
@@ -157,10 +157,15 @@ namespace PosOnLine.Src.Pos
         }
         private void printDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            var _imprimirDoc = (Helpers.Imprimir.IDocumentoTicket)Sistema.ImprimirFactura;
-            _imprimirDoc.setControladorTickera(e);
-            _imprimirDoc.setEmpresa(Sistema.DatosEmpresa);
-            _imprimirDoc.ImprimirDoc();
+            _imprimirDocTick.setEmpresa(Sistema.DatosEmpresa);
+            _imprimirDocTick.setControladorTickera(e);
+            _imprimirDocTick.ImprimirDoc();
+
+            //Sistema.ImprimirFactura.setEmpresa(Sistema.DatosEmpresa);
+            //var _imprimirDoc = (Helpers.Imprimir.IDocTicket)Sistema.ImprimirFactura;
+            //_imprimirDoc.setControladorTickera(e);
+            //_imprimirDoc.ImprimirDoc();
+
             /*
             _isTickeraOk = false;
             if (_ImprimirDoc != null)
@@ -1521,14 +1526,9 @@ namespace PosOnLine.Src.Pos
                 };
             }
 
-            var isModoFiscal = true;
-            if (Sistema.ImprimirFactura is Helpers.Imprimir.IDocumentoTicket)
-                isModoFiscal = false;
-
-            //fichaOOB.estatusFiscal = Sistema.ImprimirFactura.IsModoFiscal;
-            fichaOOB.estatusFiscal = isModoFiscal;
-            //if (Sistema.ImprimirFactura.IsModoFiscal)
-            if (isModoFiscal)
+            var impresionEsFiscal = (Sistema.ImprimirFactura is Helpers.Imprimir.IDocFiscal);
+            fichaOOB.estatusFiscal = impresionEsFiscal;
+            if (impresionEsFiscal)
             {
                 var ModoTest = false;
                 if (ModoTest)
@@ -1571,10 +1571,12 @@ namespace PosOnLine.Src.Pos
                     montoDoc = r01.Entidad.montoDoc,
                     numDoc = r01.Entidad.numDoc,
                 };
+                _imprimirDocTick = null;
                 Sistema.ImprimirFactura.setData(xdata);
                 Sistema.ImprimirFactura.setImprimirQR(dat);
-                if (Sistema.ImprimirFactura is Helpers.Imprimir.IDocumentoTicket)
+                if (Sistema.ImprimirFactura is Helpers.Imprimir.IDocTicket)
                 {
+                    _imprimirDocTick = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirFactura;
                     printDocument2.Print();
                 }
                 else 
@@ -2252,7 +2254,8 @@ namespace PosOnLine.Src.Pos
 
             if (_docAplicarNotaCredito.IsFiscal)
             {
-                if (Sistema.ImprimirNotaCredito.IsModoFiscal)
+                var impresionEsFiscal = (Sistema.ImprimirNotaCredito is Helpers.Imprimir.IDocFiscal);
+                if (impresionEsFiscal )
                 {
                     var f01 = Sistema.FiscalTfhka.Informacion();
                     if (f01.Resultado == LibFoxFiscal.Resultado.EnumResultado.ERROR)
@@ -2277,30 +2280,20 @@ namespace PosOnLine.Src.Pos
             var xdata = CargarDataDocumento(r01.Auto);
             if (xdata != null)
             {
+                Sistema.ImprimirNotaCredito.setData(xdata);
                 if (_docAplicarNotaCredito.IsFiscal)
                 {
-                    Sistema.ImprimirNotaCredito.setData(xdata);
                     Sistema.ImprimirNotaCredito.ImprimirDoc();
                 }
                 else
                 {
-                    _isTickeraOk = true;
-                    //_ImprimirDoc = Sistema.ImprimirNotaCreditoNoFiscal;
-                    Sistema.ImprimirNotaCredito.setData(xdata);
-                    _ImprimirDoc = Sistema.ImprimirNotaCredito;
-                    printDocument2.Print();
+                    _imprimirDocTick = null;
+                    if (Sistema.ImprimirNotaCredito is Helpers.Imprimir.IDocTicket)
+                    {
+                        _imprimirDocTick = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaCreditoNoFiscal;
+                        printDocument2.Print();
+                    }
                 }
-                //Sistema.ImprimirNotaCredito.setData(xdata);
-                //if (Sistema.ImprimirNotaCredito.IsModoTicket)
-                //{
-                //    _isTickeraOk = true;
-                //    _ImprimirDoc = Sistema.ImprimirNotaCredito;
-                //    printDocument2.Print();
-                //}
-                //else
-                //{
-                //    Sistema.ImprimirNotaCredito.ImprimirDoc();
-                //}
             }
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();

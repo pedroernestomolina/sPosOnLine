@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir
 {
-    public interface IDocTicket: IDocumentoNew
+    public interface IDocFiscal: IDocumentoNew
     {
-        void setControladorTickera(object ctr);
-        void setTicket(ITicket ticket);
     }
 }

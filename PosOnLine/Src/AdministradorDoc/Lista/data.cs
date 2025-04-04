@@ -7,16 +7,10 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.AdministradorDoc.Lista
 {
-    
     public class data
     {
-
-        public enum enumTipoDoc { SinDefinir = -1, Factura = 1, NotaDebito, NotaCredito, NotaEntrega };
-
-
         private OOB.Documento.Lista.Ficha it;
-
-
+        //
         public string idDocumento { get { return it.Id; } }
         public string FechaHora { get { return it.FechaEmision.ToShortDateString()+", "+it.HoraEmision; } }
         public string Serie { get { return it.Serie; } }
@@ -32,42 +26,36 @@ namespace PosOnLine.Src.AdministradorDoc.Lista
         public string DocCodigo { get { return it.DocCodigo; } }
         public string EstatusDoc { get { return IsAnulado ? "ANULADO" : ""; } }
         public int Signo { get { return it.DocSigno; } }
-        public enumTipoDoc DocTipo 
-        {
-            get 
-            {
-                var tp=enumTipoDoc.SinDefinir;
-                switch (DocCodigo.Trim().ToUpper()) 
-                {
-                    case "01":
-                        tp = enumTipoDoc.Factura;
-                        break;
-                    case "02":
-                        tp = enumTipoDoc.NotaDebito;
-                        break;
-                    case "03":
-                        tp = enumTipoDoc.NotaCredito;
-                        break;
-                    case "04":
-                        tp = enumTipoDoc.NotaEntrega;
-                        break;
-                }
-                return tp;
-            }
-        }
-
-
+        public Enumerados.enumTipoDoc DocTipo { get { return tipoDocumento(); } }
+        //
         public data(OOB.Documento.Lista.Ficha it)
         {
             this.it = it;
         }
-
-
         public void setAnularDoc()
         {
             it.Estatus = "1";
         }
-
+        //
+        private Enumerados.enumTipoDoc tipoDocumento()
+        {
+            var tp = Enumerados.enumTipoDoc.SinDefinir;
+            switch (DocCodigo.Trim().ToUpper())
+            {
+                case "01":
+                    tp = Enumerados.enumTipoDoc.Factura;
+                    break;
+                case "02":
+                    tp = Enumerados.enumTipoDoc.NotaDebito;
+                    break;
+                case "03":
+                    tp = Enumerados.enumTipoDoc.NotaCredito;
+                    break;
+                case "04":
+                    tp = Enumerados.enumTipoDoc.NotaEntrega;
+                    break;
+            }
+            return tp;
+        }
     }
-
 }

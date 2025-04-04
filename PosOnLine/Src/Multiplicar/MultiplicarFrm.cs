@@ -46,9 +46,13 @@ namespace PosOnLine.Src.Multiplicar
         }
         private void TB_CANTIDAD_Leave(object sender, EventArgs e)
         {
-            if (TB_CANTIDAD.Text.Trim() == "") return;
+            var cnt = 0;
+            if (TB_CANTIDAD.Text.Trim() != "")
+            {
+                cnt = int.Parse(TB_CANTIDAD.Text.Trim());
+            }
             //
-            _controlador.setCantidad(int.Parse(TB_CANTIDAD.Text.Trim()));
+            _controlador.setCantidad(cnt);
         }
         private void TB_OK_Click(object sender, EventArgs e)
         {

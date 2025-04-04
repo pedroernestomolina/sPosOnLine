@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Helpers.Imprimir.Ticket80
+namespace PosOnLine.Helpers.Imprimir.Ticket._80
 {
     public class Ticket: baseTicket
     {

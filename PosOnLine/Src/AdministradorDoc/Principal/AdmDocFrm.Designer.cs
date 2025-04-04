@@ -34,8 +34,6 @@
             this.BT_ANULAR = new System.Windows.Forms.Button();
             this.BT_NOTA_CREDITO = new System.Windows.Forms.Button();
             this.BT_IMPRIMIR = new System.Windows.Forms.Button();
-            this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -131,14 +129,6 @@
             this.toolTip1.SetToolTip(this.BT_IMPRIMIR, "ReImprimir  Documento");
             this.BT_IMPRIMIR.UseVisualStyleBackColor = true;
             this.BT_IMPRIMIR.Click += new System.EventHandler(this.BT_IMPRIMIR_Click);
-            // 
-            // printDialog1
-            // 
-            this.printDialog1.UseEXDialog = true;
-            // 
-            // printDocument1
-            // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
             // tableLayoutPanel2
             // 
@@ -547,7 +537,7 @@
             this.KeyPreview = true;
             this.Name = "AdmDocFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.ListartFrm_Load);
+            this.Load += new System.EventHandler(this.AdmDocFrm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AdmDocFrm_KeyDown);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -580,8 +570,6 @@
         #endregion
 
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.PrintDialog printDialog1;
-        private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;

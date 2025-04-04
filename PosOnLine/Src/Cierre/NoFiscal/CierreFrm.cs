@@ -57,33 +57,41 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         //
         private void TB_CNT_DIVISA_Leave(object sender, EventArgs e)
         {
-            if (TB_CNT_DIVISA.Text.Trim() == "") return;
-            //
-            var cntDivisa = int.Parse(TB_CNT_DIVISA.Text);
+            var cntDivisa = 0;
+            if (TB_CNT_DIVISA.Text.Trim() != "") 
+            {
+                cntDivisa = int.Parse(TB_CNT_DIVISA.Text);
+            }
             _controlador.setCntDivisa(cntDivisa);
             ActualizarData();
         }
         private void TB_EFECTIVO_Leave(object sender, EventArgs e)
         {
-            if (TB_EFECTIVO.Text.Trim() == "") return;
-            //
-            var mEfectivo = decimal.Parse(TB_EFECTIVO.Text);
+            var mEfectivo = 0m;
+            if (TB_EFECTIVO.Text.Trim() != "")
+            {
+                mEfectivo = decimal.Parse(TB_EFECTIVO.Text);
+            }
             _controlador.setEfectivo(mEfectivo);
             ActualizarData();
         }
         private void TB_TARJETA_Leave(object sender, EventArgs e)
         {
-            if (TB_TARJETA.Text.Trim() == "") return;
-            //
-            var mTarjeta = decimal.Parse(TB_TARJETA.Text);
+            var mTarjeta = 0m;
+            if (TB_TARJETA.Text.Trim() != "") 
+            {
+                mTarjeta = decimal.Parse(TB_TARJETA.Text);
+            }
             _controlador.setTarjeta(mTarjeta);
             ActualizarData();
         }
         private void TB_OTRO_Leave(object sender, EventArgs e)
         {
-            if (TB_OTRO.Text.Trim() == "") return;
-            //
-            var mOtro = decimal.Parse(TB_OTRO.Text);
+            var mOtro = 0m;
+            if (TB_OTRO.Text.Trim() != "") 
+            {
+                mOtro = decimal.Parse(TB_OTRO.Text);
+            }
             _controlador.setOtro(mOtro);
             ActualizarData();
         }

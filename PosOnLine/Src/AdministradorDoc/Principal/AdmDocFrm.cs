@@ -11,19 +11,10 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.AdministradorDoc.Principal
 {
-
     public partial class AdmDocFrm : Form
     {
         private Gestion _controlador;
-
-
-        public AdmDocFrm()
-        {
-            InitializeComponent();
-            InicializarGRid();
-        }
-
-
+        //
         private void InicializarGRid()
         {
             var f = new Font("Serif", 8, FontStyle.Bold);
@@ -81,12 +72,12 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             c6.DataPropertyName = "Renglones";
             c6.HeaderText = "# Reng";
             c6.Visible = true;
-            c6.Width =40;
+            c6.Width = 40;
             c6.HeaderCell.Style.Font = f;
             c6.DefaultCellStyle.Font = f1;
             c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             c6.DefaultCellStyle.Format = "n0";
-            c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter ;
+            c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             var c3 = new DataGridViewTextBoxColumn();
             c3.DataPropertyName = "CiRif";
@@ -124,11 +115,11 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             cA.DefaultCellStyle.Font = f1;
             cA.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             cA.DefaultCellStyle.Format = "n2";
-        
+
             var c8 = new DataGridViewTextBoxColumn();
             c8.DataPropertyName = "EstatusDoc";
             c8.Name = "Estatus";
-            c8.HeaderText="Estatus";
+            c8.HeaderText = "Estatus";
             c8.Visible = true;
             c8.Width = 100;
             c8.HeaderCell.Style.Font = f;
@@ -154,81 +145,94 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
             DGV.Columns.Add(c8);
             DGV.Columns.Add(cB);
         }
-
-        private void ListartFrm_Load(object sender, EventArgs e)
+        public AdmDocFrm()
         {
-            L_ITEMS.Text = _controlador.TotItems;
+            InitializeComponent();
+            InicializarGRid();
+        }
+        public void setControlador(Gestion ctr)
+        {
+            _controlador = ctr;
+        }
+        private void AdmDocFrm_Load(object sender, EventArgs e)
+        {
+            L_ITEMS.Text = _controlador.CntItems.ToString("n0");
             DGV.DataSource = _controlador.Source;
             DGV.Refresh();
-            printDialog1.Document = printDocument1;
         }
         private void AdmDocFrm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt && e.Control && e.KeyCode == Keys.N)
             {
                 _controlador.ActualizarModoDoc();
-                L_ITEMS.Text = _controlador.TotItems;
+                L_ITEMS.Text = _controlador.CntItems.ToString("n0");
             }
         }
-
+        private void DGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in DGV.Rows)
+            {
+                if ((string)row.Cells["Estatus"].Value != "")
+                {
+                    row.Cells["Estatus"].Style.BackColor = Color.Red;
+                    row.Cells["Estatus"].Style.ForeColor = Color.White;
+                }
+                if ((int)row.Cells["Signo"].Value == -1)
+                {
+                    row.Cells["DocNombre"].Style.BackColor = Color.Yellow;
+                    row.Cells["DocNombre"].Style.ForeColor = Color.Black;
+                }
+            }
+        }
+        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            VisualizarDocumento();
+        }
         private void IrFocoPrincipal()
         {
             DGV.Focus();
         }
-
         private void BT_SUBIR_Click(object sender, EventArgs e)
         {
             SubirItem();
         }
-
-        private void SubirItem()
-        {
-            _controlador.SubirItem();
-        }
-
         private void BT_BAJAR_Click(object sender, EventArgs e)
         {
             BajarItem();
         }
-
-        private void BajarItem()
-        {
-            _controlador.BajarItem();
-        }
-
         private void BT_ANULAR_Click(object sender, EventArgs e)
         {
             AnularDocumento();
         }
-        private void AnularDocumento()
-        {
-            _controlador.AnularDocumento();
-            if (_controlador.AnularDocumentoIsOk)
-            {
-                _controlador.ImprimirDocumento();
-                if (_controlador.IsTickeraOk)
-                {
-                    printDocument1.Print();
-                }
-                Helpers.Msg.EliminarOk();
-            }
-        }
-
-        private void BT_SALIDA_Click(object sender, EventArgs e)
-        {
-            Salir();
-        }
-
-        private void Salir()
-        {
-            this.Close();
-        }
-
         private void BT_NOTA_CREDITO_Click(object sender, EventArgs e)
         {
             NotaCredito();
         }
-
+        private void BT_IMPRIMIR_Click(object sender, EventArgs e)
+        {
+            ImprimirDocumento();
+        }
+        private void BT_SALIDA_Click(object sender, EventArgs e)
+        {
+            Salir();
+        }
+        //
+        private void SubirItem()
+        {
+            _controlador.SubirItem();
+        }
+        private void BajarItem()
+        {
+            _controlador.BajarItem();
+        }
+        private void VisualizarDocumento()
+        {
+            _controlador.VisualizarDocumento();
+        }
+        private void ImprimirDocumento()
+        {
+            _controlador.ImprimirDocumento();
+        }
         private void NotaCredito()
         {
             _controlador.NotaCredito();
@@ -237,60 +241,17 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                 Salir();
             }
         }
-
-        private void BT_IMPRIMIR_Click(object sender, EventArgs e)
+        private void AnularDocumento()
         {
-            ImprimirDocumento();
-        }
-
-        private void ImprimirDocumento()
-        {
-            if (Helpers.PassWord.PassWIsOk(Sistema.FuncionAdmReimprimirDocumento))
+            _controlador.AnularDocumento();
+            if (_controlador.AnularDocumentoIsOk)
             {
-                _controlador.ImprimirDocumento();
-                if (_controlador.IsTickeraOk)
-                {
-                    printDocument1.Print();
-                }
+                _controlador.ImprimirDocumentoAnulado();
             }
         }
-
-        private void DGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void Salir()
         {
-            foreach (DataGridViewRow row in DGV.Rows)
-            {
-                if ((string)row.Cells["Estatus"].Value != "") 
-                {
-                    row.Cells["Estatus"].Style.BackColor = Color.Red ;
-                    row.Cells["Estatus"].Style.ForeColor = Color.White;
-                }
-
-                if ((int)row.Cells["Signo"].Value ==-1)
-                {
-                    row.Cells["DocNombre"].Style.BackColor = Color.Yellow;
-                    row.Cells["DocNombre"].Style.ForeColor = Color.Black;
-                }
-            }
-        }
-
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            _controlador.Imprimir(e);
-        }
-
-        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            VisualizarDocumento();
-        }
-
-        private void VisualizarDocumento()
-        {
-            _controlador.VisualizarDocumento();
-        }
-
-        public void setControlador(Gestion ctr)
-        {
-            _controlador = ctr;
+            this.Close();
         }
     }
 }

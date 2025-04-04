@@ -170,6 +170,7 @@
       <DependentUpon>ReporteFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Imprimir\ICuadreCaja.cs" />
+    <Compile Include="Helpers\Imprimir\IDocFiscal.cs" />
     <Compile Include="Helpers\Imprimir\IDocumentoNew.cs" />
     <Compile Include="Helpers\Imprimir\IDocumento.cs" />
     <Compile Include="Helpers\Imprimir\ITicket.cs" />
@@ -195,8 +196,9 @@
     <Compile Include="Helpers\Imprimir\Tickera80\TicketZufu.cs" />
     <Compile Include="Helpers\Imprimir\Tickera80\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\baseTicket.cs" />
-    <Compile Include="Helpers\Imprimir\Ticket80\Ticket.cs" />
-    <Compile Include="Helpers\Imprimir\TicketBasico80\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\Ticket\58\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\Ticket\80\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\Ticket\80Basico\Ticket.cs" />
     <Compile Include="Helpers\IProcesar.cs" />
     <Compile Include="Helpers\Msg.cs" />
     <Compile Include="Helpers\Opcion\Gestion.cs" />
@@ -402,6 +404,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sistema.cs" />
     <Compile Include="Src\AdministradorDoc\Lista\data.cs" />
+    <Compile Include="Src\AdministradorDoc\Lista\Enumerados.cs" />
     <Compile Include="Src\AdministradorDoc\Lista\Gestion.cs" />
     <Compile Include="Src\AdministradorDoc\Principal\AdmDocFrm.cs">
       <SubType>Form</SubType>

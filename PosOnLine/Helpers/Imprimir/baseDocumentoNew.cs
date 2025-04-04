@@ -15,7 +15,7 @@ namespace PosOnLine.Helpers.Imprimir
     {
         protected data _ds;
         protected Bitmap _imagenQR;
-        private OOB.Sistema.Empresa.Ficha _fichaNegocio;
+        protected OOB.Sistema.Empresa.Ficha _fichaNegocio;
         protected dataQR _dataQR;
         //
         public baseDocumentoNew()

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir
 {
-    public class DocumentoTicket: baseDocumentoNew, IDocumentoTicket
+    public class DocumentoTicket: baseDocumentoNew, IDocTicket
     {
         private ITicket _tick;
         //
@@ -35,6 +35,9 @@ namespace PosOnLine.Helpers.Imprimir
         }
         protected override void Imprimir()
         {
+            _tick.Negocio.Limpiar();
+            _tick.Negocio.setEmpresa(_fichaNegocio);
+            //
             _tick.Cliente.Limpiar();
             _tick.Cliente.cirif = _ds.encabezado.CiRifCli;
             _tick.Cliente.nombre_1 = _ds.encabezado.NombreCli;
