@@ -2290,7 +2290,7 @@ namespace PosOnLine.Src.Pos
                     _imprimirDocTick = null;
                     if (Sistema.ImprimirNotaCredito is Helpers.Imprimir.IDocTicket)
                     {
-                        _imprimirDocTick = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaCreditoNoFiscal;
+                        _imprimirDocTick = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaCredito;
                         printDocument2.Print();
                     }
                 }

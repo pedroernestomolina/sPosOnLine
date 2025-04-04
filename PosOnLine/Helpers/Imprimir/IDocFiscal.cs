@@ -9,5 +9,6 @@ namespace PosOnLine.Helpers.Imprimir
 {
     public interface IDocFiscal: IDocumentoNew
     {
+        void setHndFiscal(LibFoxFiscal.LibFoxFiscal.IFiscal hndFiscal);
     }
 }

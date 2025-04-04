@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir
 {
-    public interface IDocumentoNew
+    public interface IReporteCuadreCaja
     {
-        void setData(data ds);
+        void setData(dataCuadre ds);
         void ImprimirDoc();
-        void ImprimirCopiaDoc();
-        void setImprimirQR(dataQR dat);
     }
 }

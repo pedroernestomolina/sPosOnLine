@@ -8,25 +8,24 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Cierre.Historico
 {
-    
     public class Historia: IHistoria
     {
-
-
         private List<data> _lst;
         private BindingSource _bs;
-        private bool _imprimirIsOk; 
+        private bool _imprimirIsOk;
+        private Helpers.Imprimir.baseImprimirReporteCuadreCajaTicket _rpt;
+        private System.Drawing.Printing.PrintDocument _printDoc;
 
-
+        //
         public Historia() 
         {
             _imprimirIsOk = false;
             _lst = new List<data>();
             _bs=new BindingSource();
             _bs.DataSource= _lst;
+            _printDoc = new System.Drawing.Printing.PrintDocument();
+            _printDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDoc_PrintPage);
         }
-
-
         public void Inicializa()
         {
             _imprimirIsOk = false;
@@ -47,7 +46,6 @@ namespace PosOnLine.Src.Cierre.Historico
                 frm.ShowDialog();
             }
         }
-
         private bool CargarData()
         {
             try
@@ -143,9 +141,21 @@ namespace PosOnLine.Src.Cierre.Historico
                 dat.cntDocCredito = _dat.cntDocCredito;
                 dat.nroCierre = _dat.nroCierre;
 
+                Sistema.ImprimirReporteCuadreCaja.setData(dat);
+                if (Sistema.ImprimirReporteCuadreCaja is Helpers.Imprimir.IReporteCuadreCajaTicket) 
+                {
+                    _rpt = (Helpers.Imprimir.baseImprimirReporteCuadreCajaTicket)Sistema.ImprimirReporteCuadreCaja;
+                    _printDoc.Print();
+                }
+                else
+                    Sistema.ImprimirCuadreCaja.ImprimirDoc();
+
+                /*
                 Sistema.ImprimirCuadreCaja.setData(dat);
                 if (!Sistema.ImprimirCuadreCaja.IsModoTicket)
                     Sistema.ImprimirCuadreCaja.ImprimirDoc();
+                 */
+
                 //if (Sistema.ImprimirCuadreCaja.GetType() == typeof(Helpers.Imprimir.Grafico.CuadreDoc))
                 //    Sistema.ImprimirCuadreCaja.ImprimirDoc();
             }
@@ -154,7 +164,14 @@ namespace PosOnLine.Src.Cierre.Historico
                 Helpers.Msg.Error(e.Message);
             }
         }
-
+        //
+        private void printDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            if (_rpt != null)
+            {
+                _rpt.setControladorTickera(e);
+                _rpt.ImprimirDoc();
+            }
+        }
     }
-
 }

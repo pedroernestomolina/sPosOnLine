@@ -13,6 +13,7 @@ namespace PosOnLine.Helpers.Imprimir
 {
     public class DocumentoTicket: baseDocumentoNew, IDocTicket
     {
+        private OOB.Sistema.Empresa.Ficha _fichaNegocio;
         private ITicket _tick;
         //
         public DocumentoTicket()
@@ -32,6 +33,10 @@ namespace PosOnLine.Helpers.Imprimir
             var _id = dat.idVerificador.ToString().Trim().PadLeft(6, '0');
             var _data = _id + "-" + dat.autoDoc + "-" + dat.codDoc + "-" + dat.numDoc + "-" + dat.montoDoc.ToString("n2") + "-" + dat.autoCierre;
             generarQR(_data);
+        }
+        public void setEmpresa(OOB.Sistema.Empresa.Ficha ficha)
+        {
+            _fichaNegocio = ficha;
         }
         protected override void Imprimir()
         {

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir
 {
-    public interface IDocTicket: IDocumentoNew
+    public interface IReporteCuadreCajaTicket: IReporteCuadreCaja
     {
         void setControladorTickera(object ctr);
         void setTicket(ITicket ticket);
-        void setEmpresa(OOB.Sistema.Empresa.Ficha ficha);
     }
 }

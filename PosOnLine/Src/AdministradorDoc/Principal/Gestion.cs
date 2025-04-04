@@ -201,7 +201,6 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                     numDoc = xr1.Entidad.DocumentoNro,
                 };
                 Sistema.ImprimirFactura.setImprimirQR(dat);
-                Sistema.ImprimirFactura.setEmpresa(Sistema.DatosEmpresa);
                 var xdata = new Helpers.Imprimir.data();
                 xdata.isAnulado = xr1.Entidad.EstatusAnulado == "1";
                 var docNombre = "";
@@ -351,6 +350,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
         private void printDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             if (_imprimirDocTicket == null) return;
+            _imprimirDocTicket.setEmpresa(Sistema.DatosEmpresa);
             _imprimirDocTicket.setControladorTickera(e);
             _imprimirDocTicket.ImprimirDoc();
         }

@@ -106,8 +106,6 @@ namespace PosOnLine.Helpers
                                             factTick= new Helpers.Imprimir.DocumentoTicket();
                                             factTick.setTicket(new Helpers.Imprimir.Ticket._80.Ticket());
                                             Sistema.ImprimirFactura = factTick;
-                                            Sistema.ImprimirNotaCredito = factTick;
-                                            Sistema.ImprimirNotaCreditoNoFiscal = factTick;
                                             break;
                                         case "T80B":
                                             //Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera80Basico.Documento();
@@ -115,12 +113,13 @@ namespace PosOnLine.Helpers
                                             factTick = new Helpers.Imprimir.DocumentoTicket();
                                             factTick.setTicket(new Helpers.Imprimir.Ticket._80Basico.Ticket());
                                             Sistema.ImprimirFactura = factTick;
-                                            Sistema.ImprimirNotaCredito = factTick;
-                                            Sistema.ImprimirNotaCreditoNoFiscal = factTick;
                                             break;
                                         case "T70":
                                             // Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera70.Documento();
                                             //Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera70.Documento();
+                                            factTick= new Helpers.Imprimir.DocumentoTicket();
+                                            factTick.setTicket(new Helpers.Imprimir.Ticket._70.Ticket());
+                                            Sistema.ImprimirFactura = factTick;
                                             break;
                                         case "T58":
                                             //Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
@@ -128,8 +127,6 @@ namespace PosOnLine.Helpers
                                             factTick= new Helpers.Imprimir.DocumentoTicket();
                                             factTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
                                             Sistema.ImprimirFactura = factTick;
-                                            Sistema.ImprimirNotaCredito = factTick;
-                                            Sistema.ImprimirNotaCreditoNoFiscal = factTick;
                                             break;
                                     }
                                 }
@@ -161,6 +158,7 @@ namespace PosOnLine.Helpers
 
                                 if (nv.LocalName.ToUpper().Trim() == "MODOIMPRESIONNCREDITO")
                                 {
+                                    Helpers.Imprimir.IDocTicket ntCredTick;
                                     switch (nv.InnerText.Trim().ToUpper())
                                     {
                                         case "G":
@@ -170,15 +168,27 @@ namespace PosOnLine.Helpers
                                             //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Fiscal.Documento();
                                             break;
                                         case "T80":
+                                            ntCredTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntCredTick.setTicket(new Helpers.Imprimir.Ticket._80.Ticket());
+                                            Sistema.ImprimirNotaCredito = ntCredTick;
                                             //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80.Documento();
                                             break;
                                         case "T80B":
+                                            ntCredTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntCredTick.setTicket(new Helpers.Imprimir.Ticket._80Basico.Ticket());
+                                            Sistema.ImprimirNotaCredito = ntCredTick;
                                             //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera80Basico.Documento();
                                             break;
                                         case "T70":
+                                            ntCredTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntCredTick.setTicket(new Helpers.Imprimir.Ticket._70.Ticket());
+                                            Sistema.ImprimirNotaCredito = ntCredTick;
                                             //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera70.Documento();
                                             break;
                                         case "T58":
+                                            ntCredTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntCredTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            Sistema.ImprimirNotaCredito = ntCredTick;
                                             //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
                                     }
@@ -194,7 +204,11 @@ namespace PosOnLine.Helpers
                                         case "F":
                                             break;
                                         case "T80":
-                                            Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80.CuadreDoc();
+                                            //Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80.CuadreDoc();
+                                            var rptCuadre = new Helpers.Imprimir.CuadreCaja._80.Imp();
+                                            var tick = new Helpers.Imprimir.Ticket._80.Ticket();
+                                            rptCuadre.setTicket(tick);
+                                            Sistema.ImprimirReporteCuadreCaja = rptCuadre;
                                             break;
                                         case "T80B":
                                             Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80Basico.CuadreDoc();

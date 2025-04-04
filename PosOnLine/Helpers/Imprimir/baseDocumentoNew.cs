@@ -15,7 +15,6 @@ namespace PosOnLine.Helpers.Imprimir
     {
         protected data _ds;
         protected Bitmap _imagenQR;
-        protected OOB.Sistema.Empresa.Ficha _fichaNegocio;
         protected dataQR _dataQR;
         //
         public baseDocumentoNew()
@@ -24,10 +23,6 @@ namespace PosOnLine.Helpers.Imprimir
         public void setData(data ds)
         {
             _ds = ds;
-        }
-        public void setEmpresa(OOB.Sistema.Empresa.Ficha ficha)
-        {
-            _fichaNegocio = ficha;
         }
         abstract public void setImprimirQR(dataQR dat);
         public void ImprimirDoc()
