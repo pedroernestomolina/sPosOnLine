@@ -54,7 +54,7 @@ namespace PosOnLine.Src.Pos
         private Pendiente.Gestion _gestionPendiente;
         private PassWord.Gestion _gestionPassW;
         private bool _isTickeraOk;
-        private Helpers.Imprimir.IDocumento _ImprimirDoc;
+//        private Helpers.Imprimir.IDocumento _ImprimirDoc;
         private PrecioMayor.IModo _gestionMayor;
         private SolicitarPermiso.ISolicitarPermiso _gSolicitarPermiso;
         private IMultiplicar _gMultiplicar;
@@ -875,7 +875,7 @@ namespace PosOnLine.Src.Pos
                 _vendedorAsignado = _vendedorPorDefecto;
             }
             _isTickeraOk = false;
-            _ImprimirDoc = null;
+//            _ImprimirDoc = null;
             var dsctoFinal = _gestionProcesarPago.DescuentoPorct;
             _gestionItem.setDescuentoFinal(dsctoFinal);
 
@@ -1670,7 +1670,7 @@ namespace PosOnLine.Src.Pos
             _vendedorAsignado = t01.Entidad;
 
 
-            _ImprimirDoc = null;
+//            _ImprimirDoc = null;
             _isTickeraOk = false;
 
             var dsctoFinal = 0.0m;
@@ -2325,7 +2325,7 @@ namespace PosOnLine.Src.Pos
         /// </summary>
         private void ProcesarNotaEntrega()
         {
-            _ImprimirDoc = null;
+//            _ImprimirDoc = null;
             _isTickeraOk = false;
 
             var dsctoFinal = 0.0m;
@@ -2640,6 +2640,16 @@ namespace PosOnLine.Src.Pos
             if (xdata != null)
             {
                 Sistema.ImprimirNotaEntrega.setData(xdata);
+                if (Sistema.ImprimirNotaEntrega is Helpers.Imprimir.IDocTicket)
+                {
+                    _imprimirDocTick = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaEntrega;
+                    printDocument2.Print();
+                }
+                else
+                {
+                    Sistema.ImprimirNotaEntrega.ImprimirDoc();
+                }
+                /*
                 if (Sistema.ImprimirNotaEntrega.IsModoTicket)
                 {
                     _isTickeraOk = true;
@@ -2650,6 +2660,7 @@ namespace PosOnLine.Src.Pos
                 {
                     Sistema.ImprimirNotaEntrega.ImprimirDoc();
                 }
+                 */ 
             }
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
@@ -2799,6 +2810,7 @@ namespace PosOnLine.Src.Pos
             }
         }
 
+        /*
         public void Imprimir(System.Drawing.Printing.PrintPageEventArgs e)
         {
             _isTickeraOk = false;
@@ -2810,6 +2822,7 @@ namespace PosOnLine.Src.Pos
             }
             _ImprimirDoc = null;
         }
+         */
 
         private OOB.Usuario.Entidad.Ficha _usuAutoria;
         public void CambiarPrecio()
@@ -3019,7 +3032,7 @@ namespace PosOnLine.Src.Pos
             }
 
             _isTickeraOk = false;
-            _ImprimirDoc = null;
+//            _ImprimirDoc = null;
 
             var dsctoFinal = _gestionProcesarPago.DescuentoPorct;
             _gestionItem.setDescuentoFinal(dsctoFinal);
@@ -3654,6 +3667,16 @@ namespace PosOnLine.Src.Pos
                 };
                 Sistema.ImprimirNotaEntrega.setData(xdata);
                 Sistema.ImprimirNotaEntrega.setImprimirQR(dat);
+                if (Sistema.ImprimirNotaEntrega is Helpers.Imprimir.IDocTicket)
+                {
+                    _imprimirDocTick = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaEntrega;
+                    printDocument2.Print();
+                }
+                else
+                {
+                    Sistema.ImprimirNotaEntrega.ImprimirDoc();
+                }
+                /*
                 if (Sistema.ImprimirNotaEntrega.IsModoTicket)
                 {
                     _isTickeraOk = true;
@@ -3664,8 +3687,8 @@ namespace PosOnLine.Src.Pos
                 {
                     Sistema.ImprimirNotaEntrega.ImprimirDoc();
                 }
+                 */ 
             }
-
             _gestionItem.Limpiar();
             _gestionCliente.Limpiar();
             Inicializa();

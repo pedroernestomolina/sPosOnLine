@@ -109,7 +109,7 @@ namespace PosOnLine.Src.Cierre.Historico
                     _printDoc.Print();
                 }
                 else
-                    Sistema.ImprimirCuadreCaja.ImprimirDoc();
+                    Sistema.ImprimirReporteCuadreCaja.ImprimirDoc();
             }
             catch (Exception e)
             {

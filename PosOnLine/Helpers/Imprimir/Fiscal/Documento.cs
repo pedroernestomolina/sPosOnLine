@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Fiscal
 {
     public class Documento: IDocumento
@@ -146,3 +147,4 @@ namespace PosOnLine.Helpers.Imprimir.Fiscal
         }
     }
 }
+*/

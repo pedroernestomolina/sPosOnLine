@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Helpers.Imprimir.Tickera70
+/*
+namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
 
-    public class Ticket
+    public class TicketEver: Ticket
     {
-
         public class DatosNegocio
         {
             public string cirif { get; set; }
@@ -59,7 +59,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                     n= Sistema.DatosNegociTicket_Nombre.Trim();
 
                 var l = n.Length;
-                var ml = 45;
+                var ml = 48;
 
                 if (n.Length > ml*3)
                 {
@@ -215,21 +215,14 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                 {
                     get
                     {
-                        //var t = descripcion.Trim();
-                        //if (t.Length >= 30)
-                        //{
-                        //    t = t.Substring(0, 30);
-                        //}
-                        //if (isExento) { t = t + " (E)"; }
-
                         var lst = new List<string>();
                         var t = descripcion.Trim();
                         var l = (int)t.Length / 30;
                         var sw = 0;
                         for (var x = 0; x < l; x++) 
                         {
-                            var xt = t.Substring(30*x, 30*(x+1));
-                            if (isExento && sw==0)
+                            var xt = t.Substring(30 * x, 30);
+                            if (isExento && sw == 0)
                             {
                                 sw = 1;
                                 xt = xt + " (E)";
@@ -259,7 +252,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                         t += cx + " ";
                         t += empDesc.Trim() + "/" + empCont.ToString().Trim();
                         t += " X " + precio.ToString("n2");
-                        t += " X $" + precioDivisa.ToString("n2");
+                        t += " X " + Sistema.SimboloDivisa_AlImprimirTicket + precioDivisa.ToString("n2");
                         return t;
                     }
                 }
@@ -345,13 +338,17 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                 vueltoEfectivo = "";
                 vueltoDivisa = "";
                 vueltoPagoMovil = "";
+                IsAnulado = false;
+                //
+                bonoDscto = "";
             }
 
             public Bitmap ImageQR { get; set; }
             public string vueltoEfectivo { get; set; }
             public string vueltoDivisa { get; set; }
             public string vueltoPagoMovil { get; set; }
-
+            public bool IsAnulado { get; set; }
+            public string bonoDscto { get; set; }
         }
 
         public enum EnumModoTicket { Modo80mm = 1, Modo58mm };
@@ -366,7 +363,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
         private EnumModoTicket _modoTicket;
 
 
-        public Ticket()
+        public TicketEver()
         {
             setModo(EnumModoTicket.Modo80mm);
             Negocio = new DatosNegocio();
@@ -390,8 +387,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                     anchoPapel = 184;
                     break;
                 case EnumModoTicket.Modo80mm:
-                    caracterPorLinea = 45;
-                    anchoPapel = 255;
+                    caracterPorLinea = 50;
+                    anchoPapel = 285;
                     break;
             }
         }
@@ -399,9 +396,12 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
 
         public void Imrpimir() 
         {
+
             var fr = new Font("Arial", 7, FontStyle.Regular);
-            var fb = new Font("Arial", 7, FontStyle.Bold); 
-            var fc = new Font("Arial", 8, FontStyle.Bold); 
+            var fb = new Font("Arial", 8, FontStyle.Bold);
+            var fc = new Font("Arial", 9, FontStyle.Bold);
+            var fd = new Font("Arial", 11, FontStyle.Bold); 
+
 
             var dn = this.Negocio;
             var df = this.Documento;
@@ -457,6 +457,13 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                 }
             }
 
+            if (df.IsAnulado)
+            {
+                l += 10f;
+                eg.Graphics.DrawString("ANULADO", fd, Brushes.Black, centrar("ANULADO"), l);
+                l += 5f;
+            }
+
             l += 10f;
             eg.Graphics.DrawString(df.nombre, fc, Brushes.Black, centrar(df.nombre), l);
             l += 10;
@@ -477,13 +484,16 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                 l += 10;
                 foreach (var xl in xdes2)
                 {
-                    eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
-                    if (sw == 0)
+                    if (xl.Length > 0)
                     {
-                        eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
-                        sw = 1;
+                        eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
+                        if (sw == 0)
+                        {
+                            eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
+                            sw = 1;
+                        }
+                        l += 10;
                     }
-                    l += 10;
                 }
                 l += 5;
             }
@@ -519,10 +529,12 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
             eg.Graphics.DrawString("TOTAL", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.total, fr, Brushes.Black, dder2(df.total,fr), l);
             l += 10;
-            eg.Graphics.DrawString("TOTAL($)", fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString("TOTAL(" + Sistema.SimboloDivisa_AlImprimirTicket + ")", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.totalDivisa, fr, Brushes.Black, dder2(df.totalDivisa, fr), l);
             l += 10;
-            eg.Graphics.DrawString("Bono " + df.bonoDivisa, fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString(df.bonoDivisa, fb, Brushes.Black, 0, l);
+            l += 10;
+            eg.Graphics.DrawString(df.bonoDscto, fb, Brushes.Black, 0, l);
             l += 15;
 
             foreach (var mp in df.MediosPago)
@@ -543,7 +555,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
             if (df.vueltoDivisa != "") 
             {
                 l += 10;
-                eg.Graphics.DrawString("Vuelto en Divisa($):", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString("Vuelto en Divisa(" + Sistema.SimboloDivisa_AlImprimirTicket + "):", fr, Brushes.Black, 0, l);
                 eg.Graphics.DrawString(df.vueltoDivisa, fr, Brushes.Black, dder2(df.vueltoDivisa, fr), l);
             }
             if (df.vueltoPagoMovil != "") 
@@ -595,7 +607,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera70
                 l += 10;
             }
         }
-
     }
-
 }
+*/

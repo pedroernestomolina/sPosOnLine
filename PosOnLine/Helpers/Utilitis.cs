@@ -133,25 +133,37 @@ namespace PosOnLine.Helpers
 
                                 if (nv.LocalName.ToUpper().Trim() == "MODOIMPRESIONNENTREGA")
                                 {
+                                    Helpers.Imprimir.IDocTicket ntEntregaTick;
                                     switch (nv.InnerText.Trim().ToUpper())
                                     {
                                         case "G":
-                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Grafico.Documento();
+                                            //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Grafico.Documento();
                                             break;
                                         case "F":
                                             break;
                                         case "T80":
-                                            //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80.Documento();
-                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80.DocumentoEver();
+                                            //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80.DocumentoEver();
+                                            ntEntregaTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntEntregaTick.setTicket(new Helpers.Imprimir.Ticket._80.Ticket());
+                                            Sistema.ImprimirNotaEntrega = ntEntregaTick;
                                             break;
                                         case "T80B":
-                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera80Basico.Documento();
+                                            ntEntregaTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntEntregaTick.setTicket(new Helpers.Imprimir.Ticket._80Basico.Ticket());
+                                            Sistema.ImprimirNotaEntrega = ntEntregaTick;
                                             break;
                                         case "T70":
-                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera70.Documento();
+                                            //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera70.Documento();
+                                            ntEntregaTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntEntregaTick.setTicket(new Helpers.Imprimir.Ticket._70.Ticket());
+                                            Sistema.ImprimirNotaEntrega = ntEntregaTick;
                                             break;
                                         case "T58":
-                                            Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera58.Documento();
+                                            //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera58.Documento();
+                                            ntEntregaTick= new Helpers.Imprimir.DocumentoTicket();
+                                            ntEntregaTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            Sistema.ImprimirNotaEntrega = ntEntregaTick;
                                             break;
                                     }
                                 }
@@ -200,7 +212,7 @@ namespace PosOnLine.Helpers
                                     switch (nv.InnerText.Trim().ToUpper())
                                     {
                                         case "G":
-                                            Sistema.ImprimirCuadreCaja= new Helpers.Imprimir.Grafico.CuadreDoc();
+                                            //Sistema.ImprimirCuadreCaja= new Helpers.Imprimir.Grafico.CuadreDoc();
                                             break;
                                         case "F":
                                             break;

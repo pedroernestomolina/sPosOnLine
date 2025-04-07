@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+/*
 namespace PosOnLine.Helpers.Imprimir.Fiscal
 {
     public class DocumentoNC : IDocumento
@@ -116,3 +118,4 @@ namespace PosOnLine.Helpers.Imprimir.Fiscal
         }
     }
 }
+*/

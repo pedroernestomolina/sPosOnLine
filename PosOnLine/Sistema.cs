@@ -78,11 +78,11 @@ namespace PosOnLine
         //public static Helpers.Imprimir.IDocumento ImprimirNotaCredito;
         //public static Helpers.Imprimir.IDocumento ImprimirNotaCreditoNoFiscal;
         //public static Helpers.Imprimir.ICuadreCaja ImprimirCuadreCaja;
+        //public static Helpers.Imprimir.IDocumento ImprimirNotaEntrega;
         public static Helpers.Imprimir.IDocumentoNew ImprimirFactura;
         public static Helpers.Imprimir.IDocumentoNew ImprimirNotaCredito;
+        public static Helpers.Imprimir.IDocumentoNew ImprimirNotaEntrega;
         public static Helpers.Imprimir.IReporteCuadreCaja ImprimirReporteCuadreCaja;
-        public static Helpers.Imprimir.IDocumento ImprimirNotaEntrega;
-        public static Helpers.Imprimir.ICuadreCaja ImprimirCuadreCaja;
         //
         public static string SerieFactura;
         public static string SerieNCredito;

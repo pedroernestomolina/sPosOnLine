@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
 
-    public class TicketZufu
+    public class TicketEver: Ticket
     {
         public class DatosNegocio
         {
@@ -284,7 +285,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             public decimal factorCambio { get; set; }
             public string totalDivisa { get; set; }
             public string bonoDivisa { get; set; }
-            public string saldoPend { get; set; }
             public List<Item> Items { get; set; }
             public List<MedioPago> MediosPago { get; set; }
             public List<MedidaEmp > MedidasEmp { get; set; }
@@ -341,8 +341,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 IsAnulado = false;
                 //
                 bonoDscto = "";
-                //
-                saldoPend = "";
             }
 
             public Bitmap ImageQR { get; set; }
@@ -365,7 +363,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         private EnumModoTicket _modoTicket;
 
 
-        public TicketZufu()
+        public TicketEver()
         {
             setModo(EnumModoTicket.Modo80mm);
             Negocio = new DatosNegocio();
@@ -537,8 +535,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             eg.Graphics.DrawString(df.bonoDivisa, fb, Brushes.Black, 0, l);
             l += 10;
             eg.Graphics.DrawString(df.bonoDscto, fb, Brushes.Black, 0, l);
-            l += 10;
-            eg.Graphics.DrawString(df.saldoPend, fb, Brushes.Black, 0, l);
             l += 15;
 
             foreach (var mp in df.MediosPago)
@@ -613,3 +609,4 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         }
     }
 }
+*/

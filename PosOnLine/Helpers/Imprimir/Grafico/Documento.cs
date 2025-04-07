@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Grafico
 {
     public class Documento: IDocumento
@@ -110,4 +111,4 @@ namespace PosOnLine.Helpers.Imprimir.Grafico
         {
         }
     }
-}
+}*/

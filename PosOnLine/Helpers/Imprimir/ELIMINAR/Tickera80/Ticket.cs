@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
+/*
+namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
 
     public class Ticket
     {
-
         public class DatosNegocio
         {
             public string cirif { get; set; }
@@ -59,7 +59,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                     n= Sistema.DatosNegociTicket_Nombre.Trim();
 
                 var l = n.Length;
-                var ml = 50;
+                var ml = 48;
 
                 if (n.Length > ml*3)
                 {
@@ -208,28 +208,22 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                     empCont = 0;
                     empDesc = "";
                 }
+                
+                //public string simporte { get { return "Bs " + importe.ToString("n2"); } }
+                public string simporte { get { return "" + importe.ToString("n2"); } }
 
-
-                public string simporte { get { return "Bs " + importe.ToString("n2"); } }
                 public List<string> sdescripcion
                 {
                     get
                     {
-                        //var t = descripcion.Trim();
-                        //if (t.Length >= 30)
-                        //{
-                        //    t = t.Substring(0, 30);
-                        //}
-                        //if (isExento) { t = t + " (E)"; }
-
                         var lst = new List<string>();
                         var t = descripcion.Trim();
                         var l = (int)t.Length / 30;
                         var sw = 0;
                         for (var x = 0; x < l; x++) 
                         {
-                            var xt = t.Substring(30*x, 30*(x+1));
-                            if (isExento && sw==0)
+                            var xt = t.Substring(30 * x, 30);
+                            if (isExento && sw == 0)
                             {
                                 sw = 1;
                                 xt = xt + " (E)";
@@ -259,7 +253,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                         t += cx + " ";
                         t += empDesc.Trim() + "/" + empCont.ToString().Trim();
                         t += " X " + precio.ToString("n2");
-                        t += " X $" + precioDivisa.ToString("n2");
+                        t += " X " + Sistema.SimboloDivisa_AlImprimirTicket + precioDivisa.ToString("n2");
                         return t;
                     }
                 }
@@ -291,6 +285,8 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
             public string cambio { get; set; }
             public decimal factorCambio { get; set; }
             public string totalDivisa { get; set; }
+            public string bonoDivisa { get; set; }
+            public string saldoPendiente { get; set; }
             public List<Item> Items { get; set; }
             public List<MedioPago> MediosPago { get; set; }
             public List<MedidaEmp > MedidasEmp { get; set; }
@@ -335,6 +331,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                 HayDescuento = false;
                 factorCambio = 0m;
                 totalDivisa = "";
+                bonoDivisa = "";
                 HayCargo = false;
                 Items = new List<Item>();
                 MediosPago = new List<MedioPago>();
@@ -343,13 +340,19 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                 vueltoEfectivo = "";
                 vueltoDivisa = "";
                 vueltoPagoMovil = "";
+                IsAnulado = false;
+                //
+                bonoDscto = "";
+                //
+                saldoPendiente = "";
             }
 
             public Bitmap ImageQR { get; set; }
             public string vueltoEfectivo { get; set; }
             public string vueltoDivisa { get; set; }
             public string vueltoPagoMovil { get; set; }
-
+            public bool IsAnulado { get; set; }
+            public string bonoDscto { get; set; }
         }
 
         public enum EnumModoTicket { Modo80mm = 1, Modo58mm };
@@ -401,7 +404,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
             var fr = new Font("Arial", 7, FontStyle.Regular);
             var fb = new Font("Arial", 8, FontStyle.Bold);
             var fc = new Font("Arial", 9, FontStyle.Bold);
-            var fTit = new Font("Arial", 8, FontStyle.Bold);
+            var fd = new Font("Arial", 11, FontStyle.Bold); 
 
 
             var dn = this.Negocio;
@@ -441,9 +444,9 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
             {
                 if (s.Trim() != "")
                 {
-                    var t = eg.Graphics.MeasureString(s, fTit).Width;
+                    var t = eg.Graphics.MeasureString(s, fr).Width;
                     var c = (anchoPapel - t) / 2;
-                    eg.Graphics.DrawString(s, fTit, Brushes.Black, c, l);
+                    eg.Graphics.DrawString(s, fr, Brushes.Black, c, l);
                     l += 10f;
                 }
             }
@@ -456,6 +459,13 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                     eg.Graphics.DrawString(s, fr, Brushes.Black, 0, l);
                     l += 10f;
                 }
+            }
+
+            if (df.IsAnulado)
+            {
+                l += 10f;
+                eg.Graphics.DrawString("ANULADO", fd, Brushes.Black, centrar("ANULADO"), l);
+                l += 5f;
             }
 
             l += 10f;
@@ -478,13 +488,16 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                 l += 10;
                 foreach (var xl in xdes2)
                 {
-                    eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
-                    if (sw == 0)
+                    if (xl.Length > 0)
                     {
-                        eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
-                        sw = 1;
+                        eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
+                        if (sw == 0)
+                        {
+                            eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
+                            sw = 1;
+                        }
+                        l += 10;
                     }
-                    l += 10;
                 }
                 l += 5;
             }
@@ -520,8 +533,17 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
             eg.Graphics.DrawString("TOTAL", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.total, fr, Brushes.Black, dder2(df.total,fr), l);
             l += 10;
-            eg.Graphics.DrawString("TOTAL($)", fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString("TOTAL(" + Sistema.SimboloDivisa_AlImprimirTicket + ")", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.totalDivisa, fr, Brushes.Black, dder2(df.totalDivisa, fr), l);
+            l += 10;
+            eg.Graphics.DrawString(df.bonoDivisa, fb, Brushes.Black, 0, l);
+            l += 10;
+            eg.Graphics.DrawString(df.bonoDscto, fb, Brushes.Black, 0, l);
+            if (df.saldoPendiente.Trim() != "")
+            {
+                l += 10;
+                eg.Graphics.DrawString(df.saldoPendiente, fb, Brushes.Black, 0, l);
+            }
             l += 15;
 
             foreach (var mp in df.MediosPago)
@@ -532,7 +554,41 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
             }
             eg.Graphics.DrawString("CAMBIO", fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.cambio, fr, Brushes.Black, dder2(df.cambio,fr), l);
+
+            if (df.vueltoEfectivo != "")
+            {
+                l += 10;
+                eg.Graphics.DrawString("Vuelto en Efectivo:", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString(df.vueltoEfectivo, fr, Brushes.Black, dder2(df.vueltoEfectivo, fr), l);
+            }
+            if (df.vueltoDivisa != "") 
+            {
+                l += 10;
+                eg.Graphics.DrawString("Vuelto en Divisa(" + Sistema.SimboloDivisa_AlImprimirTicket + "):", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString(df.vueltoDivisa, fr, Brushes.Black, dder2(df.vueltoDivisa, fr), l);
+            }
+            if (df.vueltoPagoMovil != "") 
+            {
+                l += 10;
+                eg.Graphics.DrawString("Vuelto en PagoMovil:", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString(df.vueltoPagoMovil, fr, Brushes.Black, dder2(df.vueltoPagoMovil, fr), l);
+            }
+
             l += 15;
+            eg.Graphics.DrawString("EMPAQUE              CANT      PESO     VOLUMEN", fb, Brushes.Black, 0, l);
+            l += 10;
+            foreach (var mp in df.MedidasEmp)
+            {
+                eg.Graphics.DrawString(mp.nombre, fb, Brushes.Black, 0, l);
+                l += 10;
+            }
+
+            if (df.ImageQR != null) 
+            {
+                l += 10;
+                PointF loc = new PointF(100, l);
+                eg.Graphics.DrawImage(df.ImageQR, loc);
+            }
         }
 
         private float centrar(string t)
@@ -560,7 +616,6 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80Basico
                 l += 10;
             }
         }
-
     }
-
 }
+*/

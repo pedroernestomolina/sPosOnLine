@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Grafico
 {
     
@@ -93,4 +94,4 @@ namespace PosOnLine.Helpers.Imprimir.Grafico
 
     }
 
-}
+}*/

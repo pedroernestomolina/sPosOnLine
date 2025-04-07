@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
     public class DocumentoEver : IDocumento
@@ -181,4 +182,4 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         {
         }
     }
-}
+}*/

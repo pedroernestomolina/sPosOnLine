@@ -9,19 +9,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
-    public class DocumentoPan : IDocumento
+    public class DocumentoEver : IDocumento
     {
         private data _ds;
-        private TicketPan _tick;
+        private Ticket _tick;
         private string _data;
         private Bitmap _imagenQR;
 
 
-        public DocumentoPan()
+        public DocumentoEver()
         {
-            _tick = new TicketPan();
+            _tick = new Ticket();
         }
 
 
@@ -58,8 +59,13 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             _tick.Documento.numero = _ds.encabezado.DocumentoNro;
             _tick.Documento.fecha = _ds.encabezado.DocumentoFecha.ToShortDateString();
             _tick.Documento.hora = _ds.encabezado.DocumentoHora;
-            _tick.Documento.subtotalNeto = "Bs " + sbtot.ToString("n2");
-            _tick.Documento.subtotal = "Bs " + stot.ToString("n2");
+
+            //_tick.Documento.subtotalNeto = "Bs " + sbtot.ToString("n2");
+            //_tick.Documento.subtotal = "Bs " + stot.ToString("n2");
+
+            _tick.Documento.subtotalNeto = "Bs " + tot.ToString("n2");
+            _tick.Documento.subtotal = "Bs " + tot.ToString("n2");
+
             _tick.Documento.total = "Bs " + tot.ToString("n2");
             _tick.Documento.cambio = "Bs " + _ds.encabezado.CambioDar.ToString("n2");
             _tick.Documento.descuentoMonto = "Bs " + _ds.encabezado.Descuento.ToString("n2");
@@ -77,9 +83,12 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
             {
                 _c2 = 100 - (_c1 * 100 / tot);
             }
-            _tick.Documento.bonoDivisa = "";
-            _tick.Documento.bonoDscto = "";
-            _tick.Documento.saldoPendiente = "";
+            _tick.Documento.bonoDivisa = @" => "+Sistema.SimboloDivisa_AlImprimirTicket +
+                                                        _ds.encabezado.CntDivisaAplicaBonoPorPagoDivisa.ToString() +
+                                                        " = " + _ds.encabezado.MontoBonoPorPagoDivisa.ToString("n2");
+
+            _tick.Documento.bonoDscto = @" => Bono(%) = " + _c2.ToString("n2");
+
 
             _tick.Documento.ImageQR = _imagenQR;
             _tick.Documento.vueltoEfectivo = _ds.encabezado.VueltoEfectivo <= 0m ? "" : "Bs " + _ds.encabezado.VueltoEfectivo.ToString("n2");
@@ -89,14 +98,17 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             foreach (var r in _ds.item)
             {
-                var it = new TicketPan.DatosDocumento.Item()
+                var it = new Ticket.DatosDocumento.Item()
                 {
                     cantidad = r.Cantidad,
-                    precio = Math.Round(r.PrecioFull, 2, MidpointRounding.AwayFromZero),
+                    //precio = Math.Round(r.PrecioFull, 2, MidpointRounding.AwayFromZero),
+                    precio = Math.Round(r.Precio, 2, MidpointRounding.AwayFromZero),
                     isExento = r.EsExento,
                     isPesado = false,
                     descripcion = r.NombrePrd,
-                    importe = Math.Round(r.ImporteFull, 2, MidpointRounding.AwayFromZero),
+                    //importe = Math.Round(r.ImporteFull, 2, MidpointRounding.AwayFromZero),
+                    importe = Math.Round(r.Importe, 2, MidpointRounding.AwayFromZero),
+                   
                     empDesc=r.Empaque,
                     empCont=r.Contenido,
                     factorCambio= _ds.encabezado.FactorCambio,
@@ -106,7 +118,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
 
             foreach (var r in _ds.metodoPago)
             {
-                var it = new TicketPan.DatosDocumento.MedioPago()
+                var it = new Ticket.DatosDocumento.MedioPago()
                 {
                     descripcion = r.descripcion,
                     monto = "Bs " + r.monto.ToString("n2"),
@@ -120,7 +132,7 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
                 var _cnt = r.cant.ToString("n0").Trim().PadLeft(10, ' ')+", ";
                 var _peso = r.peso.ToString("n3").Trim().PadLeft(10, ' ')+", ";
                 var _volumen = r.volumen.ToString("n3").Trim().PadLeft(10, ' ');
-                var it = new TicketPan.DatosDocumento.MedidaEmp()
+                var it = new Ticket.DatosDocumento.MedidaEmp()
                 {
                     nombre= _desc+_cnt+_peso+_volumen,
                 };
@@ -170,4 +182,4 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         {
         }
     }
-}
+}*/

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Tickera80
 {
     public class Documento : IDocumento
@@ -177,3 +178,4 @@ namespace PosOnLine.Helpers.Imprimir.Tickera80
         }
     }
 }
+*/
