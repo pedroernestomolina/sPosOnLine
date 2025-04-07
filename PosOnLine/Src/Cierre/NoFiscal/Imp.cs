@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Cierre.NoFiscal
 {
-    public class Gestion: INoFiscal
+    public class Imp: INoFiscal
     {
         private bool _cierreOk; 
         private bool _abandonarOk;
@@ -19,7 +19,7 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         private decimal _entradaOtro;
         private int _entradaCntDivisa;
         private decimal _factorCambio;
-        private bool _isTicket;
+        private System.Drawing.Printing.PrintDocument _printDoc;
         //
         public int cntDoc { get { return _resumen.cntDoc-_resumen.cnt_anu; } }
         public int cntFactura { get { return _resumen.cntFac-_resumen.cnt_anu_fac; } }
@@ -64,13 +64,19 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         public string FechaHoraApertura { get { return Sistema.PosEnUso.fechaApertura.ToShortDateString() + ", " + Sistema.PosEnUso.horaApertura; } }
         public bool CierreIsOk { get { return _cierreOk; } }
         public bool AbandonarIsOk { get { return _abandonarOk; } }
-        public bool IsTicket { get { return _isTicket; } }
         //
         public decimal GetVueltoPorPagoMovil { get { return _resumen.montoPorVueltoPagoMovil; } }
         //
+        public decimal tasaPromedioDivisa { get { return tasapromedioDivisaFun(); } }
+        public decimal DesglozeDinero { get { return desglozeDineroFun(); } }
+        //
+        public Imp()
+        {
+            _printDoc = new System.Drawing.Printing.PrintDocument();
+            _printDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDoc_PrintPage);
+        }
         public void Inicializa()
         {
-            _isTicket = false;
             _cierreOk = false;
             _abandonarOk = false;
             _entradaCntDivisa = 0;
@@ -267,32 +273,26 @@ namespace PosOnLine.Src.Cierre.NoFiscal
                 return false;
             }
         }
-        public decimal tasaPromedioDivisa
+        private decimal tasapromedioDivisaFun()
         {
-            get
+            decimal mt = (_resumen.mDivisaTotal - _resumen.montoPorVueltoDivisa);
+            decimal ct = (_resumen.CntDivisaTotal - _resumen.cntDivisaPorVueltoDivisa);
+            if (ct > 0)
             {
-                decimal mt = (_resumen.mDivisaTotal - _resumen.montoPorVueltoDivisa);
-                decimal ct = (_resumen.CntDivisaTotal - _resumen.cntDivisaPorVueltoDivisa);
-                if (ct > 0)
-                {
-                    return mt / ct;
-                }
-                else
-                {
-                    return 0;
-                }
+                return mt / ct;
+            }
+            else
+            {
+                return 0;
             }
         }
-        public decimal DesglozeDinero
+        private decimal desglozeDineroFun()
         {
-            get
-            {
-                var ef = (_resumen.mEfectivo - _resumen.mEfectivo_anu);
-                var dv = (_resumen.mDivisa - _resumen.mDivisa_anu);
-                var el = (_resumen.mElectronico - _resumen.mElectronico_anu);
-                var ot = (_resumen.mOtros - _resumen.mOtros_anu);
-                return (ef + dv + el + ot) - (_resumen.m_cambio - _resumen.mCambio_anu);
-            }
+            var ef = (_resumen.mEfectivo - _resumen.mEfectivo_anu);
+            var dv = (_resumen.mDivisa - _resumen.mDivisa_anu);
+            var el = (_resumen.mElectronico - _resumen.mElectronico_anu);
+            var ot = (_resumen.mOtros - _resumen.mOtros_anu);
+            return (ef + dv + el + ot) - (_resumen.m_cambio - _resumen.mCambio_anu);
         }
         public void Procesar()
         {
@@ -400,20 +400,21 @@ namespace PosOnLine.Src.Cierre.NoFiscal
                     dat.cntDocContado = cntDocContado;
                     dat.cntDocCredito = cntDocCredito;
                     dat.vueltoPorPagoMovil = GetVueltoPorPagoMovil;
+                    //
                     var r02 = Sistema.MyData.Jornada_Cerrar(ficha);
                     if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                     {
                         throw new Exception(r02.Mensaje);
                     }
                     dat.nroCierre = r02.Entidad.ToString().Trim().PadLeft(8, '0');
-                    Sistema.ImprimirCuadreCaja.setData(dat);
-                    if (Sistema.ImprimirCuadreCaja.IsModoTicket)
+                    Sistema.ImprimirReporteCuadreCaja.setData(dat);
+                    if (Sistema.ImprimirReporteCuadreCaja is Helpers.Imprimir.IReporteCuadreCajaTicket) 
                     {
-                        _isTicket = true;
+                        _printDoc.Print();
                     }
                     else
                     {
-                        Sistema.ImprimirCuadreCaja.ImprimirDoc();
+                        Sistema.ImprimirReporteCuadreCaja.ImprimirDoc();
                     }
                     _cierreOk = true;
                     Sistema.PosEnUso.Cerrar();
@@ -433,10 +434,11 @@ namespace PosOnLine.Src.Cierre.NoFiscal
                 _abandonarOk = true;
             }
         }
-        public void Imprimir(System.Drawing.Printing.PrintPageEventArgs e)
+        private void printDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            Sistema.ImprimirCuadreCaja.setGrafico(e);
-            Sistema.ImprimirCuadreCaja.ImprimirDoc();
+            var _imprimirRpt = (Helpers.Imprimir.IReporteCuadreCajaTicket)Sistema.ImprimirReporteCuadreCaja;
+            _imprimirRpt.setControladorTickera(e);
+            _imprimirRpt.ImprimirDoc();
         }
     }
 }

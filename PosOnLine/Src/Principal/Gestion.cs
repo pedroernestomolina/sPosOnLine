@@ -91,7 +91,7 @@ namespace PosOnLine.Src.Principal
             _gestionPassW = new PassWord.Gestion();
             _gestionPos = new Pos.Gestion(_gestionAnular);
             _gestionPos.setGestionPassW(_gestionPassW);
-            _gCierreHist = new Cierre.Historico.Historia();
+            _gCierreHist = new Cierre.Historico.Imp();
             Helpers.PassWord.setGestion(_gestionPassW);
         }
 
@@ -313,7 +313,7 @@ namespace PosOnLine.Src.Principal
                 {
                     if (_cierrePosNoFiscal == null) 
                     {
-                        _cierrePosNoFiscal = new Cierre.NoFiscal.Gestion();
+                        _cierrePosNoFiscal = new Cierre.NoFiscal.Imp();
                     }
                     if (Sistema.ModoFiscalActivo)
                     {

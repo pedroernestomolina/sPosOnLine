@@ -194,7 +194,6 @@
             this.panel62 = new System.Windows.Forms.Panel();
             this.panel73 = new System.Windows.Forms.Panel();
             this.BT_CREDITO = new System.Windows.Forms.Button();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -2337,10 +2336,6 @@
             this.BT_CREDITO.UseVisualStyleBackColor = true;
             this.BT_CREDITO.Click += new System.EventHandler(this.BT_CREDITO_Click);
             // 
-            // printDocument1
-            // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
             // CierreFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2548,7 +2543,6 @@
         private System.Windows.Forms.Button BT_ACEPTAR;
         private System.Windows.Forms.Panel panel53;
         private System.Windows.Forms.Label L_ESTACION;
-        private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Panel panel58;
         private System.Windows.Forms.Panel panel59;

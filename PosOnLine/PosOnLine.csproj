@@ -148,6 +148,8 @@
     <Compile Include="Helpers\fichaSeleccion.cs" />
     <Compile Include="Helpers\IAbandonar.cs" />
     <Compile Include="Helpers\Imprimir\baseImprimirReporteCuadreCaja.cs" />
+    <Compile Include="Helpers\Imprimir\CuadreCaja\58\Imp.cs" />
+    <Compile Include="Helpers\Imprimir\CuadreCaja\70\Imp.cs" />
     <Compile Include="Helpers\Imprimir\CuadreCaja\80\Imp.cs" />
     <Compile Include="Helpers\Imprimir\data.cs" />
     <Compile Include="Helpers\Imprimir\dataCuadre.cs" />
@@ -461,6 +463,8 @@
     </Compile>
     <Compile Include="Src\CambioPrecio\ICambioPrecio.cs" />
     <Compile Include="Src\CambioPrecio\IVista.cs" />
+    <Compile Include="Src\Cierre\Historico\ILista.cs" />
+    <Compile Include="Src\Cierre\Historico\impLista.cs" />
     <Compile Include="Src\Cierre\NoFiscal\CierreFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -475,10 +479,10 @@
     </Compile>
     <Compile Include="Src\Cierre\Fiscal\ICierre.cs" />
     <Compile Include="Src\Cierre\Fiscal\ImpCierre.cs" />
-    <Compile Include="Src\Cierre\NoFiscal\Gestion.cs" />
+    <Compile Include="Src\Cierre\NoFiscal\Imp.cs" />
     <Compile Include="Src\Cierre\Historico\data.cs" />
     <Compile Include="Src\Cierre\Historico\dataCierre.cs" />
-    <Compile Include="Src\Cierre\Historico\Historia.cs" />
+    <Compile Include="Src\Cierre\Historico\Imp.cs" />
     <Compile Include="Src\Cierre\Historico\HistoriaFrm.cs">
       <SubType>Form</SubType>
     </Compile>

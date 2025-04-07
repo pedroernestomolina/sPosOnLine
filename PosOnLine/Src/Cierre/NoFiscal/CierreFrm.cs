@@ -13,7 +13,7 @@ namespace PosOnLine.Src.Cierre.NoFiscal
 {
     public partial class CierreFrm : Form
     {
-        private Gestion _controlador;
+        private INoFiscal _controlador;
         //
         public CierreFrm()
         {
@@ -38,7 +38,7 @@ namespace PosOnLine.Src.Cierre.NoFiscal
                 e.Cancel = false;
             }
         }
-        public void setControlador(Gestion ctr)
+        public void setControlador(INoFiscal ctr)
         {
             _controlador=ctr;
         }
@@ -48,11 +48,6 @@ namespace PosOnLine.Src.Cierre.NoFiscal
             {
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
-        }
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            e.Cancel = false;
-            _controlador.Imprimir(e);
         }
         //
         private void TB_CNT_DIVISA_Leave(object sender, EventArgs e)
@@ -164,14 +159,6 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         private void Procesar()
         {
             _controlador.Procesar();
-            if (_controlador.CierreIsOk)
-            {
-                if (_controlador.IsTicket)
-                {
-                    printDocument1.Print();
-                }
-                Salir();
-            }
         }
         private void Salir()
         {

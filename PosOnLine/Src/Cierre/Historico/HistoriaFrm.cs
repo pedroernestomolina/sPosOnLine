@@ -11,24 +11,16 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Cierre.Historico
 {
-
     public partial class HistoriaFrm : Form
     {
-
+        private bool _modoInicializar;
         private IHistoria _controlador;
-
-
-        public HistoriaFrm()
-        {
-            InitializeComponent();
-            InicializaGrid();
-        }
-
+        //
         private void InicializaGrid()
         {
             var f = new Font("Serif", 8, FontStyle.Bold);
             var f1 = new Font("Serif", 9, FontStyle.Regular);
-
+            //
             DGV.AllowUserToAddRows = false;
             DGV.AllowUserToDeleteRows = false;
             DGV.AutoGenerateColumns = false;
@@ -38,7 +30,7 @@ namespace PosOnLine.Src.Cierre.Historico
             DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DGV.MultiSelect = false;
             DGV.ReadOnly = true;
-
+            //
             var c1 = new DataGridViewTextBoxColumn();
             c1.DataPropertyName = "FechaHora";
             c1.HeaderText = "Fecha/Hora";
@@ -47,7 +39,7 @@ namespace PosOnLine.Src.Cierre.Historico
             c1.HeaderCell.Style.Font = f;
             c1.DefaultCellStyle.Font = f1;
             c1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
+            //
             var c3 = new DataGridViewTextBoxColumn();
             c3.DataPropertyName = "IdEquipo";
             c3.HeaderText = "Equipo";
@@ -56,7 +48,7 @@ namespace PosOnLine.Src.Cierre.Historico
             c3.HeaderCell.Style.Font = f;
             c3.DefaultCellStyle.Font = f1;
             c3.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
+            //
             var c2 = new DataGridViewTextBoxColumn();
             c2.DataPropertyName = "CierreNro";
             c2.HeaderText = "Cierre Nro";
@@ -65,54 +57,43 @@ namespace PosOnLine.Src.Cierre.Historico
             c2.HeaderCell.Style.Font = f;
             c2.DefaultCellStyle.Font = f1;
             c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
+            //
             DGV.Columns.Add(c1);
             DGV.Columns.Add(c3);
             DGV.Columns.Add(c2);
         }
-
-
-
+        public HistoriaFrm()
+        {
+            InitializeComponent();
+            InicializaGrid();
+        }
+        private void HistoriaFrm_Load(object sender, EventArgs e)
+        {
+            _modoInicializar = true;
+            DGV.DataSource = _controlador.GetDataSource;
+            _modoInicializar = false;
+        }
         public void setControlador(IHistoria ctr)
         {
             _controlador = ctr;
         }
-
+        //
+        private void BT_IMPRIMIR_Click(object sender, EventArgs e)
+        {
+            ImprimirCierre();
+        }
         private void BT_SALIDA_Click(object sender, EventArgs e)
         {
             Salir();
+        }
+        //
+        private void ImprimirCierre()
+        {
+            _controlador.ImprimirCierre();
         }
         private void Salir()
         {
             this.Close();
         }
-
-        private bool _modoInicializar;
-        private void HistoriaFrm_Load(object sender, EventArgs e)
-        {
-            _modoInicializar = true;
-            DGV.DataSource = _controlador.GetDataSource;
-            printDialog1.Document = printDocument1;
-            _modoInicializar = false;
-        }
-
-        private void BT_IMPRIMIR_Click(object sender, EventArgs e)
-        {
-            ImprimirCierre();
-        }
-        private void ImprimirCierre()
-        {
-            _controlador.ImprimirCierre();
-            if (_controlador.ImprimirIsOk)
-            {
-                printDocument1.Print();
-            }
-        }
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            _controlador.Imprimir(e);
-        }
-
     }
-
 }

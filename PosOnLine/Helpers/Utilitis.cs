@@ -196,6 +196,7 @@ namespace PosOnLine.Helpers
 
                                 if (nv.LocalName.ToUpper().Trim() == "MODOIMPRESIONCUADRECAJA")
                                 {
+                                    Helpers.Imprimir.IReporteCuadreCajaTicket rptCuadre;
                                     switch (nv.InnerText.Trim().ToUpper())
                                     {
                                         case "G":
@@ -205,19 +206,27 @@ namespace PosOnLine.Helpers
                                             break;
                                         case "T80":
                                             //Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80.CuadreDoc();
-                                            var rptCuadre = new Helpers.Imprimir.CuadreCaja._80.Imp();
-                                            var tick = new Helpers.Imprimir.Ticket._80.Ticket();
-                                            rptCuadre.setTicket(tick);
+                                            rptCuadre = new Helpers.Imprimir.CuadreCaja._80.Imp();
+                                            rptCuadre.setTicket(new Helpers.Imprimir.Ticket._80.Ticket());
                                             Sistema.ImprimirReporteCuadreCaja = rptCuadre;
                                             break;
                                         case "T80B":
-                                            Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80Basico.CuadreDoc();
+                                            //Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera80Basico.CuadreDoc();
+                                            rptCuadre = new Helpers.Imprimir.CuadreCaja._80.Imp();
+                                            rptCuadre.setTicket(new Helpers.Imprimir.Ticket._80.Ticket());
+                                            Sistema.ImprimirReporteCuadreCaja = rptCuadre;
                                             break;
                                         case "T70":
-                                            Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera70.CuadreDoc();
+                                            //Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera70.CuadreDoc();
+                                            rptCuadre = new Helpers.Imprimir.CuadreCaja._70.Imp();
+                                            rptCuadre.setTicket(new Helpers.Imprimir.Ticket._70.Ticket());
+                                            Sistema.ImprimirReporteCuadreCaja = rptCuadre;
                                             break;
                                         case "T58":
-                                            Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera58.CuadreDoc();
+                                            //Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera58.CuadreDoc();
+                                            rptCuadre = new Helpers.Imprimir.CuadreCaja._58.Imp();
+                                            rptCuadre.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            Sistema.ImprimirReporteCuadreCaja = rptCuadre;
                                             break;
                                     }
                                 }

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 
 namespace PosOnLine.Src.Cierre.Historico
 {
-    public interface IHistoria: IGestion
+    public interface ILista
     {
-        object GetDataSource { get; }
         object ItemActual { get; }
+        object GetSource { get; }
         //
-        void ImprimirCierre();
+        void Inicializa();
+        void setData(IEnumerable<object> list);
     }
 }
