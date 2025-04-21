@@ -14,12 +14,12 @@ namespace PosOnLine.Data.Prov
             Cierre_Lista_GetByFiltro(OOB.Cierre.Lista.Filtro filtro)
         {
             var rt = new OOB.Resultado.Lista<OOB.Cierre.Lista.Ficha>();
-
+            //
             var filtroDTO = new DtoLibPos.Pos.Cierre.Lista.Filtro();
             var r01 = MyData.Cierre_Lista_GetByFiltro(filtroDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
                 throw new Exception(r01.Mensaje);
-
+            //
             var _lst = new List<OOB.Cierre.Lista.Ficha>();
             if (r01.Lista != null)
             {
@@ -34,23 +34,24 @@ namespace PosOnLine.Data.Prov
                             hora = s.hora,
                             id = s.id,
                             idEquipo = s.idEquipo,
+                            idCierre = s.idCierre
                         };
                     }).ToList();
                 }
             }
             rt.ListaD = _lst;
-
+            //
             return rt;
         }
         public OOB.Resultado.FichaEntidad<OOB.Cierre.Entidad.Ficha> 
             Cierre_GetById(int idCierre)
         {
             var rt = new OOB.Resultado.FichaEntidad<OOB.Cierre.Entidad.Ficha>(); 
-
+            //
             var r01 = MyData.Cierre_GetById(idCierre);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
                 throw new Exception(r01.Mensaje);
-
+            //
             var s = r01.Entidad;
             rt.Entidad = new OOB.Cierre.Entidad.Ficha()
             {
@@ -113,7 +114,7 @@ namespace PosOnLine.Data.Prov
                 montoContadoAnulado = s.montoContadoAnulado,
                 montoCreditoAnulado = s.montoCreditoAnulado
             };
-
+            //
             return rt;
         }
     }

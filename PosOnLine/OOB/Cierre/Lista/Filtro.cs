@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Cierre.Lista
 {
-    
     public class Filtro
     {
     }
-
 }

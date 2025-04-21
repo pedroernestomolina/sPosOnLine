@@ -7,19 +7,24 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.Cierre.Historico
 {
-    public class data
+    public class data: Idata
     {
+        private object _ficha;
+        //
         public int id { get; set; }
         public string idEquipo { get; set; }
         public string fechaHora { get; set; }
         public string cierreNro { get; set; }
+        public object Ficha { get { return _ficha; } }
         //
-        public data ()
+        public data(object ficha)
         {
-            id = -1;
-            idEquipo = "";
-            fechaHora = "";
-            cierreNro = "";
+            var ss = (OOB.Cierre.Lista.Ficha)ficha;
+            _ficha = ficha;
+            id = ss.id;
+            fechaHora = ss.fecha.ToShortDateString() + ", " + ss.hora;
+            idEquipo = ss.idEquipo;
+            cierreNro = ss.cierreNro.ToString().Trim().PadLeft(6, '0');
         }
     }
 }

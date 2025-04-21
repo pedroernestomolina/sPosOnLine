@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Cierre.Lista
 {
-
     public class Ficha
     {
-
         public int id { get; set; }
         public string idEquipo { get; set; }
         public string hora { get; set; }
         public DateTime fecha { get; set; }
         public int cierreNro { get; set; }
-
-
+        public string idCierre { get; set; }
+        //
         public Ficha()
         {
             id = -1;
@@ -25,8 +23,7 @@ namespace PosOnLine.OOB.Cierre.Lista
             hora = "";
             fecha = DateTime.Now.Date;
             cierreNro = -1;
+            idCierre = "";
         }
-
     }
-
 }

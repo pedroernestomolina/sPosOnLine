@@ -464,6 +464,7 @@
     </Compile>
     <Compile Include="Src\CambioPrecio\ICambioPrecio.cs" />
     <Compile Include="Src\CambioPrecio\IVista.cs" />
+    <Compile Include="Src\Cierre\Historico\Idata.cs" />
     <Compile Include="Src\Cierre\Historico\ILista.cs" />
     <Compile Include="Src\Cierre\Historico\impLista.cs" />
     <Compile Include="Src\Cierre\NoFiscal\CierreFrm.cs">
@@ -492,6 +493,7 @@
     </Compile>
     <Compile Include="Src\Cierre\Historico\IHistoria.cs" />
     <Compile Include="Src\Cierre\NoFiscal\INoFiscal.cs" />
+    <Compile Include="Src\Cierre\Utils.cs" />
     <Compile Include="Src\Consultor\IModo.cs" />
     <Compile Include="Src\Consultor\ModoAdm\Frm.cs">
       <SubType>Form</SubType>

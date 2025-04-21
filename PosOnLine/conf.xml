@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>192.168.0.131</Instancia>
-    <Catalogo>00000001</Catalogo>
+    <Instancia>10.10.100.155</Instancia>
+    <Catalogo>zufu</Catalogo>
   </Servidor>
   <IdEquipo>3</IdEquipo>
   <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->

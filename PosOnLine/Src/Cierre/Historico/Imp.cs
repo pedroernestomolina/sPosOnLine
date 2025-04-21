@@ -46,6 +46,24 @@ namespace PosOnLine.Src.Cierre.Historico
             var _it = (data)ItemActual;
             cargarPrepararCierre(_it.id);
         }
+        public void VentCredito()
+        {
+            if (ItemActual == null) return;
+            var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
+            Utils.VentCredito(_it.idCierre);
+        }
+        public void PagoDetalles()
+        {
+            if (ItemActual == null) return;
+            var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
+            Utils.ReporteDetalle(_it.idCierre);
+        }
+        public void PagoResumen()
+        {
+            if (ItemActual == null) return;
+            var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
+            Utils.ReporteResumen(_it.idCierre);
+        }
         //
         private bool cargarData()
         {

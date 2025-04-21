@@ -14,5 +14,8 @@ namespace PosOnLine.Src.Cierre.Historico
         object ItemActual { get; }
         //
         void ImprimirCierre();
+        void VentCredito();
+        void PagoDetalles();
+        void PagoResumen();
     }
 }

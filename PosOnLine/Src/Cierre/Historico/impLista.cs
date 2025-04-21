@@ -10,7 +10,7 @@ namespace PosOnLine.Src.Cierre.Historico
 {
     public class impLista: ILista
     {
-        private List<data> _lst;
+        private List<Idata> _lst;
         private BindingSource _bs;
         //
         public object ItemActual { get { return _bs.Current; } }        
@@ -18,7 +18,7 @@ namespace PosOnLine.Src.Cierre.Historico
         //
         public impLista()
         {
-            _lst = new List<data>();
+            _lst = new List<Idata>();
             _bs = new BindingSource();
             _bs.DataSource = _lst;
             _bs.CurrencyManager.Refresh();
@@ -34,14 +34,7 @@ namespace PosOnLine.Src.Cierre.Historico
             _lst.Clear();
             _lst = list.Select(s =>
             {
-                var ss = (OOB.Cierre.Lista.Ficha)s;
-                var nr = new data()
-                {
-                    id = ss.id,
-                    fechaHora = ss.fecha.ToShortDateString() + ", " + ss.hora,
-                    idEquipo = ss.idEquipo,
-                    cierreNro = ss.cierreNro.ToString().Trim().PadLeft(6, '0'),
-                };
+                Idata nr = new data(s);
                 return nr;
             }).ToList();
             _bs.DataSource = _lst;

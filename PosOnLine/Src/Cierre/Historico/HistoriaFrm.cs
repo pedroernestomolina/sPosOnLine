@@ -82,6 +82,18 @@ namespace PosOnLine.Src.Cierre.Historico
         {
             ImprimirCierre();
         }
+        private void BT_CREDITO_Click(object sender, EventArgs e)
+        {
+            VentCredito();
+        }
+        private void BT_DETALLE_Click(object sender, EventArgs e)
+        {
+            PagoDetalles();
+        }
+        private void BT_PAGO_RESUMEN_Click(object sender, EventArgs e)
+        {
+            PagoResumen();
+        }
         private void BT_SALIDA_Click(object sender, EventArgs e)
         {
             Salir();
@@ -90,6 +102,18 @@ namespace PosOnLine.Src.Cierre.Historico
         private void ImprimirCierre()
         {
             _controlador.ImprimirCierre();
+        }
+        private void VentCredito()
+        {
+            _controlador.VentCredito();
+        }
+        private void PagoDetalles()
+        {
+            _controlador.PagoDetalles();
+        }
+        private void PagoResumen()
+        {
+            _controlador.PagoResumen();
         }
         private void Salir()
         {

@@ -223,21 +223,22 @@ namespace PosOnLine.Src.Cierre.NoFiscal
         }
         public void VentCredito()
         {
-            try
-            {
-                var filtro = new OOB.Reportes.Pos.VentCredito.Filtro() 
-                { 
-                    IdCierre = Sistema.PosEnUso.idAutoArqueoCierre, 
-                };
-                var r01 = Sistema.MyData.ReportePos_VentCredito(filtro);
-                var rp1 = new Reportes.Cierre.VentCredito.Movimiento(r01.ListaD);
-                rp1.Generar();
-            }
-            catch (Exception e)
-            {
-                Helpers.Msg.Error(e.Message);
-                return;
-            }
+            Utils.VentCredito(Sistema.PosEnUso.idAutoArqueoCierre);
+            //try
+            //{
+            //    var filtro = new OOB.Reportes.Pos.VentCredito.Filtro() 
+            //    { 
+            //        IdCierre = Sistema.PosEnUso.idAutoArqueoCierre, 
+            //    };
+            //    var r01 = Sistema.MyData.ReportePos_VentCredito(filtro);
+            //    var rp1 = new Reportes.Cierre.VentCredito.Movimiento(r01.ListaD);
+            //    rp1.Generar();
+            //}
+            //catch (Exception e)
+            //{
+            //    Helpers.Msg.Error(e.Message);
+            //    return;
+            //}
         }
         //
         private bool CargarData()
