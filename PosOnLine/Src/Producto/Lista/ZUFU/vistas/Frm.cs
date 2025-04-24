@@ -154,6 +154,11 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU.vistas
             {
                 PB_IMAGEN.Image = (System.Drawing.Image)_controlador.GetPrdImagen;
             }
+            //
+            L_TITULO_PRECIO_BONO.Visible = _controlador.GetMostrarPrecioConBono;
+            L_PRECIO_1_BONO.Visible = _controlador.GetMostrarPrecioConBono;
+            L_PRECIO_2_BONO.Visible = _controlador.GetMostrarPrecioConBono;
+            L_PRECIO_3_BONO.Visible = _controlador.GetMostrarPrecioConBono;
         }
         private void SeleccionarItem()
         {
@@ -179,6 +184,22 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU.vistas
         {
             _controlador.SalirLista();
             this.Close();
+        }
+
+        private void Frm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.Control && e.KeyCode == Keys.V)
+            {
+                Test();
+            }
+        }   
+        private void Test()
+        {
+            _controlador.setMostrarPrecioConBono();
+            L_TITULO_PRECIO_BONO.Visible = _controlador.GetMostrarPrecioConBono;
+            L_PRECIO_1_BONO.Visible = _controlador.GetMostrarPrecioConBono;
+            L_PRECIO_2_BONO.Visible = _controlador.GetMostrarPrecioConBono;
+            L_PRECIO_3_BONO.Visible = _controlador.GetMostrarPrecioConBono;
         }
     }
 }

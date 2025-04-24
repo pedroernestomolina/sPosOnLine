@@ -11,7 +11,9 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
     {
         private ILista _lista;
         private bool _salirLista;
+        private bool _mostrarPrecioConBono;
         //
+        public bool GetMostrarPrecioConBono { get { return _mostrarPrecioConBono; } }
         public bool SalirListaIsOk { get { return _salirLista; } }
         public object ItemSeleccionado { get { return _lista.ItemSeleccionado; } }
         public bool ItemSeleccionadoIsOk { get { return _lista.ItemSeleccionadoIsOk; } }
@@ -44,10 +46,12 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         //
         public ImpListaProducto()
         {
+            _mostrarPrecioConBono = false;
             _lista = new ImpLista();
         }
         public void Inicializa()
         {
+            _mostrarPrecioConBono = false;
             _salirLista = false;
             _lista.Inicializa();
         }
@@ -79,6 +83,10 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         public void setData(IEnumerable<object> lst, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa)
         {
             _lista.setData(lst, factorCambio, porctBonoDivisa, habilitarBonoDivisa);
+        }
+        public void setMostrarPrecioConBono()
+        {
+            _mostrarPrecioConBono = !_mostrarPrecioConBono;
         }
         //
         private bool cargarData()
