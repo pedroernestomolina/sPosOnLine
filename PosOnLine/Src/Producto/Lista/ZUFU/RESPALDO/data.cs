@@ -11,7 +11,6 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
 {
     public class data : Idata
     {
-        private string _descBonoDivisa;
         private OOB.Producto.Lista.Ficha _ficha;
         private decimal _factorCambio;
         private decimal _porctBonoDivisa;
@@ -61,13 +60,12 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         //
         public object Ficha { get { return _ficha; } }
         //
-        public data(object it, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa, string descBonoDivisa)
+        public data(object it, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa)
         {
             _ficha = (OOB.Producto.Lista.Ficha)it;
             _factorCambio = factorCambio;
             _porctBonoDivisa = porctBonoDivisa;
             _habilitarBonoDivisa = habilitarBonoDivisa;
-            _descBonoDivisa = descBonoDivisa;
             //
             CodigoPrd = _ficha.Codigo;
             NombrePrd = _ficha.Nombre;
@@ -79,24 +77,12 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
             _p1Divisa=0m;
             _p2Divisa = 0m;
             _p3Divisa = 0m;
-            if (_ficha.EsAdmDivisa)
-            {
-                _p1 = full(_ficha.pnetoEmp_1);
-                _p2 = full(_ficha.pnetoEmp_2);
-                _p3 = full(_ficha.pnetoEmp_3);
-                _p1Divisa = _p1 / factorCambio;
-                _p2Divisa = _p2 / factorCambio;
-                _p3Divisa = _p3 / factorCambio;
-            }
-            else 
-            {
-                _p1 = _ficha.pfullDivEmp_1 * factorCambio;
-                _p2 = _ficha.pfullDivEmp_2 * factorCambio;
-                _p3 = _ficha.pfullDivEmp_3* factorCambio;
-                _p1Divisa = _ficha.pfullDivEmp_1;
-                _p2Divisa = _ficha.pfullDivEmp_2;
-                _p3Divisa = _ficha.pfullDivEmp_3;
-            }
+            _p1 = full(_ficha.pnetoEmp_1);
+            _p2 = full(_ficha.pnetoEmp_2);
+            _p3 = full(_ficha.pnetoEmp_3);
+            _p1Divisa = _p1 / factorCambio;
+            _p2Divisa = _p2 / factorCambio;
+            _p3Divisa = _p3 / factorCambio;
             //
             _exEmpCompra = 0m;
             _exEmpInv = 0m;
@@ -133,7 +119,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private string precioBono(decimal montoLocal, decimal montoDivisa)
         {
             var rt = "";
-            if (_habilitarBonoDivisa && _ficha.EsAdmDivisa)
+            if (_habilitarBonoDivisa)
             {
                 var _factor = ((_porctBonoDivisa / 100) + 1);
                 if (_factor > 0m)
@@ -147,10 +133,9 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private string tituloPrecioBono()
         {
             var rt = "";
-            if (_habilitarBonoDivisa && _ficha.EsAdmDivisa)
+            if (_habilitarBonoDivisa)
             {
-                //rt = "Bono " + _porctBonoDivisa.ToString("n2") + "%";
-                rt = "Bono " + _descBonoDivisa;
+                rt = "Bono " + _porctBonoDivisa.ToString("n2") + "%";
             }
             return rt;
         }

@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Venta.Item.Entidad
 {
-    
     public class Ficha
     {
-
-
         public int id { get; set; }
         public int idOperador { get; set; }
         public string autoProducto { get; set; }
@@ -38,8 +35,10 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
         public decimal costoPromedio { get; set; }
         public string autoDeposito { get; set; }
         public bool IsPesado { get { return (estatusPesado == "1"); } }
-
-
+        //
+        public decimal peso { get; set; }
+        public decimal volumen { get; set; }
+        public string estatusDivisa { get; set; }
         public Ficha()
         {
             autoDeposito = "";
@@ -70,9 +69,8 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
             //
             peso = 0m;
             volumen = 0m;
+            estatusDivisa = "";
         }
-
-
         public Ficha(Documento.Entidad.FichaItem it)
         {
             autoDeposito = it.AutoDeposito;
@@ -104,12 +102,5 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
             peso = 0m;
             volumen = 0m;
         }
-
-
-        //
-        public decimal peso { get; set; }
-        public decimal volumen { get; set; }
-
     }
-
 }

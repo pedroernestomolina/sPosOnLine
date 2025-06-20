@@ -328,7 +328,8 @@ namespace PosOnLine.Data.Prov
             return result;
         }
 
-        private decimal ConvertirToDecimal(string mnt)
+        private decimal 
+            ConvertirToDecimal(string mnt)
         {
             var m1 = 0.0m;
             var cnf = mnt;
@@ -340,6 +341,44 @@ namespace PosOnLine.Data.Prov
                 Decimal.TryParse(cnf, style, culture, out m1);
             }
             return m1;
+        }
+
+
+        //
+        public OOB.Resultado.FichaEntidad<decimal> 
+            Configuracion_TasaCambioSistema()
+        {
+            var result = new OOB.Resultado.FichaEntidad<decimal>();
+            //
+            try
+            {
+                var r01 = MyData.Configuracion_TasaCambioSistema();
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                var m1 = 0.0m;
+                var cnf = r01.Entidad;
+                if (cnf.Trim() != "")
+                {
+                    var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                    var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                    //var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                    Decimal.TryParse(cnf, style, culture, out m1);
+                }
+                if (m1 <= 0m)
+                {
+                    throw new Exception("TASA INCORRECTA, NO PUEDE SER CERO (0)");
+                }
+                result.Entidad = m1;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
         }
     }
 }

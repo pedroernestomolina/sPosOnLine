@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.PrecioMayor
 {
-    public class Gestion: IModo
+    public class Gestion : IModo
     {
         private string _autoPrd;
         private string _tarifa;
@@ -52,6 +52,9 @@ namespace PosOnLine.Src.PrecioMayor
         PrecioMayorFrm frm;
         public void Inicia()
         {
+            /*TO DO*/
+
+
             if (CargarData())
             {
                 if (_ficha.PreciosMayorHabilitado)
@@ -96,7 +99,7 @@ namespace PosOnLine.Src.PrecioMayor
                             {
                                 _precios.Add(new data("7", "", pM2));
                             }
-                            
+
                             var pD2 = new precio("B", _ficha.empaqueDsp_2, _ficha.contenidoDsp_2, _ficha.pnetoDsp_2, _ficha.decimalesDsp_2);
                             pD2.setFactorCambio(_factorCambio);
                             if (pD2.Habilitado)
@@ -120,7 +123,7 @@ namespace PosOnLine.Src.PrecioMayor
                             {
                                 _precios.Add(new data("8", "", pM3));
                             }
-                            
+
                             var pD3 = new precio("C", _ficha.empaqueDsp_3, _ficha.contenidoDsp_3, _ficha.pnetoDsp_3, _ficha.decimalesDsp_3);
                             pD3.setFactorCambio(_factorCambio);
                             if (pD3.Habilitado)

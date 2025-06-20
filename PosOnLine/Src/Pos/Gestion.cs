@@ -390,15 +390,25 @@ namespace PosOnLine.Src.Pos
                 Helpers.Msg.Error(r05.Mensaje);
                 return false;
             }
-            var r06 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
-            if (r06.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            _habilitarBonoPagoDivisa = r05.Entidad;
+            //var r06 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+            //if (r06.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            //{
+            //    Helpers.Msg.Error(r06.Mensaje);
+            //    return false;
+            //}
+            //_dsctoBonoPagoDivisa = r06.Entidad;
+            var r066 = Sistema.MyData.Configuracion_TasaCambioSistema();
+            if (r066.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
-                Helpers.Msg.Error(r06.Mensaje);
+                Helpers.Msg.Error(r066.Mensaje);
                 return false;
             }
-            _habilitarBonoPagoDivisa = r05.Entidad;
-            _dsctoBonoPagoDivisa = r06.Entidad;
-
+            if (r066.Entidad > 0) 
+            {
+                //CALCULO BONO PORCT = (1-(TASA_BCV/TASA_PARALELA))*100
+                _dsctoBonoPagoDivisa = (1 - (r01.Entidad / r066.Entidad)) * 100;
+            }
 
             var r07 = Sistema.MyData.Configuracion_IGTF();
             if (r07.Result == OOB.Resultado.Enumerados.EnumResult.isError)

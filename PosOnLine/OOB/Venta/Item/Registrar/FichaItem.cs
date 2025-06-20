@@ -38,8 +38,8 @@ namespace PosOnLine.OOB.Venta.Item.Registrar
         //
         public decimal fPeso { get; set; }
         public decimal fVolumen { get; set; }
-
-
+        //
+        public string estatusDivisa { get; set; }
         public FichaItem()
         {
             autoDeposito = "";
@@ -69,8 +69,9 @@ namespace PosOnLine.OOB.Venta.Item.Registrar
             //
             fPeso = 0m;
             fVolumen = 0m;
+            //
+            estatusDivisa = "";
         }
-
     }
 
 }

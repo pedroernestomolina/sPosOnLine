@@ -83,12 +83,12 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
                 _itemSeleccionado = ((data)ItemActual).Ficha;
             }
         }
-        public void setData(IEnumerable<object> lst, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa)
+        public void setData(IEnumerable<object> lst, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa, string descBonoDivisa)
         {
             _list.Clear();
             foreach (var it in ((List<OOB.Producto.Lista.Ficha>)lst).OrderBy(o => o.Nombre).ToList())
             {
-                _list.Add(new data(it, factorCambio, porctBonoDivisa, habilitarBonoDivisa));
+                _list.Add(new data(it, factorCambio, porctBonoDivisa, habilitarBonoDivisa, descBonoDivisa));
             }
             _bs.Position = 0;
             _bs.CurrencyManager.Refresh();

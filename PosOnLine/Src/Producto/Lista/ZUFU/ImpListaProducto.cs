@@ -80,9 +80,9 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         {
             _lista.FlechaAbajo();
         }
-        public void setData(IEnumerable<object> lst, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa)
+        public void setData(IEnumerable<object> lst, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa, string descBonoDivisa)
         {
-            _lista.setData(lst, factorCambio, porctBonoDivisa, habilitarBonoDivisa);
+            _lista.setData(lst, factorCambio, porctBonoDivisa, habilitarBonoDivisa, descBonoDivisa);
         }
         public void setMostrarPrecioConBono()
         {

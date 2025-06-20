@@ -44,7 +44,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         void SeleccionarItem();
         void FlechaArriba();
         void FlechaAbajo();
-        void setData(IEnumerable<object> lst, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa);
+        void setData(IEnumerable<object> lst, decimal factorCambio, decimal porctBonoDivisa, bool habilitarBonoDivisa, string descBonoDivisa);
         void SalirLista();
         //
         void setMostrarPrecioConBono();

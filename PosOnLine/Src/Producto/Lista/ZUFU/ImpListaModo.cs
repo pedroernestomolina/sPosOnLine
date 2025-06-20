@@ -16,6 +16,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private List<OOB.Producto.Lista.Ficha> _lst;
         private decimal _tasaCambio;
         private decimal _porctBonoDivisa;
+        private string _descBonoDivisa;
         private bool _habilitarBonoDivisa; 
         private IListaProducto _listaPrd;
         //
@@ -44,7 +45,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
             try
             {
                 cargarData();
-                _listaPrd.setData(_lst, _tasaCambio, _porctBonoDivisa, _habilitarBonoDivisa);
+                _listaPrd.setData(_lst, _tasaCambio, _porctBonoDivisa, _habilitarBonoDivisa, _descBonoDivisa);
                 _listaPrd.Inicia();
             }
             catch (Exception e)
@@ -60,6 +61,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private void cargarData()
         {
             _porctBonoDivisa = 0m;
+            _descBonoDivisa = "0.00 %";
             var r01 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
@@ -72,6 +74,17 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
                 throw new Exception(r02.Mensaje);
             }
             _porctBonoDivisa = r02.Entidad;
+            var r03 = Sistema.MyData.Configuracion_TasaCambioSistema();
+            if (r03.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r03.Mensaje);
+            }
+            var rt = 0m;
+            if (r03.Entidad > 0m) 
+            {
+                rt = (1m - (_tasaCambio / r03.Entidad)) * 100m;
+            }
+            _descBonoDivisa = rt.ToString("n2") + " %";
         }
     }
 }

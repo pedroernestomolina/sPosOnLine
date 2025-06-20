@@ -36,5 +36,8 @@ namespace PosOnLine.Data.Infra
             Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
         OOB.Resultado.FichaEntidad<PosOnLine.OOB.Configuracion.Configuracion_IGTF>
             Configuracion_IGTF();
+        //
+        OOB.Resultado.FichaEntidad<decimal>
+            Configuracion_TasaCambioSistema();
     }
 }

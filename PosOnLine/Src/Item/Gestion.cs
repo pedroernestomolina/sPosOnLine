@@ -288,12 +288,11 @@ namespace PosOnLine.Src.Item
             var empaqueCont = 0;
             var empaqueDesc = "";
             var decimales = "";
-
             switch (tarifa)
             {
                 case "1":
                     cnt = prd.contenido_1;
-                    precioNeto = prd.pneto_1;
+                    precioNeto = prd.IsDivisa ? prd.pneto_1 : (cNeto(prd.pdf_1, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdf_1;
                     empaqueCont = prd.contenido_1;
                     empaqueDesc = prd.empaque_1;
@@ -301,7 +300,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "2":
                     cnt = prd.contenido_2;
-                    precioNeto = prd.pneto_2;
+                    precioNeto = prd.IsDivisa ? prd.pneto_2 : (cNeto(prd.pdf_2, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdf_2;
                     empaqueCont = prd.contenido_2;
                     empaqueDesc = prd.empaque_2;
@@ -309,7 +308,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "3":
                     cnt = prd.contenido_3;
-                    precioNeto = prd.pneto_3;
+                    precioNeto = prd.IsDivisa ? prd.pneto_3 : (cNeto(prd.pdf_3, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdf_3;
                     empaqueCont = prd.contenido_3;
                     empaqueDesc = prd.empaque_3;
@@ -317,7 +316,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "4":
                     cnt = prd.contenido_4;
-                    precioNeto = prd.pneto_4;
+                    precioNeto = prd.IsDivisa ? prd.pneto_4 : (cNeto(prd.pdf_4, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdf_4;
                     empaqueCont = prd.contenido_4;
                     empaqueDesc = prd.empaque_4;
@@ -325,7 +324,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "5":
                     cnt = prd.contenido_5;
-                    precioNeto = prd.pneto_5;
+                    precioNeto = prd.IsDivisa ? prd.pneto_5 : (cNeto(prd.pdf_5, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdf_5;
                     empaqueCont = prd.contenido_5;
                     empaqueDesc = prd.empaque_5;
@@ -333,7 +332,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "6":
                     cnt = prd.contenidoMay_1;
-                    precioNeto = prd.pnetoMay_1;
+                    precioNeto = prd.IsDivisa ? prd.pnetoMay_1 : (cNeto(prd.pdfMay_1, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdfMay_1;
                     empaqueCont = prd.contenidoMay_1;
                     empaqueDesc = prd.empaqueMay_1;
@@ -341,7 +340,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "7":
                     cnt = prd.contenidoMay_2;
-                    precioNeto = prd.pnetoMay_2;
+                    precioNeto = prd.IsDivisa ? prd.pnetoMay_2 : (cNeto(prd.pdfMay_2, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdfMay_2;
                     empaqueCont = prd.contenidoMay_2;
                     empaqueDesc = prd.empaqueMay_2;
@@ -349,7 +348,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "8":
                     cnt = prd.contenidoMay_3;
-                    precioNeto = prd.pnetoMay_3;
+                    precioNeto = prd.IsDivisa ? prd.pnetoMay_3 : (cNeto(prd.pdfMay_3, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdfMay_3;
                     empaqueCont = prd.contenidoMay_3;
                     empaqueDesc = prd.empaqueMay_3;
@@ -357,7 +356,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "9":
                     cnt = prd.contenidoMay_4;
-                    precioNeto = prd.pnetoMay_4;
+                    precioNeto = prd.IsDivisa ? prd.pnetoMay_4 : (cNeto(prd.pdfMay_4, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdfMay_4;
                     empaqueCont = prd.contenidoMay_4;
                     empaqueDesc = prd.empaqueMay_4;
@@ -365,7 +364,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "A":
                     cnt = prd.contenidoDsp_1;
-                    precioNeto = prd.pnetoDsp_1;
+                    precioNeto = prd.IsDivisa ? prd.pnetoDsp_1 : (cNeto(prd.pdfDsp_1,prd.TasaImpuesto)*_tasaCambio);
                     precioFullDivisa = prd.pdfDsp_1;
                     empaqueCont = prd.contenidoDsp_1;
                     empaqueDesc = prd.empaqueDsp_1;
@@ -373,7 +372,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "B":
                     cnt = prd.contenidoDsp_2;
-                    precioNeto = prd.pnetoDsp_2;
+                    precioNeto = prd.IsDivisa ? prd.pnetoDsp_2 : (cNeto(prd.pdfDsp_2, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdfDsp_2;
                     empaqueCont = prd.contenidoDsp_2;
                     empaqueDesc = prd.empaqueDsp_2;
@@ -381,7 +380,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "C":
                     cnt = prd.contenidoDsp_3;
-                    precioNeto = prd.pnetoDsp_3;
+                    precioNeto = prd.IsDivisa ? prd.pnetoDsp_3 : (cNeto(prd.pdfDsp_3, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdfDsp_3;
                     empaqueCont = prd.contenidoDsp_3;
                     empaqueDesc = prd.empaqueDsp_3;
@@ -389,7 +388,7 @@ namespace PosOnLine.Src.Item
                     break;
                 case "D":
                     cnt = prd.contenidoDsp_4;
-                    precioNeto = prd.pnetoDsp_4;
+                    precioNeto = prd.IsDivisa ? prd.pnetoDsp_4 : (cNeto(prd.pdfDsp_4, prd.TasaImpuesto) * _tasaCambio);
                     precioFullDivisa = prd.pdfDsp_4;
                     empaqueCont = prd.contenidoDsp_4;
                     empaqueDesc = prd.empaqueDsp_4;
@@ -453,6 +452,7 @@ namespace PosOnLine.Src.Item
                     autoDeposito = _autoDeposito,
                     fPeso= _fPeso,
                     fVolumen=_fVolumen,
+                    estatusDivisa = prd.EstatusDivisa,
                 },
             };
             var r01 = Sistema.MyData.Venta_Item_Registrar(ficha);
@@ -472,6 +472,16 @@ namespace PosOnLine.Src.Item
             _blitems.Insert(0, new data(r02.Entidad, _tasaCambio));
             _bsitems.Position = 0;
             Helpers.Sonido.SonidoOk();
+        }
+
+        private decimal cNeto(decimal monto, decimal tasa)
+        {
+            var rt = monto;
+            if (tasa > 0m) 
+            {
+                rt = monto / (1m + (tasa / 100m));
+            }
+            return rt;
         }
 
         public void setTarifaPrecio(string tarifa)

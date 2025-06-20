@@ -14,164 +14,185 @@ namespace PosOnLine.Data.Prov
             Venta_Item_Registrar(OOB.Venta.Item.Registrar.Ficha ficha)
         {
             var result = new OOB.Resultado.FichaId();
-
-            var fichaDTO = new DtoLibPos.Venta.Item.Registrar.Ficha()
+            //
+            try
             {
-                validarExistencia = ficha.validarExistencia,
-                deposito = new DtoLibPos.Venta.Item.Registrar.FichaDeposito()
+                var fichaDTO = new DtoLibPos.Venta.Item.Registrar.Ficha()
                 {
-                    autoDeposito = ficha.deposito.autoDeposito,
-                    autoPrd = ficha.deposito.autoPrd,
-                    cantBloq = ficha.deposito.cantBloq,
-                },
-                item = new DtoLibPos.Venta.Item.Registrar.FichaItem()
+                    validarExistencia = ficha.validarExistencia,
+                    deposito = new DtoLibPos.Venta.Item.Registrar.FichaDeposito()
+                    {
+                        autoDeposito = ficha.deposito.autoDeposito,
+                        autoPrd = ficha.deposito.autoPrd,
+                        cantBloq = ficha.deposito.cantBloq,
+                    },
+                    item = new DtoLibPos.Venta.Item.Registrar.FichaItem()
+                    {
+                        autoDepartamento = ficha.item.autoDepartamento,
+                        autoGrupo = ficha.item.autoGrupo,
+                        autoProducto = ficha.item.autoProducto,
+                        autoSubGrupo = ficha.item.autoSubGrupo,
+                        autoTasa = ficha.item.autoTasa,
+                        cantidad = ficha.item.cantidad,
+                        categoria = ficha.item.categoria,
+                        codigo = ficha.item.codigo,
+                        costoCompra = ficha.item.costoCompra,
+                        costoPromedio = ficha.item.costoPromedio,
+                        costoPromedioUnd = ficha.item.costoPromedioUnd,
+                        costoUnd = ficha.item.costoUnd,
+                        decimales = ficha.item.decimales,
+                        empaqueContenido = ficha.item.empaqueContenido,
+                        empaqueDescripcion = ficha.item.empaqueDescripcion,
+                        estatusPesado = ficha.item.estatusPesado,
+                        idOperador = ficha.item.idOperador,
+                        nombre = ficha.item.nombre,
+                        pfullDivisa = ficha.item.pfullDivisa,
+                        pneto = ficha.item.pneto,
+                        tarifaPrecio = ficha.item.tarifaPrecio,
+                        tasaIva = ficha.item.tasaIva,
+                        tipoIva = ficha.item.tipoIva,
+                        autoDeposito = ficha.item.autoDeposito,
+                        //
+                        fPeso = ficha.item.fPeso,
+                        fVolumen = ficha.item.fVolumen,
+                        estatusDivisa = ficha.item.estatusDivisa,
+                    },
+                };
+                var r01 = MyData.Venta_Item_Registrar(fichaDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
                 {
-                    autoDepartamento = ficha.item.autoDepartamento,
-                    autoGrupo = ficha.item.autoGrupo,
-                    autoProducto = ficha.item.autoProducto,
-                    autoSubGrupo = ficha.item.autoSubGrupo,
-                    autoTasa = ficha.item.autoTasa,
-                    cantidad = ficha.item.cantidad,
-                    categoria = ficha.item.categoria,
-                    codigo = ficha.item.codigo,
-                    costoCompra = ficha.item.costoCompra,
-                    costoPromedio = ficha.item.costoPromedio,
-                    costoPromedioUnd = ficha.item.costoPromedioUnd,
-                    costoUnd = ficha.item.costoUnd,
-                    decimales = ficha.item.decimales,
-                    empaqueContenido = ficha.item.empaqueContenido,
-                    empaqueDescripcion = ficha.item.empaqueDescripcion,
-                    estatusPesado = ficha.item.estatusPesado,
-                    idOperador = ficha.item.idOperador,
-                    nombre = ficha.item.nombre,
-                    pfullDivisa = ficha.item.pfullDivisa,
-                    pneto = ficha.item.pneto,
-                    tarifaPrecio = ficha.item.tarifaPrecio,
-                    tasaIva = ficha.item.tasaIva,
-                    tipoIva = ficha.item.tipoIva,
-                    autoDeposito=ficha.item.autoDeposito,
-                    fPeso=ficha.item.fPeso,
-                    fVolumen=ficha.item.fVolumen,
-                },
-            };
-            var r01 = MyData.Venta_Item_Registrar (fichaDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                    throw new Exception(r01.Mensaje);
+                }
+                result.Id = r01.Id;
             }
-            result.Id = r01.Id;
-
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return result;
         }
         public OOB.Resultado.FichaEntidad<OOB.Venta.Item.Entidad.Ficha> 
             Venta_Item_GetById(int id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Venta.Item.Entidad.Ficha>();
-
-            var r01 = MyData.Venta_Item_GetById(id);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                var r01 = MyData.Venta_Item_GetById(id);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                var s = r01.Entidad;
+                var nr = new OOB.Venta.Item.Entidad.Ficha()
+                {
+                    autoDepartamento = s.autoDepartamento,
+                    autoGrupo = s.autoGrupo,
+                    autoProducto = s.autoProducto,
+                    autoSubGrupo = s.autoSubGrupo,
+                    autoTasa = s.autoTasa,
+                    cantidad = s.cantidad,
+                    categoria = s.categoria,
+                    codigo = s.codigo,
+                    costoCompra = s.costoCompra,
+                    costoPromedio = s.costoPromedio,
+                    costoPromedioUnd = s.costoPromedioUnd,
+                    costoUnd = s.costoUnd,
+                    decimales = s.decimales,
+                    empaqueContenido = s.empaqueContenido,
+                    empaqueDescripcion = s.empaqueDescripcion,
+                    estatusPesado = s.estatusPesado,
+                    id = s.id,
+                    idOperador = s.idOperador,
+                    nombre = s.nombre,
+                    pfullDivisa = s.pfullDivisa,
+                    pneto = s.pneto,
+                    tarifaPrecio = s.tarifaPrecio,
+                    tasaIva = s.tasaIva,
+                    tipoIva = s.tipoIva,
+                    autoDeposito = s.autoDeposito,
+                    peso = s.fPeso,
+                    volumen = s.fVolumen,
+                    estatusDivisa = s.estatusDivisa,
+                };
+                result.Entidad = nr;
             }
-            var s= r01.Entidad;
-            var nr = new OOB.Venta.Item.Entidad.Ficha()
+            catch (Exception e)
             {
-                autoDepartamento = s.autoDepartamento,
-                autoGrupo = s.autoGrupo,
-                autoProducto = s.autoProducto,
-                autoSubGrupo = s.autoSubGrupo,
-                autoTasa = s.autoTasa,
-                cantidad = s.cantidad,
-                categoria = s.categoria,
-                codigo = s.codigo,
-                costoCompra = s.costoCompra,
-                costoPromedio = s.costoPromedio,
-                costoPromedioUnd = s.costoPromedioUnd,
-                costoUnd = s.costoUnd,
-                decimales = s.decimales,
-                empaqueContenido = s.empaqueContenido,
-                empaqueDescripcion = s.empaqueDescripcion,
-                estatusPesado = s.estatusPesado,
-                id = s.id,
-                idOperador = s.idOperador,
-                nombre = s.nombre,
-                pfullDivisa = s.pfullDivisa,
-                pneto = s.pneto,
-                tarifaPrecio = s.tarifaPrecio,
-                tasaIva = s.tasaIva,
-                tipoIva = s.tipoIva,
-                autoDeposito = s.autoDeposito,
-                peso=s.fPeso,
-                volumen=s.fVolumen,
-            };
-            result.Entidad=nr;
-
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return result;
         }
         public OOB.Resultado.Lista<OOB.Venta.Item.Entidad.Ficha> 
             Venta_Item_GetLista(OOB.Venta.Item.Lista.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Venta.Item.Entidad.Ficha>();
-
-            var filtroDTO = new DtoLibPos.Venta.Item.Lista.Filtro()
+            //
+            try
             {
-                idOperador = filtro.idOperador,
-            };
-            var r01 = MyData.Venta_Item_GetLista(filtroDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
-            {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-
-            var lst = new List<OOB.Venta.Item.Entidad.Ficha>();
-            if (r01.Lista != null) 
-            {
-                if (r01.Lista.Count > 0)
+                var filtroDTO = new DtoLibPos.Venta.Item.Lista.Filtro()
                 {
-                    lst = r01.Lista.Select(s =>
-                    {
-                        var nr = new OOB.Venta.Item.Entidad.Ficha()
-                        {
-                            autoDepartamento = s.autoDepartamento,
-                            autoGrupo = s.autoGrupo,
-                            autoProducto = s.autoProducto,
-                            autoSubGrupo = s.autoSubGrupo,
-                            autoTasa = s.autoTasa,
-                            cantidad = s.cantidad,
-                            categoria = s.categoria,
-                            codigo = s.codigo,
-                            costoCompra = s.costoCompra,
-                            costoPromedio = s.costoPromedio,
-                            costoPromedioUnd = s.costoPromedioUnd,
-                            costoUnd = s.costoUnd,
-                            decimales = s.decimales,
-                            empaqueContenido = s.empaqueContenido,
-                            empaqueDescripcion = s.empaqueDescripcion,
-                            estatusPesado = s.estatusPesado,
-                            id = s.id,
-                            idOperador = s.idOperador,
-                            nombre = s.nombre,
-                            pfullDivisa = s.pfullDivisa,
-                            pneto = s.pneto,
-                            tarifaPrecio = s.tarifaPrecio,
-                            tasaIva = s.tasaIva,
-                            tipoIva = s.tipoIva,
-                            autoDeposito = s.autoDeposito,
-                            peso = s.fPeso,
-                            volumen = s.fVolumen
-                        };
-                        return nr;
-                    }).ToList();
+                    idOperador = filtro.idOperador,
+                };
+                var r01 = MyData.Venta_Item_GetLista(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
                 }
+                var lst = new List<OOB.Venta.Item.Entidad.Ficha>();
+                if (r01.Lista != null)
+                {
+                    if (r01.Lista.Count > 0)
+                    {
+                        lst = r01.Lista.Select(s =>
+                        {
+                            var nr = new OOB.Venta.Item.Entidad.Ficha()
+                            {
+                                autoDepartamento = s.autoDepartamento,
+                                autoGrupo = s.autoGrupo,
+                                autoProducto = s.autoProducto,
+                                autoSubGrupo = s.autoSubGrupo,
+                                autoTasa = s.autoTasa,
+                                cantidad = s.cantidad,
+                                categoria = s.categoria,
+                                codigo = s.codigo,
+                                costoCompra = s.costoCompra,
+                                costoPromedio = s.costoPromedio,
+                                costoPromedioUnd = s.costoPromedioUnd,
+                                costoUnd = s.costoUnd,
+                                decimales = s.decimales,
+                                empaqueContenido = s.empaqueContenido,
+                                empaqueDescripcion = s.empaqueDescripcion,
+                                estatusPesado = s.estatusPesado,
+                                id = s.id,
+                                idOperador = s.idOperador,
+                                nombre = s.nombre,
+                                pfullDivisa = s.pfullDivisa,
+                                pneto = s.pneto,
+                                tarifaPrecio = s.tarifaPrecio,
+                                tasaIva = s.tasaIva,
+                                tipoIva = s.tipoIva,
+                                autoDeposito = s.autoDeposito,
+                                peso = s.fPeso,
+                                volumen = s.fVolumen,
+                                estatusDivisa = s.estatusDivisa,
+                            };
+                            return nr;
+                        }).ToList();
+                    }
+                }
+                result.ListaD = lst;
             }
-            result.ListaD = lst;
-
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return result;
         }
         public OOB.Resultado.Ficha 
