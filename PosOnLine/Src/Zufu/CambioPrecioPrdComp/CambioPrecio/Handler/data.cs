@@ -113,7 +113,14 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 _pActual.setPosTasaIva(_item.Ficha.tasaIva);
                 _pActual.setModoBonoIncluido(_precioSeAplicaConBono);
                 _pActual.setTasaDivisaActual(_prd.TasaActual);
-                _pActual.Refresh();
+                if (_item.Ficha.estatusDivisa.Trim().ToUpper() == "1")
+                {
+                    _pActual.Refresh();
+                }
+                else
+                {
+                    _pActual.Refresh_2();
+                }
                 _precioActual = _pActual.Get_PrecioVta.Get_PNeto;
                 //
                 _pNuevo.setPosTipoMoneda(__.Precio.Moneda.TipoMoneda.MonDivisa);
@@ -132,16 +139,28 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _pNuevo.setTasaDivisaActual(_prd.TasaActual);
 
             _pNuevo.setPosPrecioNeto(precio);
-            _pNuevo.Refresh();
+
+            if (_item.Ficha.estatusDivisa.Trim().ToUpper() == "1")
+            {
+                _pNuevo.Refresh();
+            }
+            else
+            {
+                _pNuevo.Refresh_2();
+            }
         }
         public void setAplicandoBono(bool modo)
         {
-            _precioSeAplicaConBono = modo;
-            _pActual.setModoBonoIncluido(modo);
-            _pActual.Refresh();
-            _precioActual = (modo ? _pActual.Get_PrecioVta.Get_PNeto : _pActual.PrecioSinBono(_pActual.Get_PrecioVta.Get_PNeto));
-            _pNuevo.setModoBonoIncluido(modo);
-            _pNuevo.Refresh();
+            var _modo = modo;
+            if (_item.Ficha.estatusDivisa.Trim().ToUpper() == "1")
+            {
+                _precioSeAplicaConBono = _modo;
+                _pActual.setModoBonoIncluido(_modo);
+                _pActual.Refresh();
+                _precioActual = (_modo ? _pActual.Get_PrecioVta.Get_PNeto : _pActual.PrecioSinBono(_pActual.Get_PrecioVta.Get_PNeto));
+                _pNuevo.setModoBonoIncluido(_modo);
+                _pNuevo.Refresh();
+            }
         }
         public void setTasaPos(decimal tasa)
         {

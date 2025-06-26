@@ -21,5 +21,6 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         decimal PrecioSinBono(decimal precio);
         void Refresh();
         void setTasaDivisaActual(decimal tasaDivAct);
+        void Refresh_2();
     }
 }

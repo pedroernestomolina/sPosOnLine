@@ -133,7 +133,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private string precioBono(decimal montoLocal, decimal montoDivisa)
         {
             var rt = "";
-            if (_habilitarBonoDivisa && _ficha.EsAdmDivisa)
+            if (_habilitarBonoDivisa)// && _ficha.EsAdmDivisa)
             {
                 var _factor = ((_porctBonoDivisa / 100) + 1);
                 if (_factor > 0m)
@@ -147,7 +147,7 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private string tituloPrecioBono()
         {
             var rt = "";
-            if (_habilitarBonoDivisa && _ficha.EsAdmDivisa)
+            if (_habilitarBonoDivisa)// && _ficha.EsAdmDivisa)
             {
                 //rt = "Bono " + _porctBonoDivisa.ToString("n2") + "%";
                 rt = "Bono " + _descBonoDivisa;

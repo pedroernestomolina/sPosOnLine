@@ -16,6 +16,8 @@ namespace PosOnLine.Src.Consultor.ZUFU
         private string _tarifaPrecio;
         private Producto.Buscar.IBuscarModo _gestionBuscar;
         //
+        private Src.CasoUso.ObtenerFichaProduco _obtenerFichaProductoUsecase;
+        //
         public decimal FactorCambio { get { return _factorCambio; } }
         public bool BusquedaIsOk { get { return _busquedaIsOk; } }
         public string NombrePrd { get { return _dataPrd.NombrePrd; } }
@@ -48,6 +50,7 @@ namespace PosOnLine.Src.Consultor.ZUFU
             _factorCambio = 0m;
             _busquedaIsOk = false;
             _dataPrd = new data();
+            _obtenerFichaProductoUsecase = new CasoUso.ObtenerFichaProduco();
         }
         public void Inicializa()
         {
@@ -105,7 +108,8 @@ namespace PosOnLine.Src.Consultor.ZUFU
             {
                 try
                 {
-                    var r01 = Sistema.MyData.Producto_GetFichaById(_gestionBuscar.AutoProducto);
+                    //var r01 = Sistema.MyData.Producto_GetFichaById(_gestionBuscar.AutoProducto);
+                    var r01 = _obtenerFichaProductoUsecase.Execute(_gestionBuscar.AutoProducto);
                     if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                     {
                         throw new Exception(r01.Mensaje);

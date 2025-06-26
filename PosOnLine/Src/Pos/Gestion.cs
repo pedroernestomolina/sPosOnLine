@@ -10,6 +10,7 @@ namespace PosOnLine.Src.Pos
 {
     public class Gestion
     {
+        private decimal _porcAumentoPrdNoAdmDivisa;
         private ReglasNegocio.IReglas rglaNegocio;
 
         public enum EnumModoFuncion { Facturacion = 1, NotaCredito, NotaEntrega };
@@ -119,6 +120,7 @@ namespace PosOnLine.Src.Pos
         private Anular.IAnular _gAnular;
         public Gestion(Anular.IAnular ctrAnular)
         {
+            _porcAumentoPrdNoAdmDivisa = 0m;
             rglaNegocio = Sistema.MiFabrica.CreateInstace_ReglasNegocio();
 
             _gAnular = ctrAnular;
@@ -418,6 +420,8 @@ namespace PosOnLine.Src.Pos
             }
             _activarIGTF = r07.Entidad.ActivarIGTF;
             _tasaIGTF = r07.Entidad.TasaIGTF;
+
+            _porcAumentoPrdNoAdmDivisa = 5m;
 
 
             _permitirBusquedaPorDescripcion = Sistema.ConfiguracionActual.BusquedaPorDescripcion_Activa;
@@ -2977,17 +2981,22 @@ namespace PosOnLine.Src.Pos
                 rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
 
                 var _importDivisa = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
-                _totalImporteMonDivConBono = Math.Round(_importDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                //_totalImporteMonDivConBono = Math.Round(_importDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                _totalImporteMonDivConBono = Math.Round(_importDivisa - (_importDivisa * (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
                 _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
 
-                var _pagoDivisa = Math.Round(_importDivisa / (1 + (_dsctoBonoPagoDivisa / 100)), 2, MidpointRounding.AwayFromZero);
-                _pagoDivisa = _pagoDivisa - (_pagoDivisa - (int)_pagoDivisa);
+                //var _pagoDivisa = Math.Round(_importDivisa / (1 + (_dsctoBonoPagoDivisa / 100)), 2, MidpointRounding.AwayFromZero);
+                var _pagoDivisa = Math.Round(_importDivisa - (_importDivisa * (_dsctoBonoPagoDivisa / 100)), 2, MidpointRounding.AwayFromZero);
+                //_pagoDivisa = _pagoDivisa - (_pagoDivisa - (int)_pagoDivisa);
+                var _pagoDivisaInt = ((int)_pagoDivisa);
+                var _pagoDivisaDec = (_pagoDivisa - _pagoDivisaInt) * _tasaCambioActual;
 
-                var _pago = (_pagoDivisa * _tasaCambioActual);
-                var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
-                var _resta = Importe - (_pago + _bono);
-                if (_resta <= 0.001m) { _resta = 0m; }
-                rt += _pagoDivisa.ToString("n0") + "$, con " + _resta.ToString("n2") + "Bs";
+                //var _pago = (_pagoDivisa * _tasaCambioActual);
+                //var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
+                //var _resta = Importe - (_pago + _bono);
+                //if (_resta <= 0.001m) { _resta = 0m; }
+                //rt += _pagoDivisa.ToString("n0") + "$, con " + _resta.ToString("n2") + "Bs";
+                rt += _pagoDivisaInt.ToString("n0") + "$, con " + _pagoDivisaDec.ToString("n2") + "Bs";
             }
             return rt.Trim();
         }

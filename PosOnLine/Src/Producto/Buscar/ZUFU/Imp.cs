@@ -9,9 +9,11 @@ namespace PosOnLine.Src.Producto.Buscar.ZUFU
 {
     public class Imp: baseBuscarModo
     {
+        private Src.CasoUso.ObtenerListaProductos _obtenerListaProductosUseCase;
         public Imp()
             :base()
         {
+            _obtenerListaProductosUseCase = new CasoUso.ObtenerListaProductos();
         }
         public override void buscaPorDescripcion(string codBuscar)
         {
@@ -21,11 +23,17 @@ namespace PosOnLine.Src.Producto.Buscar.ZUFU
                 cadena = codBuscar,
                 idPrecioManejar = _tarifaPrecio,
             };
-            var r01 = Sistema.MyData.Producto_GetLista(filtro);
+            //var r01 = Sistema.MyData.Producto_GetLista(filtro);
+            //if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            //{
+            //    throw new Exception(r01.Mensaje);
+            //}
+            var r01 =  _obtenerListaProductosUseCase.Execute(filtro);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
                 throw new Exception(r01.Mensaje);
             }
+
             var r02 = Sistema.MyData.Configuracion_FactorDivisa();
             if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {

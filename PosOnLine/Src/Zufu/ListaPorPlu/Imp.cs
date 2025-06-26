@@ -14,12 +14,16 @@ namespace PosOnLine.Src.Zufu.ListaPorPlu
         private Producto.Lista.IListaModo _gestionListar;
         private Item.IModo _gestionItem;
         //
+        private Src.CasoUso.ObtenerListaProductos _obtenerListaProductosUseCase;
+        //
         public Imp()
         {
             _precioTarifa = "";
             _idDepositoBuscar = "";
             _gestionItem = null;
             _gestionListar = null;
+            //
+            _obtenerListaProductosUseCase = new CasoUso.ObtenerListaProductos();
         }
         public void Inicializa()
         {
@@ -51,7 +55,8 @@ namespace PosOnLine.Src.Zufu.ListaPorPlu
                     idPrecioManejar = _precioTarifa,
                     isPorPlu = true,
                 };
-                var r01 = Sistema.MyData.Producto_GetLista(filtro);
+                //var r01 = Sistema.MyData.Producto_GetLista(filtro);
+                var r01 = _obtenerListaProductosUseCase.Execute(filtro);
                 if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
                     throw new Exception(r01.Mensaje);

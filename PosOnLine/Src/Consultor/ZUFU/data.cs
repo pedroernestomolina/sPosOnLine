@@ -57,33 +57,101 @@ namespace PosOnLine.Src.Consultor.ZUFU
             _precio_2.Inicializa();
             _precio_3.Inicializa();
             _existencia.Inicializa();
+
+            var _pn = 0m;
+            var _pm = 0m;
+            var _pd = 0m;
             switch (_tarifaPrecio)
             {
                 case "1":
-                    _precio_1.setData(_ficha.pneto_1, _ficha.TasaImpuesto, _ficha.contenido_1, _ficha.empaque_1, _ficha.pdf_1, factorCambio);
-                    _precio_2.setData(_ficha.pnetoMay_1, _ficha.TasaImpuesto, _ficha.contenidoMay_1, _ficha.empaqueMay_1, _ficha.pdfMay_1, factorCambio);
-                    _precio_3.setData(_ficha.pnetoDsp_1, _ficha.TasaImpuesto, _ficha.contenidoDsp_1, _ficha.empaqueDsp_1, _ficha.pdfDsp_1, factorCambio);
+                    _pn = _ficha.pneto_1;
+                    _pm = _ficha.pnetoMay_1;
+                    _pd = _ficha.pnetoDsp_1;
+                    if (!_ficha.IsDivisa) 
+                    {
+                        _pn = calculaNeto(_ficha.pdf_1, _ficha.TasaImpuesto) * factorCambio;
+                        _pm = calculaNeto(_ficha.pdfMay_1, _ficha.TasaImpuesto) * factorCambio;
+                        _pd = calculaNeto(_ficha.pdfDsp_1, _ficha.TasaImpuesto) * factorCambio;
+                    }
+                    //_precio_1.setData(_ficha.pneto_1, _ficha.TasaImpuesto, _ficha.contenido_1, _ficha.empaque_1, _ficha.pdf_1, factorCambio);
+                    //_precio_2.setData(_ficha.pnetoMay_1, _ficha.TasaImpuesto, _ficha.contenidoMay_1, _ficha.empaqueMay_1, _ficha.pdfMay_1, factorCambio);
+                    //_precio_3.setData(_ficha.pnetoDsp_1, _ficha.TasaImpuesto, _ficha.contenidoDsp_1, _ficha.empaqueDsp_1, _ficha.pdfDsp_1, factorCambio);
+                    _precio_1.setData(_pn, _ficha.TasaImpuesto, _ficha.contenido_1, _ficha.empaque_1, _ficha.pdf_1, factorCambio);
+                    _precio_2.setData(_pm, _ficha.TasaImpuesto, _ficha.contenidoMay_1, _ficha.empaqueMay_1, _ficha.pdfMay_1, factorCambio);
+                    _precio_3.setData(_pd, _ficha.TasaImpuesto, _ficha.contenidoDsp_1, _ficha.empaqueDsp_1, _ficha.pdfDsp_1, factorCambio);
                     break;
                 case "2":
-                    _precio_1.setData(_ficha.pneto_2, _ficha.TasaImpuesto, _ficha.contenido_2, _ficha.empaque_2, _ficha.pdf_2, factorCambio);
-                    _precio_2.setData(_ficha.pnetoMay_2, _ficha.TasaImpuesto, _ficha.contenidoMay_2, _ficha.empaqueMay_2, _ficha.pdfMay_2, factorCambio);
-                    _precio_3.setData(_ficha.pnetoDsp_2, _ficha.TasaImpuesto, _ficha.contenidoDsp_2, _ficha.empaqueDsp_2, _ficha.pdfDsp_2, factorCambio);
+                    _pn = _ficha.pneto_2;
+                    _pm = _ficha.pnetoMay_2;
+                    _pd = _ficha.pnetoDsp_2;
+                    if (!_ficha.IsDivisa) 
+                    {
+                        _pn = calculaNeto(_ficha.pdf_2, _ficha.TasaImpuesto) * factorCambio;
+                        _pm = calculaNeto(_ficha.pdfMay_2, _ficha.TasaImpuesto) * factorCambio;
+                        _pd = calculaNeto(_ficha.pdfDsp_2, _ficha.TasaImpuesto) * factorCambio;
+                    }
+                    //_precio_1.setData(_ficha.pneto_2, _ficha.TasaImpuesto, _ficha.contenido_2, _ficha.empaque_2, _ficha.pdf_2, factorCambio);
+                    //_precio_2.setData(_ficha.pnetoMay_2, _ficha.TasaImpuesto, _ficha.contenidoMay_2, _ficha.empaqueMay_2, _ficha.pdfMay_2, factorCambio);
+                    //_precio_3.setData(_ficha.pnetoDsp_2, _ficha.TasaImpuesto, _ficha.contenidoDsp_2, _ficha.empaqueDsp_2, _ficha.pdfDsp_2, factorCambio);
+                    _precio_1.setData(_pn, _ficha.TasaImpuesto, _ficha.contenido_2, _ficha.empaque_2, _ficha.pdf_2, factorCambio);
+                    _precio_2.setData(_pm, _ficha.TasaImpuesto, _ficha.contenidoMay_2, _ficha.empaqueMay_2, _ficha.pdfMay_2, factorCambio);
+                    _precio_3.setData(_pd, _ficha.TasaImpuesto, _ficha.contenidoDsp_2, _ficha.empaqueDsp_2, _ficha.pdfDsp_2, factorCambio);
                     break;
                 case "3":
-                    _precio_1.setData(_ficha.pneto_3, _ficha.TasaImpuesto, _ficha.contenido_3, _ficha.empaque_3, _ficha.pdf_3, factorCambio);
-                    _precio_2.setData(_ficha.pnetoMay_3, _ficha.TasaImpuesto, _ficha.contenidoMay_3, _ficha.empaqueMay_3, _ficha.pdfMay_3, factorCambio);
-                    _precio_3.setData(_ficha.pnetoDsp_3, _ficha.TasaImpuesto, _ficha.contenidoDsp_3, _ficha.empaqueDsp_3, _ficha.pdfDsp_3, factorCambio);
+                    _pn = _ficha.pneto_3;
+                    _pm = _ficha.pnetoMay_3;
+                    _pd = _ficha.pnetoDsp_3;
+                    if (!_ficha.IsDivisa) 
+                    {
+                        _pn = calculaNeto(_ficha.pdf_3, _ficha.TasaImpuesto) * factorCambio;
+                        _pm = calculaNeto(_ficha.pdfMay_3, _ficha.TasaImpuesto) * factorCambio;
+                        _pd = calculaNeto(_ficha.pdfDsp_3, _ficha.TasaImpuesto) * factorCambio;
+                    }
+                    //_precio_1.setData(_ficha.pneto_3, _ficha.TasaImpuesto, _ficha.contenido_3, _ficha.empaque_3, _ficha.pdf_3, factorCambio);
+                    //_precio_2.setData(_ficha.pnetoMay_3, _ficha.TasaImpuesto, _ficha.contenidoMay_3, _ficha.empaqueMay_3, _ficha.pdfMay_3, factorCambio);
+                    //_precio_3.setData(_ficha.pnetoDsp_3, _ficha.TasaImpuesto, _ficha.contenidoDsp_3, _ficha.empaqueDsp_3, _ficha.pdfDsp_3, factorCambio);
+                    _precio_1.setData(_pn, _ficha.TasaImpuesto, _ficha.contenido_3, _ficha.empaque_3, _ficha.pdf_3, factorCambio);
+                    _precio_2.setData(_pm, _ficha.TasaImpuesto, _ficha.contenidoMay_3, _ficha.empaqueMay_3, _ficha.pdfMay_3, factorCambio);
+                    _precio_3.setData(_pd, _ficha.TasaImpuesto, _ficha.contenidoDsp_3, _ficha.empaqueDsp_3, _ficha.pdfDsp_3, factorCambio);
                     break;
                 case "4":
-                    _precio_1.setData(_ficha.pneto_4, _ficha.TasaImpuesto, _ficha.contenido_4, _ficha.empaque_4, _ficha.pdf_4, factorCambio);
-                    _precio_2.setData(_ficha.pnetoMay_4, _ficha.TasaImpuesto, _ficha.contenidoMay_4, _ficha.empaqueMay_4, _ficha.pdfMay_4, factorCambio);
-                    _precio_3.setData(_ficha.pnetoDsp_4, _ficha.TasaImpuesto, _ficha.contenidoDsp_4, _ficha.empaqueDsp_4, _ficha.pdfDsp_4, factorCambio);
+                    _pn = _ficha.pneto_4;
+                    _pm = _ficha.pnetoMay_4;
+                    _pd = _ficha.pnetoDsp_4;
+                    if (!_ficha.IsDivisa) 
+                    {
+                        _pn = calculaNeto(_ficha.pdf_4, _ficha.TasaImpuesto) * factorCambio;
+                        _pm = calculaNeto(_ficha.pdfMay_4, _ficha.TasaImpuesto) * factorCambio;
+                        _pd = calculaNeto(_ficha.pdfDsp_4, _ficha.TasaImpuesto) * factorCambio;
+                    }
+                    //_precio_1.setData(_ficha.pneto_4, _ficha.TasaImpuesto, _ficha.contenido_4, _ficha.empaque_4, _ficha.pdf_4, factorCambio);
+                    //_precio_2.setData(_ficha.pnetoMay_4, _ficha.TasaImpuesto, _ficha.contenidoMay_4, _ficha.empaqueMay_4, _ficha.pdfMay_4, factorCambio);
+                    //_precio_3.setData(_ficha.pnetoDsp_4, _ficha.TasaImpuesto, _ficha.contenidoDsp_4, _ficha.empaqueDsp_4, _ficha.pdfDsp_4, factorCambio);
+                    _precio_1.setData(_pn, _ficha.TasaImpuesto, _ficha.contenido_4, _ficha.empaque_4, _ficha.pdf_4, factorCambio);
+                    _precio_2.setData(_pm, _ficha.TasaImpuesto, _ficha.contenidoMay_4, _ficha.empaqueMay_4, _ficha.pdfMay_4, factorCambio);
+                    _precio_3.setData(_pd, _ficha.TasaImpuesto, _ficha.contenidoDsp_4, _ficha.empaqueDsp_4, _ficha.pdfDsp_4, factorCambio);
                     break;
                 case "5":
-                    _precio_1.setData(_ficha.pneto_5, _ficha.TasaImpuesto, _ficha.contenido_5, _ficha.empaque_5, _ficha.pdf_5, factorCambio);
+                    _pn = _ficha.pneto_5;
+                    if (!_ficha.IsDivisa) 
+                    {
+                        _pn = calculaNeto(_ficha.pdf_5, _ficha.TasaImpuesto) * factorCambio;
+                    }
+                    //_precio_1.setData(_ficha.pneto_5, _ficha.TasaImpuesto, _ficha.contenido_5, _ficha.empaque_5, _ficha.pdf_5, factorCambio);
+                    _precio_1.setData(_pn, _ficha.TasaImpuesto, _ficha.contenido_5, _ficha.empaque_5, _ficha.pdf_5, factorCambio);
                     break;
             }
             _existencia.setData(fichaEx, 1);
+        }
+
+        private decimal calculaNeto(decimal monto, decimal tasa)
+        {
+            var rt = monto;
+            if (tasa > 0m)
+            {
+                rt = monto / (1m + (tasa / 100m));
+            }
+            return rt;
         }
     }
 }

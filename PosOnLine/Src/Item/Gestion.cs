@@ -32,7 +32,8 @@ namespace PosOnLine.Src.Item
         private Devolucion.Gestion _gestionDevolucion;
         private Pendiente.Gestion _gestionPendiente;
         private bool _dejarPendienteIsOk; 
-
+        //
+        private Src.CasoUso.ObtenerFichaProduco _obtenerFichaProductoUsecase;
 
         public int CantItem { get { return _blitems.Sum(s => s.cantItem); } }
         public decimal TotalPeso { get { return _blitems.Sum(s => s.totalPeso); } }
@@ -69,6 +70,7 @@ namespace PosOnLine.Src.Item
             _gestionDevolucion.EliminarItemHnd+=_gestionDevolucion_EliminarItemHnd;
             _gestionDevolucion.DevolverItemHnd+=_gestionDevolucion_DevolverItemHnd;
             _gestionDevolucion.CntDevItemHnd += _gestionDevolucion_CntDevItemHnd;
+            _obtenerFichaProductoUsecase = new CasoUso.ObtenerFichaProduco();
         }
 
         private void _gestionDevolucion_CntDevItemHnd(object sender, Devolucion.dataDev e)
@@ -240,13 +242,19 @@ namespace PosOnLine.Src.Item
                 return;
             }
 
-
-            var r01 = Sistema.MyData.Producto_GetFichaById(idPrd);
+            //var r01 = Sistema.MyData.Producto_GetFichaById(idPrd);
+            //if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            //{
+            //    Helpers.Msg.Error(r01.Mensaje);
+            //    return;
+            //}
+            var r01 = _obtenerFichaProductoUsecase.Execute(idPrd);
             if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
             {
                 Helpers.Msg.Error(r01.Mensaje);
                 return;
             }
+
             r01.Entidad.setFactorCambio(_tasaCambio);
             if (!r01.Entidad.IsPesado)
             {
@@ -587,13 +595,14 @@ namespace PosOnLine.Src.Item
             if (it!= null)
             {
                 var autoPrd = it.Ficha.autoProducto;
-                var t01 = Sistema.MyData.Producto_GetFichaById(autoPrd);
-                if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
-                {
-                    Helpers.Msg.Error(t01.Mensaje);
-                    return;
-                }
-                t01.Entidad.setFactorCambio(_tasaCambio);
+
+                //var t01 = Sistema.MyData.Producto_GetFichaById(autoPrd);
+                //if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                //{
+                //    Helpers.Msg.Error(t01.Mensaje);
+                //    return;
+                //}
+                //t01.Entidad.setFactorCambio(_tasaCambio);
 
                 var pneto = it.PrecioItem;
                 var tarifa = it.Ficha.tarifaPrecio;

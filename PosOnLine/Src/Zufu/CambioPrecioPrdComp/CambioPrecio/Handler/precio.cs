@@ -86,6 +86,18 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _pVenta.setTasaIva(_tasaIva);
             _pVenta.Refresh();
         }
+        public void Refresh_2()
+        {
+            var precio = 0m;
+
+            _costoApBono = Math.Round(_costo, 2, MidpointRounding.AwayFromZero);
+            precio = _pneto;
+
+            _pVenta.setCosto(_costoApBono);
+            _pVenta.setPrecioNeto(precio);
+            _pVenta.setTasaIva(_tasaIva);
+            _pVenta.Refresh();
+        }
         //
         private void inicializar()
         {

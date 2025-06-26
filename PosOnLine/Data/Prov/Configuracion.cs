@@ -342,8 +342,6 @@ namespace PosOnLine.Data.Prov
             }
             return m1;
         }
-
-
         //
         public OOB.Resultado.FichaEntidad<decimal> 
             Configuracion_TasaCambioSistema()
@@ -369,6 +367,41 @@ namespace PosOnLine.Data.Prov
                 if (m1 <= 0m)
                 {
                     throw new Exception("TASA INCORRECTA, NO PUEDE SER CERO (0)");
+                }
+                result.Entidad = m1;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
+        public OOB.Resultado.FichaEntidad<decimal> 
+            Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa()
+        {
+            var result = new OOB.Resultado.FichaEntidad<decimal>();
+            //
+            try
+            {
+                var r01 = MyData.Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa();
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                var m1 = 0.0m;
+                var cnf = r01.Entidad;
+                if (cnf.Trim() != "")
+                {
+                    var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                    var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                    //var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                    Decimal.TryParse(cnf, style, culture, out m1);
+                }
+                if (m1 < 0m)
+                {
+                    throw new Exception("PORCENTAJE AUMENTAR INCORRECTO, NO PUEDE SER VALOR NEGATIVO");
                 }
                 result.Entidad = m1;
             }

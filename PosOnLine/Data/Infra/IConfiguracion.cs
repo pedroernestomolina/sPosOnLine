@@ -39,5 +39,8 @@ namespace PosOnLine.Data.Infra
         //
         OOB.Resultado.FichaEntidad<decimal>
             Configuracion_TasaCambioSistema();
+        //
+        OOB.Resultado.FichaEntidad<decimal>
+            Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa();
     }
 }

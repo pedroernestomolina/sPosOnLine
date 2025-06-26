@@ -496,13 +496,14 @@ namespace PosOnLine.Src.Item.ModoAdm
             if (it != null)
             {
                 var autoPrd = it.Ficha.autoProducto;
-                var t01 = Sistema.MyData.Producto_GetFichaById(autoPrd);
-                if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                {
-                    Helpers.Msg.Error(t01.Mensaje);
-                    return;
-                }
-                t01.Entidad.setFactorCambio(_tasaCambio);
+
+                //var t01 = Sistema.MyData.Producto_GetFichaById(autoPrd);
+                //if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                //{
+                //    Helpers.Msg.Error(t01.Mensaje);
+                //    return;
+                //}
+                //t01.Entidad.setFactorCambio(_tasaCambio);
 
                 var pneto = it.PrecioItem;
                 var tarifa = it.Ficha.tarifaPrecio;
