@@ -11,6 +11,7 @@ namespace PosOnLine.Src.CambioPrecio
     {
         bool CambioPrecioIsOk { get; }
         decimal PrecioNuevo { get; }
+        string AplicarPorctAumentoPrecio { get; }
         void setDataItem(Item.data data);
         void setUsuarioAutoriza(object usuario);
         bool ActivarVariosCambiosIsOk { get; }

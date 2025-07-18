@@ -18,6 +18,7 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._80
         }
         public override void Imprimir()
         {
+            var fp = new Font("Arial", 6, FontStyle.Regular);
             var fr = new Font("Arial", 7, FontStyle.Regular);
             var fb = new Font("Arial", 8, FontStyle.Bold);
             var fc = new Font("Arial", 9, FontStyle.Bold);
@@ -199,10 +200,24 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._80
                 l += 10;
             }
 
+            //
+            if (df.Precios.Count > 0)
+            {
+                l += 15;
+                eg.Graphics.DrawString("Ref", fb, Brushes.Black, 0, l);
+                l += 10;
+                foreach (var p in df.Precios)
+                {
+                    eg.Graphics.DrawString(p, fp, Brushes.Black, 0, l);
+                    l += 10;
+                }
+            }
+            //
+
             if (df.ImageQR != null) 
             {
                 l += 10;
-                PointF loc = new PointF(100, l);
+                PointF loc = new PointF(10, l);
                 eg.Graphics.DrawImage(df.ImageQR, loc);
             }
         }

@@ -14,27 +14,27 @@ namespace PosOnLine.Src.CambioPrecio
         private bool _procesarIsOk;
         private bool _abandonarIsOK;
         private decimal _precioNuevo;
-
-
+        private string _aplicarPorctAumentoPrecio;
+        //
         public bool CambioPrecioIsOk { get { return _procesarIsOk; } }
         public bool ProcesarIsOk { get { return _procesarIsOk; } }
         public bool AbandonarIsOk { get { return _abandonarIsOK; } }
         public decimal PrecioNuevo { get { return _precioNuevo; } }
-
-
+        public string AplicarPorctAumentoPrecio { get { return _aplicarPorctAumentoPrecio; } }
+        //
         public CambioPrecio() 
         {
             _procesarIsOk = false;
             _abandonarIsOK = false;
             _precioNuevo = 0m;
+            _aplicarPorctAumentoPrecio = "";
         }
-
-
         public void Inicializa()
         {
             _procesarIsOk = false;
             _abandonarIsOK = false;
             _precioNuevo = 0m;
+            _aplicarPorctAumentoPrecio = "";
         }
         CambioPrecioFrm frm;
         public void Inicia()
@@ -54,6 +54,7 @@ namespace PosOnLine.Src.CambioPrecio
             _item = data;
             //_precioNuevo = data.PrecioItem ;
             _precioNuevo = data.PrecioItem/ data.TasaCambio ;
+            _aplicarPorctAumentoPrecio = data.Ficha.aplicarPorctAumento;
         }
 
         private bool CargarData()

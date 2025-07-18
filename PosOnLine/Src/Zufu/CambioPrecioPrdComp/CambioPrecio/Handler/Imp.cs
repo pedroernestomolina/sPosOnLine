@@ -165,6 +165,7 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                     idItem = _item.Id,
                     pNetoMonAct = _data.PrecioNuevoNetoMonAct,
                     pFullMonDiv = _data.PrecioNuevoFullMonDiv,
+                    aplicarPorcAumento = _data.AplicarPorcAumento?"":"N",
                 },
                 logReg = new OOB.Venta.Item.Zufu.ActualizarPrecio.Actualizar.LogReg()
                 {
@@ -195,6 +196,12 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         public void setCambiarVariosPrecios()
         {
             _activarVariosCambiosIsOk = !_activarVariosCambiosIsOk;
+        }
+
+        public string AplicarPorctAumentoPrecio { get { return _data.AplicarPorcAumento ? "" : "N"; } }
+        public void setAplicarAumentoPorPorct(bool modo)
+        {
+            _data.setAplicarPorctAumento(modo);
         }
     }
 }

@@ -29,19 +29,19 @@ namespace PosOnLine.Src.CasoUso
                 {
                     if (!rt.Entidad.IsDivisa) 
                     {
-                        rt.Entidad.pdf_1 = calcularAumento(rt.Entidad.pdf_1, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdf_2 = calcularAumento(rt.Entidad.pdf_2, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdf_3 = calcularAumento(rt.Entidad.pdf_3, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdf_4 = calcularAumento(rt.Entidad.pdf_4, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdf_5 = calcularAumento(rt.Entidad.pdf_5, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfMay_1 = calcularAumento(rt.Entidad.pdfMay_1, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfMay_2 = calcularAumento(rt.Entidad.pdfMay_2, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfMay_3 = calcularAumento(rt.Entidad.pdfMay_3, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfMay_4 = calcularAumento(rt.Entidad.pdfMay_4, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfDsp_1= calcularAumento(rt.Entidad.pdfDsp_1, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfDsp_2 = calcularAumento(rt.Entidad.pdfDsp_2, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfDsp_3 = calcularAumento(rt.Entidad.pdfDsp_3, _porcAumentoPrdNoAdmDivisa);
-                        rt.Entidad.pdfDsp_4 = calcularAumento(rt.Entidad.pdfDsp_4, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdf_1 = calcularAumento(rt.Entidad.pdf_1, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdf_2 = calcularAumento(rt.Entidad.pdf_2, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdf_3 = calcularAumento(rt.Entidad.pdf_3, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdf_4 = calcularAumento(rt.Entidad.pdf_4, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdf_5 = calcularAumento(rt.Entidad.pdf_5, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfMay_1 = calcularAumento(rt.Entidad.pdfMay_1, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfMay_2 = calcularAumento(rt.Entidad.pdfMay_2, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfMay_3 = calcularAumento(rt.Entidad.pdfMay_3, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfMay_4 = calcularAumento(rt.Entidad.pdfMay_4, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfDsp_1= calcularAumento(rt.Entidad.pdfDsp_1, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfDsp_2 = calcularAumento(rt.Entidad.pdfDsp_2, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfDsp_3 = calcularAumento(rt.Entidad.pdfDsp_3, _porcAumentoPrdNoAdmDivisa);
+                        //rt.Entidad.pdfDsp_4 = calcularAumento(rt.Entidad.pdfDsp_4, _porcAumentoPrdNoAdmDivisa);
                     }
                 }
             }

@@ -66,5 +66,6 @@ namespace PosOnLine.Src.Pago
         void Limpiar();
         void LimpiarPagos();
         void Procesar();
+        void setPorctBonoAplicar(decimal porct);
     }
 }

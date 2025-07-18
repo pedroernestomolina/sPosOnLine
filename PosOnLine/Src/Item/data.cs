@@ -199,6 +199,11 @@ namespace PosOnLine.Src.Item
         {
             _it.pneto = pneto;
         }
+        public void setAplicarPorctAumentoPrecio(bool modo)
+        {
+            _it.setAplicarPorctAumentoPrecio(modo);
+        }
+
 
 
         public decimal TasaCambio { get { return _tasaCambio; } }
@@ -211,7 +216,5 @@ namespace PosOnLine.Src.Item
                 return rt;
             } 
         }
-
     }
-
 }

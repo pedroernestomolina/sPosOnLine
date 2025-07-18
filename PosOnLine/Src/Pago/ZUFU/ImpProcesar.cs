@@ -126,6 +126,7 @@ namespace PosOnLine.Src.Pago.ZUFU
 
         public void AddDivisa(decimal monto)
         {
+            
             _pago.AddDivisa(monto);
             if (_aplicarIGTF) 
             {
@@ -265,15 +266,17 @@ namespace PosOnLine.Src.Pago.ZUFU
                 {
                     throw new Exception(r01.Mensaje);
                 }
-                var r02 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
-                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                {
-                    throw new Exception(r02.Mensaje);
-                }
                 _estatusBonoPorPagoDivisa = r01.Entidad;
-                _porctBonoPorPagoDivisa = r02.Entidad;
                 _pago.setActivarBonoPorPagoDivisa(r01.Entidad);
-                _pago.setPorctBonoPorPagoDivisa(r02.Entidad);
+                //
+                //var r02 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+                //if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                //{
+                //    throw new Exception(r02.Mensaje);
+                //}
+                //_porctBonoPorPagoDivisa = r02.Entidad;
+                //_pago.setPorctBonoPorPagoDivisa(r02.Entidad);
+                _pago.setPorctBonoPorPagoDivisa(_porctBonoPorPagoDivisa);
                 Test();
                 //
                 return true;
@@ -292,6 +295,11 @@ namespace PosOnLine.Src.Pago.ZUFU
                 _pago.setActivarBonoPorPagoDivisa(modo);
                 _pago.ActualizaDivisa();
             }
+        }
+        public void setPorctBonoAplicar(decimal porct)
+        {
+            _porctBonoPorPagoDivisa = porct;
+            _pago.setPorctBonoPorPagoDivisa(porct);
         }
     }
 }

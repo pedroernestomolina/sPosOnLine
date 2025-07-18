@@ -24,8 +24,10 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         {
             _controlador = ctr;
         }
+        private bool _modoInicializa;
         private void CambioPrecioFrm_Load(object sender, EventArgs e)
         {
+            _modoInicializa = true;
             L_INF_PRODUCTO.Text = _controlador.DataPanel.producto;
             L_INF_PRECIO_ACTUAL.Text = _controlador.DataPanel.precioActual.ToString("n2");
             L_UTILIDAD_ACTUAL.Text = _controlador.DataPanel.utilidadActual.ToString("n2") + "%";
@@ -33,7 +35,10 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
             TB_PRECIO_NUEVO.Text = "";
             CHB_APLICANDO_BONO.Checked = _controlador.DataFicha.Get_AplicaBono;
             CHB_APLICANDO_BONO.Checked = !CHB_APLICANDO_BONO.Checked;
+            CHB_APLICAR_PORCT_AUMENTO.Enabled= !_controlador.DataFicha.EstatusDivisa;
+            CHB_APLICAR_PORCT_AUMENTO.Checked = _controlador.DataFicha.AplicarPorcAumento;
             IrFocoPrincipal();
+            _modoInicializa = false;
         }
         private void Frm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -117,6 +122,12 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         private void CHB_CAMBIAR_VARIOS_PRECIOS_CheckedChanged(object sender, EventArgs e)
         {
             _controlador.setCambiarVariosPrecios();
+        }
+
+        private void CHB_APLICAR_PORCT_AUMENTO_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_modoInicializa) return;
+            _controlador.setAplicarAumentoPorPorct(CHB_APLICAR_PORCT_AUMENTO.Checked);
         }
     }
 }

@@ -256,6 +256,8 @@ namespace PosOnLine.Src.Item
             }
 
             r01.Entidad.setFactorCambio(_tasaCambio);
+            r01.Entidad.AplicarReglaManejoCostoEnDivisa(true);
+
             if (!r01.Entidad.IsPesado)
             {
                 if (cnt == 0m)

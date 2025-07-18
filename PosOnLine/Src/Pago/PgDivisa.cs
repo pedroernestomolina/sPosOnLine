@@ -43,10 +43,17 @@ namespace PosOnLine.Src.Pago
             var _factorBono = 0m;
             if (_habilitarBono)
             {
-                _factorBono = (_tasaBono / 100);
+                _factorBono = (_tasaBono / 100m);
             }
+            _factorBono = Math.Round(_factorBono, 4, MidpointRounding.AwayFromZero);
+
             var _montoPendDiv = Math.Round(montoPendBs / _tasaDivisa, 2, MidpointRounding.AwayFromZero);
-            var rt = (_montoPendDiv / (1 + _factorBono));
+            //var rt = (_montoPendDiv / (1 + _factorBono));
+            
+            // LO QUE SE DEBERIA PAGAR YA CON EL BONBO
+            var rt = (_montoPendDiv - (_montoPendDiv * _factorBono));
+            rt = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+
             var _cntDivisaTomar = 0m;
             _cntDivisaTomar = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
             if (_cntDivisaTomar > 0m)
@@ -56,7 +63,16 @@ namespace PosOnLine.Src.Pago
                     _cntDivisaTomar = (int)montoSeRecibeEnDivisa;
                 }
             }
-            _montoBonoDivisa = _cntDivisaTomar * _factorBono;
+            //_montoBonoDivisa = _cntDivisaTomar * _factorBono;
+            var _cntDivRepresentaBono = 0m;
+            if (_habilitarBono)
+            {
+                _cntDivRepresentaBono = (_cntDivisaTomar / (1 - _factorBono));
+                _cntDivRepresentaBono = Math.Round(_cntDivRepresentaBono, 2, MidpointRounding.AwayFromZero);
+                _cntDivRepresentaBono = _cntDivRepresentaBono - _cntDivisaTomar;
+            }
+
+            _montoBonoDivisa = _cntDivRepresentaBono; 
             _montoBonoBs = Math.Round(_montoBonoDivisa * _tasaDivisa, 2, MidpointRounding.AwayFromZero);
             _montoRecibeBs = Math.Round(montoSeRecibeEnDivisa * _tasaDivisa, 2, MidpointRounding.AwayFromZero);
             _cntDivisaRecomendar = _cntDivisaTomar;

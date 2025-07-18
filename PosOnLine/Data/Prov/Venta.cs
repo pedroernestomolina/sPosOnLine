@@ -116,6 +116,7 @@ namespace PosOnLine.Data.Prov
                     peso = s.fPeso,
                     volumen = s.fVolumen,
                     estatusDivisa = s.estatusDivisa,
+                    aplicarPorctAumento =s.aplicarPorctAumento,
                 };
                 result.Entidad = nr;
             }
@@ -180,6 +181,7 @@ namespace PosOnLine.Data.Prov
                                 peso = s.fPeso,
                                 volumen = s.fVolumen,
                                 estatusDivisa = s.estatusDivisa,
+                                aplicarPorctAumento = s.aplicarPorctAumento,
                             };
                             return nr;
                         }).ToList();

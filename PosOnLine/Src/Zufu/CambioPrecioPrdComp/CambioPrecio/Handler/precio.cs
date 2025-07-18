@@ -86,12 +86,21 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _pVenta.setTasaIva(_tasaIva);
             _pVenta.Refresh();
         }
-        public void Refresh_2()
+        public void Refresh_2() //NO ADM POR DIVISA
         {
             var precio = 0m;
 
-            _costoApBono = Math.Round(_costo, 2, MidpointRounding.AwayFromZero);
-            precio = _pneto;
+            if (_modoBonoIncluido)
+            {
+                //_costoApBono = costoConBono(_costo);
+                _costoApBono = Math.Round(_costo, 2, MidpointRounding.AwayFromZero);
+                precio = _pneto;
+            }
+            else
+            {
+                _costoApBono = costoConBono_2(_costo);
+                precio = _pneto;
+            }
 
             _pVenta.setCosto(_costoApBono);
             _pVenta.setPrecioNeto(precio);
@@ -116,6 +125,14 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             rt = Math.Round(((costo * _tasaDivisaAct) / _posTasaCambio ), 2, MidpointRounding.AwayFromZero);
             return rt;
         }
+        private decimal costoConBono_2(decimal costo)
+        {
+            var rt = 0m;
+            rt = Math.Round(costo / (1m + (_tasaBono / 100m)), 2, MidpointRounding.AwayFromZero);
+            //rt = Math.Round(((costo * _tasaDivisaAct) / _posTasaCambio), 2, MidpointRounding.AwayFromZero);
+            return rt;
+        }
+
         private decimal precioSinBono(decimal precio)
         {
             var rt = 0m;

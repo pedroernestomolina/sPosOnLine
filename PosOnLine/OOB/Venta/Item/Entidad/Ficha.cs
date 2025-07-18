@@ -39,6 +39,7 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
         public decimal peso { get; set; }
         public decimal volumen { get; set; }
         public string estatusDivisa { get; set; }
+        public string aplicarPorctAumento  { get; set; }
         public Ficha()
         {
             autoDeposito = "";
@@ -70,6 +71,7 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
             peso = 0m;
             volumen = 0m;
             estatusDivisa = "";
+            aplicarPorctAumento = "";
         }
         public Ficha(Documento.Entidad.FichaItem it)
         {
@@ -101,6 +103,10 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
             //
             peso = 0m;
             volumen = 0m;
+        }
+        public void setAplicarPorctAumentoPrecio(bool modo)
+        {
+            aplicarPorctAumento = modo ? "" : "N";
         }
     }
 }

@@ -15,6 +15,7 @@ namespace PosOnLine.Helpers.Imprimir
         public string numDoc { get; set; }
         public string codDoc { get; set; }
         public decimal montoDoc { get; set; }
+        public String precios { get; set; }
         public dataQR()
         {
             idVerificador = -1;
@@ -23,6 +24,7 @@ namespace PosOnLine.Helpers.Imprimir
             numDoc = "";
             codDoc = "";
             montoDoc = 0m;
+            precios = "";
         }
     }
 }

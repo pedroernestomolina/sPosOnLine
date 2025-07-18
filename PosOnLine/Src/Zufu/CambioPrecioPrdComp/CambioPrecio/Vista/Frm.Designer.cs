@@ -66,6 +66,8 @@
             this.BT_SALIR = new System.Windows.Forms.Button();
             this.panel20 = new System.Windows.Forms.Panel();
             this.BT_PANEL_INF = new System.Windows.Forms.Button();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.CHB_APLICAR_PORCT_AUMENTO = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -89,6 +91,7 @@
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel20.SuspendLayout();
+            this.panel21.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -99,7 +102,7 @@
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(455, 297);
+            this.panel1.Size = new System.Drawing.Size(455, 337);
             this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -118,7 +121,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(455, 297);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(455, 337);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel2
@@ -205,7 +208,7 @@
             this.panel3.Location = new System.Drawing.Point(1, 41);
             this.panel3.Margin = new System.Windows.Forms.Padding(1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(453, 195);
+            this.panel3.Size = new System.Drawing.Size(453, 235);
             this.panel3.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -222,7 +225,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(453, 195);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(453, 235);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // panel8
@@ -232,7 +235,7 @@
             this.panel8.Location = new System.Drawing.Point(21, 11);
             this.panel8.Margin = new System.Windows.Forms.Padding(1);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(411, 173);
+            this.panel8.Size = new System.Drawing.Size(411, 213);
             this.panel8.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -250,6 +253,7 @@
             this.tableLayoutPanel4.Controls.Add(this.panel15, 1, 4);
             this.tableLayoutPanel4.Controls.Add(this.panel18, 2, 2);
             this.tableLayoutPanel4.Controls.Add(this.panel19, 2, 3);
+            this.tableLayoutPanel4.Controls.Add(this.panel21, 1, 5);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -260,7 +264,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(411, 173);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(411, 213);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // panel9
@@ -269,7 +273,7 @@
             this.tableLayoutPanel4.SetColumnSpan(this.panel9, 3);
             this.panel9.Controls.Add(this.L_INF_PRODUCTO);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(1, 16);
+            this.panel9.Location = new System.Drawing.Point(1, 36);
             this.panel9.Margin = new System.Windows.Forms.Padding(1);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(2);
@@ -291,7 +295,7 @@
             // 
             this.panel10.Controls.Add(this.label3);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(1, 68);
+            this.panel10.Location = new System.Drawing.Point(1, 88);
             this.panel10.Margin = new System.Windows.Forms.Padding(1);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(2);
@@ -313,7 +317,7 @@
             // 
             this.panel11.Controls.Add(this.L_INF_PRECIO_ACTUAL);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(165, 68);
+            this.panel11.Location = new System.Drawing.Point(165, 88);
             this.panel11.Margin = new System.Windows.Forms.Padding(1);
             this.panel11.Name = "panel11";
             this.panel11.Padding = new System.Windows.Forms.Padding(2);
@@ -335,7 +339,7 @@
             // 
             this.panel12.Controls.Add(this.label4);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(1, 98);
+            this.panel12.Location = new System.Drawing.Point(1, 118);
             this.panel12.Margin = new System.Windows.Forms.Padding(1);
             this.panel12.Name = "panel12";
             this.panel12.Padding = new System.Windows.Forms.Padding(2);
@@ -357,7 +361,7 @@
             // 
             this.panel13.Controls.Add(this.TB_PRECIO_NUEVO);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(165, 98);
+            this.panel13.Location = new System.Drawing.Point(165, 118);
             this.panel13.Margin = new System.Windows.Forms.Padding(1);
             this.panel13.Name = "panel13";
             this.panel13.Padding = new System.Windows.Forms.Padding(2);
@@ -381,7 +385,7 @@
             // panel14
             // 
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel14.Location = new System.Drawing.Point(1, 128);
+            this.panel14.Location = new System.Drawing.Point(1, 148);
             this.panel14.Margin = new System.Windows.Forms.Padding(1);
             this.panel14.Name = "panel14";
             this.panel14.Padding = new System.Windows.Forms.Padding(2);
@@ -392,7 +396,7 @@
             // 
             this.panel15.Controls.Add(this.CHB_APLICANDO_BONO);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(165, 128);
+            this.panel15.Location = new System.Drawing.Point(165, 148);
             this.panel15.Margin = new System.Windows.Forms.Padding(1);
             this.panel15.Name = "panel15";
             this.panel15.Padding = new System.Windows.Forms.Padding(2);
@@ -416,7 +420,7 @@
             // 
             this.panel18.Controls.Add(this.L_UTILIDAD_ACTUAL);
             this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel18.Location = new System.Drawing.Point(329, 68);
+            this.panel18.Location = new System.Drawing.Point(329, 88);
             this.panel18.Margin = new System.Windows.Forms.Padding(1);
             this.panel18.Name = "panel18";
             this.panel18.Padding = new System.Windows.Forms.Padding(2);
@@ -438,7 +442,7 @@
             // 
             this.panel19.Controls.Add(this.L_UTILIDAD_NUEVA);
             this.panel19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel19.Location = new System.Drawing.Point(329, 98);
+            this.panel19.Location = new System.Drawing.Point(329, 118);
             this.panel19.Margin = new System.Windows.Forms.Padding(1);
             this.panel19.Name = "panel19";
             this.panel19.Padding = new System.Windows.Forms.Padding(2);
@@ -461,7 +465,7 @@
             this.panel4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.panel4.Controls.Add(this.tableLayoutPanel2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(1, 238);
+            this.panel4.Location = new System.Drawing.Point(1, 278);
             this.panel4.Margin = new System.Windows.Forms.Padding(1);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(453, 58);
@@ -576,13 +580,36 @@
             this.BT_PANEL_INF.UseVisualStyleBackColor = true;
             this.BT_PANEL_INF.Click += new System.EventHandler(this.BT_PANEL_INF_Click);
             // 
+            // panel21
+            // 
+            this.panel21.Controls.Add(this.CHB_APLICAR_PORCT_AUMENTO);
+            this.panel21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel21.Location = new System.Drawing.Point(165, 178);
+            this.panel21.Margin = new System.Windows.Forms.Padding(1);
+            this.panel21.Name = "panel21";
+            this.panel21.Padding = new System.Windows.Forms.Padding(2);
+            this.panel21.Size = new System.Drawing.Size(162, 34);
+            this.panel21.TabIndex = 11;
+            // 
+            // CHB_APLICAR_PORCT_AUMENTO
+            // 
+            this.CHB_APLICAR_PORCT_AUMENTO.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CHB_APLICAR_PORCT_AUMENTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CHB_APLICAR_PORCT_AUMENTO.Location = new System.Drawing.Point(2, 2);
+            this.CHB_APLICAR_PORCT_AUMENTO.Name = "CHB_APLICAR_PORCT_AUMENTO";
+            this.CHB_APLICAR_PORCT_AUMENTO.Size = new System.Drawing.Size(158, 30);
+            this.CHB_APLICAR_PORCT_AUMENTO.TabIndex = 1;
+            this.CHB_APLICAR_PORCT_AUMENTO.Text = "Aplica (%) Aumento";
+            this.CHB_APLICAR_PORCT_AUMENTO.UseVisualStyleBackColor = true;
+            this.CHB_APLICAR_PORCT_AUMENTO.CheckedChanged += new System.EventHandler(this.CHB_APLICAR_PORCT_AUMENTO_CheckedChanged);
+            // 
             // Frm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Blue;
             this.CancelButton = this.BT_SALIR;
-            this.ClientSize = new System.Drawing.Size(459, 301);
+            this.ClientSize = new System.Drawing.Size(459, 341);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
             this.Name = "Frm";
@@ -615,6 +642,7 @@
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
+            this.panel21.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -659,5 +687,7 @@
         private System.Windows.Forms.Panel panel17;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox CHB_CAMBIAR_VARIOS_PRECIOS;
+        private System.Windows.Forms.Panel panel21;
+        private System.Windows.Forms.CheckBox CHB_APLICAR_PORCT_AUMENTO;
     }
 }

@@ -60,6 +60,7 @@ namespace PosOnLine.Data.Prov
                     idItem = ficha.data.idItem,
                     pFullMonDiv = ficha.data.pFullMonDiv,
                     pNetoMonAct = ficha.data.pNetoMonAct,
+                    aplicarPorcAumento= ficha.data.aplicarPorcAumento,
                 },
                 logReg = new DtoLibPos.Venta.Item.Zufu.ActualizarPrecio.Actualizar.LogReg()
                 {

@@ -18,6 +18,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         decimal Utilidad_Precio_Actual { get; }
         decimal UtilidadNueva { get; }
         Vista.IPrecio PrecioNuevo { get; }
+        bool EstatusDivisa { get; }
+        bool AplicarPorcAumento { get; }
         //
         void setItem(Object item);
         void setPrd(object prd);
@@ -28,5 +30,6 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         bool VerificarData();
         void Inicializa();
         void Refresh();
+        void setAplicarPorctAumento(bool modo);
     }
 }

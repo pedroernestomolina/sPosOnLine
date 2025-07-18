@@ -41,13 +41,14 @@ namespace PosOnLine.OOB.Producto.Lista
         public decimal pfullDivEmp_1 { get; set; }
         public decimal pfullDivEmp_2 { get; set; }
         public decimal pfullDivEmp_3 { get; set; }
+        public decimal pfullDivEmp_1u { get; set; }
+        public decimal pfullDivEmp_2u { get; set; }
+        public decimal pfullDivEmp_3u { get; set; }
         //
         public bool EsAdmDivisa { get { return EstatusDivisa.Trim().ToUpper() == "1"; } }
         public bool IsPesado { get { return EstatusPesado.Trim().ToUpper() == "1"; } }
         //
         public byte[] imagen { get; set; }
-
-
         public Ficha()
         {
             Auto = "";
@@ -91,6 +92,10 @@ namespace PosOnLine.OOB.Producto.Lista
             histPrecio = "";
             //
             imagen =new byte[0];
+            //
+            pfullDivEmp_1u = 0m;
+            pfullDivEmp_2u = 0m;
+            pfullDivEmp_3u = 0m;
         }
         //
         public int contEmpCompra { get; set; }

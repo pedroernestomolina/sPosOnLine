@@ -33,9 +33,9 @@ namespace PosOnLine.Src.CasoUso
                             {
                                 if (!it.EsAdmDivisa)
                                 {
-                                    it.pfullDivEmp_1 = calcularAumento(it.pfullDivEmp_1, _porcAumentoPrdNoAdmDivisa);
-                                    it.pfullDivEmp_2 = calcularAumento(it.pfullDivEmp_2, _porcAumentoPrdNoAdmDivisa);
-                                    it.pfullDivEmp_3 = calcularAumento(it.pfullDivEmp_3, _porcAumentoPrdNoAdmDivisa);
+                                    it.pfullDivEmp_1u = calcularAumento(it.pfullDivEmp_1, _porcAumentoPrdNoAdmDivisa);
+                                    it.pfullDivEmp_2u = calcularAumento(it.pfullDivEmp_2, _porcAumentoPrdNoAdmDivisa);
+                                    it.pfullDivEmp_3u = calcularAumento(it.pfullDivEmp_3, _porcAumentoPrdNoAdmDivisa);
                                 }
                             }
                         }

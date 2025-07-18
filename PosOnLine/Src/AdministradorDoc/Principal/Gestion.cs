@@ -191,6 +191,15 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                     throw new Exception(xr2.Mensaje);
                 }
                 //
+                var _lprecio = new List<String>();
+                var it = 1;
+                foreach (var rg in xr1.Entidad.precios)
+                {
+                    var rt = rg.descPrd.Trim() + " #" + rg.precio.ToString("n2").Trim() + "- ";
+                    it += 1;
+                    _lprecio.Add(rt);
+                }
+                //
                 var dat = new Helpers.Imprimir.dataQR()
                 {
                     autoCierre = xr1.Entidad.Cierre,
@@ -199,6 +208,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                     idVerificador = 0,
                     montoDoc = xr1.Entidad.Total,
                     numDoc = xr1.Entidad.DocumentoNro,
+                    precios = "",
                 };
                 Sistema.ImprimirFactura.setImprimirQR(dat);
                 var xdata = new Helpers.Imprimir.data();
@@ -306,6 +316,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                     };
                     return med;
                 }).ToList();
+                xdata.precios = _lprecio;
                 //
                 _imprimirDocTicket = null;
                 switch (item.DocTipo)
@@ -317,7 +328,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                             _imprimirDocTicket = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirFactura;
                             _printDoc.Print();
                         }
-                        else 
+                        else
                             Sistema.ImprimirFactura.ImprimirCopiaDoc();
                         break;
                     case Lista.Enumerados.enumTipoDoc.NotaCredito:
@@ -327,7 +338,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                             _imprimirDocTicket = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaCredito;
                             _printDoc.Print();
                         }
-                        else 
+                        else
                             Sistema.ImprimirNotaCredito.ImprimirCopiaDoc();
                         break;
                     case Lista.Enumerados.enumTipoDoc.NotaEntrega:
@@ -337,7 +348,7 @@ namespace PosOnLine.Src.AdministradorDoc.Principal
                             _imprimirDocTicket = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaEntrega;
                             _printDoc.Print();
                         }
-                        else 
+                        else
                             Sistema.ImprimirNotaEntrega.ImprimirCopiaDoc();
                         break;
                 }

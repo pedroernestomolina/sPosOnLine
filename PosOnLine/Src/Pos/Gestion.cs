@@ -10,6 +10,7 @@ namespace PosOnLine.Src.Pos
 {
     public class Gestion
     {
+        private decimal _tasaCambioSistema;
         private decimal _porcAumentoPrdNoAdmDivisa;
         private ReglasNegocio.IReglas rglaNegocio;
 
@@ -120,6 +121,7 @@ namespace PosOnLine.Src.Pos
         private Anular.IAnular _gAnular;
         public Gestion(Anular.IAnular ctrAnular)
         {
+            _tasaCambioSistema = 0m;
             _porcAumentoPrdNoAdmDivisa = 0m;
             rglaNegocio = Sistema.MiFabrica.CreateInstace_ReglasNegocio();
 
@@ -411,6 +413,7 @@ namespace PosOnLine.Src.Pos
                 //CALCULO BONO PORCT = (1-(TASA_BCV/TASA_PARALELA))*100
                 _dsctoBonoPagoDivisa = (1 - (r01.Entidad / r066.Entidad)) * 100;
             }
+            _tasaCambioSistema = r066.Entidad;
 
             var r07 = Sistema.MyData.Configuracion_IGTF();
             if (r07.Result == OOB.Resultado.Enumerados.EnumResult.isError)
@@ -421,7 +424,13 @@ namespace PosOnLine.Src.Pos
             _activarIGTF = r07.Entidad.ActivarIGTF;
             _tasaIGTF = r07.Entidad.TasaIGTF;
 
-            _porcAumentoPrdNoAdmDivisa = 5m;
+            var r08 = Sistema.MyData.Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa();
+            if (r08.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                Helpers.Msg.Error(r08.Mensaje);
+                return false;
+            }
+            _porcAumentoPrdNoAdmDivisa = r08.Entidad;
 
 
             _permitirBusquedaPorDescripcion = Sistema.ConfiguracionActual.BusquedaPorDescripcion_Activa;
@@ -807,6 +816,8 @@ namespace PosOnLine.Src.Pos
                             _gestionProcesarPago.setTasaIGTF(_tasaIGTF);
                             _gestionProcesarPago.setAplicarIGTF(_activarIGTF);
                             //
+                            _gestionProcesarPago.setPorctBonoAplicar(CalculoNuevoPorcBono(_dsctoBonoPagoDivisa, _porcAumentoPrdNoAdmDivisa));
+                            //
                             _gestionProcesarPago.Inicia();
                             if (_gestionProcesarPago.PagoIsOk)
                             {
@@ -940,14 +951,58 @@ namespace PosOnLine.Src.Pos
             if (isCredito)
             {
                 _porctBonoPorPagoDivisa = _dsctoBonoPagoDivisa;
+                //
+                var _porcDsctBono = _dsctoBonoPagoDivisa;
+                var _porcAumentoPreciosPrdNoDivisa = _porcAumentoPrdNoAdmDivisa;
+                _porctBonoPorPagoDivisa  = CalculoNuevoPorcBono(_porcDsctBono, _porcAumentoPreciosPrdNoDivisa);
+                //
+
                 var _importeDivisa = Math.Round(importeDocumentoDivisa, 2, MidpointRounding.AwayFromZero);
-                var _totalImporteMonDivConBono = Math.Round(_importeDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                //var _totalImporteMonDivConBono = Math.Round(_importeDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                var _totalImporteMonDivConBono = Math.Round(_importeDivisa - (_importeDivisa * (_porctBonoPorPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+
                 _montoBonoPorPagoDivisa = Math.Round(importeDocumento-(_totalImporteMonDivConBono * _tasaCambioActual), 2, MidpointRounding.AwayFromZero);
                 _montoBonoEnDivisaPorPagoDivisa = Math.Round(_importeDivisa - _totalImporteMonDivConBono, 2, MidpointRounding.AwayFromZero);
                 _estatusPorBonoPorPagoDivisa = "1";
                 _saldoPendiente = _importeDivisa - _montoBonoEnDivisaPorPagoDivisa;
             }
+
+
             //
+            //
+            //
+            List<Modelos.precioQR> rtPreciosQR = new List<Modelos.precioQR>();
+            if (isCredito || dataPagoRecolectada.estatusPorBonoPorPagoDivisa.Trim().ToUpper()=="1")
+            {
+                rtPreciosQR = generarPreciosQR(_dsctoBonoPagoDivisa, _porcAumentoPrdNoAdmDivisa, _porctBonoPorPagoDivisa);
+            }
+            else
+            {
+                rtPreciosQR = generarPreciosQR(0m, 0m, 0m);
+            }
+            //
+            //
+            //
+            var _fichaPrecios = rtPreciosQR.Select(s =>
+            {
+                var rt = new OOB.Documento.Agregar.Factura.FichaPrecio()
+                {
+                    aplicaPorctAumento = s.aplicaPorctAumento ? "1" : "",
+                    descPrd = s.descPrd,
+                    idPrd = s.idPrd,
+                    isPorDivisa = s.isPorDivisa ? "1" : "",
+                    porctAumentoPrecioAplicar = s.porctAumentoPrecioAplicar,
+                    porctBonoAplicar = s.porctBonoAplicar,
+                    porctBonoCalculado = s.porctBonoCalculado,
+                    precioCliente = s.precioCliente,
+                    precioFact = s.precioFact,
+                };
+                return rt;
+            }).ToList();
+            //
+            //
+            //
+
             var fichaOOB = new OOB.Documento.Agregar.Factura.Ficha()
             {
                 idOperador = Sistema.PosEnUso.id,
@@ -1065,6 +1120,7 @@ namespace PosOnLine.Src.Pos
                 AplicarLiBroVenta = _serieFactura.EstatusAplicaLibroVenta,
                 EstatusCredito = isCredito ? "1" : "0",
             };
+            fichaOOB.Precios = _fichaPrecios;
 
             var medidas = _gestionItem.Items.
                             GroupBy(g => g.Ficha.empaqueDescripcion).
@@ -1616,6 +1672,27 @@ namespace PosOnLine.Src.Pos
             _gestionProcesarPago.Limpiar();
             Inicializa();
             Reiniciar();
+        }
+        private List<Modelos.precioQR> generarPreciosQR(decimal porctBono, decimal porctAumentoPrecio, decimal porctBonoCalculado)
+        {
+            var lst = new List<Modelos.precioQR>();
+            //
+            lst= _gestionItem.Items.Select(s =>
+            {
+                var nr = new Modelos.precioQR()
+                {
+                    idPrd = s.Ficha.autoProducto,
+                    descPrd = s.NombrePrd,
+                    precioFact = s.ImporteDivisa,
+                    esAdmDivisa = s.Ficha.estatusDivisa,
+                    porctBonoAplicar = porctBono,
+                    porctAumentoPrecioAplicar = porctAumentoPrecio,
+                    porctBonoCalculado = porctBonoCalculado
+                };
+                return nr;
+            }).ToList();
+            //
+            return lst;
         }
 
         public void ActivarCalculadora()
@@ -2696,6 +2773,18 @@ namespace PosOnLine.Src.Pos
                 {
                     throw new Exception(xr2.Mensaje);
                 }
+
+                //
+                var _lprecio = new List<String>();
+                var it = 1;
+                foreach (var rg in xr1.Entidad.precios)
+                {
+                    var rt = rg.descPrd.Trim() + " #" + rg.precio.ToString("n2").Trim() + "- ";
+                    it += 1;
+                    _lprecio.Add(rt);
+                }
+                //
+
                 var xdata = new Helpers.Imprimir.data();
                 xdata.isAnulado = xr1.Entidad.EstatusAnulado == "1";
                 xdata.negocio = new Helpers.Imprimir.data.Negocio()
@@ -2815,6 +2904,8 @@ namespace PosOnLine.Src.Pos
                     return med;
                 }).ToList();
                 //
+                xdata.precios = _lprecio;
+                //
                 return xdata;
             }
             catch (Exception e)
@@ -2858,6 +2949,7 @@ namespace PosOnLine.Src.Pos
                 if (_gCambioPrecio.CambioPrecioIsOk)
                 {
                     _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
+                    _gestionItem.DataItemActual.setAplicarPorctAumentoPrecio(_gCambioPrecio.AplicarPorctAumentoPrecio.Trim().ToUpper() == "");
                 }
             }
             else
@@ -2880,6 +2972,7 @@ namespace PosOnLine.Src.Pos
                     if (_gCambioPrecio.CambioPrecioIsOk)
                     {
                         _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
+                        _gestionItem.DataItemActual.setAplicarPorctAumentoPrecio(_gCambioPrecio.AplicarPorctAumentoPrecio.Trim().ToUpper()=="");
                     }
                 }
             }
@@ -2956,16 +3049,26 @@ namespace PosOnLine.Src.Pos
         private string pagoDivisaConBonoDscto_SoloEnDivisa()
         {
             var rt = "";
+            var _porcDsctBono = _dsctoBonoPagoDivisa;
+            //
+            var _porcAumentoPreciosPrdNoDivisa = _porcAumentoPrdNoAdmDivisa;
+            //
+            var _calculoNuevoPortBono = CalculoNuevoPorcBono(_porcDsctBono, _porcAumentoPreciosPrdNoDivisa);
+            _porcDsctBono = _calculoNuevoPortBono;
+            //
             _totalImporteMonDivConBono = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
             _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
             if (_habilitarBonoPagoDivisa)
             {
-                rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
+                rt += "Con Bono (" + _porcDsctBono.ToString("n2") + "%): ";
                 var _impDivisa = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
-                _totalImporteMonDivConBono = Math.Round(_impDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                //_totalImporteMonDivConBono = Math.Round(_impDivisa / (1m + (_porcDsctBono / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                //_totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
+                _totalImporteMonDivConBono = Math.Round(_impDivisa - (_impDivisa * (_porcDsctBono / 100.0m)), 2, MidpointRounding.AwayFromZero);
                 _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
-
-                var _pagoDivisa = (_impDivisa / (1 + (_dsctoBonoPagoDivisa / 100)));
+                //
+                //var _pagoDivisa = (_impDivisa / (1 + (_porcDsctBono / 100)));
+                var _pagoDivisa = _totalImporteMonDivConBono;
                 rt += _pagoDivisa.ToString("n2") + "$";
             }
             return rt.Trim();
@@ -2974,22 +3077,32 @@ namespace PosOnLine.Src.Pos
         private string pagoDivisaConBonoDscto_EnDivisaBolivar()
         {
             var rt = "";
+
+            var _porcDsctBono = _dsctoBonoPagoDivisa;
+            //
+            var _porcAumentoPreciosPrdNoDivisa = _porcAumentoPrdNoAdmDivisa;
+            //
+            var _calculoNuevoPortBono = CalculoNuevoPorcBono(_porcDsctBono, _porcAumentoPreciosPrdNoDivisa);
+            _porcDsctBono = _calculoNuevoPortBono;
+
+            //
             _totalImporteMonDivConBono = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
             _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
             if (_habilitarBonoPagoDivisa)
             {
-                rt += "Con Bono (" + _dsctoBonoPagoDivisa.ToString("n2") + "%): ";
+                rt += "Con Bono (" + _porcDsctBono.ToString("n2") + "%): ";
 
                 var _importDivisa = Math.Round(ImporteDivisa, 2, MidpointRounding.AwayFromZero);
                 //_totalImporteMonDivConBono = Math.Round(_importDivisa / (1m + (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
-                _totalImporteMonDivConBono = Math.Round(_importDivisa - (_importDivisa * (_dsctoBonoPagoDivisa / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                _totalImporteMonDivConBono = Math.Round(_importDivisa - (_importDivisa * (_porcDsctBono / 100.0m)), 2, MidpointRounding.AwayFromZero);
                 _totalImporteMonActConBono = Math.Round(_totalImporteMonDivConBono * _tasaCambioActual, 2, MidpointRounding.AwayFromZero);
 
                 //var _pagoDivisa = Math.Round(_importDivisa / (1 + (_dsctoBonoPagoDivisa / 100)), 2, MidpointRounding.AwayFromZero);
-                var _pagoDivisa = Math.Round(_importDivisa - (_importDivisa * (_dsctoBonoPagoDivisa / 100)), 2, MidpointRounding.AwayFromZero);
+                var _pagoDivisa = Math.Round(_importDivisa - (_importDivisa * (_porcDsctBono / 100)), 2, MidpointRounding.AwayFromZero);
                 //_pagoDivisa = _pagoDivisa - (_pagoDivisa - (int)_pagoDivisa);
                 var _pagoDivisaInt = ((int)_pagoDivisa);
-                var _pagoDivisaDec = (_pagoDivisa - _pagoDivisaInt) * _tasaCambioActual;
+                //var _pagoDivisaDec = (_pagoDivisa - _pagoDivisaInt) * _tasaCambioActual;
+                var _pagoDivisaDec = (_pagoDivisa - _pagoDivisaInt) * _tasaCambioSistema;
 
                 //var _pago = (_pagoDivisa * _tasaCambioActual);
                 //var _bono = _pago * (_dsctoBonoPagoDivisa / 100);
@@ -2999,6 +3112,49 @@ namespace PosOnLine.Src.Pos
                 rt += _pagoDivisaInt.ToString("n0") + "$, con " + _pagoDivisaDec.ToString("n2") + "Bs";
             }
             return rt.Trim();
+        }
+
+        private decimal CalculoNuevoPorcBono(decimal _porcDsctBono, decimal _porcAumentoPreciosPrdNoDivisa)
+        {
+            var _c1 = 0m;
+            var _s1 = 0m;
+
+            if (_modoFuncion == EnumModoFuncion.Facturacion || _modoFuncion == EnumModoFuncion.NotaEntrega)
+            {
+                _c1 = _gestionItem.Items.Where(
+                    w => w.Ficha.estatusDivisa.Trim().ToUpper() == "1" ||
+                    w.Ficha.aplicarPorctAumento.Trim().ToUpper() == "N"
+                    ).
+                    Sum(s => s.TotalItemDivisa);
+                _c1 = Math.Round(_c1 - (_c1 * (_porcDsctBono / 100.0m)), 2, MidpointRounding.AwayFromZero);
+
+                //
+                _s1 = _gestionItem.Items.Where(
+                    w => w.Ficha.estatusDivisa.Trim().ToUpper() == "0" &&
+                    w.Ficha.aplicarPorctAumento.Trim().ToUpper() == ""
+                    ).
+                    Sum(s => s.TotalItemDivisa);
+                _s1 = Math.Round(_s1 - (_s1 * (_porcDsctBono / 100.0m)), 2, MidpointRounding.AwayFromZero);
+                _s1 = _s1 + (_s1 * _porcAumentoPreciosPrdNoDivisa / 100m);
+            }
+            else if (_modoFuncion == EnumModoFuncion.NotaCredito) 
+            {
+            }
+            //
+            //TOTAL IMPORTE
+            var _g1 = _gestionItem.Items.Sum(s => s.TotalItemDivisa);
+            //TOTAL IMPORTE PRODUCTOS APLICANDO BONO MAS EL PORC DE AUMENTO DEFINIDO PARA LOS NO ADM POR DIVISA
+            var _g2 = _c1 + _s1;
+            //
+            var _calculoNuevoPortBono = _porcDsctBono;
+            if (_g1 > 0m)
+            {
+                if (_g2 > 0m)
+                {
+                    _calculoNuevoPortBono = (1m - (_g2 / _g1)) * 100m;
+                }
+            }
+            return _calculoNuevoPortBono;
         }
 
         Src.MovCaja.Agregar.IAgregar _gAgregarMovCaja;

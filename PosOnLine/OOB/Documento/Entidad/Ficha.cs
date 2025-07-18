@@ -116,6 +116,7 @@ namespace PosOnLine.OOB.Documento.Entidad
         public bool IsDocumentoCredito { get { return CondicionPago.Trim().ToUpper()=="CREDITO"; } }
         //
         public List<FichaMedida> medidas;
+        public List<FichaPrecio> precios;
         //
         public decimal MontoPorVueltoEnEfectivo { get; set; }
         public decimal MontoPorVueltoEnDivisa { get; set; }
@@ -238,6 +239,7 @@ namespace PosOnLine.OOB.Documento.Entidad
             items = new List<FichaItem>();
             //
             medidas = new List<FichaMedida>();
+            precios = new List<FichaPrecio>();
             //
             MontoPorVueltoEnEfectivo = 0m;
             MontoPorVueltoEnDivisa = 0m;

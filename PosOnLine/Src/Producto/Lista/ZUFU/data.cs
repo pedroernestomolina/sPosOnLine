@@ -24,6 +24,13 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         private decimal _p2Divisa;
         private decimal _p3Divisa;
         //
+        private decimal _p1Bono;
+        private decimal _p2Bono;
+        private decimal _p3Bono;
+        private decimal _p1DivisaBono;
+        private decimal _p2DivisaBono;
+        private decimal _p3DivisaBono;
+        //
         private decimal _exEmpCompra;
         private decimal _exEmpInv;
         private decimal _exEmpUnd;
@@ -42,9 +49,9 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
         public string Precio1 { get { return _p1.ToString("n2") + "/ ( $ " + _p1Divisa.ToString("n2") + ")"; } }
         public string Precio2 { get { return _p2.ToString("n2") + "/ ( $ " + _p2Divisa.ToString("n2") + ")"; } }
         public string Precio3 { get { return _p3.ToString("n2") + "/ ( $ " + _p3Divisa.ToString("n2") + ")"; } }
-        public string Precio1ConBono { get { return precioBono(_p1, _p1Divisa); } }
-        public string Precio2ConBono { get { return precioBono(_p2, _p2Divisa); } }
-        public string Precio3ConBono { get { return precioBono(_p3, _p3Divisa); } }
+        public string Precio1ConBono { get { return precioBono(_p1Bono, _p1DivisaBono); } }
+        public string Precio2ConBono { get { return precioBono(_p2Bono, _p2DivisaBono); } }
+        public string Precio3ConBono { get { return precioBono(_p3Bono, _p3DivisaBono); } }
         public string TituloPrecioBono { get { return tituloPrecioBono(); } }
         //INVENTARIO
         public decimal ExInvEmpCompra { get { return _exEmpCompra; } }
@@ -79,6 +86,12 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
             _p1Divisa=0m;
             _p2Divisa = 0m;
             _p3Divisa = 0m;
+            _p1Bono = 0m;
+            _p2Bono = 0m;
+            _p3Bono = 0m;
+            _p1DivisaBono = 0m;
+            _p2DivisaBono = 0m;
+            _p3DivisaBono = 0m;
             if (_ficha.EsAdmDivisa)
             {
                 _p1 = full(_ficha.pnetoEmp_1);
@@ -87,15 +100,29 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
                 _p1Divisa = _p1 / factorCambio;
                 _p2Divisa = _p2 / factorCambio;
                 _p3Divisa = _p3 / factorCambio;
+                //
+                _p1Bono = full(_ficha.pnetoEmp_1);
+                _p2Bono = full(_ficha.pnetoEmp_2);
+                _p3Bono = full(_ficha.pnetoEmp_3);
+                _p1DivisaBono = _p1 / factorCambio;
+                _p2DivisaBono = _p2 / factorCambio;
+                _p3DivisaBono = _p3 / factorCambio;
             }
             else 
             {
                 _p1 = _ficha.pfullDivEmp_1 * factorCambio;
                 _p2 = _ficha.pfullDivEmp_2 * factorCambio;
-                _p3 = _ficha.pfullDivEmp_3* factorCambio;
+                _p3 = _ficha.pfullDivEmp_3 * factorCambio;
                 _p1Divisa = _ficha.pfullDivEmp_1;
                 _p2Divisa = _ficha.pfullDivEmp_2;
                 _p3Divisa = _ficha.pfullDivEmp_3;
+                //
+                _p1Bono = _ficha.pfullDivEmp_1u * factorCambio;
+                _p2Bono = _ficha.pfullDivEmp_2u * factorCambio;
+                _p3Bono = _ficha.pfullDivEmp_3u * factorCambio;
+                _p1DivisaBono = _ficha.pfullDivEmp_1u;
+                _p2DivisaBono = _ficha.pfullDivEmp_2u;
+                _p3DivisaBono = _ficha.pfullDivEmp_3u;
             }
             //
             _exEmpCompra = 0m;
@@ -138,10 +165,17 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
                 var _factor = ((_porctBonoDivisa / 100) + 1);
                 if (_factor > 0m)
                 {
-                    rt += (montoLocal / _factor).ToString("n2") + "/ ( $ ";
-                    rt += (montoDivisa / _factor).ToString("n2") + " )";
+                    //rt += (montoLocal / _factor).ToString("n2") + "/ ( $ ";
+                    //rt += (montoDivisa / _factor).ToString("n2") + " )";
+                    var _montoDivisa = montoDivisa / _factor;
+                    _montoDivisa = Math.Round(_montoDivisa, 2, MidpointRounding.AwayFromZero);
+                    var _montoLocal = _montoDivisa * _factorCambio;
+                    _montoLocal = Math.Round(_montoLocal, 2, MidpointRounding.AwayFromZero);
+                    rt += (_montoLocal).ToString("n2") + "/ ( $ ";
+                    rt += (_montoDivisa).ToString("n2") + " )";
                 }
             }
+            //
             return rt;
         }
         private string tituloPrecioBono()

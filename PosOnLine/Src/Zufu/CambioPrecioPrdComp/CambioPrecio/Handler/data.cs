@@ -18,6 +18,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         private Vista.IPrecio _pActual;
         private Vista.IPrecio _pNuevo;
         private Item.data _item;
+        private bool _estatusDivisa;
+        private bool _aplicarPorcAumento;
         //
         public object Item_GetIdPrd { get { return _idPrd; } }
         public decimal Item_GetPrecioActual { get { return _precioActual; } }
@@ -73,6 +75,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _pActual = new precio();
             _pNuevo= new precio();
             _item = null;
+            _estatusDivisa = false;
+            _aplicarPorcAumento = false;
         }
         public void Inicializa()
         {
@@ -81,6 +85,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _precioSeAplicaConBono = true;
             _pActual.Inicializa();
             _pNuevo.Inicializa();
+            _estatusDivisa = false;
+            _aplicarPorcAumento = false;
         }
         public void Refresh()
         {
@@ -89,10 +95,22 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         public void setItem(object item)
         {
             _item = (Item.data)item;
+            setEstatusDivisa(_item.Ficha.estatusDivisa.Trim().ToUpper()=="1");
+            setAplicarPorctAumento(_item.Ficha.aplicarPorctAumento.Trim().ToUpper() == "");
+        }
+        public void setAplicarPorctAumento(bool aplicar)
+        {
+            _aplicarPorcAumento = aplicar;
         }
         public void setPrd(object prd)
         {
             _prd = (OOB.Venta.Item.Zufu.ActualizarPrecio.ObtenerData.Ficha)prd;
+        }
+        public bool EstatusDivisa { get { return _estatusDivisa; } }
+        public bool AplicarPorcAumento { get { return _aplicarPorcAumento; } }
+        private void setEstatusDivisa(bool status)
+        {
+            _estatusDivisa = status;
         }
         private void refrescarData()
         {
@@ -152,7 +170,7 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         public void setAplicandoBono(bool modo)
         {
             var _modo = modo;
-            if (_item.Ficha.estatusDivisa.Trim().ToUpper() == "1")
+            if (_item.Ficha.estatusDivisa.Trim().ToUpper() == "1") //PRODUCTO ADM POR DIVISA
             {
                 _precioSeAplicaConBono = _modo;
                 _pActual.setModoBonoIncluido(_modo);
@@ -160,6 +178,15 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 _precioActual = (_modo ? _pActual.Get_PrecioVta.Get_PNeto : _pActual.PrecioSinBono(_pActual.Get_PrecioVta.Get_PNeto));
                 _pNuevo.setModoBonoIncluido(_modo);
                 _pNuevo.Refresh();
+            }
+            else 
+            {
+                _precioSeAplicaConBono = _modo;
+                _pActual.setModoBonoIncluido(_modo);
+                _pActual.Refresh_2();
+                _precioActual = (_modo ? _pActual.Get_PrecioVta.Get_PNeto : _pActual.PrecioSinBono(_pActual.Get_PrecioVta.Get_PNeto));
+                _pNuevo.setModoBonoIncluido(_modo);
+                _pNuevo.Refresh_2();
             }
         }
         public void setTasaPos(decimal tasa)

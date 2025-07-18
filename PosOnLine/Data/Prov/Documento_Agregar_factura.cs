@@ -524,6 +524,30 @@ namespace PosOnLine.Data.Prov
                 }).ToList();
             }
             fichaDTO.Medidas = medidas;
+
+            //
+            //
+            var _fichaPrecios = ficha.Precios.Select(s =>
+            {
+                var xrt = new DtoLibPos.Documento.Agregar.Factura.FichaPrecio()
+                {
+                    aplicaPorctAumento = s.aplicaPorctAumento,
+                    descPrd = s.descPrd,
+                    idPrd = s.idPrd,
+                    isPorDivisa = s.isPorDivisa,
+                    porctAumentoPrecioAplicar = s.porctAumentoPrecioAplicar,
+                    porctBonoAplicar = s.porctBonoAplicar,
+                    porctBonoCalculado = s.porctBonoCalculado,
+                    precioCliente = s.precioCliente,
+                    precioFact = s.precioFact,
+                };
+                return xrt;
+            }).ToList();
+            fichaDTO.Precios = _fichaPrecios;
+            //
+            //
+
+
             //
             var r01 = MyData.Documento_Agregar_Factura(fichaDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)

@@ -394,6 +394,16 @@ namespace PosOnLine.OOB.Producto.Entidad
             _factorCambio = factor;
         }
 
+        public void AplicarReglaManejoCostoEnDivisa(bool aplicar)
+        {
+            if (aplicar) 
+            {
+                if (EstatusDivisa.Trim().ToUpper() != "1") 
+                {
+                    Costo = CostoDivisa * _factorCambio;
+                }
+            }
+        }
     }
 
 }

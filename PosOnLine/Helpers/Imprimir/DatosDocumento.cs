@@ -126,6 +126,7 @@ namespace PosOnLine.Helpers.Imprimir
         public List<Item> Items { get; set; }
         public List<MedioPago> MediosPago { get; set; }
         public List<MedidaEmp> MedidasEmp { get; set; }
+        public List<String> Precios { get; set; }
 
 
         public string descuento
@@ -172,6 +173,7 @@ namespace PosOnLine.Helpers.Imprimir
             Items = new List<Item>();
             MediosPago = new List<MedioPago>();
             MedidasEmp = new List<MedidaEmp>();
+            Precios = new List<string>();
             ImageQR = null;
             vueltoEfectivo = "";
             vueltoDivisa = "";

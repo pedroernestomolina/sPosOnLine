@@ -31,7 +31,7 @@ namespace PosOnLine.Helpers.Imprimir
         public override void setImprimirQR(dataQR dat)
         {
             var _id = dat.idVerificador.ToString().Trim().PadLeft(6, '0');
-            var _data = _id + "-" + dat.autoDoc + "-" + dat.codDoc + "-" + dat.numDoc + "-" + dat.montoDoc.ToString("n2") + "-" + dat.autoCierre;
+            var _data = _id + "-" + dat.autoDoc + "-" + dat.codDoc + "-" + dat.numDoc + "-" + dat.montoDoc.ToString("n2");
             generarQR(_data);
         }
         public void setEmpresa(OOB.Sistema.Empresa.Ficha ficha)
@@ -134,6 +134,15 @@ namespace PosOnLine.Helpers.Imprimir
                 };
                 _tick.Documento.MedidasEmp.Add(it);
             }
+            //
+            if (_ds.precios != null) 
+            {
+                foreach (var r in _ds.precios)
+                {
+                    _tick.Documento.Precios.Add(r);
+                }
+            }
+
             //
             _tick.Imprimir();
         }
