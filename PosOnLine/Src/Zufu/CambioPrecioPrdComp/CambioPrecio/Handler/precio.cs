@@ -30,6 +30,10 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _modoBonoIncluido = true;
             _estatusCambioModoBono = false;
             _pVenta = new __.Precio.Imp();
+            //
+            _porctAumentoPrecio=0m;
+            _aplicarPorctAumentoPrecio=false;
+            _aplicarPorctAumentoPrecioPrimeraVez=false;
         }
         public void Inicializa()
         {
@@ -102,6 +106,17 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 precio = _pneto;
             }
 
+            //
+            precio = _pneto;
+            var _montoAumentoPrecio = 0m; 
+            if (_aplicarPorctAumentoPrecio) 
+            {
+                _montoAumentoPrecio = _pneto * (_porctAumentoPrecio / 100m);
+                precio += _montoAumentoPrecio;
+                //if (!_aplicarPorctAumentoPrecioPrimeraVez) { }
+            }
+            //
+
             _pVenta.setCosto(_costoApBono);
             _pVenta.setPrecioNeto(precio);
             _pVenta.setTasaIva(_tasaIva);
@@ -144,6 +159,22 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         public void setTasaDivisaActual(decimal tasaDivAct)
         {
             _tasaDivisaAct = tasaDivAct;
+        }
+        //
+        private decimal _porctAumentoPrecio;
+        private bool _aplicarPorctAumentoPrecio;
+        private bool _aplicarPorctAumentoPrecioPrimeraVez;
+        public void setPorctAumentoPrecio(decimal p)
+        {
+            _porctAumentoPrecio = p;
+        }
+        public void setAplicarPorctAumentoPrecio(bool aplicar)
+        {
+            _aplicarPorctAumentoPrecio = aplicar;
+        }
+        public void setAplicarPorctAumentoPrecioPrimeraVez(bool p)
+        {
+            _aplicarPorctAumentoPrecioPrimeraVez = p;
         }
     }
 }

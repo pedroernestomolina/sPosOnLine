@@ -49,6 +49,9 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _tasaPos=0m;
             _tasaBonoAplicar=0m;
             _empqVtaActual = "";
+            //
+            _aplicaPorctAumentoPrecio=false;
+            _porctAumentoPrecio=0m;
         }
         //
         public void Inicializa()
@@ -65,6 +68,9 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _tasaPos = 0m;
             _tasaBonoAplicar = 0m;
             _empqVtaActual = "";
+            //
+            _aplicaPorctAumentoPrecio = false;
+            _porctAumentoPrecio = 0m;
         }
         public void setInfProducto(string desc)
         {
@@ -113,6 +119,18 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         public void setEmpqVtaActual(string desc)
         {
             _empqVtaActual = desc;
+        }
+        //
+        //
+        private bool _aplicaPorctAumentoPrecio;
+        private decimal _porctAumentoPrecio;
+        public void setAplicaPorctAumentoPrecio(bool aplica)
+        {
+            _aplicaPorctAumentoPrecio = aplica;
+        }
+        public void setPorctAumentoPrecio(decimal p)
+        {
+            _porctAumentoPrecio = p;
         }
     }
 }

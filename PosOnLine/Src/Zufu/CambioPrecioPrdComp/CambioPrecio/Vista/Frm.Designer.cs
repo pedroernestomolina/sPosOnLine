@@ -57,6 +57,8 @@
             this.L_UTILIDAD_ACTUAL = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.L_UTILIDAD_NUEVA = new System.Windows.Forms.Label();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.CHB_APLICAR_PORCT_AUMENTO = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -66,8 +68,6 @@
             this.BT_SALIR = new System.Windows.Forms.Button();
             this.panel20 = new System.Windows.Forms.Panel();
             this.BT_PANEL_INF = new System.Windows.Forms.Button();
-            this.panel21 = new System.Windows.Forms.Panel();
-            this.CHB_APLICAR_PORCT_AUMENTO = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -86,12 +86,12 @@
             this.panel15.SuspendLayout();
             this.panel18.SuspendLayout();
             this.panel19.SuspendLayout();
+            this.panel21.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel20.SuspendLayout();
-            this.panel21.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -460,6 +460,29 @@
             this.L_UTILIDAD_NUEVA.Text = "99.99%";
             this.L_UTILIDAD_NUEVA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel21
+            // 
+            this.panel21.Controls.Add(this.CHB_APLICAR_PORCT_AUMENTO);
+            this.panel21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel21.Location = new System.Drawing.Point(165, 178);
+            this.panel21.Margin = new System.Windows.Forms.Padding(1);
+            this.panel21.Name = "panel21";
+            this.panel21.Padding = new System.Windows.Forms.Padding(2);
+            this.panel21.Size = new System.Drawing.Size(162, 34);
+            this.panel21.TabIndex = 11;
+            // 
+            // CHB_APLICAR_PORCT_AUMENTO
+            // 
+            this.CHB_APLICAR_PORCT_AUMENTO.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CHB_APLICAR_PORCT_AUMENTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CHB_APLICAR_PORCT_AUMENTO.Location = new System.Drawing.Point(2, 2);
+            this.CHB_APLICAR_PORCT_AUMENTO.Name = "CHB_APLICAR_PORCT_AUMENTO";
+            this.CHB_APLICAR_PORCT_AUMENTO.Size = new System.Drawing.Size(158, 30);
+            this.CHB_APLICAR_PORCT_AUMENTO.TabIndex = 1;
+            this.CHB_APLICAR_PORCT_AUMENTO.Text = "Aplica (%) Aumento";
+            this.CHB_APLICAR_PORCT_AUMENTO.UseVisualStyleBackColor = true;
+            this.CHB_APLICAR_PORCT_AUMENTO.CheckedChanged += new System.EventHandler(this.CHB_APLICAR_PORCT_AUMENTO_CheckedChanged);
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -580,29 +603,6 @@
             this.BT_PANEL_INF.UseVisualStyleBackColor = true;
             this.BT_PANEL_INF.Click += new System.EventHandler(this.BT_PANEL_INF_Click);
             // 
-            // panel21
-            // 
-            this.panel21.Controls.Add(this.CHB_APLICAR_PORCT_AUMENTO);
-            this.panel21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel21.Location = new System.Drawing.Point(165, 178);
-            this.panel21.Margin = new System.Windows.Forms.Padding(1);
-            this.panel21.Name = "panel21";
-            this.panel21.Padding = new System.Windows.Forms.Padding(2);
-            this.panel21.Size = new System.Drawing.Size(162, 34);
-            this.panel21.TabIndex = 11;
-            // 
-            // CHB_APLICAR_PORCT_AUMENTO
-            // 
-            this.CHB_APLICAR_PORCT_AUMENTO.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CHB_APLICAR_PORCT_AUMENTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CHB_APLICAR_PORCT_AUMENTO.Location = new System.Drawing.Point(2, 2);
-            this.CHB_APLICAR_PORCT_AUMENTO.Name = "CHB_APLICAR_PORCT_AUMENTO";
-            this.CHB_APLICAR_PORCT_AUMENTO.Size = new System.Drawing.Size(158, 30);
-            this.CHB_APLICAR_PORCT_AUMENTO.TabIndex = 1;
-            this.CHB_APLICAR_PORCT_AUMENTO.Text = "Aplica (%) Aumento";
-            this.CHB_APLICAR_PORCT_AUMENTO.UseVisualStyleBackColor = true;
-            this.CHB_APLICAR_PORCT_AUMENTO.CheckedChanged += new System.EventHandler(this.CHB_APLICAR_PORCT_AUMENTO_CheckedChanged);
-            // 
             // Frm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -637,12 +637,12 @@
             this.panel15.ResumeLayout(false);
             this.panel18.ResumeLayout(false);
             this.panel19.ResumeLayout(false);
+            this.panel21.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
-            this.panel21.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

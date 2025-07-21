@@ -135,7 +135,23 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 {
                     throw new Exception(r03.Mensaje);
                 }
+                //
+                var r04 = Sistema.MyData.Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa();
+                if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r04.Mensaje);
+                }
+                //
                 _data.setTasaPos(r03.Entidad);
+                //
+                _data.setAplicaPorctAumentoPrecioItem(false);
+                _data.setPorctAumentoPrecio(0m);
+                if (_item.Ficha.estatusDivisa.Trim().ToUpper() != "1")
+                {
+                    _data.setAplicaPorctAumentoPrecioItem(_item.Ficha.aplicarPorctAumento.Trim().ToUpper() == "");
+                    _data.setPorctAumentoPrecio(r04.Entidad);
+                }
+                //
                 _data.Refresh();
                 _dataPanel.setPrecioActual(_data.Item_GetPrecioActual);
                 _dataPanel.setUtilidadActual(_data.Utilidad_Precio_Actual);
@@ -146,6 +162,9 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 _dataPanel.setTasaPos(r03.Entidad);
                 _dataPanel.setTasaBonoAplicar(r02.Entidad);
                 _dataPanel.setEmpqVtaActual(_item.EmpaqueCont);
+                //
+                _dataPanel.setAplicaPorctAumentoPrecio(_item.Ficha.aplicarPorctAumento.Trim().ToUpper()=="");
+                _dataPanel.setPorctAumentoPrecio(r04.Entidad);
                 //
                 return true;
             }

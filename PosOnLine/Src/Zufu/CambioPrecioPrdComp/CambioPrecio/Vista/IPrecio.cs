@@ -22,5 +22,9 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         void Refresh();
         void setTasaDivisaActual(decimal tasaDivAct);
         void Refresh_2();
+        //
+        void setPorctAumentoPrecio(decimal p);
+        void setAplicarPorctAumentoPrecio(bool aplicar);
+        void setAplicarPorctAumentoPrecioPrimeraVez(bool p);
     }
 }

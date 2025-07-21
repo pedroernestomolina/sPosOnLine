@@ -77,6 +77,9 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _item = null;
             _estatusDivisa = false;
             _aplicarPorcAumento = false;
+            //
+            _aplicaPorctAumentoPrecioItem=false;
+            _porctAumentoPrecio=0m;
         }
         public void Inicializa()
         {
@@ -87,6 +90,9 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
             _pNuevo.Inicializa();
             _estatusDivisa = false;
             _aplicarPorcAumento = false;
+            //
+            _aplicaPorctAumentoPrecioItem = false;
+            _porctAumentoPrecio = 0m;
         }
         public void Refresh()
         {
@@ -101,6 +107,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
         public void setAplicarPorctAumento(bool aplicar)
         {
             _aplicarPorcAumento = aplicar;
+            //
+            refrescarData();
         }
         public void setPrd(object prd)
         {
@@ -131,6 +139,15 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 _pActual.setPosTasaIva(_item.Ficha.tasaIva);
                 _pActual.setModoBonoIncluido(_precioSeAplicaConBono);
                 _pActual.setTasaDivisaActual(_prd.TasaActual);
+                //
+                _pActual.setPorctAumentoPrecio(_porctAumentoPrecio);
+                _pActual.setAplicarPorctAumentoPrecio(_aplicarPorcAumento);
+
+                //if (_aplicaPorctAumentoPrecio) 
+                //{
+                //    _pActual.setPorctAumentoPrecio(_porctAumentoPrecio);
+                //}
+                //
                 if (_item.Ficha.estatusDivisa.Trim().ToUpper() == "1")
                 {
                     _pActual.Refresh();
@@ -210,6 +227,19 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Handler
                 return false;
             }
             return true;
+        }
+        //
+        private bool _aplicaPorctAumentoPrecioItem;
+        private decimal _porctAumentoPrecio;
+        public void setPorctAumentoPrecio(decimal p)
+        {
+            _porctAumentoPrecio = p;
+        }
+        public void setAplicaPorctAumentoPrecioItem(bool aplica)
+        {
+            _aplicaPorctAumentoPrecioItem = aplica;
+            _aplicarPorcAumento = aplica;
+            _pActual.setAplicarPorctAumentoPrecioPrimeraVez(true);
         }
     }
 }

@@ -35,5 +35,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         void setTasaPos(decimal tasa);
         void setTasaBonoAplicar(decimal tasa);
         void setEmpqVtaActual(string desc);
+        //
+        void setAplicaPorctAumentoPrecio(bool aplica);
+        void setPorctAumentoPrecio(decimal p);
     }
 }

@@ -31,5 +31,8 @@ namespace PosOnLine.Src.Zufu.CambioPrecioPrdComp.CambioPrecio.Vista
         void Inicializa();
         void Refresh();
         void setAplicarPorctAumento(bool modo);
+        //
+        void setPorctAumentoPrecio(decimal p);
+        void setAplicaPorctAumentoPrecioItem(bool aplica);
     }
 }
