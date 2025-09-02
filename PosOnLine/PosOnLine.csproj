@@ -519,6 +519,14 @@
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
+    <Compile Include="Src\FormaPagoDscto\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\FormaPagoDscto\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\FormaPagoDscto\vm\DsctoImpl.cs" />
+    <Compile Include="Src\FormaPagoDscto\vm\IDscto.cs" />
     <Compile Include="Src\FormaPagoLoteRef\vista\Frm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -528,10 +536,13 @@
     <Compile Include="Src\FormaPagoLoteRef\vm\ILoteRef.cs" />
     <Compile Include="Src\FormaPagoLoteRef\vm\IVista.cs" />
     <Compile Include="Src\FormaPagoLoteRef\vm\LoteRefImpl.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\Cliente.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\FormaPago.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\MedioPago.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Moneda.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\MyData.cs" />
+    <Compile Include="Src\FormaPago\Domain\ReglaNegocio\IReglas.cs" />
+    <Compile Include="Src\FormaPago\Domain\ReglaNegocio\ReglasImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\FormaPago\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\FormaPago\vista\Frm.cs">
@@ -1040,6 +1051,9 @@
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Consultor\ModoAdm\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\FormaPagoDscto\vista\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\FormaPagoLoteRef\vista\Frm.resx">

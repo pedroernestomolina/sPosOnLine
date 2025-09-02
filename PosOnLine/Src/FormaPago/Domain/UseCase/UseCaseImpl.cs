@@ -120,5 +120,23 @@ namespace PosOnLine.Src.FormaPago.Domain.UseCase
             //
             return rt;
         }
+        public bool 
+            CargarEstatusCreditoCliente(string idCliente)
+        {
+            var rt = false;
+            //
+            var result = Sistema.MyData.Cliente_GetEstatusCredito(idCliente);
+            if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(result.Mensaje);
+            }
+            if (result.Entidad == null)
+            {
+                throw new Exception("PROBLEMA AL CARGAR DATA");
+            }
+            rt = result.Entidad;
+            //
+            return rt;
+        }
     }
 }

@@ -23,6 +23,13 @@ namespace PosOnLine.Src.FormaPago.vm
         bool IsCuentaPendiente { get; }
         bool EstatusBonoPagoPorDivisa { get; }
         decimal MontoMaxIngresarPagoDivisa { get; }
+        decimal Get_PorctBono { get; }
+        decimal Get_TasaFactorCambio { get; }
+        string Get_ClienteData { get; }
+        decimal Get_TotalPagarMonLocal { get; }
+        decimal Get_TotalPagarMonDivisa { get; }
+        decimal Get_PorctDesctoDado { get; }
+        bool Get_DsctActivo { get; }
         //
         void setMedioPago(string id);
         void setMontoIngresar(decimal monto);
@@ -31,11 +38,16 @@ namespace PosOnLine.Src.FormaPago.vm
         void setMontoPorPagarMonDivisa(decimal monto);
         void setPorctBono(decimal porctBono);
         void setActivarBonoPorPagoDivsa(bool modo);
+        void setActivarModoSoloFormasPagoConMonedaLocal(bool modo);
+        void setDesctoDado(decimal porct);
+        void setClienteEntidad(Domain.Models.Cliente data);
         //
         void agregarMedioPago();
         void eliminarFormaPago();
         void limpiezaGeneral();
         void refrescarMontos();
-        void ApagarEncenderBonoPorPagoDivsa();
+        void apagarEncenderBonoPorPagoDivsa();
+        void dsctoDar();
+        void ctaCredito();
     }
 }

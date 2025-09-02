@@ -66,8 +66,9 @@ namespace PosOnLine.Src.FormaPago.vista
             //
             var c3 = new DataGridViewButtonColumn();
             c3.Name = "btEliminar";
-            c3.HeaderText = "Eliminar";
+            c3.HeaderText = "Accion";
             c3.Text = "Eliminar";
+            c3.HeaderCell.Style.Font = f;
             c3.UseColumnTextForButtonValue = true;
             //
             var c4 = new DataGridViewTextBoxColumn();
@@ -124,13 +125,24 @@ namespace PosOnLine.Src.FormaPago.vista
             //
             actualizaMontoRestaCambio();
             //
+            L_PORCT_BONO.Text = _controlador.Get_PorctBono.ToString();
+            L_TASA_FACTOR_CAMBIO.Text = _controlador.Get_TasaFactorCambio.ToString();
+            //
+            L_CLIENTE_DATA.Text = _controlador.Get_ClienteData;
+            //
+            L_TOTAL_PAGAR_MON_LOCAL.Text = _controlador.Get_TotalPagarMonLocal.ToString("n2") + _controlador.Get_SimboloMonedaLocal;
+            L_TOTAL_PAGAR_MON_REFERENCIA.Text = _controlador.Get_TotalPagarMonDivisa.ToString("n2") + _controlador.Get_SimboloMonedaReferencia;
+            //
+            L_PORCT_DSCT_DADO.Text = _controlador.Get_PorctDesctoDado.ToString("n2");
+            P_DSCTO_ACTIVO.Visible = _controlador.Get_DsctActivo;
+            //
             _modoInicio = false;
         }
         private void Frm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt && e.Control && e.KeyCode == Keys.V)
             {
-                _controlador.ApagarEncenderBonoPorPagoDivsa();
+                _controlador.apagarEncenderBonoPorPagoDivsa();
                 P_BONO_POR_PAGO_DIVISA.Visible = _controlador.EstatusBonoPagoPorDivisa;
                 actualizaMontoBono();
                 actualizaMontoRestaCambio();
@@ -198,6 +210,15 @@ namespace PosOnLine.Src.FormaPago.vista
                 DGV.Refresh();
             }
         }
+        private void BT_DESCUENTO_Click(object sender, EventArgs e)
+        {
+            DesctoDar();
+        }
+        private void BT_CREDITO_Click(object sender, EventArgs e)
+        {
+            CtaCredito();
+        }
+        //
         private void actualizaMontoBono() 
         {
             L_MONTO_BONO_LOCAL.Text = _controlador.Get_MontoBonoMonedaLocal.ToString("n2");
@@ -223,19 +244,30 @@ namespace PosOnLine.Src.FormaPago.vista
         private void Limpiar() 
         {
             _controlador.limpiezaGeneral();
+            Refrescar();
             TB_MONTO_INGRESADO.Text = "";
             CB_MEDIO_PAGO.SelectedIndex = -1;
             L_SIMBOLO_MONEDA.Text = "";
             L_MONTO_BONO_LOCAL.Text = _controlador.Get_MontoBonoMonedaLocal.ToString("n2");
             L_MONTO_BONO_DIVISA.Text = _controlador.Get_MonoBonoMonedaReferencia.ToString("n2");
-            actualizaMontoRestaCambio();
-            DGV.Refresh();
         }
         private void Refrescar() 
         {
             _controlador.refrescarMontos();
             actualizaMontoRestaCambio();
             DGV.Refresh();
+        }
+        private void DesctoDar()
+        {
+            _controlador.dsctoDar();
+            actualizaMontoBono();
+            actualizaMontoRestaCambio();
+            L_PORCT_DSCT_DADO.Text = _controlador.Get_PorctDesctoDado.ToString("n2");
+            P_DSCTO_ACTIVO.Visible = _controlador.Get_DsctActivo;
+        }
+        private void CtaCredito()
+        {
+            _controlador.ctaCredito();
         }
     }
 }

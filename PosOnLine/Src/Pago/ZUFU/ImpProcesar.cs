@@ -306,6 +306,15 @@ namespace PosOnLine.Src.Pago.ZUFU
         PosOnLine.Src.FormaPago.vm.IFormaPago _formaPago;
         public void FormaPago()
         {
+            var _cliente = new FormaPago.Domain.Models.Cliente()
+            {
+                ciRif = _entCliente.CiRif,
+                codigo = _entCliente.Codigo,
+                dirFiscal = _entCliente.DireccionFiscal,
+                id = _entCliente.Id,
+                nombre = _entCliente.Nombre,
+                telefonos = _entCliente.Telefono,
+            };
             if (_formaPago == null) 
             {
                 _formaPago = new PosOnLine.Src.FormaPago.vm.FormaPagoImpl();
@@ -316,6 +325,9 @@ namespace PosOnLine.Src.Pago.ZUFU
             _formaPago.setMontoPorPagarMonDivisa(MontoPagarDivisa);
             _formaPago.setPorctBono(_porctBonoPorPagoDivisa);
             _formaPago.setActivarBonoPorPagoDivsa(true);
+            _formaPago.setActivarModoSoloFormasPagoConMonedaLocal(false);
+            _formaPago.setClienteEntidad(_cliente);
+            _formaPago.setDesctoDado(2m);
             _formaPago.Inicia();
         }
     }

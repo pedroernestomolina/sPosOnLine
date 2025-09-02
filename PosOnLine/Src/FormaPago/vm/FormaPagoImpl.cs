@@ -14,6 +14,7 @@ namespace PosOnLine.Src.FormaPago.vm
     {
         private IAplicarBono _aplicarBono;
         private FormaPago.Domain.UseCase.IUseCase _useCase;
+        private FormaPago.Domain.ReglaNegocio.IReglas _reglaNegocio;
         private FormaPago.Domain.Models.MyData _myData;
         private FormaPago.Domain.Models.Moneda _monedaLocal;
         private FormaPago.Domain.Models.Moneda _monedaReferencia;
@@ -35,6 +36,13 @@ namespace PosOnLine.Src.FormaPago.vm
         private bool _isPendiente;
         private bool _activarBonoPorPagoDivisa;
         private bool _estatusBonoPorPagoDivisa;
+        private bool _modoSoloFormasPagoConMonedaLocal;
+        private decimal _porctDsctoDado;
+        private Domain.Models.Cliente _clienteData;
+        private decimal _totalMontoPorPagarDivisa;
+        private decimal _totalMontoPorPagarLocal;
+        private decimal _montoDsctoMonReferencia;
+        private FormaPagoDscto.vm.IDscto _dsctoImpl;
         //
         public object Get_MedioPagoSource { get { return _ctrlMedioPago.GetSource; } }
         public string Get_MedioPagoId { get { return _ctrlMedioPago.GetId; } }
@@ -50,6 +58,13 @@ namespace PosOnLine.Src.FormaPago.vm
         public bool IsCuentaPendiente { get { return _isPendiente; } }
         public bool EstatusBonoPagoPorDivisa { get { return _estatusBonoPorPagoDivisa; } }
         public decimal MontoMaxIngresarPagoDivisa { get { return _montoIngresar; } }
+        public decimal Get_PorctBono { get { return _porctBono; } }
+        public decimal Get_TasaFactorCambio { get { return _factorCambio; } }
+        public string Get_ClienteData { get { return _clienteData==null ? "" : _clienteData.Descripcion; } }
+        public decimal Get_TotalPagarMonLocal { get { return _totalMontoPorPagarLocal; } }
+        public decimal Get_TotalPagarMonDivisa { get { return _totalMontoPorPagarDivisa; } }
+        public decimal Get_PorctDesctoDado { get { return _porctDsctoDado; } }
+        public bool Get_DsctActivo { get { return _porctDsctoDado>0m; } }
         //
         public FormaPagoImpl()
         {
@@ -74,6 +89,8 @@ namespace PosOnLine.Src.FormaPago.vm
             _montoPendCambioMonReferencia = 0m;
             _isPendiente = true;
             _estatusBonoPorPagoDivisa = false;
+            _dsctoImpl = new FormaPagoDscto.vm.DsctoImpl();
+            _reglaNegocio = new FormaPago.Domain.ReglaNegocio.ReglasImpl(_useCase);
         }
         public void Inicializa()
         {
@@ -84,6 +101,7 @@ namespace PosOnLine.Src.FormaPago.vm
         {
             if (cargarData())
             {
+                recalculaMontoPorPagarDivisa();
                 refrescarMontos();
                 actualizaPendiente();
                 if (frm == null)
@@ -99,9 +117,9 @@ namespace PosOnLine.Src.FormaPago.vm
         {
             try
             {
-                _myData.setMediosPago(_useCase.CargarMediosPagoUseCase());
-                _monedaLocal=_useCase.CargarMonedaLocal();
-                _monedaReferencia= _useCase.CargarMonedaReferencia();
+                _monedaLocal = _useCase.CargarMonedaLocal();
+                _monedaReferencia = _useCase.CargarMonedaReferencia();
+                _myData.setMediosPago(chequearUsoSoloMonedaLocal(_useCase.CargarMediosPagoUseCase()));
                 _medioPagoPorBonoDivisa= _useCase.CargarMedioPagoPorBonoDivisa();
                 _miConvertidor.TasaCambio.Clear();
                 _miConvertidor.TasaCambio.Add(_monedaLocal.codigo, _factorCambio);
@@ -125,6 +143,7 @@ namespace PosOnLine.Src.FormaPago.vm
                 if (_isPendiente)
                 {
                     _montoIngresar = 0m;
+                    var _montoSolicitar = _montoPendCambioMonReferencia;
                     if (_myData.medioPagoSeleccionado.aplicaBonoPagoDivisa)
                     {
                         if (_estatusBonoPorPagoDivisa)
@@ -134,13 +153,15 @@ namespace PosOnLine.Src.FormaPago.vm
                                 montoTotalDivisa = _montoPendCambioMonReferencia,
                                 porctBono = _porctBono,
                             };
-                            _montoIngresar = _aplicarBono.calcularMaxMontoPagarDivisa(data);
+                            _montoSolicitar = _aplicarBono.calcularMaxMontoPagarDivisa(data);
                         }
                     }
-                    else
+                    var _aConvertir = new __.ConvertidorMonedas.Monto()
                     {
-                        _montoIngresar = _montoPendCambioMonLocal;
-                    }
+                        cantidad = _montoSolicitar,
+                        codigoMoneda = _monedaReferencia.codigo,
+                    };
+                    _montoIngresar = _miConvertidor.Convertir(_aConvertir, _myData.medioPagoSeleccionado.codigoCurrencies);
                 }
             }
         }
@@ -154,11 +175,11 @@ namespace PosOnLine.Src.FormaPago.vm
         }
         public void setMontoPorPagarMonLocal(decimal monto)
         {
-            _montoPorPagarLocal = Math.Round(monto, 2, MidpointRounding.AwayFromZero);
+            _totalMontoPorPagarLocal = Math.Round(monto, 2, MidpointRounding.AwayFromZero);
         }
         public void setMontoPorPagarMonDivisa(decimal monto)
         {
-            _montoPorPagarDivisa = Math.Round(monto, 2, MidpointRounding.AwayFromZero);
+            _totalMontoPorPagarDivisa = Math.Round(monto, 2, MidpointRounding.AwayFromZero);
         }
         public void setPorctBono(decimal porctBono)
         {
@@ -168,6 +189,18 @@ namespace PosOnLine.Src.FormaPago.vm
         {
             _activarBonoPorPagoDivisa = modo;
             _estatusBonoPorPagoDivisa = modo;
+        }
+        public void setActivarModoSoloFormasPagoConMonedaLocal(bool modo)
+        {
+            _modoSoloFormasPagoConMonedaLocal = modo;
+        }
+        public void setClienteEntidad(Domain.Models.Cliente data)
+        {
+            _clienteData = data;
+        }
+        public void setDesctoDado(decimal porct)
+        {
+            _porctDsctoDado = porct;
         }
         //
         public void agregarMedioPago()
@@ -207,11 +240,16 @@ namespace PosOnLine.Src.FormaPago.vm
                     cantidad = _montoIngresar,
                     codigoMoneda = _myData.medioPagoSeleccionado.codigoCurrencies,
                 };
-                var montoLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
-                montoLocal = Math.Round(montoLocal, 2, MidpointRounding.AwayFromZero);
-                //
                 var montoDivisa = _miConvertidor.Convertir(monto, _monedaReferencia.codigo);
                 montoDivisa = Math.Round(montoDivisa, 2, MidpointRounding.AwayFromZero);
+                //
+                monto = new __.ConvertidorMonedas.Monto()
+                {
+                    cantidad = montoDivisa,
+                    codigoMoneda = _monedaReferencia.codigo ,
+                };
+                var montoLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
+                montoLocal = Math.Round(montoLocal, 2, MidpointRounding.AwayFromZero);
                 //
                 if (_myData.medioPagoSeleccionado.aplicaBonoPagoDivisa)
                 {
@@ -268,13 +306,34 @@ namespace PosOnLine.Src.FormaPago.vm
             bonoAplica();
             actualizaPendiente();
         }
-        public void ApagarEncenderBonoPorPagoDivsa()
+        public void apagarEncenderBonoPorPagoDivsa()
         {
             if (_activarBonoPorPagoDivisa) 
             {
                 _estatusBonoPorPagoDivisa = !_estatusBonoPorPagoDivisa;
                 bonoAplica();
                 refrescarMontos();
+            }
+        }
+        public void dsctoDar()
+        {
+            if (!_reglaNegocio.ParaDarDescuento())
+            {
+                return;
+            }
+            _dsctoImpl.Inicializa();
+            _dsctoImpl.setDsctoDar(_porctDsctoDado);
+            _dsctoImpl.Inicia();
+            if (_dsctoImpl.procesarFichaIsOK)
+            {
+                _porctDsctoDado = _dsctoImpl.Get_DsctoDado;
+                recalculaMontoPorPagarDivisa();
+            }
+        }
+        public void ctaCredito()
+        {
+            if (_reglaNegocio.ParaDejarlaACredito(_clienteData.id))
+            {
             }
         }
         //
@@ -325,6 +384,30 @@ namespace PosOnLine.Src.FormaPago.vm
                 _montoPendCambioMonLocal = _monRecaudadoLocal - _montoPorPagarLocal;
                 _montoPendCambioMonReferencia = _monRecaudadoReferencia - _montoPorPagarDivisa;
             }
+        }
+        private List<Domain.Models.MedioPago> chequearUsoSoloMonedaLocal(List<Domain.Models.MedioPago> list)
+        {
+            var _lst = list;
+            if (_modoSoloFormasPagoConMonedaLocal)
+            {
+                _lst = _lst.Where(w => w.codigoCurrencies == _monedaLocal.codigo).ToList();
+            }
+            return _lst;
+        }
+        private void recalculaMontoPorPagarDivisa()
+        {
+            _montoPorPagarDivisa = _totalMontoPorPagarDivisa;
+            _montoDsctoMonReferencia = (_porctDsctoDado / 100m) * _montoPorPagarDivisa;
+            _montoPorPagarDivisa -= _montoDsctoMonReferencia;
+            _montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, 2, MidpointRounding.AwayFromZero);
+            //
+            var _aConvertir = new __.ConvertidorMonedas.Monto()
+            {
+                cantidad = _montoPorPagarDivisa,
+                codigoMoneda = _monedaReferencia.codigo,
+            };
+            _montoPorPagarLocal = _miConvertidor.Convertir(_aConvertir, _monedaLocal.codigo);
+            refrescarMontos();
         }
     }
 }

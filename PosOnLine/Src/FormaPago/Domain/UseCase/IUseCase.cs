@@ -13,5 +13,6 @@ namespace PosOnLine.Src.FormaPago.Domain.UseCase
         Models.Moneda CargarMonedaLocal();
         Models.Moneda CargarMonedaReferencia();
         Models.MedioPago CargarMedioPagoPorBonoDivisa();
+        bool CargarEstatusCreditoCliente(string idCliente);
     }
 }
