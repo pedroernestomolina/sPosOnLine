@@ -5,11 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Src.Pago.ZUFU
+namespace PosOnLine.Src.FormaPagoLoteRef.vm
 {
-    public interface IProcesarZufu: IProcesar
+    public interface IVista: IGestion
     {
-        void Test();
-        void FormaPago();
     }
 }

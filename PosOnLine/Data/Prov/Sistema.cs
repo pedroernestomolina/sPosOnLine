@@ -122,23 +122,28 @@ namespace PosOnLine.Data.Prov
             Sistema_MedioPago_GetFichaById(string id)
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Sistema.MedioPago.Entidad.Ficha>();
-
-            var r01 = MyData.MedioPago_GetFichaById(id);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                var r01 = MyData.MedioPago_GetFichaById(id);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                var ent = r01.Entidad;
+                result.Entidad = new OOB.Sistema.MedioPago.Entidad.Ficha()
+                {
+                    id = ent.idMp,
+                    codigo = ent.codigoMp,
+                    nombre = ent.nombreMp,
+                };
             }
-
-            var ent = r01.Entidad;
-            result.Entidad = new OOB.Sistema.MedioPago.Entidad.Ficha()
+            catch (Exception e)
             {
-                id = ent.id,
-                codigo = ent.codigo,
-                nombre = ent.nombre,
-            };
-
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return result;
         }
         public OOB.Resultado.FichaEntidad<string> 
@@ -161,7 +166,7 @@ namespace PosOnLine.Data.Prov
             Sistema_MedioPago_GetLista(OOB.Sistema.MedioPago.Lista.Filtro filtro)
         {
             var result = new OOB.Resultado.Lista<OOB.Sistema.MedioPago.Entidad.Ficha>();
-
+            /*
             var filtroDTO = new DtoLibPos.MedioPago.Lista.Filtro() { };
             var r01 = MyData.MedioPago_GetLista(filtroDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
@@ -190,6 +195,7 @@ namespace PosOnLine.Data.Prov
             }
             result.ListaD=lst;
 
+             */
             return result;
         }
         public OOB.Resultado.Lista<OOB.Sistema.TipoDocumento.Entidad.Ficha> 

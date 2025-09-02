@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>10.10.100.155</Instancia>
+    <Instancia>10.10.100.131</Instancia>
     <Catalogo>zufu</Catalogo>
   </Servidor>
-  <IdEquipo>8</IdEquipo>
+  <IdEquipo>4</IdEquipo>
   <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
   <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
   <SerieFactura>1</SerieFactura> 
@@ -14,7 +14,7 @@
   <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
   <ModoImpresionNCredito>T80</ModoImpresionNCredito>
   <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
-  <ActivarModoSoloDocPendiente>no</ActivarModoSoloDocPendiente>
+  <ActivarModoSoloDocPendiente>NO</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>SI</HabilitarAbrirDocPendOtrosUsuarios>
   <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>

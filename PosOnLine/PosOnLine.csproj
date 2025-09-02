@@ -101,6 +101,7 @@
     <Compile Include="Data\Infra\IDocumento.cs" />
     <Compile Include="Data\Infra\IDocumento_Agregar.cs" />
     <Compile Include="Data\Infra\IJornada.cs" />
+    <Compile Include="Data\Infra\IMediosPago.cs" />
     <Compile Include="Data\Infra\IMovCaja.cs" />
     <Compile Include="Data\Infra\IPedido.cs" />
     <Compile Include="Data\Infra\IPendiente.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Data\Prov\Documento_Agregar_NotaCredito.cs" />
     <Compile Include="Data\Prov\Documento_Agregar_NotaEntrega.cs" />
     <Compile Include="Data\Prov\Jornada.cs" />
+    <Compile Include="Data\Prov\MediosPago.cs" />
     <Compile Include="Data\Prov\MovCaja.cs" />
     <Compile Include="Data\Prov\Pedido_GetIdBy_Numero.cs" />
     <Compile Include="Data\Prov\Pedido_Guardar.cs" />
@@ -323,6 +325,8 @@
     <Compile Include="OOB\Documento\Entidad\FichaPrecio.cs" />
     <Compile Include="OOB\Documento\Lista\Ficha.cs" />
     <Compile Include="OOB\Documento\Lista\Filtro.cs" />
+    <Compile Include="OOB\MediosPago\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Moneda\Entidad\Ficha.cs" />
     <Compile Include="OOB\MovCaja\Anular\Ficha.cs" />
     <Compile Include="OOB\MovCaja\Entidad\Detalle.cs" />
     <Compile Include="OOB\MovCaja\Entidad\Ficha.cs" />
@@ -515,6 +519,34 @@
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
+    <Compile Include="Src\FormaPagoLoteRef\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\FormaPagoLoteRef\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\FormaPagoLoteRef\vm\ILoteRef.cs" />
+    <Compile Include="Src\FormaPagoLoteRef\vm\IVista.cs" />
+    <Compile Include="Src\FormaPagoLoteRef\vm\LoteRefImpl.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\FormaPago.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\MedioPago.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\Moneda.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\MyData.cs" />
+    <Compile Include="Src\FormaPago\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\FormaPago\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\FormaPago\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\FormaPago\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\FormaPago\vm\AplicarBonoImpl.cs" />
+    <Compile Include="Src\FormaPago\vm\CtrlMedioPagoImpl.cs" />
+    <Compile Include="Src\FormaPago\vm\FormaPagoImpl.cs" />
+    <Compile Include="Src\FormaPago\vm\IAplicarBono.cs" />
+    <Compile Include="Src\FormaPago\vm\ICtrlMedioPago.cs" />
+    <Compile Include="Src\FormaPago\vm\IFormaPago.cs" />
+    <Compile Include="Src\FormaPago\vm\IVista.cs" />
     <Compile Include="Src\ILista_SeleccionItem.cs" />
     <Compile Include="Src\Pago\dataRecolectar.cs" />
     <Compile Include="Src\Pago\IPago.cs" />
@@ -644,6 +676,7 @@
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IVista.cs" />
     <Compile Include="Src\Zufu\IPosZufuCliente.cs" />
     <Compile Include="Src\Zufu\ListaPorPlu\Imp.cs" />
+    <Compile Include="Src\_\ConvertidorMonedas\Convertidor.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\Imp.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\IAbandonar.cs" />
     <Compile Include="Src\_\Ctrl\Boton\baseImp.cs" />
@@ -1007,6 +1040,12 @@
       <DependentUpon>HistoriaFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Consultor\ModoAdm\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\FormaPagoLoteRef\vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\FormaPago\vista\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\MovCaja\Adm\AdmFrm.resx">

@@ -318,5 +318,10 @@ namespace PosOnLine.Src.Pago.ZUFU.vistas
         {
             this.Close();
         }
+
+        private void BT_MP_Click(object sender, EventArgs e)
+        {
+            _controlador.FormaPago();
+        }
     }
 }

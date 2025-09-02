@@ -301,5 +301,22 @@ namespace PosOnLine.Src.Pago.ZUFU
             _porctBonoPorPagoDivisa = porct;
             _pago.setPorctBonoPorPagoDivisa(porct);
         }
+
+        //
+        PosOnLine.Src.FormaPago.vm.IFormaPago _formaPago;
+        public void FormaPago()
+        {
+            if (_formaPago == null) 
+            {
+                _formaPago = new PosOnLine.Src.FormaPago.vm.FormaPagoImpl();
+            }
+            _formaPago.Inicializa();
+            _formaPago.setFactorCambio(_factorCambio);
+            _formaPago.setMontoPorPagarMonLocal(MontoPagar);
+            _formaPago.setMontoPorPagarMonDivisa(MontoPagarDivisa);
+            _formaPago.setPorctBono(_porctBonoPorPagoDivisa);
+            _formaPago.setActivarBonoPorPagoDivsa(true);
+            _formaPago.Inicia();
+        }
     }
 }

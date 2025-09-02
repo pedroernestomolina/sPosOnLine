@@ -42,5 +42,13 @@ namespace PosOnLine.Data.Infra
         //
         OOB.Resultado.FichaEntidad<decimal>
             Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa();
+
+        //
+        OOB.Resultado.FichaEntidad<OOB.Moneda.Entidad.Ficha>
+            Configuracion_MonedaLocal();
+        OOB.Resultado.FichaEntidad<OOB.Moneda.Entidad.Ficha>
+            Configuracion_MonedaReferencia();
+        OOB.Resultado.FichaEntidad<OOB.MediosPago.Entidad.Ficha>
+            Configuracion_MedioPagoPorPagoBonoDivisa();
     }
 }

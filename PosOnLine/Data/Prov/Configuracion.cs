@@ -413,5 +413,92 @@ namespace PosOnLine.Data.Prov
             //
             return result;
         }
+
+        //
+        public OOB.Resultado.FichaEntidad<OOB.Moneda.Entidad.Ficha> 
+            Configuracion_MonedaLocal()
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Moneda.Entidad.Ficha>();
+            //
+            try
+            {
+                var r01 = MyData.Configuracion_MonedaLocal();
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                if (r01.Entidad ==null)
+                {
+                    throw new Exception("PROBLEMA AL CARGAR ENTIDAD");
+                }
+                var s= r01.Entidad;
+                result.Entidad = new OOB.Moneda.Entidad.Ficha()
+                {
+                    codigo = s.codigo,
+                    id = s.id,
+                    nombre = s.nombre,
+                    simbolo = s.simbolo,
+                };
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
+        public OOB.Resultado.FichaEntidad<OOB.Moneda.Entidad.Ficha> 
+            Configuracion_MonedaReferencia()
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.Moneda.Entidad.Ficha>();
+            //
+            try
+            {
+                var r01 = MyData.Configuracion_MonedaReferencia();
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                if (r01.Entidad == null)
+                {
+                    throw new Exception("PROBLEMA AL CARGAR ENTIDAD");
+                }
+                var s = r01.Entidad;
+                result.Entidad = new OOB.Moneda.Entidad.Ficha()
+                {
+                    codigo = s.codigo,
+                    id = s.id,
+                    nombre = s.nombre,
+                    simbolo = s.simbolo,
+                };
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
+        public OOB.Resultado.FichaEntidad<OOB.MediosPago.Entidad.Ficha> 
+            Configuracion_MedioPagoPorPagoBonoDivisa()
+        {
+            var result = new OOB.Resultado.FichaEntidad<OOB.MediosPago.Entidad.Ficha>();
+            //
+            try
+            {
+                var r01 = MyData.Configuracion_MedioPagoPorPagoBonoDivisa();
+                var id = r01.Entidad.Trim();
+                return MedioPago_GetFichaById(id);
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
     }
 }

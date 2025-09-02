@@ -5,11 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Src.Pago.ZUFU
+namespace PosOnLine.Src.FormaPago.vm
 {
-    public interface IProcesarZufu: IProcesar
+    public interface ICtrlMedioPago: __.Ctrl.Seleccion.Combo.ICombo
     {
-        void Test();
-        void FormaPago();
     }
 }
