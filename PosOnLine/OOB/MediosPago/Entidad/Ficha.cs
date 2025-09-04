@@ -20,5 +20,6 @@ namespace PosOnLine.OOB.MediosPago.Entidad
         public string simboloCurrencies { get; set; }
         public bool aplicaLoteRef { get; set; }
         public bool aplicaBonoPagoDivisa { get; set; }
+        public bool aplicaIGTF { get; set; }
     }
 }

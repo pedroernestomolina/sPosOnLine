@@ -15,11 +15,14 @@ namespace PosOnLine.Src.__.ConvertidorMonedas
     public class Convertidor
     {
         public Dictionary<string, decimal> TasaCambio { get; set; }
+        //
         public Convertidor()
         {
             TasaCambio = new Dictionary<string, decimal>();
         }
-        public decimal Convertir(Monto monto, string codigoMoneda) 
+        //
+        public decimal 
+            Convertir(Monto monto, string codigoMoneda) 
         {
             try
             {
@@ -42,6 +45,15 @@ namespace PosOnLine.Src.__.ConvertidorMonedas
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+        public void 
+            setTasas(List<FormaPago.Domain.Models.Moneda> list)
+        {
+            TasaCambio.Clear();
+            foreach (var it in list) 
+            {
+                TasaCambio.Add(it.codigo, it.tasaRespectoMonReferencia);
             }
         }
     }

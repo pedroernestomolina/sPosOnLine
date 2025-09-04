@@ -34,6 +34,7 @@ namespace PosOnLine.Src.FormaPago.Domain.UseCase
                     simboloCurrencies = s.simboloCurrencies,
                     aplicaLoteRef = s.aplicaLoteRef,
                     aplicaBonoPagoDivisa= s.aplicaBonoPagoDivisa,
+                    aplicaIGTF= s.aplicaIGTF,
                 };
                 return nr;
             }).ToList();
@@ -137,6 +138,64 @@ namespace PosOnLine.Src.FormaPago.Domain.UseCase
             rt = result.Entidad;
             //
             return rt;
+        }
+        public Models.ConfiguracionIGTF 
+            CargarConfiguracionIGTF()
+        {
+            var rt = new Models.ConfiguracionIGTF();
+            //
+            var result= Sistema.MyData.Configuracion_IGTF();
+            if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(result.Mensaje);
+            }
+            if (result.Entidad == null)
+            {
+                throw new Exception("PROBLEMA AL CARGAR DATA");
+            }
+            rt = new Models.ConfiguracionIGTF()
+            {
+                aplica = result.Entidad.ActivarIGTF,
+                tasa = result.Entidad.TasaIGTF,
+            };
+            //
+            return rt;
+        }
+        public List<Models.Moneda> 
+            CargarMonedas()
+        {
+            var rt = new List<Models.Moneda>();
+            //
+            var result = Sistema.MyData.Moneda_GetLista();
+            if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(result.Mensaje);
+            }
+            rt = result.ListaD.Select(s =>
+                {
+                    var nr = new Models.Moneda()
+                    {
+                        codigo = s.codigo,
+                        id = s.id,
+                        nombre = s.nombre,
+                        simbolo = s.simbolo,
+                        tasaRespectoMonReferencia = s.tasaRespectoMonReferencia,
+                    };
+                    return nr;
+                }).ToList();
+            //
+            return rt;
+        }
+        public bool
+            CargarConfiguracionBonoPorPagoDivisa()
+        {
+            var r01 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(r01.Mensaje);
+            }
+            //
+            return r01.Entidad;
         }
     }
 }

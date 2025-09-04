@@ -327,7 +327,7 @@ namespace PosOnLine.Src.Pago.ZUFU
             _formaPago.setActivarBonoPorPagoDivsa(true);
             _formaPago.setActivarModoSoloFormasPagoConMonedaLocal(false);
             _formaPago.setClienteEntidad(_cliente);
-            _formaPago.setDesctoDado(2m);
+            _formaPago.setDesctoDado(0m);
             _formaPago.Inicia();
         }
     }

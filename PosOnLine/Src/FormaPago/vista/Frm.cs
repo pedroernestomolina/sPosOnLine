@@ -134,7 +134,13 @@ namespace PosOnLine.Src.FormaPago.vista
             L_TOTAL_PAGAR_MON_REFERENCIA.Text = _controlador.Get_TotalPagarMonDivisa.ToString("n2") + _controlador.Get_SimboloMonedaReferencia;
             //
             L_PORCT_DSCT_DADO.Text = _controlador.Get_PorctDesctoDado.ToString("n2");
+            L_MONTO_DSCTO.Text = _controlador.Get_MontoDscto.ToString("n2");
             P_DSCTO_ACTIVO.Visible = _controlador.Get_DsctActivo;
+            //
+            L_PORCT_IGTF_APLICAR.Text = _controlador.Get_PorctIGTFAplicar.ToString("n2");
+            L_IGTF_BASE_APLICA.Text = _controlador.Get_BaseAplicarIGTF.ToString("n2");
+            L_IGTF_MONTO.Text = _controlador.GetMontoIGTF.ToString("N2");
+            P_IGTF_ACTIVO.Visible = _controlador.Get_IGTFActivo;
             //
             _modoInicio = false;
         }
@@ -191,6 +197,10 @@ namespace PosOnLine.Src.FormaPago.vista
                 DGV.Refresh();
             }
         }
+        private void BT_LIMPIAR_METO_PAGO_ACTUAL_Click(object sender, EventArgs e)
+        {
+            LimpiarMetodoPagoActual();
+        }
         private void BT_LIMPIAR_Click(object sender, EventArgs e)
         {
             Limpiar();
@@ -240,6 +250,15 @@ namespace PosOnLine.Src.FormaPago.vista
             var _monRestaMonRef = _controlador.Get_MontoRestaCambioMonReferencia.ToString("n2") + _controlador.Get_SimboloMonedaReferencia;
             L_MONTO_RESTA_CAMBIO_MON_LOCAL.Text = _monRestaMonLocal;
             L_MONTO_RESTA_CAMBIO_MON_REFERENCIA.Text = _monRestaMonRef;
+            //
+            L_IGTF_BASE_APLICA.Text = _controlador.Get_BaseAplicarIGTF.ToString("n2");
+            L_IGTF_MONTO.Text = _controlador.GetMontoIGTF.ToString("N2");
+            P_IGTF_ACTIVO.Visible = _controlador.Get_IGTFActivo;
+        }
+        private void LimpiarMetodoPagoActual()
+        {
+            TB_MONTO_INGRESADO.Text = "";
+            CB_MEDIO_PAGO.SelectedIndex = -1;
         }
         private void Limpiar() 
         {
@@ -263,6 +282,7 @@ namespace PosOnLine.Src.FormaPago.vista
             actualizaMontoBono();
             actualizaMontoRestaCambio();
             L_PORCT_DSCT_DADO.Text = _controlador.Get_PorctDesctoDado.ToString("n2");
+            L_MONTO_DSCTO.Text = _controlador.Get_MontoDscto.ToString("n2");
             P_DSCTO_ACTIVO.Visible = _controlador.Get_DsctActivo;
         }
         private void CtaCredito()

@@ -229,279 +229,286 @@ namespace PosOnLine.Src.Pos
         private bool CargarData()
         {
             var rt = true;
-
-            var r01 = Sistema.MyData.Configuracion_FactorDivisa();
-            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            try
             {
-                Helpers.Msg.Error(r01.Mensaje);
-                return false;
-            }
-
-            var r02 = Sistema.MyData.Deposito_GetFichaById(Sistema.ConfiguracionActual.idDeposito);
-            if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02.Mensaje);
-                return false;
-            }
-            var r02_1 = Sistema.MyData.Concepto_GetFichaById(Sistema.ConfiguracionActual.idConceptoVenta);
-            if (r02_1.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_1.Mensaje);
-                return false;
-            }
-            var r02_2 = Sistema.MyData.Concepto_GetFichaById(Sistema.ConfiguracionActual.idConceptoDevVenta);
-            if (r02_2.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_2.Mensaje);
-                return false;
-            }
-            var r02_3 = Sistema.MyData.Sistema_TipoDocumento_GetFichaById(Sistema.ConfiguracionActual.idTipoDocumentoVenta);
-            if (r02_3.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_3.Mensaje);
-                return false;
-            }
-            var r02_4 = Sistema.MyData.Sistema_TipoDocumento_GetFichaById(Sistema.ConfiguracionActual.idTipoDocumentoDevVenta);
-            if (r02_4.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_4.Mensaje);
-                return false;
-            }
-            var r02_5 = Sistema.MyData.Sistema_TipoDocumento_GetFichaById(Sistema.ConfiguracionActual.idTipoDocumentoNotaEntrega);
-            if (r02_5.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_5.Mensaje);
-                return false;
-            }
-            var r02_6 = Sistema.MyData.Sucursal_GetFichaById(Sistema.ConfiguracionActual.idSucursal);
-            if (r02_6.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_6.Mensaje);
-                return false;
-            }
-            var r02_7 = Sistema.MyData.Vendedor_GetFichaById(Sistema.ConfiguracionActual.idVendedor);
-            if (r02_7.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_7.Mensaje);
-                return false;
-            }
-            _vendedorPorDefecto = r02_7.Entidad;
-            var r02_8 = Sistema.MyData.Sistema_Serie_GetFichaBySerie(Sistema.SerieFactura);
-            if (r02_8.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_8.Mensaje);
-                return false;
-            }
-            var r02_9 = Sistema.MyData.Sistema_Serie_GetFichaBySerie(Sistema.SerieNCredito);
-            if (r02_9.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_9.Mensaje);
-                return false;
-            }
-            var r02_A = Sistema.MyData.Sistema_Serie_GetFichaBySerie(Sistema.SerieNEntrega);
-            if (r02_A.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_A.Mensaje);
-                return false;
-            }
-            var r02_B = Sistema.MyData.Sistema_Transporte_GetFichaById(Sistema.ConfiguracionActual.idTransporte);
-            if (r02_B.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_B.Mensaje);
-                return false;
-            }
-            var r02_C = Sistema.MyData.Sistema_Fiscal_GetTasas(new OOB.Sistema.TasaFiscal.Listar.Filtro());
-            if (r02_C.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_C.Mensaje);
-                return false;
-            }
-            var r02_D = Sistema.MyData.Sistema_Cobrador_GetFichaById(Sistema.ConfiguracionActual.idCobrador);
-            if (r02_D.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_D.Mensaje);
-                return false;
-            }
-            var r02_E = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoEfectivo);
-            if (r02_E.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_E.Mensaje);
-                return false;
-            }
-            var r02_F = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoDivisa);
-            if (r02_F.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_F.Mensaje);
-                return false;
-            }
-            var r02_G = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoElectronico);
-            if (r02_G.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_G.Mensaje);
-                return false;
-            }
-            var r02_H = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoOtros);
-            if (r02_H.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_H.Mensaje);
-                return false;
-            }
-            var r02_I = Sistema.MyData.Sistema_ClaveAcceso_GetByIdNivel(int.Parse(Sistema.ConfiguracionActual.idClaveUsar));
-            if (r02_I.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_I.Mensaje);
-                return false;
-            }
-            var r02_J = Sistema.MyData.Concepto_GetFichaById(Sistema.ConfiguracionActual.idConceptoSalida);
-            if (r02_J.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r02_J.Mensaje);
-                return false;
-            }
-            OOB.Resultado.FichaEntidad<OOB.Sistema.MedioPago.Entidad.Ficha> r02_K;
-            if (Sistema.ConfiguracionActual.idMedioPagoxPagoMovil.Trim() != "")
-            {
-                r02_K = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoxPagoMovil);
-                if (r02_K.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                var r01 = Sistema.MyData.Configuracion_FactorDivisa();
+                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
-                    Helpers.Msg.Error(r02_K.Mensaje);
+                    throw new Exception(r01.Mensaje);
+                }
+
+                var r02 = Sistema.MyData.Deposito_GetFichaById(Sistema.ConfiguracionActual.idDeposito);
+                if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02.Mensaje);
                     return false;
                 }
-                _medioPagoxPagoMovil = r02_K.Entidad;
-            }
-
-            var filtro = new OOB.Venta.Item.Lista.Filtro()
-            {
-                idOperador = Sistema.PosEnUso.id,
-            };
-            var r03 = Sistema.MyData.Venta_Item_GetLista(filtro);
-            if (r03.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r03.Mensaje);
-                return false;
-            }
-
-            var r04 = Sistema.MyData.Configuracion_Habilitar_Precio5_VentaMayor();
-            if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r04.Mensaje);
-                return false;
-            }
-
-            var r05 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
-            if (r05.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r05.Mensaje);
-                return false;
-            }
-            _habilitarBonoPagoDivisa = r05.Entidad;
-            //var r06 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
-            //if (r06.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            //{
-            //    Helpers.Msg.Error(r06.Mensaje);
-            //    return false;
-            //}
-            //_dsctoBonoPagoDivisa = r06.Entidad;
-            var r066 = Sistema.MyData.Configuracion_TasaCambioSistema();
-            if (r066.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r066.Mensaje);
-                return false;
-            }
-            if (r066.Entidad > 0) 
-            {
-                //CALCULO BONO PORCT = (1-(TASA_BCV/TASA_PARALELA))*100
-                _dsctoBonoPagoDivisa = (1 - (r01.Entidad / r066.Entidad)) * 100;
-            }
-            _tasaCambioSistema = r066.Entidad;
-
-            var r07 = Sistema.MyData.Configuracion_IGTF();
-            if (r07.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r07.Mensaje);
-                return false;
-            }
-            _activarIGTF = r07.Entidad.ActivarIGTF;
-            _tasaIGTF = r07.Entidad.TasaIGTF;
-
-            var r08 = Sistema.MyData.Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa();
-            if (r08.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-            {
-                Helpers.Msg.Error(r08.Mensaje);
-                return false;
-            }
-            _porcAumentoPrdNoAdmDivisa = r08.Entidad;
-
-
-            _permitirBusquedaPorDescripcion = Sistema.ConfiguracionActual.BusquedaPorDescripcion_Activa;
-            _tasaCambioActual = r01.Entidad;
-            _depositoAsignado = r02.Entidad;
-            _conceptoVenta = r02_1.Entidad;
-            _conceptoDevVenta = r02_2.Entidad;
-            _tipoDocumentoVenta = r02_3.Entidad;
-            _tipoDocumentoDevVenta = r02_4.Entidad;
-            _tipoDocumentoNotaEntrega = r02_5.Entidad;
-            _sucursalAsignada = r02_6.Entidad;
-            _vendedorAsignado = r02_7.Entidad;
-            _serieFactura = r02_8.Entidad;
-            _serieNotaCredito = r02_9.Entidad;
-            _serieNotaEntrega = r02_A.Entidad;
-            _transporteAsignado = r02_B.Entidad;
-            _tasaFiscal_1 = r02_C.ListaD.FirstOrDefault(f => f.codTasa == 1);
-            _tasaFiscal_2 = r02_C.ListaD.FirstOrDefault(f => f.codTasa == 2);
-            _tasaFiscal_3 = r02_C.ListaD.FirstOrDefault(f => f.codTasa == 3);
-            _cobradorAsignado = r02_D.Entidad;
-            _medioPagoEfectivo = r02_E.Entidad;
-            _medioPagoDivisa = r02_F.Entidad;
-            _medioPagoElectronico = r02_G.Entidad;
-            _medioPagoOtro = r02_H.Entidad;
-            _claveAcceso = r02_I.Entidad;
-            _conceptoSalida = r02_J.Entidad;
-
-            switch (Sistema.ConfiguracionActual.EnumModoPrecio)
-            {
-                case OOB.Configuracion.Entidad.Enumerados.enumModoPrecio.PorTipoNegocio:
-                    _precioManejar = _sucursalAsignada.idPrecioManejar.ToString();
-                    break;
-                case OOB.Configuracion.Entidad.Enumerados.enumModoPrecio.PorPrecioFijo:
-                    _precioManejar = Sistema.ConfiguracionActual.idPrecioManejar;
-                    break;
-                case OOB.Configuracion.Entidad.Enumerados.enumModoPrecio.Libre:
-                    _precioManejar = "";
-                    break;
-            }
-
-
-            Helpers.PassWord.setClave(_claveAcceso);
-            _gestionBuscar.setDepositoAsignado(_depositoAsignado);
-            _gestionBuscar.setTarifaPrecio(_precioManejar);
-            _gestionConsultor.setTarifaPrecio(_precioManejar);
-            _gestionItem.Inicializar();
-            _gestionItem.setDepositoAsignado(_depositoAsignado);
-            _gestionItem.setTarifaPrecio(_precioManejar);
-            _gestionItem.setValidarExistencia(Sistema.ConfiguracionActual.ValidarExistencia_Activa);
-            _gestionItem.setHabilitarPrecio5VentaMayor(r04.Entidad);
-            if (!IsNotaCredito)
-            {
-                _gestionItem.setData(r03.ListaD, _tasaCambioActual);
-            }
-            else
-            {
-                _gestionItem.setData(_docAplicarNotaCredito.items, _tasaCambioActual);
-                _clienteFicha = null;
-                var v00 = Sistema.MyData.Cliente_GetFicha(_docAplicarNotaCredito.AutoCliente);
-                if (v00.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                var r02_1 = Sistema.MyData.Concepto_GetFichaById(Sistema.ConfiguracionActual.idConceptoVenta);
+                if (r02_1.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
-                    Helpers.Msg.Error(v00.Mensaje);
+                    Helpers.Msg.Error(r02_1.Mensaje);
                     return false;
                 }
-                v00.Entidad.CiRif = _docAplicarNotaCredito.CiRif;
-                v00.Entidad.Nombre = _docAplicarNotaCredito.RazonSocial;
-                v00.Entidad.DireccionFiscal = _docAplicarNotaCredito.DirFiscal;
-                _clienteFicha = v00.Entidad;
-                _gestionCliente.CargarFicha(_clienteFicha);
+                var r02_2 = Sistema.MyData.Concepto_GetFichaById(Sistema.ConfiguracionActual.idConceptoDevVenta);
+                if (r02_2.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_2.Mensaje);
+                    return false;
+                }
+                var r02_3 = Sistema.MyData.Sistema_TipoDocumento_GetFichaById(Sistema.ConfiguracionActual.idTipoDocumentoVenta);
+                if (r02_3.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_3.Mensaje);
+                    return false;
+                }
+                var r02_4 = Sistema.MyData.Sistema_TipoDocumento_GetFichaById(Sistema.ConfiguracionActual.idTipoDocumentoDevVenta);
+                if (r02_4.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_4.Mensaje);
+                    return false;
+                }
+                var r02_5 = Sistema.MyData.Sistema_TipoDocumento_GetFichaById(Sistema.ConfiguracionActual.idTipoDocumentoNotaEntrega);
+                if (r02_5.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_5.Mensaje);
+                    return false;
+                }
+                var r02_6 = Sistema.MyData.Sucursal_GetFichaById(Sistema.ConfiguracionActual.idSucursal);
+                if (r02_6.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_6.Mensaje);
+                    return false;
+                }
+                var r02_7 = Sistema.MyData.Vendedor_GetFichaById(Sistema.ConfiguracionActual.idVendedor);
+                if (r02_7.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_7.Mensaje);
+                    return false;
+                }
+                _vendedorPorDefecto = r02_7.Entidad;
+                var r02_8 = Sistema.MyData.Sistema_Serie_GetFichaBySerie(Sistema.SerieFactura);
+                if (r02_8.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_8.Mensaje);
+                    return false;
+                }
+                var r02_9 = Sistema.MyData.Sistema_Serie_GetFichaBySerie(Sistema.SerieNCredito);
+                if (r02_9.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_9.Mensaje);
+                    return false;
+                }
+                var r02_A = Sistema.MyData.Sistema_Serie_GetFichaBySerie(Sistema.SerieNEntrega);
+                if (r02_A.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_A.Mensaje);
+                    return false;
+                }
+                var r02_B = Sistema.MyData.Sistema_Transporte_GetFichaById(Sistema.ConfiguracionActual.idTransporte);
+                if (r02_B.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_B.Mensaje);
+                    return false;
+                }
+                var r02_C = Sistema.MyData.Sistema_Fiscal_GetTasas(new OOB.Sistema.TasaFiscal.Listar.Filtro());
+                if (r02_C.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_C.Mensaje);
+                    return false;
+                }
+                var r02_D = Sistema.MyData.Sistema_Cobrador_GetFichaById(Sistema.ConfiguracionActual.idCobrador);
+                if (r02_D.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_D.Mensaje);
+                    return false;
+                }
+                var r02_E = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoEfectivo);
+                if (r02_E.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_E.Mensaje);
+                    return false;
+                }
+                var r02_F = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoDivisa);
+                if (r02_F.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_F.Mensaje);
+                    return false;
+                }
+                var r02_G = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoElectronico);
+                if (r02_G.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_G.Mensaje);
+                    return false;
+                }
+                var r02_H = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoOtros);
+                if (r02_H.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_H.Mensaje);
+                    return false;
+                }
+                var r02_I = Sistema.MyData.Sistema_ClaveAcceso_GetByIdNivel(int.Parse(Sistema.ConfiguracionActual.idClaveUsar));
+                if (r02_I.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_I.Mensaje);
+                    return false;
+                }
+                var r02_J = Sistema.MyData.Concepto_GetFichaById(Sistema.ConfiguracionActual.idConceptoSalida);
+                if (r02_J.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r02_J.Mensaje);
+                    return false;
+                }
+                OOB.Resultado.FichaEntidad<OOB.Sistema.MedioPago.Entidad.Ficha> r02_K;
+                if (Sistema.ConfiguracionActual.idMedioPagoxPagoMovil.Trim() != "")
+                {
+                    r02_K = Sistema.MyData.Sistema_MedioPago_GetFichaById(Sistema.ConfiguracionActual.idMedioPagoxPagoMovil);
+                    if (r02_K.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                    {
+                        Helpers.Msg.Error(r02_K.Mensaje);
+                        return false;
+                    }
+                    _medioPagoxPagoMovil = r02_K.Entidad;
+                }
+
+                var filtro = new OOB.Venta.Item.Lista.Filtro()
+                {
+                    idOperador = Sistema.PosEnUso.id,
+                };
+                var r03 = Sistema.MyData.Venta_Item_GetLista(filtro);
+                if (r03.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r03.Mensaje);
+                    return false;
+                }
+
+                var r04 = Sistema.MyData.Configuracion_Habilitar_Precio5_VentaMayor();
+                if (r04.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r04.Mensaje);
+                    return false;
+                }
+
+                var r05 = Sistema.MyData.Configuracion_HabilitarDescuentoUnicamenteConPagoEnDivsa();
+                if (r05.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r05.Mensaje);
+                    return false;
+                }
+                _habilitarBonoPagoDivisa = r05.Entidad;
+                //var r06 = Sistema.MyData.Configuracion_ValorMaximoPorcentajeDescuento();
+                //if (r06.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                //{
+                //    Helpers.Msg.Error(r06.Mensaje);
+                //    return false;
+                //}
+                //_dsctoBonoPagoDivisa = r06.Entidad;
+                var r066 = Sistema.MyData.Configuracion_TasaCambioSistema();
+                if (r066.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r066.Mensaje);
+                    return false;
+                }
+                if (r066.Entidad > 0)
+                {
+                    //CALCULO BONO PORCT = (1-(TASA_BCV/TASA_PARALELA))*100
+                    _dsctoBonoPagoDivisa = (1 - (r01.Entidad / r066.Entidad)) * 100;
+                }
+                _tasaCambioSistema = r066.Entidad;
+
+
+                var r07 = Sistema.MyData.Configuracion_IGTF();
+                if (r07.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r07.Mensaje);
+                }
+                _activarIGTF = r07.Entidad.ActivarIGTF;
+                _tasaIGTF = r07.Entidad.TasaIGTF;
+
+
+                var r08 = Sistema.MyData.Configuracion_PorcentajeAumentarEnPreciosDeProductosNoAdministradoPorDivisa();
+                if (r08.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    Helpers.Msg.Error(r08.Mensaje);
+                    return false;
+                }
+                _porcAumentoPrdNoAdmDivisa = r08.Entidad;
+
+
+                _permitirBusquedaPorDescripcion = Sistema.ConfiguracionActual.BusquedaPorDescripcion_Activa;
+                _tasaCambioActual = r01.Entidad;
+                _depositoAsignado = r02.Entidad;
+                _conceptoVenta = r02_1.Entidad;
+                _conceptoDevVenta = r02_2.Entidad;
+                _tipoDocumentoVenta = r02_3.Entidad;
+                _tipoDocumentoDevVenta = r02_4.Entidad;
+                _tipoDocumentoNotaEntrega = r02_5.Entidad;
+                _sucursalAsignada = r02_6.Entidad;
+                _vendedorAsignado = r02_7.Entidad;
+                _serieFactura = r02_8.Entidad;
+                _serieNotaCredito = r02_9.Entidad;
+                _serieNotaEntrega = r02_A.Entidad;
+                _transporteAsignado = r02_B.Entidad;
+                _tasaFiscal_1 = r02_C.ListaD.FirstOrDefault(f => f.codTasa == 1);
+                _tasaFiscal_2 = r02_C.ListaD.FirstOrDefault(f => f.codTasa == 2);
+                _tasaFiscal_3 = r02_C.ListaD.FirstOrDefault(f => f.codTasa == 3);
+                _cobradorAsignado = r02_D.Entidad;
+                _medioPagoEfectivo = r02_E.Entidad;
+                _medioPagoDivisa = r02_F.Entidad;
+                _medioPagoElectronico = r02_G.Entidad;
+                _medioPagoOtro = r02_H.Entidad;
+                _claveAcceso = r02_I.Entidad;
+                _conceptoSalida = r02_J.Entidad;
+
+                switch (Sistema.ConfiguracionActual.EnumModoPrecio)
+                {
+                    case OOB.Configuracion.Entidad.Enumerados.enumModoPrecio.PorTipoNegocio:
+                        _precioManejar = _sucursalAsignada.idPrecioManejar.ToString();
+                        break;
+                    case OOB.Configuracion.Entidad.Enumerados.enumModoPrecio.PorPrecioFijo:
+                        _precioManejar = Sistema.ConfiguracionActual.idPrecioManejar;
+                        break;
+                    case OOB.Configuracion.Entidad.Enumerados.enumModoPrecio.Libre:
+                        _precioManejar = "";
+                        break;
+                }
+
+
+                Helpers.PassWord.setClave(_claveAcceso);
+                _gestionBuscar.setDepositoAsignado(_depositoAsignado);
+                _gestionBuscar.setTarifaPrecio(_precioManejar);
+                _gestionConsultor.setTarifaPrecio(_precioManejar);
+                _gestionItem.Inicializar();
+                _gestionItem.setDepositoAsignado(_depositoAsignado);
+                _gestionItem.setTarifaPrecio(_precioManejar);
+                _gestionItem.setValidarExistencia(Sistema.ConfiguracionActual.ValidarExistencia_Activa);
+                _gestionItem.setHabilitarPrecio5VentaMayor(r04.Entidad);
+                if (!IsNotaCredito)
+                {
+                    _gestionItem.setData(r03.ListaD, _tasaCambioActual);
+                }
+                else
+                {
+                    _gestionItem.setData(_docAplicarNotaCredito.items, _tasaCambioActual);
+                    _clienteFicha = null;
+                    var v00 = Sistema.MyData.Cliente_GetFicha(_docAplicarNotaCredito.AutoCliente);
+                    if (v00.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                    {
+                        Helpers.Msg.Error(v00.Mensaje);
+                        return false;
+                    }
+                    v00.Entidad.CiRif = _docAplicarNotaCredito.CiRif;
+                    v00.Entidad.Nombre = _docAplicarNotaCredito.RazonSocial;
+                    v00.Entidad.DireccionFiscal = _docAplicarNotaCredito.DirFiscal;
+                    _clienteFicha = v00.Entidad;
+                    _gestionCliente.CargarFicha(_clienteFicha);
+                }
+                return true;
             }
-            return rt;
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+                return false;
+            }
         }
 
         private OOB.Cliente.Entidad.Ficha _clienteFicha;
@@ -772,6 +779,8 @@ namespace PosOnLine.Src.Pos
             _gestionItem.setData(r01.ListaD, _tasaCambioActual);
         }
 
+
+
         private IClientePorDefecto _gestionClientePorDefecto;
         public void Totalizar()
         {
@@ -823,6 +832,62 @@ namespace PosOnLine.Src.Pos
                             {
                                 ProcesarFactura();
                             }
+
+
+
+                            //NUEVO METODO PARA FORMAS DE PAGO
+                            var _importeMonLocal = _gestionItem.Importe;
+                            var _importeMonRef=_gestionItem.ImporteDivisa;
+                            var _porcBono = CalculoNuevoPorcBono(_dsctoBonoPagoDivisa, _porcAumentoPrdNoAdmDivisa);
+                            var _cliente = new FormaPago.Domain.Models.Cliente()
+                            {
+                                ciRif = _clienteFicha.CiRif,
+                                codigo = _clienteFicha.Codigo,
+                                dirFiscal = _clienteFicha.DireccionFiscal,
+                                id = _clienteFicha.Id,
+                                nombre = _clienteFicha.Nombre,
+                                telefonos = _clienteFicha.Telefono,
+                            };
+                            var _dataRetFormaPago= LlamarFormaPagoNuevo(
+                                _porcBono,
+                                _cliente,
+                                _tasaCambioActual,
+                                _importeMonLocal,
+                                _importeMonRef);
+                            if ( _dataRetFormaPago != null ) 
+                            {
+                                if (Helpers.Msg.Procesar("Procesar Pago ?")) 
+                                {
+                                    if (_dataRetFormaPago.MontoCambioDarMonLocal >= 0m)
+                                    { 
+                                    }
+
+                                    /*
+                                    _montoValidar = MontoCambioDar_MonedaNacional;
+                                    if (_montoValidar >= 0m)
+                                    {
+                                        if (_gValidarCambio == null)
+                                        {
+                                            if (Sistema.Modo_Vuelto_Gestionar)
+                                                _gValidarCambio = new ValidarCambio.ConVuelto.ImpConVuelto();
+                                            else
+                                                _gValidarCambio = new ValidarCambio.SinVuelto.ImpSinVuelto();
+                                        }
+                                        _gValidarCambio.Inicializa();
+                                        _gValidarCambio.setMontoValidar(_montoValidar);
+                                        _gValidarCambio.setTasaCambio(_tasaCambio);
+                                        _gValidarCambio.setPorctBonoPorPagoDivisa(_porctBonoPorPagoDivisa);
+                                        _gValidarCambio.setDatosCliente(_entCliente);
+                                        _gValidarCambio.Inicia();
+                                        return _gValidarCambio.ValidarCambioIsOk;
+                                    }
+
+                                    ProcesarFactura();
+                                     */
+                                }
+                            }
+                            
+
                         }
                         else if (_modoFuncion == EnumModoFuncion.NotaCredito)
                         {
@@ -882,6 +947,37 @@ namespace PosOnLine.Src.Pos
             }
             _gestionItem.setItemActualInicializar();
         }
+
+
+
+        //PARA EL NUEVO METODO DE FORMA DE PAGO
+        private FormaPago.vm.IFormaPago _formaPago;
+        private FormaPago.Domain.Models.DataRetornar
+            LlamarFormaPagoNuevo(decimal porcBono,FormaPago.Domain.Models.Cliente cliente, 
+                                decimal tasaCambioActual, decimal importeMonLocal, 
+                                decimal importeMonRef)
+        {
+            if (_formaPago == null)
+            {
+                _formaPago = new PosOnLine.Src.FormaPago.vm.FormaPagoImpl();
+            }
+            _formaPago.Inicializa();
+            _formaPago.setFactorCambio(tasaCambioActual);
+            _formaPago.setMontoPorPagarMonLocal(importeMonLocal);
+            _formaPago.setMontoPorPagarMonDivisa(importeMonRef);
+            _formaPago.setPorctBono(porcBono);
+            _formaPago.setActivarModoSoloFormasPagoConMonedaLocal(true);
+            _formaPago.setClienteEntidad(cliente);
+            _formaPago.setDesctoDado(0m);
+            _formaPago.Inicia();
+            if (_formaPago.ProcesoPagoIsOk)
+                return _formaPago.Get_DataRetornar;
+            else
+                return null;
+        }
+
+
+
 
         private void ProcesarFactura()
         {
@@ -1673,6 +1769,8 @@ namespace PosOnLine.Src.Pos
             Inicializa();
             Reiniciar();
         }
+
+
         private List<Modelos.precioQR> generarPreciosQR(decimal porctBono, decimal porctAumentoPrecio, decimal porctBonoCalculado)
         {
             var lst = new List<Modelos.precioQR>();

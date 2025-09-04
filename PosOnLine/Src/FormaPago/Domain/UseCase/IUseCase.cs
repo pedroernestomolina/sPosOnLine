@@ -9,10 +9,21 @@ namespace PosOnLine.Src.FormaPago.Domain.UseCase
 {
     public interface IUseCase
     {
-        List<Models.MedioPago> CargarMediosPagoUseCase();
-        Models.Moneda CargarMonedaLocal();
-        Models.Moneda CargarMonedaReferencia();
-        Models.MedioPago CargarMedioPagoPorBonoDivisa();
-        bool CargarEstatusCreditoCliente(string idCliente);
+        List<Models.MedioPago> 
+            CargarMediosPagoUseCase();
+        Models.Moneda 
+            CargarMonedaLocal();
+        Models.Moneda 
+            CargarMonedaReferencia();
+        Models.MedioPago 
+            CargarMedioPagoPorBonoDivisa();
+        bool 
+            CargarEstatusCreditoCliente(string idCliente);
+        Models.ConfiguracionIGTF 
+            CargarConfiguracionIGTF();
+        List<Models.Moneda>
+            CargarMonedas();
+        bool
+            CargarConfiguracionBonoPorPagoDivisa();
     }
 }

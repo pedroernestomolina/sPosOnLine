@@ -102,6 +102,7 @@
     <Compile Include="Data\Infra\IDocumento_Agregar.cs" />
     <Compile Include="Data\Infra\IJornada.cs" />
     <Compile Include="Data\Infra\IMediosPago.cs" />
+    <Compile Include="Data\Infra\IMoneda.cs" />
     <Compile Include="Data\Infra\IMovCaja.cs" />
     <Compile Include="Data\Infra\IPedido.cs" />
     <Compile Include="Data\Infra\IPendiente.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Data\Prov\Documento_Agregar_NotaEntrega.cs" />
     <Compile Include="Data\Prov\Jornada.cs" />
     <Compile Include="Data\Prov\MediosPago.cs" />
+    <Compile Include="Data\Prov\Moneda.cs" />
     <Compile Include="Data\Prov\MovCaja.cs" />
     <Compile Include="Data\Prov\Pedido_GetIdBy_Numero.cs" />
     <Compile Include="Data\Prov\Pedido_Guardar.cs" />
@@ -537,6 +539,8 @@
     <Compile Include="Src\FormaPagoLoteRef\vm\IVista.cs" />
     <Compile Include="Src\FormaPagoLoteRef\vm\LoteRefImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Cliente.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\ConfiguracionIGTF.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\DataRetornar.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\FormaPago.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\MedioPago.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Moneda.cs" />

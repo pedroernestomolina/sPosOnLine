@@ -29,7 +29,14 @@ namespace PosOnLine.Src.FormaPago.vm
         decimal Get_TotalPagarMonLocal { get; }
         decimal Get_TotalPagarMonDivisa { get; }
         decimal Get_PorctDesctoDado { get; }
+        decimal Get_MontoDscto { get; }
         bool Get_DsctActivo { get; }
+        decimal Get_PorctIGTFAplicar { get; }
+        decimal Get_BaseAplicarIGTF { get; }
+        decimal GetMontoIGTF { get; }
+        bool Get_IGTFActivo { get; }
+        bool ProcesoPagoIsOk { get; }
+        FormaPago.Domain.Models.DataRetornar Get_DataRetornar { get; }
         //
         void setMedioPago(string id);
         void setMontoIngresar(decimal monto);

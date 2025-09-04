@@ -303,20 +303,23 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
+
         public OOB.Resultado.FichaEntidad<OOB.Configuracion.Configuracion_IGTF> 
             Configuracion_IGTF()
         {
             var result = new OOB.Resultado.FichaEntidad<OOB.Configuracion.Configuracion_IGTF>();
             //
-            var r01 = MyData.Configuracion_IGTF();
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            try
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-            if (r01.Entidad != null) 
-            {
+                var r01 = MyData.Configuracion_IGTF();
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                if (r01.Entidad == null) 
+                {
+                    throw new Exception("DATA NO CARGADA");
+                }
                 var m1 = ConvertirToDecimal(r01.Entidad.TasaIGTF);
                 result.Entidad = new OOB.Configuracion.Configuracion_IGTF()
                 {
@@ -324,24 +327,14 @@ namespace PosOnLine.Data.Prov
                     TasaIGTF = m1,
                 };
             }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
             //
             return result;
         }
 
-        private decimal 
-            ConvertirToDecimal(string mnt)
-        {
-            var m1 = 0.0m;
-            var cnf = mnt;
-            if (cnf.Trim() != "")
-            {
-                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-                var culture = CultureInfo.CreateSpecificCulture("es-ES");
-                //var culture = CultureInfo.CreateSpecificCulture("en-EN");
-                Decimal.TryParse(cnf, style, culture, out m1);
-            }
-            return m1;
-        }
         //
         public OOB.Resultado.FichaEntidad<decimal> 
             Configuracion_TasaCambioSistema()
@@ -427,18 +420,21 @@ namespace PosOnLine.Data.Prov
                 {
                     throw new Exception(r01.Mensaje);
                 }
-                if (r01.Entidad ==null)
+                if (r01.Entidad==null)
                 {
-                    throw new Exception("PROBLEMA AL CARGAR ENTIDAD");
+                    throw new Exception("PROBLEMA AL CARGAR DATA");
                 }
-                var s= r01.Entidad;
-                result.Entidad = new OOB.Moneda.Entidad.Ficha()
+                if (r01.Entidad.Trim() == "") 
                 {
-                    codigo = s.codigo,
-                    id = s.id,
-                    nombre = s.nombre,
-                    simbolo = s.simbolo,
-                };
+                    throw new Exception("ID MONEDA LOCAL, NO CONFIGURADO");
+                }
+                //
+                var id = -1;
+                if (!int.TryParse(r01.Entidad.ToString().Trim(), out id))
+                {
+                    throw new Exception("PROBLEMA DE CONVERSION [ ID ]");
+                }
+                return Moneda_GetFichaById(id);
             }
             catch (Exception e)
             {
@@ -462,16 +458,19 @@ namespace PosOnLine.Data.Prov
                 }
                 if (r01.Entidad == null)
                 {
-                    throw new Exception("PROBLEMA AL CARGAR ENTIDAD");
+                    throw new Exception("PROBLEMA AL CARGAR DATA");
                 }
-                var s = r01.Entidad;
-                result.Entidad = new OOB.Moneda.Entidad.Ficha()
+                if (r01.Entidad.Trim() == "")
                 {
-                    codigo = s.codigo,
-                    id = s.id,
-                    nombre = s.nombre,
-                    simbolo = s.simbolo,
-                };
+                    throw new Exception("ID MONEDA REFERENCIA, NO CONFIGURADO");
+                }
+                //
+                var id = -1;
+                if (!int.TryParse(r01.Entidad.ToString().Trim(), out id))
+                {
+                    throw new Exception("PROBLEMA DE CONVERSION [ ID ]");
+                }
+                return Moneda_GetFichaById(id);
             }
             catch (Exception e)
             {
@@ -481,6 +480,7 @@ namespace PosOnLine.Data.Prov
             //
             return result;
         }
+
         public OOB.Resultado.FichaEntidad<OOB.MediosPago.Entidad.Ficha> 
             Configuracion_MedioPagoPorPagoBonoDivisa()
         {
@@ -499,6 +499,22 @@ namespace PosOnLine.Data.Prov
             }
             //
             return result;
+        }
+
+        //
+        private decimal
+            ConvertirToDecimal(string mnt)
+        {
+            var m1 = 0.0m;
+            var cnf = mnt;
+            if (cnf.Trim() != "")
+            {
+                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                //var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                Decimal.TryParse(cnf, style, culture, out m1);
+            }
+            return m1;
         }
     }
 }

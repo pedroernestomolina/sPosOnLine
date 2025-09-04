@@ -18,6 +18,7 @@ namespace PosOnLine.Src.FormaPago.Domain.Models
         public string simboloCurrencies { get; set; }
         public bool aplicaLoteRef { get; set; }
         public bool aplicaBonoPagoDivisa { get; set; }
+        public bool aplicaIGTF { get; set; }
         //
         // PARA CONTROL ComboBox
         public string codigo { get { return codigoMp; } set{} }

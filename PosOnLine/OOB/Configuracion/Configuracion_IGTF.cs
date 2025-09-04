@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PosOnLine.OOB.Configuracion
 {
     public class Configuracion_IGTF
