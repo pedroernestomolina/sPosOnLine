@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PosOnLine.Src.ReglasNegocio
 {
     public class ReglaNegocioEverestMotor: IReglas
@@ -11,6 +12,10 @@ namespace PosOnLine.Src.ReglasNegocio
         public bool MontoAplicarNotaEntregaSinIva()
         {
             return true;
+        }
+        public bool DocVentaProcesar_EsCredito_MontoCobrar_AplicarBonoFull()
+        {
+            return false;
         }
     }
 }

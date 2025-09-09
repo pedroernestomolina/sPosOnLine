@@ -7,4 +7,5 @@
   <Cargar_Solo_Pedido>no</Cargar_Solo_Pedido>  <!-- SI, *NO-->
   <Maximo_Numero_Pedido>100</Maximo_Numero_Pedido>  <!-- SI, *NO-->
   <Define_MedioPago_PagoMovil></Define_MedioPago_PagoMovil>  <!-- ID MEDIO PAGO -->
+  <Activar_Modo_Solo_FormasPago_Con_MonedaLocal>NO</Activar_Modo_Solo_FormasPago_Con_MonedaLocal> <!-- SI, *NO-->
 </Configuracion>

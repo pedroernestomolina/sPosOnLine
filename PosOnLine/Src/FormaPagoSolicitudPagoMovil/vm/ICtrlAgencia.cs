@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.OOB.Agencia
+namespace PosOnLine.Src.FormaPagoSolicitudPagoMovil.vm
 {
-    public abstract class BaseFicha
+    public interface ICtrlAgencia : __.Ctrl.Seleccion.Combo.ICombo 
     {
-        public string nombre { get; set; }
     }
 }

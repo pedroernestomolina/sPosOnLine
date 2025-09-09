@@ -13,6 +13,11 @@ namespace PosOnLine.Src.FormaPago.vm
         public decimal montoTotalDivisa { get; set; }
         public decimal montoAplicarBono { get; set; }
     }
+      public class bonoAplicado 
+    {
+        public decimal MontoSobreElCualAplicaBono_MonReferencia { get; set; }
+        public decimal MontoBono_MonReferencia { get; set; }
+    }
     public class dataCalcularMaxMontoPagarDivisa
     {
         public decimal porctBono { get; set; }
@@ -20,7 +25,8 @@ namespace PosOnLine.Src.FormaPago.vm
     }
     public interface IAplicarBono
     {
-        decimal aplicar(dataAplicar data);
+        bonoAplicado aplicar(dataAplicar data);
         decimal calcularMaxMontoPagarDivisa(dataCalcularMaxMontoPagarDivisa data);
+        decimal calcularMaxBonoPorPagoDivisa(dataCalcularMaxMontoPagarDivisa data);
     }
 }

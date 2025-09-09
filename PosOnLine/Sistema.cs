@@ -144,5 +144,8 @@ namespace PosOnLine
 
         //
         public static ClientePorDefecto FichaClientexDefecto = new ClientePorDefecto();
+
+        //
+        public static bool ActivarModoSoloFormasPagoConMonedaLocal = false;
     }
 }

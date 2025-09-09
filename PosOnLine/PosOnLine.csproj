@@ -521,6 +521,16 @@
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
+    <Compile Include="Src\FormaPagoCambioVuelto\Domain\Models\DataRetornar.cs" />
+    <Compile Include="Src\FormaPagoCambioVuelto\ConVuelto\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\FormaPagoCambioVuelto\ConVuelto\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\FormaPagoCambioVuelto\ConVuelto\vm\ConCambioVuetloImpl.cs" />
+    <Compile Include="Src\FormaPagoCambioVuelto\ConVuelto\vm\IConCambioVuelto.cs" />
+    <Compile Include="Src\FormaPagoCambioVuelto\ICambioVuelto.cs" />
     <Compile Include="Src\FormaPagoDscto\vista\Frm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -538,10 +548,25 @@
     <Compile Include="Src\FormaPagoLoteRef\vm\ILoteRef.cs" />
     <Compile Include="Src\FormaPagoLoteRef\vm\IVista.cs" />
     <Compile Include="Src\FormaPagoLoteRef\vm\LoteRefImpl.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\Domain\Models\Agencia.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\Domain\Models\DataRetornar.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\vm\CtrlAgenciaImpl.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\vm\ICtrlAgencia.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\vm\IPagoMovil.cs" />
+    <Compile Include="Src\FormaPagoSolicitudPagoMovil\vm\PagoMovilImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Cliente.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\ConfiguracionIGTF.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\DataRetornar.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\FormaPago.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\FormaPagoBono.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\MedioPago.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Moneda.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\MyData.cs" />
@@ -1057,10 +1082,16 @@
     <EmbeddedResource Include="Src\Consultor\ModoAdm\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\FormaPagoCambioVuelto\ConVuelto\vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\FormaPagoDscto\vista\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\FormaPagoLoteRef\vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\FormaPagoSolicitudPagoMovil\vista\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\FormaPago\vista\Frm.resx">

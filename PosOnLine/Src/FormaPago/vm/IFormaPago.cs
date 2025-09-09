@@ -36,6 +36,8 @@ namespace PosOnLine.Src.FormaPago.vm
         decimal GetMontoIGTF { get; }
         bool Get_IGTFActivo { get; }
         bool ProcesoPagoIsOk { get; }
+        bool EstatusCuentaIsCredito { get; }
+        bool abandonarFichaIsOk { get; }
         FormaPago.Domain.Models.DataRetornar Get_DataRetornar { get; }
         //
         void setMedioPago(string id);
@@ -56,5 +58,7 @@ namespace PosOnLine.Src.FormaPago.vm
         void apagarEncenderBonoPorPagoDivsa();
         void dsctoDar();
         void ctaCredito();
+        void abandonarFicha();
+        void procesarFicha();
     }
 }

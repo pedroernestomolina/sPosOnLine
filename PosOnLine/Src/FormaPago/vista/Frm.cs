@@ -158,6 +158,14 @@ namespace PosOnLine.Src.FormaPago.vista
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
+        private void Frm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (_controlador.abandonarFichaIsOk || _controlador.EstatusCuentaIsCredito || _controlador.ProcesoPagoIsOk) 
+            {
+                e.Cancel = false;
+            }
+        }
         //
         private void CB_MEDIO_PAGO_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -228,6 +236,14 @@ namespace PosOnLine.Src.FormaPago.vista
         {
             CtaCredito();
         }
+        private void BT_PROCESAR_Click(object sender, EventArgs e)
+        {
+            Procesar();
+        }
+        private void BT_SALIDA_Click(object sender, EventArgs e)
+        {
+            Salida();
+        }
         //
         private void actualizaMontoBono() 
         {
@@ -288,6 +304,30 @@ namespace PosOnLine.Src.FormaPago.vista
         private void CtaCredito()
         {
             _controlador.ctaCredito();
+            if (_controlador.EstatusCuentaIsCredito) 
+            {
+                Procesar();
+            }
+        }
+        private void Procesar()
+        {
+            _controlador.procesarFicha();
+            if (_controlador.ProcesoPagoIsOk)
+            {
+                salir();
+            }
+        }
+        private void Salida()
+        {
+            _controlador.abandonarFicha();
+            if (_controlador.abandonarFichaIsOk) 
+            {
+                salir();
+            }
+        }
+        private void salir()
+        {
+            this.Close();
         }
     }
 }

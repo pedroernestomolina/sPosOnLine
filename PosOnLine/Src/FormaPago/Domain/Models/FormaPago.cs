@@ -11,6 +11,7 @@ namespace PosOnLine.Src.FormaPago.Domain.Models
     {
         public Guid id { get; set; }
         public MedioPago medioPago { get; set; }
+        public decimal factorCambioMedioPago { get; set; }
         public decimal montoIngresado { get; set; }
         public string lote { get; set; }
         public string referencia { get; set; }
@@ -18,6 +19,7 @@ namespace PosOnLine.Src.FormaPago.Domain.Models
         public decimal montoMonedaLocal { get; set; }
         public string simboloMonedaLocal { get; set; }
         public string simboloMonedaReferencia { get; set; }
+        public decimal Monto { get { return montoIngresado; } }
         public FormaPago()
         {
             id = new Guid();

@@ -29,6 +29,7 @@ namespace PosOnLine.Helpers
             {
                 var doc = new XmlDocument();
                 doc.Load(AppDomain.CurrentDomain.BaseDirectory + @"\Conf.XML");
+                //doc.Load(AppDomain.CurrentDomain.BaseDirectory + @"\conf_everest.XML");
 
                 if (doc.HasChildNodes)
                 {
@@ -442,6 +443,15 @@ namespace PosOnLine.Helpers
                                 if (nv.LocalName.ToUpper().Trim() == "DEFINE_MEDIOPAGO_PAGOMOVIL")
                                 {
                                     Sistema.DefineMedioPagoxPagoMovil=nv.InnerText.Trim().ToUpper();
+                                }
+                                
+                                if (nv.LocalName.ToUpper().Trim() == "ACTIVAR_MODO_SOLO_FORMASPAGO_CON_MONEDALOCAL")
+                                {
+                                    Sistema.ActivarModoSoloFormasPagoConMonedaLocal = false;
+                                    if (nv.InnerText.Trim().ToUpper() == "SI")
+                                    {
+                                        Sistema.ActivarModoSoloFormasPagoConMonedaLocal = true;
+                                    }
                                 }
                             }
                         }

@@ -11,22 +11,22 @@ namespace PosOnLine.Src.FormaPagoDscto.vm
     {
         private decimal _dsctoDar;
         private __.Ctrl.Boton.Salir.ISalir _abandonarFicha;
-        private __.Ctrl.Boton.Salir.ISalir _procesarFicha;
+        private bool _procesarFichaIsOK;
         //
         public decimal Get_DsctoDado { get { return _dsctoDar; } }
-        public bool procesarFichaIsOK { get { return _procesarFicha.OpcionIsOK; } }
+        public bool procesarFichaIsOK { get { return _procesarFichaIsOK; } }
         public bool abandonarFichaIsOk { get { return _abandonarFicha.OpcionIsOK; } }
         //
         public DsctoImpl()
         {
+            _procesarFichaIsOK=false;
             _dsctoDar = 0m;
-            _procesarFicha = new __.Ctrl.Boton.Salir.Imp();
             _abandonarFicha = new __.Ctrl.Boton.Salir.Imp();
         }
         public void Inicializa()
         {
+            _procesarFichaIsOK=false;
             _dsctoDar = 0m;
-            _procesarFicha.Inicializa();
             _abandonarFicha.Inicializa();
         }
         //
@@ -51,9 +51,10 @@ namespace PosOnLine.Src.FormaPagoDscto.vm
         //
         public void procesarFicha()
         {
+            _procesarFichaIsOK = false;
             if (_dsctoDar >= 0m && _dsctoDar <= 99.99m)
             {
-                _procesarFicha.Opcion();
+                _procesarFichaIsOK = true;
             }
             else 
             {

@@ -35,29 +35,29 @@
             this.TB_CANTIDAD = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel7 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.BT_OK = new System.Windows.Forms.Button();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.BT_SALIDA = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.BT_OK = new System.Windows.Forms.Button();
-            this.BT_SALIDA = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel6.SuspendLayout();
-            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
@@ -162,6 +162,56 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(457, 56);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.BT_OK);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(153, 1);
+            this.panel6.Margin = new System.Windows.Forms.Padding(1);
+            this.panel6.Name = "panel6";
+            this.panel6.Padding = new System.Windows.Forms.Padding(4);
+            this.panel6.Size = new System.Drawing.Size(150, 54);
+            this.panel6.TabIndex = 0;
+            // 
+            // BT_OK
+            // 
+            this.BT_OK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BT_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BT_OK.Location = new System.Drawing.Point(4, 4);
+            this.BT_OK.Name = "BT_OK";
+            this.BT_OK.Size = new System.Drawing.Size(142, 46);
+            this.BT_OK.TabIndex = 3;
+            this.BT_OK.Text = "Ok";
+            this.BT_OK.UseVisualStyleBackColor = true;
+            this.BT_OK.Click += new System.EventHandler(this.BT_OK_Click);
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.BT_SALIDA);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(305, 1);
+            this.panel8.Margin = new System.Windows.Forms.Padding(1);
+            this.panel8.Name = "panel8";
+            this.panel8.Padding = new System.Windows.Forms.Padding(4);
+            this.panel8.Size = new System.Drawing.Size(151, 54);
+            this.panel8.TabIndex = 1;
+            // 
+            // BT_SALIDA
+            // 
+            this.BT_SALIDA.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BT_SALIDA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BT_SALIDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BT_SALIDA.Image = global::PosOnLine.Properties.Resources.bt_salida_2;
+            this.BT_SALIDA.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.BT_SALIDA.Location = new System.Drawing.Point(4, 4);
+            this.BT_SALIDA.Name = "BT_SALIDA";
+            this.BT_SALIDA.Size = new System.Drawing.Size(143, 46);
+            this.BT_SALIDA.TabIndex = 3;
+            this.BT_SALIDA.Text = "Salida";
+            this.BT_SALIDA.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.BT_SALIDA.UseVisualStyleBackColor = true;
+            this.BT_SALIDA.Click += new System.EventHandler(this.BT_SALIDA_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkKhaki;
@@ -235,56 +285,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.BT_OK);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(153, 1);
-            this.panel6.Margin = new System.Windows.Forms.Padding(1);
-            this.panel6.Name = "panel6";
-            this.panel6.Padding = new System.Windows.Forms.Padding(4);
-            this.panel6.Size = new System.Drawing.Size(150, 54);
-            this.panel6.TabIndex = 0;
-            // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.BT_SALIDA);
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(305, 1);
-            this.panel8.Margin = new System.Windows.Forms.Padding(1);
-            this.panel8.Name = "panel8";
-            this.panel8.Padding = new System.Windows.Forms.Padding(4);
-            this.panel8.Size = new System.Drawing.Size(151, 54);
-            this.panel8.TabIndex = 1;
-            // 
-            // BT_OK
-            // 
-            this.BT_OK.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BT_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BT_OK.Location = new System.Drawing.Point(4, 4);
-            this.BT_OK.Name = "BT_OK";
-            this.BT_OK.Size = new System.Drawing.Size(142, 46);
-            this.BT_OK.TabIndex = 3;
-            this.BT_OK.Text = "Ok";
-            this.BT_OK.UseVisualStyleBackColor = true;
-            this.BT_OK.Click += new System.EventHandler(this.BT_OK_Click);
-            // 
-            // BT_SALIDA
-            // 
-            this.BT_SALIDA.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BT_SALIDA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BT_SALIDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BT_SALIDA.Image = global::PosOnLine.Properties.Resources.bt_salida_2;
-            this.BT_SALIDA.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.BT_SALIDA.Location = new System.Drawing.Point(4, 4);
-            this.BT_SALIDA.Name = "BT_SALIDA";
-            this.BT_SALIDA.Size = new System.Drawing.Size(143, 46);
-            this.BT_SALIDA.TabIndex = 3;
-            this.BT_SALIDA.Text = "Salida";
-            this.BT_SALIDA.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.BT_SALIDA.UseVisualStyleBackColor = true;
-            this.BT_SALIDA.Click += new System.EventHandler(this.BT_SALIDA_Click);
-            // 
             // Frm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -305,13 +305,13 @@
             this.panel5.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

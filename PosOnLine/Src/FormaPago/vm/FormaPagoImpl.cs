@@ -19,7 +19,7 @@ namespace PosOnLine.Src.FormaPago.vm
         private FormaPago.Domain.Models.Moneda _monedaLocal;
         private FormaPago.Domain.Models.Moneda _monedaReferencia;
         private FormaPago.Domain.Models.MedioPago _medioPagoPorBonoDivisa;
-        private FormaPago.Domain.Models.FormaPago _formaPagoPorBonoDivisa;
+        private FormaPago.Domain.Models.FormaPagoBono _formaPagoPorBonoDivisa;
         private ICtrlMedioPago _ctrlMedioPago;
         private decimal _montoIngresar;
         private bool _agregarMedioPagoIsOk;
@@ -46,6 +46,11 @@ namespace PosOnLine.Src.FormaPago.vm
         private decimal _igtfBaseAplicar; //MONTO SOBRE LA CUAL SE APLICARA EL IGTF
         private decimal _igtfMontoMonReferencia; //MONTO IGTF CALCULADO
         private bool _aplicandoIGTF; //INDICA SI SE ESTA APLICANDO /NO EL IGTF EN LA CUENTA
+        private bool _estatusCuentaIsCredito; //INDICA SI LA CUENTA ES CREDITO
+        private __.Ctrl.Boton.Salir.ISalir _abandonarFicha;
+        private bool _procesarPagoIsOk;
+        private decimal _maximoBonoDadoPorPagoDivisa; // INDICA EL MONTO MAXIMO BONO A DAR POR PAGO EN DIVISA
+        private decimal _maximoBonoDadoMonLocal_PorPagoDivisa;// INDICA EL MONTO MAXIMO BONO EN MONEDA LOCAL A DAR POR PAGO EN DIVISA 
         //
         public object Get_MedioPagoSource { get { return _ctrlMedioPago.GetSource; } }
         public string Get_MedioPagoId { get { return _ctrlMedioPago.GetId; } }
@@ -73,17 +78,14 @@ namespace PosOnLine.Src.FormaPago.vm
         public decimal Get_BaseAplicarIGTF { get { return _igtfBaseAplicar; } }
         public decimal GetMontoIGTF { get { return _igtfMontoMonReferencia; } }
         public bool Get_IGTFActivo { get { return _aplicandoIGTF; } }
-        public bool ProcesoPagoIsOk { get { return !_isPendiente; } }
-        public Domain.Models.DataRetornar Get_DataRetornar 
-        { 
-            get 
-            {
-                return dataRetornar();
-            } 
-        }
+        public bool ProcesoPagoIsOk { get { return _procesarPagoIsOk; } }
+        public bool EstatusCuentaIsCredito { get { return _estatusCuentaIsCredito; } }
+        public Domain.Models.DataRetornar Get_DataRetornar { get { return dataRetornar(); } }
+        public bool abandonarFichaIsOk { get { return _abandonarFicha.OpcionIsOK; } }
         //
         public FormaPagoImpl()
         {
+            _procesarPagoIsOk = false;
             _myData = new Domain.Models.MyData();
             _useCase = new FormaPago.Domain.UseCase.UseCaseImpl();
             _ctrlMedioPago = new CtrlMedioPagoImpl();
@@ -100,7 +102,7 @@ namespace PosOnLine.Src.FormaPago.vm
             _montoPorPagarLocal = 0m;
             _montoPorPagarDivisa = 0m;
             _porctBono=0m;
-            _formaPagoPorBonoDivisa = new Domain.Models.FormaPago();
+            _formaPagoPorBonoDivisa = new Domain.Models.FormaPagoBono();
             _montoPendCambioMonLocal = 0m;
             _montoPendCambioMonReferencia = 0m;
             _isPendiente = true;
@@ -110,13 +112,22 @@ namespace PosOnLine.Src.FormaPago.vm
             _igtfMontoMonReferencia = 0m;
             _igtfBaseAplicar = 0m;
             _aplicandoIGTF = false;
+            _estatusCuentaIsCredito = false;
+            _abandonarFicha = new __.Ctrl.Boton.Salir.Imp();
+            _maximoBonoDadoPorPagoDivisa = 0m;
+            _maximoBonoDadoMonLocal_PorPagoDivisa = 0m;
         }
         public void Inicializa()
         {
+            _procesarPagoIsOk = false;
             _aplicandoIGTF = false;
             _igtfMontoMonReferencia = 0m;
             _igtfBaseAplicar = 0;
-            _formaPagoPorBonoDivisa = new Domain.Models.FormaPago();
+            _formaPagoPorBonoDivisa = new Domain.Models.FormaPagoBono();
+            _estatusCuentaIsCredito = false;
+            _abandonarFicha.Inicializa();
+            _maximoBonoDadoPorPagoDivisa = 0m;
+            _maximoBonoDadoMonLocal_PorPagoDivisa = 0m;
         }
         vista.Frm frm;
         public void Inicia()
@@ -305,16 +316,18 @@ namespace PosOnLine.Src.FormaPago.vm
                 {
                     bonoAplica(montoDivisa);
                 }
+                var _factorCambioMedioPago = _miConvertidor.TasaCambio[_myData.medioPagoSeleccionado.codigoCurrencies];
                 var _fp = new FormaPago.Domain.Models.FormaPago()
                 {
                     lote = _lote,
                     medioPago = _myData.medioPagoSeleccionado,
+                    factorCambioMedioPago = _factorCambioMedioPago,
                     montoIngresado = _montoIngresar,
                     referencia = _referencia,
                     montoMonedaLocal = montoLocal,
-                    montoMonedaRefenencia= montoDivisa,
-                    simboloMonedaLocal=_monedaLocal.simbolo,
-                    simboloMonedaReferencia=_monedaReferencia.simbolo,
+                    montoMonedaRefenencia = montoDivisa,
+                    simboloMonedaLocal = _monedaLocal.simbolo,
+                    simboloMonedaReferencia = _monedaReferencia.simbolo,
                 };
                 _blFormasPago.Add(_fp);
                 //
@@ -381,15 +394,31 @@ namespace PosOnLine.Src.FormaPago.vm
         }
         public void ctaCredito()
         {
+            _estatusCuentaIsCredito = false;
             if (_reglaNegocio.ParaDejarlaACredito(_clienteData.id))
             {
+                limpiezaGeneral();
+                _estatusCuentaIsCredito = true;
             }
+        }
+        public void procesarFicha()
+        {
+            _procesarPagoIsOk = false;
+            if (!_isPendiente || _estatusCuentaIsCredito)
+            {
+                _procesarPagoIsOk= true;
+            }
+        }
+        public void abandonarFicha()
+        {
+            _abandonarFicha.Opcion();
         }
         //
         private void bonoAplica(decimal montoAplicar=0m) 
         {
             var _bonoDivisa = 0m;
             var _bonoLocal = 0m;
+            var _montoSobreElCualAplicaBono=0m;
             if (_estatusBonoPorPagoDivisa)
             {
                 var data = new dataAplicar()
@@ -398,7 +427,9 @@ namespace PosOnLine.Src.FormaPago.vm
                     montoTotalDivisa = _montoPorPagarDivisa,
                     porctBono = _porctBono,
                 };
-                _bonoDivisa = _aplicarBono.aplicar(data);
+                var _calculaBono = _aplicarBono.aplicar(data);
+                _montoSobreElCualAplicaBono = _calculaBono.MontoSobreElCualAplicaBono_MonReferencia;
+                _bonoDivisa = _calculaBono.MontoBono_MonReferencia;
                 _bonoLocal = _miConvertidor.Convertir(
                     new __.ConvertidorMonedas.Monto()
                     {
@@ -414,6 +445,7 @@ namespace PosOnLine.Src.FormaPago.vm
             _formaPagoPorBonoDivisa.montoMonedaRefenencia = _bonoDivisa;
             _formaPagoPorBonoDivisa.simboloMonedaLocal = _monedaLocal.simbolo;
             _formaPagoPorBonoDivisa.simboloMonedaReferencia = _monedaReferencia.simbolo;
+            _formaPagoPorBonoDivisa.MontoSobreElCualAplicaBono_MonReferencia = _montoSobreElCualAplicaBono;
         }
         private void igtfAplica()
         {
@@ -466,24 +498,81 @@ namespace PosOnLine.Src.FormaPago.vm
             _montoDsctoMonReferencia = (_porctDsctoDado / 100m) * _montoPorPagarDivisa;
             _montoPorPagarDivisa -= _montoDsctoMonReferencia;
             _montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, 2, MidpointRounding.AwayFromZero);
+
+            //
+            _maximoBonoDadoPorPagoDivisa= 0m;
+            _maximoBonoDadoMonLocal_PorPagoDivisa = 0m;
+            var dataCalcular = new dataCalcularMaxMontoPagarDivisa()
+            {
+                montoTotalDivisa = _montoPorPagarDivisa,
+                porctBono = _porctBono,
+            };
+            _maximoBonoDadoPorPagoDivisa = _aplicarBono.calcularMaxBonoPorPagoDivisa(dataCalcular);
+            var _aConvertir = new __.ConvertidorMonedas.Monto()
+            {
+                cantidad = _maximoBonoDadoPorPagoDivisa,
+                codigoMoneda = _monedaReferencia.codigo,
+            };
+            _maximoBonoDadoMonLocal_PorPagoDivisa = _miConvertidor.Convertir(_aConvertir, _monedaLocal.codigo);
+            //
+
             _montoPorPagarDivisa += _igtfMontoMonReferencia;
             _montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, 2, MidpointRounding.AwayFromZero);
             //
-            var _aConvertir = new __.ConvertidorMonedas.Monto()
+            _aConvertir = new __.ConvertidorMonedas.Monto()
             {
                 cantidad = _montoPorPagarDivisa,
                 codigoMoneda = _monedaReferencia.codigo,
             };
             _montoPorPagarLocal = _miConvertidor.Convertir(_aConvertir, _monedaLocal.codigo);
+            //
         }
         //
-        private Domain.Models.DataRetornar dataRetornar()
+        private Domain.Models.DataRetornar 
+            dataRetornar()
         {
+            var monto = new __.ConvertidorMonedas.Monto()
+            {
+                 cantidad= _igtfBaseAplicar,
+                 codigoMoneda=_monedaReferencia.codigo,
+            };
+            var _igtfBaseAplicarMonLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
+            //
+            monto = new __.ConvertidorMonedas.Monto()
+            {
+                 cantidad= _igtfMontoMonReferencia,
+                 codigoMoneda=_monedaReferencia.codigo,
+            };
+            var _igtfImporteMonLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
+
+
             var rt = new Domain.Models.DataRetornar()
             {
+                FactorCambio = _factorCambio,
+                MontoCambioDarMonLocal = _estatusCuentaIsCredito ? 0m : _montoPendCambioMonLocal,
+                EstatusCuentaIsCredito = _estatusCuentaIsCredito,
+                //
+                ImporteDocMonLocal = _montoPorPagarLocal,
+                ImporteDocMonReferencia = _montoPorPagarDivisa,
+                DescuentoPorct = _porctDsctoDado,
+                MontoRecibidoMonLocal = _myData.formasPago.Sum(s => s.montoMonedaLocal),
+                IGTF_IsActivo = (_myData.ConfgiuracionIGTF.aplica && _igtfMontoMonReferencia > 0m),
+                IGTF_MontoBaseAplicaMonLocal = _igtfBaseAplicarMonLocal,
+                IGTF_MontoBaseAplicaMonReferencia = _igtfBaseAplicar,
+                IGTF_Tasa = _myData.ConfgiuracionIGTF.tasa,
+                IGTF_ImporteMonLocal = _igtfImporteMonLocal,
+                MonedaLocal = _monedaLocal,
+                MonedaReferencia = _monedaReferencia,
+                FormasPago = _myData.formasPago.Where(w => w.montoIngresado > 0m).ToList(),
+                EstatusBonoPorPagoDivisa = (Get_MonoBonoMonedaReferencia > 0m ? "1" : "0"),
+                MontoBonoMonLocalPorPagoDivisa = Get_MontoBonoMonedaLocal,
+                MontoBonoMonReferenciaPorPagoDivisa = Get_MonoBonoMonedaReferencia,
+                PorctBonoPorPagoDivisa = (Get_MonoBonoMonedaReferencia > 0m ? Get_PorctBono : 0m),
+                FPBonoPorDivisa = _formaPagoPorBonoDivisa,
+                MaximoBonoDadoPorPagoDivisa = _maximoBonoDadoPorPagoDivisa,
+                MaximoBonoDadoMonLocal_PorPagoDivisa = _maximoBonoDadoMonLocal_PorPagoDivisa,
             };
             return rt;
         }
-
     }
 }

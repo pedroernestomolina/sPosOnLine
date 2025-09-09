@@ -9,6 +9,7 @@ namespace PosOnLine.Src.ReglasNegocio
 {
     public interface IReglas
     {
-        Boolean MontoAplicarNotaEntregaSinIva();
+        bool MontoAplicarNotaEntregaSinIva();
+        bool DocVentaProcesar_EsCredito_MontoCobrar_AplicarBonoFull();
     }
 }

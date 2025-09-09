@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>localhost</Instancia>
-    <Catalogo>evermotor</Catalogo>
+    <Instancia>10.10.100.131</Instancia>
+    <Catalogo>everest</Catalogo>
   </Servidor>
   <IdEquipo>1</IdEquipo>
   <CodigoSucursalActiva>01</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->

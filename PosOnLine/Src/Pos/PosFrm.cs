@@ -465,11 +465,11 @@ namespace PosOnLine.Src.Pos
             {
                 AbrirPedido();
             }
-            if (e.Alt && e.Control && e.KeyCode == Keys.N) 
+            if (e.Alt && e.Control && e.KeyCode == Keys.N)
             {
                 NotaEntrega();
             }
-            if (e.KeyCode == Keys.F1) 
+            if (e.KeyCode == Keys.F1)
             {
                 IrFoco();
             }
@@ -508,7 +508,7 @@ namespace PosOnLine.Src.Pos
             if (e.Alt && e.Control && e.KeyCode == Keys.V)
             {
                 var t = !L_IMPORTE_PAGO_DIVISA_BONO.Visible;
-                L_IMPORTE_PAGO_DIVISA_BONO.Visible =t;
+                L_IMPORTE_PAGO_DIVISA_BONO.Visible = t;
             }
         }
 
