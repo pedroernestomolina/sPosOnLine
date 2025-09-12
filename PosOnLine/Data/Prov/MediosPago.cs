@@ -86,7 +86,7 @@ namespace PosOnLine.Data.Prov
                     aplicaLoteRef = s.aplicaLoteReferencia.ToString().Trim().ToUpper() == "1",
                     aplicaBonoPagoDivisa = s.aplicaBonoPagoDivisa.ToString().Trim().ToUpper() == "1",
                     aplicaIGTF = s.aplicaIGTF.ToString().Trim().ToUpper() == "1",
-                    idCurrencies = s.idCurrencies.HasValue ? -1 : s.idCurrencies.Value,
+                    idCurrencies = s.idCurrencies.HasValue ? s.idCurrencies.Value : -1,
                     codigoCurrencies = s.codigoCurrencies == null ? "" : s.codigoCurrencies,
                     simboloCurrencies = s.simboloCurrencies == null ? "" : s.simboloCurrencies,
                     nombreCurrencies = s.nombreCurrencies == null ? "" : s.nombreCurrencies,

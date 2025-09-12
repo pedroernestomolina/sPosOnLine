@@ -9,12 +9,14 @@ namespace PosOnLine.Src.FormaPago.Domain.Models
 {
     public class DataRetornar
     {
-        public decimal MontoCambioDarMonLocal {get;set;} 
+        public decimal MontoCambioDarMonLocal {get;set;}
+        public decimal MontoCambioDarMonReferencia { get; set; }
         public decimal FactorCambio {get;set;}
         public bool EstatusCuentaIsCredito { get; set; }
         //
         public decimal DescuentoPorct { get; set; }
         public decimal MontoRecibidoMonLocal { get; set; }
+        public decimal MontoRecibidoMonReferencia { get; set; }
         public decimal ImporteDocMonLocal { get; set; }
         public decimal ImporteDocMonReferencia { get; set; }
         public bool IGTF_IsActivo { get; set; }

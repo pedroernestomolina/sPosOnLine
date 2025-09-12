@@ -257,11 +257,16 @@
     <Compile Include="OOB\Configuracion\Entidad\Enumerados.cs" />
     <Compile Include="OOB\Configuracion\Entidad\Ficha.cs" />
     <Compile Include="OOB\Configuracion\Enumerados.cs" />
+    <Compile Include="OOB\CuadreCierre\CuadreResumen\Documento.cs" />
+    <Compile Include="OOB\CuadreCierre\CuadreResumen\MetodoPago.cs" />
+    <Compile Include="OOB\CuadreCierre\CuadreResumen\Totales.cs" />
     <Compile Include="OOB\Deposito\Entidad\Ficha.cs" />
     <Compile Include="OOB\Deposito\Lista\Filtro.cs" />
     <Compile Include="OOB\Documento\Agregar\BaseClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Agregar\BaseMedida.cs" />
     <Compile Include="OOB\Documento\Agregar\BasePagoMovil.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseResumenDetalleFormaPago.cs" />
+    <Compile Include="OOB\Documento\Agregar\BaseResumenGeneral.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\Ficha.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaClienteSaldo.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaCxC.cs" />
@@ -275,6 +280,8 @@
     <Compile Include="OOB\Documento\Agregar\Factura\FichaMedida.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPagoMovil.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPosResumen.cs" />
+    <Compile Include="OOB\Documento\Agregar\Factura\FichaPosResumenDetalleFormaPago.cs" />
+    <Compile Include="OOB\Documento\Agregar\Factura\FichaPosResumenGeneral.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPosVenta.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaPrecio.cs" />
     <Compile Include="OOB\Documento\Agregar\Factura\FichaSerie.cs" />
@@ -624,6 +631,9 @@
     <Compile Include="Src\Pedido\SolicitarNumeroPedido\HndSolicitud.cs" />
     <Compile Include="Src\Pedido\SolicitarNumeroPedido\ISolicitud.cs" />
     <Compile Include="Src\CasoUso\ObtenerFichaProduco.cs" />
+    <Compile Include="Src\Pos\Domain\Models\ResultadoAgregarDoc.cs" />
+    <Compile Include="Src\Pos\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\Pos\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\Pos\IClientePorDefecto.cs" />
     <Compile Include="Src\Pos\IListaPorPlu.cs" />
     <Compile Include="Src\Pos\Modelos\precioQR.cs" />

@@ -550,12 +550,14 @@ namespace PosOnLine.Src.FormaPago.vm
             {
                 FactorCambio = _factorCambio,
                 MontoCambioDarMonLocal = _estatusCuentaIsCredito ? 0m : _montoPendCambioMonLocal,
+                MontoCambioDarMonReferencia = _estatusCuentaIsCredito ? 0m : _montoPendCambioMonReferencia,
                 EstatusCuentaIsCredito = _estatusCuentaIsCredito,
                 //
                 ImporteDocMonLocal = _montoPorPagarLocal,
                 ImporteDocMonReferencia = _montoPorPagarDivisa,
                 DescuentoPorct = _porctDsctoDado,
                 MontoRecibidoMonLocal = _myData.formasPago.Sum(s => s.montoMonedaLocal),
+                MontoRecibidoMonReferencia = _myData.formasPago.Sum(s => s.montoMonedaRefenencia),
                 IGTF_IsActivo = (_myData.ConfgiuracionIGTF.aplica && _igtfMontoMonReferencia > 0m),
                 IGTF_MontoBaseAplicaMonLocal = _igtfBaseAplicarMonLocal,
                 IGTF_MontoBaseAplicaMonReferencia = _igtfBaseAplicar,

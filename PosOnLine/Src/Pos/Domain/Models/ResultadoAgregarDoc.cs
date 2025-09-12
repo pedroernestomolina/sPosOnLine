@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.OOB.Documento.Agregar.Factura
+namespace PosOnLine.Src.Pos.Domain.Models
 {
-    public class Result
+    public class ResultadoAgregarDoc
     {
         public int idVerificador { get; set; }
         public string autoDoc { get; set; }
@@ -15,14 +15,5 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public string numDoc { get; set; }
         public string codDoc { get; set; }
         public decimal montoDoc { get; set; }
-        public Result()
-        {
-            idVerificador = -1;
-            autoDoc = "";
-            autoCierre = "";
-            numDoc = "";
-            codDoc = "";
-            montoDoc = 0m;
-        }
     }
 }

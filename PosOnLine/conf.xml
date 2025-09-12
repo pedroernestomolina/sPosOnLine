@@ -4,7 +4,7 @@
     <Instancia>10.10.100.131</Instancia>
     <Catalogo>zufu</Catalogo>
   </Servidor>
-  <IdEquipo>4</IdEquipo>
+  <IdEquipo>5</IdEquipo>
   <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
   <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
   <SerieFactura>1</SerieFactura> 

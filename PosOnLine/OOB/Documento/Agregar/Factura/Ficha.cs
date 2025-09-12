@@ -263,6 +263,12 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             baseAplicaIGTFMonAct = 0.0m;
             baseAplicaIGTFMonDiv = 0.0m;
             montoIGTF = 0.0m;
+
+
+            //
+            DetalleFormaPago = new List<FichaPosResumenDetalleFormaPago>();
+            ResumenGeneral= new FichaPosResumenGeneral();
+            //
         }
 
         public bool aplicarIGTF { get; set; }
@@ -274,5 +280,11 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public bool AplicarLiBroVenta { get; set; }
         //
         public string EstatusCredito { get; set; }
+
+
+        //
+        public List<FichaPosResumenDetalleFormaPago> DetalleFormaPago { get; set; }
+        public FichaPosResumenGeneral ResumenGeneral  { get; set; }
+        //
     }
 }
