@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.OOB.CuadreCierre.CuadreResumen
+namespace PosOnLine.Src.CuadreCierre.Domain.Models
 {
-    public class Documento
+    public class TipoDocUso
     {
         public int cntDoc { get; set; }
         public decimal montoMonLocal { get; set; }
@@ -17,8 +17,11 @@ namespace PosOnLine.OOB.CuadreCierre.CuadreResumen
         public decimal cambioVueltoMonLocal { get; set; }
         public decimal cambioVueltoMonReferencia { get; set; }
         public string codigoDoc { get; set; }
-        public string varianteDoc { get; set; }
         public bool esCredito { get; set; }
         public bool esAnulado { get; set; }
+        public string nombreDoc { get; set; }
+        public string atributoDoc { get; set; }
+        //
+        public string DescripcionDoc { get { return nombreDoc + " " + atributoDoc; } }
     }
 }

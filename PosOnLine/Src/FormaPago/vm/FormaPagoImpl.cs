@@ -14,6 +14,7 @@ namespace PosOnLine.Src.FormaPago.vm
     {
         private IAplicarBono _aplicarBono;
         private FormaPago.Domain.UseCase.IUseCase _useCase;
+        private _Domain.UseCase.ICargarMedioPagoPorBonoDivisa _ucCargarMedioPagoPorBonoDivisa;
         private FormaPago.Domain.ReglaNegocio.IReglas _reglaNegocio;
         private FormaPago.Domain.Models.MyData _myData;
         private FormaPago.Domain.Models.Moneda _monedaLocal;
@@ -88,6 +89,7 @@ namespace PosOnLine.Src.FormaPago.vm
             _procesarPagoIsOk = false;
             _myData = new Domain.Models.MyData();
             _useCase = new FormaPago.Domain.UseCase.UseCaseImpl();
+            _ucCargarMedioPagoPorBonoDivisa = new _Domain.UseCase.CargarMedioPagoPorBonoDivisaImpl();
             _ctrlMedioPago = new CtrlMedioPagoImpl();
             _loteRef = new FormaPagoLoteRef.vm.LoteRefImpl();
             _aplicarBono = new AplicarBonoImpl();
@@ -158,7 +160,7 @@ namespace PosOnLine.Src.FormaPago.vm
                 setMonedaLocal(_useCase.CargarMonedaLocal());
                 setMonedaReferencia(_useCase.CargarMonedaReferencia());
                 setMediosPago(_useCase.CargarMediosPagoUseCase());
-                setMedioPagoPorBonoDivisa(_useCase.CargarMedioPagoPorBonoDivisa());
+                setMedioPagoPorBonoDivisa(FormaPago.Domain.converter.MedioPago(_ucCargarMedioPagoPorBonoDivisa.Invoke()));
                 setConfiguracionIGTF(_useCase.CargarConfiguracionIGTF());
                 setMonedas(_useCase.CargarMonedas());
                 setActivarBonoPorPagoDivsa(_useCase.CargarConfiguracionBonoPorPagoDivisa());
@@ -169,6 +171,11 @@ namespace PosOnLine.Src.FormaPago.vm
                 Helpers.Msg.Error(e.Message);
                 return false;
             }
+        }
+
+        private void setMedioPagoPorBonoDivisa(FormaPago.Domain.Models.MedioPago medioPago)
+        {
+            _medioPagoPorBonoDivisa = medioPago;
         }
         private void setMonedas(List<Domain.Models.Moneda> list)
         {
@@ -182,10 +189,6 @@ namespace PosOnLine.Src.FormaPago.vm
         {
             _myData.setMediosPago(chequearUsoSoloMonedaLocal(list));
             _ctrlMedioPago.CargarData(_myData.mediosPago);
-        }
-        private void setMedioPagoPorBonoDivisa(Domain.Models.MedioPago medioPago)
-        {
-            _medioPagoPorBonoDivisa = medioPago;
         }
         private void setMonedaReferencia(Domain.Models.Moneda moneda)
         {

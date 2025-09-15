@@ -16,7 +16,8 @@ namespace PosOnLine.Data.Infra
         IPedido,
         IDocumento_Agregar,
         IMediosPago,
-        IMoneda
+        IMoneda,
+        ICuadreCierre
     {
         OOB.Resultado.FichaEntidad<DateTime> 
             FechaServidor();

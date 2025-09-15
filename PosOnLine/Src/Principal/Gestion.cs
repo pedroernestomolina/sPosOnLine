@@ -298,6 +298,12 @@ namespace PosOnLine.Src.Principal
             }
         }
 
+
+        //*
+        //
+        private CuadreCierre.vm.ICuadre _newCuadreCierre;
+
+
         private Cierre.Fiscal.ICierre _cierrePosFiscal;
         private Cierre.NoFiscal.INoFiscal _cierrePosNoFiscal;
         public void CerrarPos()
@@ -334,6 +340,17 @@ namespace PosOnLine.Src.Principal
                             Helpers.Msg.OK("OPERADOR CERRRADO EXITOSAMENTE !!!!!");
                         }
                     }
+
+
+                    //*
+                    //CUADRE CIERRE
+                    //
+                    if (_newCuadreCierre == null) 
+                    {
+                        _newCuadreCierre = new CuadreCierre.vm.CuadreImpl();
+                    }
+                    _newCuadreCierre.Inicializa();
+                    _newCuadreCierre.Inicia();
                 }
             }
             else 

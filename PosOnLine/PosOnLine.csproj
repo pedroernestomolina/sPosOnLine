@@ -96,6 +96,7 @@
     <Compile Include="Data\Infra\ICliente.cs" />
     <Compile Include="Data\Infra\IConcepto.cs" />
     <Compile Include="Data\Infra\IConfiguracion.cs" />
+    <Compile Include="Data\Infra\ICuadreCierre.cs" />
     <Compile Include="Data\Infra\IData.cs" />
     <Compile Include="Data\Infra\IDeposito.cs" />
     <Compile Include="Data\Infra\IDocumento.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Data\Prov\Cliente.cs" />
     <Compile Include="Data\Prov\Concepto.cs" />
     <Compile Include="Data\Prov\Configuracion.cs" />
+    <Compile Include="Data\Prov\CuadreCierre.cs" />
     <Compile Include="Data\Prov\DataPrv.cs" />
     <Compile Include="Data\Prov\Deposito.cs" />
     <Compile Include="Data\Prov\Documento.cs" />
@@ -526,6 +528,21 @@
     <Compile Include="Src\Consultor\ModoAdm\imp_vta.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IPrdConsultar.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
+    <Compile Include="Src\CuadreCierre\Domain\Models\DataResumenRecolectada.cs" />
+    <Compile Include="Src\CuadreCierre\Domain\Models\MetodoPagoUso.cs" />
+    <Compile Include="Src\CuadreCierre\Domain\Models\MyData.cs" />
+    <Compile Include="Src\CuadreCierre\Domain\Models\TipoDocUso.cs" />
+    <Compile Include="Src\CuadreCierre\Domain\Models\TotalesRecogido.cs" />
+    <Compile Include="Src\CuadreCierre\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\CuadreCierre\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CuadreCierre\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\CuadreCierre\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\CuadreCierre\vm\CuadreImpl.cs" />
+    <Compile Include="Src\CuadreCierre\vm\ICuadre.cs" />
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
     <Compile Include="Src\FormaPagoCambioVuelto\Domain\Models\DataRetornar.cs" />
@@ -569,6 +586,7 @@
     <Compile Include="Src\FormaPagoSolicitudPagoMovil\vm\ICtrlAgencia.cs" />
     <Compile Include="Src\FormaPagoSolicitudPagoMovil\vm\IPagoMovil.cs" />
     <Compile Include="Src\FormaPagoSolicitudPagoMovil\vm\PagoMovilImpl.cs" />
+    <Compile Include="Src\FormaPago\Domain\converter.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Cliente.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\ConfiguracionIGTF.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\DataRetornar.cs" />
@@ -726,6 +744,9 @@
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IVista.cs" />
     <Compile Include="Src\Zufu\IPosZufuCliente.cs" />
     <Compile Include="Src\Zufu\ListaPorPlu\Imp.cs" />
+    <Compile Include="Src\_Domain\Models\MedioPago.cs" />
+    <Compile Include="Src\_Domain\UseCase\ICargarMedioPagoPorBonoDivisa.cs" />
+    <Compile Include="Src\_Domain\UseCase\CargarMedioPagoPorBonoDivisaImpl.cs" />
     <Compile Include="Src\_\ConvertidorMonedas\Convertidor.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\Imp.cs" />
     <Compile Include="Src\_\Ctrl\Boton\Abandonar\IAbandonar.cs" />
@@ -1092,6 +1113,9 @@
     <EmbeddedResource Include="Src\Consultor\ModoAdm\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\CuadreCierre\vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\FormaPagoCambioVuelto\ConVuelto\vista\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1403,6 +1427,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OOB\Permiso\Buscar\NewFolder1\" />
+    <Folder Include="Src\CuadreCierreFiscal\" />
+    <Folder Include="Src\CuadreCierreHistorico\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibControles\LibControles.csproj">
