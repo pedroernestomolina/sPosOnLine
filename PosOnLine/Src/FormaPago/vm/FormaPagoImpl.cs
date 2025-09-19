@@ -15,6 +15,9 @@ namespace PosOnLine.Src.FormaPago.vm
         private IAplicarBono _aplicarBono;
         private FormaPago.Domain.UseCase.IUseCase _useCase;
         private _Domain.UseCase.ICargarMedioPagoPorBonoDivisa _ucCargarMedioPagoPorBonoDivisa;
+        private _Domain.UseCase.ICargarMediosPago _ucCargarMediosPago;
+        private _Domain.UseCase.ICargarMonedaLocal _ucCargarMonedaLocal;
+        private _Domain.UseCase.ICargarMonedaReferencia _ucCargarMonedaReferencia;
         private FormaPago.Domain.ReglaNegocio.IReglas _reglaNegocio;
         private FormaPago.Domain.Models.MyData _myData;
         private FormaPago.Domain.Models.Moneda _monedaLocal;
@@ -90,6 +93,9 @@ namespace PosOnLine.Src.FormaPago.vm
             _myData = new Domain.Models.MyData();
             _useCase = new FormaPago.Domain.UseCase.UseCaseImpl();
             _ucCargarMedioPagoPorBonoDivisa = new _Domain.UseCase.CargarMedioPagoPorBonoDivisaImpl();
+            _ucCargarMediosPago = new _Domain.UseCase.CargarMediosPagoImpl();
+            _ucCargarMonedaLocal = new _Domain.UseCase.CargarMonedaLocalImpl();
+            _ucCargarMonedaReferencia = new _Domain.UseCase.CargarMonedaReferenciaImpl();
             _ctrlMedioPago = new CtrlMedioPagoImpl();
             _loteRef = new FormaPagoLoteRef.vm.LoteRefImpl();
             _aplicarBono = new AplicarBonoImpl();
@@ -157,9 +163,12 @@ namespace PosOnLine.Src.FormaPago.vm
         {
             try
             {
-                setMonedaLocal(_useCase.CargarMonedaLocal());
-                setMonedaReferencia(_useCase.CargarMonedaReferencia());
-                setMediosPago(_useCase.CargarMediosPagoUseCase());
+                setMonedaLocal(Domain.converter.Moneda(_ucCargarMonedaLocal.Invoke()));
+                setMonedaReferencia(Domain.converter.Moneda(_ucCargarMonedaReferencia.Invoke()));
+                setMediosPago(_ucCargarMediosPago.Invoke().Select(s => 
+                {
+                    return FormaPago.Domain.converter.MedioPago(s);
+                }).ToList());
                 setMedioPagoPorBonoDivisa(FormaPago.Domain.converter.MedioPago(_ucCargarMedioPagoPorBonoDivisa.Invoke()));
                 setConfiguracionIGTF(_useCase.CargarConfiguracionIGTF());
                 setMonedas(_useCase.CargarMonedas());

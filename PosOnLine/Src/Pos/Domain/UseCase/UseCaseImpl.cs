@@ -188,5 +188,28 @@ namespace PosOnLine.Src.Pos.Domain.UseCase
                 return null;
             }
         }
+        public Models.ResultadoAgregarDoc 
+            AgregarNotaCredito(OOB.Documento.Agregar.NotaCredito.Ficha doc)
+        {
+            var result = Sistema.MyData.Documento_Agregar_NotaCredito(doc);
+            if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(result.Mensaje);
+            }
+            if (result.Auto == "")
+            {
+                throw new Exception("DATA NO CARGADA");
+            }
+            var rt = new Models.ResultadoAgregarDoc()
+            {
+                autoCierre = "",
+                autoDoc = result.Auto,
+                codDoc = "",
+                idVerificador = -1,
+                montoDoc = 0m,
+                numDoc = "",
+            };
+            return rt;
+        }
     }
 }

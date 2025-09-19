@@ -25,5 +25,16 @@ namespace PosOnLine.Src.FormaPago.Domain
                 simboloCurrencies = mp.simboloCurrencies,
             };
         }
+        static public FormaPago.Domain.Models.Moneda Moneda(_Domain.Models.Moneda m)
+        {
+            return new FormaPago.Domain.Models.Moneda()
+            {
+                codigo = m.codigo,
+                id = m.id,
+                nombre = m.nombre,
+                simbolo = m.simbolo,
+                tasaRespectoMonReferencia = m.tasaRespectoMonReferencia,
+            };
+        }
     }
 }

@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.FormaPago.Domain.Models
 {
-    public class Moneda
+    public class Moneda: _Domain.Models.Moneda
     {
-        public int id { get; set; }
-        public string codigo { get; set; }
-        public string nombre { get; set; }
-        public string simbolo { get; set; }
-        public decimal tasaRespectoMonReferencia { get; set; }
+        public Moneda()
+            :base()
+        {
+        }
     }
 }

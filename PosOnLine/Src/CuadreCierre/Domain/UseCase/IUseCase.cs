@@ -11,5 +11,15 @@ namespace PosOnLine.Src.CuadreCierre.Domain.UseCase
     {
         Domain.Models.DataResumenRecolectada
             CuadreResumen(int id);
+        List<Domain.Models.RepoPagoDetalleEnc>
+            ReportePagoDetalle(int id);
+        Domain.Models.RepoPagoResumen
+            ReportePagoResumen(int id);
+        List<Domain.Models.RepoVentaCredito>
+            ReporteVentaCredito(int id);
+        List<Domain.Models.RepoCambiosVuelto>
+            ReporteCambiosVueltoEntregado(int id);
+        List<Domain.Models.RepoPagoMovil>
+            ReportePagoMovilPorRealizar(int id);
     }
 }
