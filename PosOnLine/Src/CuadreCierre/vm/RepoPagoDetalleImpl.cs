@@ -40,8 +40,8 @@ namespace PosOnLine.Src.CuadreCierre.vm
                 {
                     if (!rg.isCredito)
                     {
-                        montoTotal += rg.docMonto;
-                        cambioDarTotal += rg.docCambioDar;
+                        montoTotal += (rg.docMonto*rg.docSigno);
+                        cambioDarTotal += (rg.docCambioDar*rg.docSigno);
                     }
                 }
                 foreach (var pg in rg.pagos.ToList())
@@ -53,12 +53,12 @@ namespace PosOnLine.Src.CuadreCierre.vm
                     p["nombreRazonSocial"] = rg.cliCiRif + Environment.NewLine + rg.cliNombre;
                     p["dirFiscal"] = rg.cliDir;
                     p["telefono"] = rg.cliTelf;
-                    p["cambioDar"] = rg.docCambioDar;
+                    p["cambioDar"] = rg.docCambioDar*rg.docSigno;
                     //
-                    var _monto = rg.docMonto;
+                    var _monto = rg.docMonto*rg.docSigno;
                     var _medioPago = pg.codigoMP + "/ " + pg.descMP;
-                    var _montoRecibido = pg.montoRecibido.ToString("n2")+pg.simboloMoneda;
-                    var _importe = pg.montoRecibioMonLocal;
+                    var _montoRecibido = (pg.montoRecibido*rg.docSigno).ToString("n2")+pg.simboloMoneda;
+                    var _importe = pg.montoRecibioMonLocal*rg.docSigno;
                     var _tasa = "";
                     //
                     if (_monedaLocal != null) 
@@ -71,7 +71,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
                     if (!rg.isAnulado)
                     {
                         p["estatus"] = "Activo";
-                        p["monto"] = rg.docMonto;
+                        p["monto"] = rg.docMonto*rg.docSigno;
                         p["montoRecibido"] = _montoRecibido;
                         if (rg.isCredito)
                         {

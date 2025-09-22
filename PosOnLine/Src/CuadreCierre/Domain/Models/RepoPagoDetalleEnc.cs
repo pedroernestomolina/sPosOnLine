@@ -22,6 +22,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public bool isAnulado { get; set; }
         public bool isCredito { get; set; }
         public decimal tasaReferencia { get; set; }
+        public int docSigno { get; set; }
         public List<RepoPagoDetalleDet> pagos { get; set; }
         //
         public bool isDocVenta

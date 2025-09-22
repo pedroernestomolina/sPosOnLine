@@ -173,7 +173,8 @@ namespace PosOnLine.Src.CuadreCierre.Domain.UseCase
                             g.cambioVueltoMonLocal,
                             g.cambioVueltoMonReferencia,
                             g.siglasDoc,
-                            g.tasaReferencia
+                            g.tasaReferencia,
+                            g.signoDoc
                         }).
                         Select(s =>
                             new Models.RepoPagoDetalleEnc()
@@ -191,6 +192,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.UseCase
                                 isAnulado = s.Key.esAnulado,
                                 isCredito = s.Key.esCredito,
                                 tasaReferencia = s.Key.tasaReferencia,
+                                docSigno = s.Key.signoDoc,
                                 pagos = s.Select(det =>
                                     new Models.RepoPagoDetalleDet()
                                     {
@@ -281,6 +283,9 @@ namespace PosOnLine.Src.CuadreCierre.Domain.UseCase
                         importeMonReferencia = s.importeMonReferencia,
                         montoPendCxcMonReferencia = s.montoPendCxcMonReferencia,
                         nroDoc = s.nroDoc,
+                        siglasDoc=s.siglasDoc,
+                        signoDoc=s.signoDoc,
+                        isAnulado= s.isAnulado,
                     };
                 }).ToList();
             }

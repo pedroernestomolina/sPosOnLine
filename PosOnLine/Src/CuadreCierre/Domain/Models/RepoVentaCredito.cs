@@ -17,5 +17,8 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public decimal importeMonReferencia { get; set; }
         public decimal montoPendCxcMonReferencia { get; set; }
         public decimal bonoPagoDivisaMonReferencia { get; set; }
+        public string siglasDoc { get; set; }
+        public int signoDoc { get; set; }
+        public bool isAnulado { get; set; }
     }
 }

@@ -50,6 +50,8 @@ namespace PosOnLine.Src.FormaPago.vm
         void setActivarModoSoloFormasPagoConMonedaLocal(bool modo);
         void setDesctoDado(decimal porct);
         void setClienteEntidad(Domain.Models.Cliente data);
+        void setModoDocumento(Domain.Models.Enumerados.TipoDocumento tipo);
+        void setActivarFicha(bool activar);
         //
         void agregarMedioPago();
         void eliminarFormaPago();

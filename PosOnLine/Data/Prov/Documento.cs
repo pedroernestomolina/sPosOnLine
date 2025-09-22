@@ -73,7 +73,27 @@ namespace PosOnLine.Data.Prov
                 {
                     throw new Exception(r01.Mensaje);
                 }
-                var s = r01.Entidad;
+                if (r01.Entidad == null) 
+                {
+                    throw new Exception("DATA NO CARGADA");
+                }
+                if (r01.Entidad.cuerpo == null) 
+                {
+                    throw new Exception("CUERPO DOCUMENTO NO CARGADO");
+                }
+                if (r01.Entidad.items == null)
+                {
+                    throw new Exception("ITEMS DOCUMENTO NO CARGADO");
+                }
+                if (r01.Entidad.medidas == null)
+                {
+                    throw new Exception("MEDIDAS DOCUMENTO NO CARGADO");
+                }
+                if (r01.Entidad.precios == null)
+                {
+                    throw new Exception("PRECIOS DOCUMENTO NO CARGADO");
+                }
+                var s = r01.Entidad.cuerpo;
                 var nr = new OOB.Documento.Entidad.Ficha()
                 {
                     AnoRelacion = s.AnoRelacion,
@@ -196,7 +216,7 @@ namespace PosOnLine.Data.Prov
                     baseAplicaIGTFMonAct = s.baseAplicaIGTFMonAct,
                     baseAplicaIGTFMonDiv = s.baseAplicaIGTFMonDiv,
                     //
-                    items = s.items.Select(ss =>
+                    items = r01.Entidad.items.Select(ss =>
                     {
                         var xr = new OOB.Documento.Entidad.FichaItem()
                         {
@@ -265,10 +285,12 @@ namespace PosOnLine.Data.Prov
                             X = ss.X,
                             Y = ss.Y,
                             Z = ss.Z,
+                            estatusAplicaPorcAumento= ss.estatusAplicaPorcAumento.Trim().ToUpper(),
+                            estatusDivisaPrd = ss.estatusDivisaPrd.Trim().ToUpper() == "1",
                         };
                         return xr;
                     }).ToList(),
-                    medidas = s.medidas.Select(ss =>
+                    medidas = r01.Entidad.medidas.Select(ss =>
                     {
                         var mnr = new OOB.Documento.Entidad.FichaMedida()
                         {
@@ -279,7 +301,7 @@ namespace PosOnLine.Data.Prov
                         };
                         return mnr;
                     }).ToList(),
-                    precios = s.precios.Select(p =>
+                    precios = r01.Entidad.precios.Select(p =>
                     {
                         var pr = new OOB.Documento.Entidad.FichaPrecio()
                         {

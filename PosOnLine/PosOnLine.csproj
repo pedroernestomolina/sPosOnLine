@@ -309,6 +309,8 @@
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaDetalle.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaKardex.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaPosResumen.cs" />
+    <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaPosResumenDetalleFormaPago.cs" />
+    <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaPosResumenGeneral.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaCredito\FichaSerie.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaEntrega\Ficha.cs" />
     <Compile Include="OOB\Documento\Agregar\NotaEntrega\FichaDeposito.cs" />
@@ -573,6 +575,7 @@
     <Compile Include="Src\CuadreCierre\vm\RepoPagoMovilImpl.cs" />
     <Compile Include="Src\CuadreCierre\vm\RepoPagoResumenImpl.cs" />
     <Compile Include="Src\CuadreCierre\vm\RepoVentaCreditoImpl.cs" />
+    <Compile Include="Src\FormaPago\Domain\Models\Enumerados.cs" />
     <Compile Include="Src\_Domain\IRepo.cs" />
     <Compile Include="Src\CuadreCierre\vm\RepoPagoDetalleImpl.cs" />
     <Compile Include="Src\FabModAdm.cs" />

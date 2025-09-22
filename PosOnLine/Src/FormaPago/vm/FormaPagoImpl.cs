@@ -55,6 +55,8 @@ namespace PosOnLine.Src.FormaPago.vm
         private bool _procesarPagoIsOk;
         private decimal _maximoBonoDadoPorPagoDivisa; // INDICA EL MONTO MAXIMO BONO A DAR POR PAGO EN DIVISA
         private decimal _maximoBonoDadoMonLocal_PorPagoDivisa;// INDICA EL MONTO MAXIMO BONO EN MONEDA LOCAL A DAR POR PAGO EN DIVISA 
+        private FormaPago.Domain.Models.Enumerados.TipoDocumento _tipoDocumento;
+        private bool _activarFicha;
         //
         public object Get_MedioPagoSource { get { return _ctrlMedioPago.GetSource; } }
         public string Get_MedioPagoId { get { return _ctrlMedioPago.GetId; } }
@@ -143,12 +145,19 @@ namespace PosOnLine.Src.FormaPago.vm
             if (cargarData())
             {
                 recalcular();
-                if (frm == null)
+                if (_activarFicha)
                 {
-                    frm = new vista.Frm();
-                    frm.setControlador(this);
+                    if (frm == null)
+                    {
+                        frm = new vista.Frm();
+                        frm.setControlador(this);
+                    }
+                    frm.ShowDialog();
                 }
-                frm.ShowDialog();
+                else 
+                {
+                    _procesarPagoIsOk = true;
+                }
             }
         }
         private void recalcular()
@@ -275,6 +284,14 @@ namespace PosOnLine.Src.FormaPago.vm
         {
             _porctDsctoDado = porct;
         }
+        public void setModoDocumento(Domain.Models.Enumerados.TipoDocumento tipo)
+        {
+            _tipoDocumento = tipo;
+        }
+        public void setActivarFicha(bool activar)
+        {
+            _activarFicha = activar;
+        }
         //
         public void agregarMedioPago()
         {
@@ -391,6 +408,11 @@ namespace PosOnLine.Src.FormaPago.vm
         }
         public void dsctoDar()
         {
+            if (_tipoDocumento == Domain.Models.Enumerados.TipoDocumento.Devolucion)
+            {
+                Helpers.Msg.Alerta("TIPO DE DOCUMENTO INCORRECTO PARA DAR DESCUENTO");
+                return;
+            }
             if (!_reglaNegocio.ParaDarDescuento())
             {
                 return;
@@ -406,6 +428,11 @@ namespace PosOnLine.Src.FormaPago.vm
         }
         public void ctaCredito()
         {
+            if (_tipoDocumento == Domain.Models.Enumerados.TipoDocumento.Devolucion) 
+            {
+                Helpers.Msg.Alerta("TIPO DE DOCUMENTO INCORRECTO PARA DEJAR A CREDITO");
+                return;
+            }
             _estatusCuentaIsCredito = false;
             if (_reglaNegocio.ParaDejarlaACredito(_clienteData.id))
             {
@@ -416,9 +443,15 @@ namespace PosOnLine.Src.FormaPago.vm
         public void procesarFicha()
         {
             _procesarPagoIsOk = false;
-            if (!_isPendiente || _estatusCuentaIsCredito)
+            if (_tipoDocumento == Domain.Models.Enumerados.TipoDocumento.Devolucion)
             {
-                _procesarPagoIsOk= true;
+            }
+            else 
+            {
+                if (!_isPendiente || _estatusCuentaIsCredito)
+                {
+                    _procesarPagoIsOk = true;
+                }
             }
         }
         public void abandonarFicha()
@@ -556,7 +589,6 @@ namespace PosOnLine.Src.FormaPago.vm
                  codigoMoneda=_monedaReferencia.codigo,
             };
             var _igtfImporteMonLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
-
 
             var rt = new Domain.Models.DataRetornar()
             {

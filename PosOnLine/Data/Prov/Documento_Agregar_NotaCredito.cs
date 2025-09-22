@@ -457,6 +457,77 @@ namespace PosOnLine.Data.Prov
                 mAnu = ficha.Resumen.mAnu,
                 mNte = ficha.Resumen.mNte,
             };
+
+
+            //
+            var resumenGeneral = new DtoLibPos.Documento.Agregar.NotaCredito.FichaPosResumenGeneral();
+            if (ficha.ResumenGeneral != null)
+            {
+                var rg = ficha.ResumenGeneral;
+                resumenGeneral = new DtoLibPos.Documento.Agregar.NotaCredito.FichaPosResumenGeneral()
+                {
+                    cambioVueltoMonLocal = rg.cambioVuelto,
+                    cntDivisaEntregada = rg.cntDivisaEntregada,
+                    codigoDocumento = rg.codigoDocumento,
+                    estatusAnulado = rg.estatusAnulado,
+                    estatusCredito = rg.estatusCredito,
+                    idResumen = rg.idResumen,
+                    montoMonLocal = rg.montoMonLocal,
+                    montoMonReferencia = rg.montoMonReferencia,
+                    montoPendMonLocal = rg.montoPendMonLocal,
+                    montoPendMonReferencia = rg.montoPendMonReferencia,
+                    montoRecibidoMonLocal = rg.montoRecibidoMonLocal,
+                    montoRecibidoMonReferencia = rg.montoRecibidoMonReferencia,
+                    nombreDocumento = rg.nombreDocumento,
+                    signoDocumento = rg.signoDocumento,
+                    varianteDocumento = rg.varianteDocumento,
+                    vueltoDadoPagoDivisa = rg.vueltoDadoPagoDivisa,
+                    vueltoDadoPagoEfectivo = rg.vueltoDadoPagoEfectivo,
+                    vueltoDadoPagoMovil = rg.vueltoDadoPagoMovil,
+                    factorCambio = rg.factorCambio,
+                    bonoPagoDivisaMonLocal = rg.bonoPagoDivisaMonLocal,
+                    bonoPagoDivisaMonReferencia = rg.bonoPagoDivisaMonReferencia,
+                    cambioVueltoMonReferencia = rg.cambioVueltoMonReferencia,
+                    igtfMonLocal = rg.igtfMonLocal,
+                };
+            }
+            fichaDTO.resumenGeneral = resumenGeneral;
+            //
+            var lst_DetalleFormaPago = new List<DtoLibPos.Documento.Agregar.NotaCredito.FichaPosResumenDetalleFormaPago>();
+            if (ficha.DetalleFormaPago != null)
+            {
+                foreach (var it in ficha.DetalleFormaPago)
+                {
+                    var detalleFormaPago = new DtoLibPos.Documento.Agregar.NotaCredito.FichaPosResumenDetalleFormaPago()
+                    {
+                        codigoCurrencies = it.codigoCurrencies,
+                        codigoMedioPago = it.codigoMedioPago,
+                        descripcionCurrencies = it.descripcionCurrencies,
+                        descripcionMedioPago = it.descripcionMedioPago,
+                        estatusAnulado = it.estatusAnulado,
+                        estatusAplicaBonoPorPagoDivisa = it.estatusAplicaBonoPorPagoDivisa ? "1" : "0",
+                        estatusAplicaIGTF = it.estatusAplicaIGTF ? "1" : "0",
+                        idCurrencies = it.idCurrencies,
+                        idMedioPago = it.idMedioPago,
+                        idResumen = it.idResumen,
+                        loteNro = it.loteNro,
+                        montoIngresao = it.montoIngresao,
+                        montoIngresoMonedaLocal = it.montoIngresoMonedaLocal,
+                        montoIngresoMonedaReferencia = it.montoIngresoMonedaReferencia,
+                        referenciaNro = it.referenciaNro,
+                        signo = it.signo,
+                        simboloCurrencies = it.simboloCurrencies,
+                        tasaCurrencies = it.tasaCurrencies,
+                        factorCambio = it.factorCambio,
+                    };
+                    lst_DetalleFormaPago.Add(detalleFormaPago);
+                }
+            }
+            fichaDTO.detalleFormaPago = lst_DetalleFormaPago;
+            //
+
+
+
             if (ficha.SerieFiscal != null)
             {
                 fichaDTO.SerieFiscal = new DtoLibPos.Documento.Agregar.NotaCredito.FichaSerie() { auto = ficha.SerieFiscal.auto };

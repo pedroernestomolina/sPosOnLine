@@ -253,6 +253,11 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
             zFiscal = -1;
             //
             AplicarLibroVenta = false;
+            //
+            DetalleFormaPago = new List<FichaPosResumenDetalleFormaPago>();
+            ResumenGeneral = new FichaPosResumenGeneral();
         }
+        public List<FichaPosResumenDetalleFormaPago> DetalleFormaPago { get; set; }
+        public FichaPosResumenGeneral ResumenGeneral { get; set; }
     }
 }

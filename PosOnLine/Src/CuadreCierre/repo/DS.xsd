@@ -12,7 +12,7 @@
   <xs:element name="DS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS" msprop:Generator_UserDSName="DS">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Pago" msprop:Generator_TableClassName="PagoDataTable" msprop:Generator_TableVarName="tablePago" msprop:Generator_TablePropName="Pago" msprop:Generator_RowDeletingName="PagoRowDeleting" msprop:Generator_RowChangingName="PagoRowChanging" msprop:Generator_RowEvHandlerName="PagoRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoRowDeleted" msprop:Generator_UserTableName="Pago" msprop:Generator_RowChangedName="PagoRowChanged" msprop:Generator_RowEvArgName="PagoRowChangeEvent" msprop:Generator_RowClassName="PagoRow">
+        <xs:element name="Pago" msprop:Generator_TableClassName="PagoDataTable" msprop:Generator_TableVarName="tablePago" msprop:Generator_RowChangedName="PagoRowChanged" msprop:Generator_TablePropName="Pago" msprop:Generator_RowDeletingName="PagoRowDeleting" msprop:Generator_RowChangingName="PagoRowChanging" msprop:Generator_RowEvHandlerName="PagoRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoRowDeleted" msprop:Generator_RowClassName="PagoRow" msprop:Generator_UserTableName="Pago" msprop:Generator_RowEvArgName="PagoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="documento" msprop:Generator_ColumnVarNameInTable="columndocumento" msprop:Generator_ColumnPropNameInRow="documento" msprop:Generator_ColumnPropNameInTable="documentoColumn" msprop:Generator_UserColumnName="documento" type="xs:string" minOccurs="0" />
@@ -33,7 +33,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PagoResumen" msprop:Generator_TableClassName="PagoResumenDataTable" msprop:Generator_TableVarName="tablePagoResumen" msprop:Generator_RowChangedName="PagoResumenRowChanged" msprop:Generator_TablePropName="PagoResumen" msprop:Generator_RowDeletingName="PagoResumenRowDeleting" msprop:Generator_RowChangingName="PagoResumenRowChanging" msprop:Generator_RowEvHandlerName="PagoResumenRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoResumenRowDeleted" msprop:Generator_RowClassName="PagoResumenRow" msprop:Generator_UserTableName="PagoResumen" msprop:Generator_RowEvArgName="PagoResumenRowChangeEvent">
+        <xs:element name="PagoResumen" msprop:Generator_TableClassName="PagoResumenDataTable" msprop:Generator_TableVarName="tablePagoResumen" msprop:Generator_TablePropName="PagoResumen" msprop:Generator_RowDeletingName="PagoResumenRowDeleting" msprop:Generator_RowChangingName="PagoResumenRowChanging" msprop:Generator_RowEvHandlerName="PagoResumenRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoResumenRowDeleted" msprop:Generator_UserTableName="PagoResumen" msprop:Generator_RowChangedName="PagoResumenRowChanged" msprop:Generator_RowEvArgName="PagoResumenRowChangeEvent" msprop:Generator_RowClassName="PagoResumenRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" minOccurs="0" />
@@ -46,7 +46,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="VentCredito" msprop:Generator_TableClassName="VentCreditoDataTable" msprop:Generator_TableVarName="tableVentCredito" msprop:Generator_TablePropName="VentCredito" msprop:Generator_RowDeletingName="VentCreditoRowDeleting" msprop:Generator_RowChangingName="VentCreditoRowChanging" msprop:Generator_RowEvHandlerName="VentCreditoRowChangeEventHandler" msprop:Generator_RowDeletedName="VentCreditoRowDeleted" msprop:Generator_UserTableName="VentCredito" msprop:Generator_RowChangedName="VentCreditoRowChanged" msprop:Generator_RowEvArgName="VentCreditoRowChangeEvent" msprop:Generator_RowClassName="VentCreditoRow">
+        <xs:element name="VentCredito" msprop:Generator_TableClassName="VentCreditoDataTable" msprop:Generator_TableVarName="tableVentCredito" msprop:Generator_RowChangedName="VentCreditoRowChanged" msprop:Generator_TablePropName="VentCredito" msprop:Generator_RowDeletingName="VentCreditoRowDeleting" msprop:Generator_RowChangingName="VentCreditoRowChanging" msprop:Generator_RowEvHandlerName="VentCreditoRowChangeEventHandler" msprop:Generator_RowDeletedName="VentCreditoRowDeleted" msprop:Generator_RowClassName="VentCreditoRow" msprop:Generator_UserTableName="VentCredito" msprop:Generator_RowEvArgName="VentCreditoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="docNumero" msprop:Generator_ColumnVarNameInTable="columndocNumero" msprop:Generator_ColumnPropNameInRow="docNumero" msprop:Generator_ColumnPropNameInTable="docNumeroColumn" msprop:Generator_UserColumnName="docNumero" type="xs:string" minOccurs="0" />
@@ -57,10 +57,11 @@
               <xs:element name="montoBonoDiv" msprop:Generator_ColumnVarNameInTable="columnmontoBonoDiv" msprop:Generator_ColumnPropNameInRow="montoBonoDiv" msprop:Generator_ColumnPropNameInTable="montoBonoDivColumn" msprop:Generator_UserColumnName="montoBonoDiv" type="xs:decimal" minOccurs="0" />
               <xs:element name="portcBonoDiv" msprop:Generator_ColumnVarNameInTable="columnportcBonoDiv" msprop:Generator_ColumnPropNameInRow="portcBonoDiv" msprop:Generator_ColumnPropNameInTable="portcBonoDivColumn" msprop:Generator_UserColumnName="portcBonoDiv" type="xs:decimal" minOccurs="0" />
               <xs:element name="montoSaldoPendMonDiv" msprop:Generator_ColumnVarNameInTable="columnmontoSaldoPendMonDiv" msprop:Generator_ColumnPropNameInRow="montoSaldoPendMonDiv" msprop:Generator_ColumnPropNameInTable="montoSaldoPendMonDivColumn" msprop:Generator_UserColumnName="montoSaldoPendMonDiv" type="xs:decimal" minOccurs="0" />
+              <xs:element name="isAnulado" msprop:Generator_ColumnVarNameInTable="columnisAnulado" msprop:Generator_ColumnPropNameInRow="isAnulado" msprop:Generator_ColumnPropNameInTable="isAnuladoColumn" msprop:Generator_UserColumnName="isAnulado" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="VueltosEnt" msprop:Generator_TableClassName="VueltosEntDataTable" msprop:Generator_TableVarName="tableVueltosEnt" msprop:Generator_RowChangedName="VueltosEntRowChanged" msprop:Generator_TablePropName="VueltosEnt" msprop:Generator_RowDeletingName="VueltosEntRowDeleting" msprop:Generator_RowChangingName="VueltosEntRowChanging" msprop:Generator_RowEvHandlerName="VueltosEntRowChangeEventHandler" msprop:Generator_RowDeletedName="VueltosEntRowDeleted" msprop:Generator_RowClassName="VueltosEntRow" msprop:Generator_UserTableName="VueltosEnt" msprop:Generator_RowEvArgName="VueltosEntRowChangeEvent">
+        <xs:element name="VueltosEnt" msprop:Generator_TableClassName="VueltosEntDataTable" msprop:Generator_TableVarName="tableVueltosEnt" msprop:Generator_TablePropName="VueltosEnt" msprop:Generator_RowDeletingName="VueltosEntRowDeleting" msprop:Generator_RowChangingName="VueltosEntRowChanging" msprop:Generator_RowEvHandlerName="VueltosEntRowChangeEventHandler" msprop:Generator_RowDeletedName="VueltosEntRowDeleted" msprop:Generator_UserTableName="VueltosEnt" msprop:Generator_RowChangedName="VueltosEntRowChanged" msprop:Generator_RowEvArgName="VueltosEntRowChangeEvent" msprop:Generator_RowClassName="VueltosEntRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="documento" msprop:Generator_ColumnVarNameInTable="columndocumento" msprop:Generator_ColumnPropNameInRow="documento" msprop:Generator_ColumnPropNameInTable="documentoColumn" msprop:Generator_UserColumnName="documento" type="xs:string" minOccurs="0" />
@@ -77,7 +78,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PagoMovil" msprop:Generator_TableClassName="PagoMovilDataTable" msprop:Generator_TableVarName="tablePagoMovil" msprop:Generator_TablePropName="PagoMovil" msprop:Generator_RowDeletingName="PagoMovilRowDeleting" msprop:Generator_RowChangingName="PagoMovilRowChanging" msprop:Generator_RowEvHandlerName="PagoMovilRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoMovilRowDeleted" msprop:Generator_UserTableName="PagoMovil" msprop:Generator_RowChangedName="PagoMovilRowChanged" msprop:Generator_RowEvArgName="PagoMovilRowChangeEvent" msprop:Generator_RowClassName="PagoMovilRow">
+        <xs:element name="PagoMovil" msprop:Generator_TableClassName="PagoMovilDataTable" msprop:Generator_TableVarName="tablePagoMovil" msprop:Generator_RowChangedName="PagoMovilRowChanged" msprop:Generator_TablePropName="PagoMovil" msprop:Generator_RowDeletingName="PagoMovilRowDeleting" msprop:Generator_RowChangingName="PagoMovilRowChanging" msprop:Generator_RowEvHandlerName="PagoMovilRowChangeEventHandler" msprop:Generator_RowDeletedName="PagoMovilRowDeleted" msprop:Generator_RowClassName="PagoMovilRow" msprop:Generator_UserTableName="PagoMovil" msprop:Generator_RowEvArgName="PagoMovilRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="docNro" msprop:Generator_ColumnVarNameInTable="columndocNro" msprop:Generator_ColumnPropNameInRow="docNro" msprop:Generator_ColumnPropNameInTable="docNroColumn" msprop:Generator_UserColumnName="docNro" type="xs:string" minOccurs="0" />

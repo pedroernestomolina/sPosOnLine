@@ -145,8 +145,11 @@ namespace PosOnLine.OOB.Documento.Entidad
             CodigoVendedor = "";
             AutoVendedor = "";
             CierreFtp = "";
+            //
+            estatusAplicaPorcAumento = "";
+            estatusDivisaPrd = false;
         }
-
+        public string estatusAplicaPorcAumento { get; set; }
+        public bool estatusDivisaPrd { get; set; }
     }
-
 }

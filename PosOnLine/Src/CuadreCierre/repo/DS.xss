@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:Pago" ZOrder="5" X="88" Y="70" Height="353" Width="176" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="349" />
     <Shape ID="DesignTable:PagoResumen" ZOrder="4" X="317" Y="75" Height="162" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="158" />
-    <Shape ID="DesignTable:VentCredito" ZOrder="3" X="505" Y="74" Height="181" Width="179" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
+    <Shape ID="DesignTable:VentCredito" ZOrder="3" X="505" Y="74" Height="200" Width="179" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="196" />
     <Shape ID="DesignTable:VueltosEnt" ZOrder="2" X="721" Y="77" Height="238" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="234" />
     <Shape ID="DesignTable:PagoMovil" ZOrder="1" X="895" Y="79" Height="181" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
   </Shapes>

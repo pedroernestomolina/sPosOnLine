@@ -1209,6 +1209,8 @@ namespace PosOnLine.Src.CuadreCierre.repo {
             
             private global::System.Data.DataColumn columnmontoSaldoPendMonDiv;
             
+            private global::System.Data.DataColumn columnisAnulado;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public VentCreditoDataTable() {
@@ -1308,6 +1310,14 @@ namespace PosOnLine.Src.CuadreCierre.repo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn isAnuladoColumn {
+                get {
+                    return this.columnisAnulado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1343,7 +1353,7 @@ namespace PosOnLine.Src.CuadreCierre.repo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VentCreditoRow AddVentCreditoRow(string docNumero, System.DateTime docEmision, string entidad, decimal importeMonAct, decimal importeMonDiv, decimal montoBonoDiv, decimal portcBonoDiv, decimal montoSaldoPendMonDiv) {
+            public VentCreditoRow AddVentCreditoRow(string docNumero, System.DateTime docEmision, string entidad, decimal importeMonAct, decimal importeMonDiv, decimal montoBonoDiv, decimal portcBonoDiv, decimal montoSaldoPendMonDiv, string isAnulado) {
                 VentCreditoRow rowVentCreditoRow = ((VentCreditoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         docNumero,
@@ -1353,7 +1363,8 @@ namespace PosOnLine.Src.CuadreCierre.repo {
                         importeMonDiv,
                         montoBonoDiv,
                         portcBonoDiv,
-                        montoSaldoPendMonDiv};
+                        montoSaldoPendMonDiv,
+                        isAnulado};
                 rowVentCreditoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowVentCreditoRow);
                 return rowVentCreditoRow;
@@ -1384,6 +1395,7 @@ namespace PosOnLine.Src.CuadreCierre.repo {
                 this.columnmontoBonoDiv = base.Columns["montoBonoDiv"];
                 this.columnportcBonoDiv = base.Columns["portcBonoDiv"];
                 this.columnmontoSaldoPendMonDiv = base.Columns["montoSaldoPendMonDiv"];
+                this.columnisAnulado = base.Columns["isAnulado"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1405,6 +1417,8 @@ namespace PosOnLine.Src.CuadreCierre.repo {
                 base.Columns.Add(this.columnportcBonoDiv);
                 this.columnmontoSaldoPendMonDiv = new global::System.Data.DataColumn("montoSaldoPendMonDiv", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmontoSaldoPendMonDiv);
+                this.columnisAnulado = new global::System.Data.DataColumn("isAnulado", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnisAnulado);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3053,6 +3067,22 @@ namespace PosOnLine.Src.CuadreCierre.repo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string isAnulado {
+                get {
+                    try {
+                        return ((string)(this[this.tableVentCredito.isAnuladoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'isAnulado\' in table \'VentCredito\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableVentCredito.isAnuladoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsdocNumeroNull() {
                 return this.IsNull(this.tableVentCredito.docNumeroColumn);
             }
@@ -3145,6 +3175,18 @@ namespace PosOnLine.Src.CuadreCierre.repo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetmontoSaldoPendMonDivNull() {
                 this[this.tableVentCredito.montoSaldoPendMonDivColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsisAnuladoNull() {
+                return this.IsNull(this.tableVentCredito.isAnuladoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetisAnuladoNull() {
+                this[this.tableVentCredito.isAnuladoColumn] = global::System.Convert.DBNull;
             }
         }
         

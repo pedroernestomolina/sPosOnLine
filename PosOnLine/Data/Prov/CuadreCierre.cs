@@ -37,7 +37,7 @@ namespace PosOnLine.Data.Prov
                             codigoMon = s.codigoMon,
                             codMedPago = s.codMedPago,
                             descMedPago = s.descMedPago,
-                            factor = s.factor,
+                            factor = s.factor.HasValue?s.factor.Value: 0m,
                             ingreso = s.ingreso,
                             montoMonLocal = s.montoMonLocal,
                             simboloMon = s.simboloMon,
@@ -120,21 +120,21 @@ namespace PosOnLine.Data.Prov
                 var s = rs.Entidad;
                 rt.Entidad = new OOB.CuadreCierre.CuadreResumen.Totales()
                 {
-                    bonoPagoDivisaMonLocal = s.bonoPagoDivisaMonLocal,
-                    bonoPagoDivisaMonReferencia = s.bonoPagoDivisaMonReferencia,
-                    cambioVueltoMonLocal = s.cambioVueltoMonLocal,
-                    cambioVueltoMonReferencia = s.cambioVueltoMonReferencia,
-                    cntDivisaEntregada = s.cntDivisaEntregada,
+                    bonoPagoDivisaMonLocal = s.bonoPagoDivisaMonLocal.HasValue ? s.bonoPagoDivisaMonLocal.Value: 0m ,
+                    bonoPagoDivisaMonReferencia = s.bonoPagoDivisaMonReferencia.HasValue ? s.bonoPagoDivisaMonReferencia.Value: 0m,
+                    cambioVueltoMonLocal = s.cambioVueltoMonLocal.HasValue ? s.cambioVueltoMonLocal.Value: 0m,
+                    cambioVueltoMonReferencia = s.cambioVueltoMonReferencia.HasValue ? s.cambioVueltoMonReferencia.Value: 0m,
+                    cntDivisaEntregada = s.cntDivisaEntregada.HasValue ? s.cntDivisaEntregada.Value: 0,
                     cntDoc = s.cntDoc,
-                    igtfMonLocal = s.igtfMonLocal,
-                    montoMonLocal = s.montoMonLocal,
-                    montoMonReferencia = s.montoMonReferencia,
-                    montoPendMonReferencia = s.montoPendMonReferencia,
-                    montoRecibidoMonLocal = s.montoRecibidoMonLocal,
-                    montoRecibidoMonReferencia = s.montoRecibidoMonReferencia,
-                    vueltoDadoDivisaMonLocal = s.vueltoDadoDivisaMonLocal,
-                    vueltoDadoEfectivo = s.vueltoDadoEfectivo,
-                    vueltoPagoMovil = s.vueltoPagoMovil,
+                    igtfMonLocal = s.igtfMonLocal.HasValue? s.igtfMonLocal.Value: 0m,
+                    montoMonLocal = s.montoMonLocal.HasValue? s.montoMonLocal.Value:0m ,
+                    montoMonReferencia = s.montoMonReferencia.HasValue? s.montoMonReferencia.Value:0m,
+                    montoPendMonReferencia = s.montoPendMonReferencia.HasValue? s.montoPendMonReferencia.Value:0m,
+                    montoRecibidoMonLocal = s.montoRecibidoMonLocal.HasValue? s.montoRecibidoMonLocal.Value:0m,
+                    montoRecibidoMonReferencia = s.montoRecibidoMonReferencia.HasValue? s.montoRecibidoMonReferencia.Value: 0m,
+                    vueltoDadoDivisaMonLocal = s.vueltoDadoDivisaMonLocal.HasValue? s.vueltoDadoDivisaMonLocal.Value:0m,
+                    vueltoDadoEfectivo = s.vueltoDadoEfectivo.HasValue? s.vueltoDadoEfectivo.Value:0m,
+                    vueltoPagoMovil = s.vueltoPagoMovil.HasValue? s.vueltoPagoMovil.Value:0m,
                 };
             }
             catch (Exception e)
@@ -201,8 +201,8 @@ namespace PosOnLine.Data.Prov
                         };
                         return nr;
                     }).ToList();
-                    rt.ListaD = lst;
                 }
+                rt.ListaD = lst;
             }
             catch (Exception e)
             {
@@ -255,15 +255,15 @@ namespace PosOnLine.Data.Prov
                         };
                         return nr;
                     }).ToList();
-                    rt.Entidad = new OOB.CuadreCierre.Reportes.PagoResumen.Ficha()
-                    {
-                        cntMovCredito = rs.Entidad.credito.cntMovCredito,
-                        montoCreditoMonLocal = rs.Entidad.credito.montoCreditoMonLocal,
-                        montoCreditoMonReferencia = rs.Entidad.credito.montoCreditoMonReferencia,
-                        montoVueltoMonLocal = rs.Entidad.montoVueltoMonLocal,
-                        metodosUsado = lst,
-                    };
                 }
+                rt.Entidad = new OOB.CuadreCierre.Reportes.PagoResumen.Ficha()
+                {
+                    cntMovCredito = rs.Entidad.credito.cntMovCredito,
+                    montoCreditoMonLocal = rs.Entidad.credito.montoCreditoMonLocal.HasValue ? rs.Entidad.credito.montoCreditoMonLocal.Value : 0m,
+                    montoCreditoMonReferencia = rs.Entidad.credito.montoCreditoMonReferencia.HasValue ? rs.Entidad.credito.montoCreditoMonReferencia.Value : 0m,
+                    montoVueltoMonLocal = rs.Entidad.montoVueltoMonLocal.HasValue ? rs.Entidad.montoVueltoMonLocal.Value : 0m,
+                    metodosUsado = lst,
+                };
             }
             catch (Exception e)
             {
@@ -304,11 +304,14 @@ namespace PosOnLine.Data.Prov
                             importeMonReferencia = s.importeMonReferencia,
                             montoPendCxcMonReferencia = s.montoPendCxcMonReferencia,
                             nroDoc = s.nroDoc,
+                            siglasDoc = s.siglasDoc,
+                            signoDoc = s.signoDoc,
+                            isAnulado = s.estatusAnulado.Trim().ToUpper()=="1",
                         };
                         return nr;
                     }).ToList();
-                    rt.ListaD = lst;
                 }
+                rt.ListaD = lst;
             }
             catch (Exception e)
             {
@@ -359,8 +362,8 @@ namespace PosOnLine.Data.Prov
                         };
                         return nr;
                     }).ToList();
-                    rt.ListaD = lst;
                 }
+                rt.ListaD = lst;
             }
             catch (Exception e)
             {
@@ -405,8 +408,8 @@ namespace PosOnLine.Data.Prov
                         };
                         return nr;
                     }).ToList();
-                    rt.ListaD = lst;
                 }
+                rt.ListaD = lst;
             }
             catch (Exception e)
             {

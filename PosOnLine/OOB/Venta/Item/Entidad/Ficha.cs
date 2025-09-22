@@ -103,8 +103,8 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
             //
             peso = 0m;
             volumen = 0m;
-            estatusDivisa = "";
-            aplicarPorctAumento = "";
+            estatusDivisa = it.estatusDivisaPrd?"1":"0" ;
+            aplicarPorctAumento = it.estatusAplicaPorcAumento ;
         }
         public void setAplicarPorctAumentoPrecio(bool modo)
         {

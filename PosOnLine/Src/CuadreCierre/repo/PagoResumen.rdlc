@@ -1009,7 +1009,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>        Medio/Pago                                   Lote                      Tasa                        Cnt/Mov        Importe</Value>
+                            <Value>        Medio/Pago                                   Monto                    Tasa                        Cnt/Mov        Importe</Value>
                             <Style>
                               <FontWeight>Bold</FontWeight>
                               <Color>White</Color>

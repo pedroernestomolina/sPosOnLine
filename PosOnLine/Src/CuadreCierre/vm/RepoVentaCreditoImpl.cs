@@ -28,15 +28,27 @@ namespace PosOnLine.Src.CuadreCierre.vm
             //
             foreach (var dt in _lista.OrderBy(o => o.nroDoc).ToList())
             {
+                var importeMonAct = dt.importeMonLocal * dt.signoDoc;
+                var importeMonDiv = dt.importeMonReferencia * dt.signoDoc;
+                var montoBonoDiv = dt.bonoPagoDivisaMonReferencia * dt.signoDoc;
+                var montoSaldoPendMonDiv = dt.montoPendCxcMonReferencia * dt.signoDoc;
+                if (dt.isAnulado) 
+                {
+                    importeMonAct = 0m;
+                    importeMonDiv = 0m;
+                    montoBonoDiv = 0m;
+                    montoSaldoPendMonDiv = 0m;
+                }
                 DataRow p = ds.Tables["VentCredito"].NewRow();
-                p["docNumero"] = dt.nroDoc;
+                p["docNumero"] = dt.nroDoc+Environment.NewLine+dt.siglasDoc;
                 p["docEmision"] = dt.fechaEmisionDoc;
                 p["entidad"] = dt.ciRifDoc + Environment.NewLine + dt.entidadDoc;
-                p["importeMonAct"] = dt.importeMonLocal;
-                p["importeMonDiv"] = dt.importeMonReferencia;
-                p["montoBonoDiv"] = dt.bonoPagoDivisaMonReferencia;
+                p["importeMonAct"] = importeMonAct;
+                p["importeMonDiv"] = importeMonDiv;
+                p["montoBonoDiv"] = montoBonoDiv;
                 p["portcBonoDiv"] = 0m;
-                p["montoSaldoPendMonDiv"] = dt.montoPendCxcMonReferencia;
+                p["montoSaldoPendMonDiv"] = montoSaldoPendMonDiv;
+                p["isAnulado"] = dt.isAnulado ? "1" : "";
                 ds.Tables["VentCredito"].Rows.Add(p);
             }
             //
