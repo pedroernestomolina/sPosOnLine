@@ -393,7 +393,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.81167cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -406,7 +406,7 @@
                             <TextRun>
                               <Value>=Fields!docNumero.Value</Value>
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>6pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -991,7 +991,7 @@
         </TablixRowHierarchy>
         <DataSetName>VentCredito</DataSetName>
         <Top>0.10583cm</Top>
-        <Height>2.09104cm</Height>
+        <Height>2.30271cm</Height>
         <Width>19.48437cm</Width>
         <Style>
           <Border>

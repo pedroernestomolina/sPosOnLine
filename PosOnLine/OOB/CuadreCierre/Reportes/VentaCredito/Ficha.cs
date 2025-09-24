@@ -20,5 +20,6 @@ namespace PosOnLine.OOB.CuadreCierre.Reportes.VentaCredito
         public int signoDoc { get; set; }
         public string siglasDoc { get; set; }
         public bool isAnulado { get; set; }
+        public string nroDocAplica { get; set; }
     }
 }

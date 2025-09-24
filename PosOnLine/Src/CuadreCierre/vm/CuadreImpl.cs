@@ -37,7 +37,12 @@ namespace PosOnLine.Src.CuadreCierre.vm
         private IRepoVentaCredito _repoVentaCredito;
         private IRepoCambiosVuelto _repoCambiosVuelto;
         private IRepoPagoMovil _repoPagoMovil;
+        private bool _procesarCierreIsOk;
+        private __.Ctrl.Boton.Abandonar.IAbandonar _abandonarFicha;
+        private CuadreCierreProceso.vm.ICierreProceso _cierreProceso;
         //
+        public bool ProcesarCierreIsOk { get { return _procesarCierreIsOk; } }
+        public bool AbandonarFichaIsOk { get { return _abandonarFicha.OpcionIsOK; } }
         public object Get_ResumenSource { get { return _bsResumen; } }
         public object Get_TipoDocSource { get { return _bsTipoDoc; } }
         public object Get_MetodosPagoSource { get { return _bsMetodosPago; } }
@@ -94,9 +99,16 @@ namespace PosOnLine.Src.CuadreCierre.vm
             //
             _estadoCuadreCierre = "";
             _montoPendSobrante = 0m;
+            //
+            _procesarCierreIsOk = false;
+            _abandonarFicha = new __.Ctrl.Boton.Abandonar.Imp();
+            _cierreProceso = new CuadreCierreProceso.vm.CierreProcesoImpl();
         }
         public void Inicializa()
         {
+            _procesarCierreIsOk = false;
+            _abandonarFicha.Inicializa();
+            _cierreProceso.Inicializa();
             _blMetPagoUso.Clear();
             _estadoCuadreCierre = "";
             _montoPendSobrante = 0m;
@@ -173,6 +185,15 @@ namespace PosOnLine.Src.CuadreCierre.vm
             vueltoMedPagoReferencia(_id, 0, 0m);
             _cbMedPagoMonReferencia.setFichaById("");
             recalcular();
+        }
+        public void ProcesarCierre()
+        {
+            _cierreProceso.setMetodosPagoImplementados(_myData.MetodosPagoUsado);
+            _procesarCierreIsOk = _cierreProceso.ProcesarCierre();
+        }
+        public void AbandonarFicha()
+        {
+            _abandonarFicha.Opcion();
         }
         //
         private bool cargarData()

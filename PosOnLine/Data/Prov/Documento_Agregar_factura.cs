@@ -204,6 +204,9 @@ namespace PosOnLine.Data.Prov
                     TotalDescuento = s.TotalDescuento,
                     CodigoVendedor = s.CodigoVendedor,
                     AutoVendedor = s.AutoVendedor,
+                    //
+                    EstatusDivisa=s.estatusDivisa,
+                    AplicarPorctAumento=s.aplicarPorctAumento,
                 };
                 return nr;
             }).ToList();

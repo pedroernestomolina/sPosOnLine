@@ -40,7 +40,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
                     montoSaldoPendMonDiv = 0m;
                 }
                 DataRow p = ds.Tables["VentCredito"].NewRow();
-                p["docNumero"] = dt.nroDoc+Environment.NewLine+dt.siglasDoc;
+                p["docNumero"] = dt.nroDoc+Environment.NewLine+dt.siglasDoc+ Environment.NewLine+dt.nroDocAplica;
                 p["docEmision"] = dt.fechaEmisionDoc;
                 p["entidad"] = dt.ciRifDoc + Environment.NewLine + dt.entidadDoc;
                 p["importeMonAct"] = importeMonAct;

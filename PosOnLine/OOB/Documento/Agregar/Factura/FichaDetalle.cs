@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Documento.Agregar.Factura
 {
-
     public class FichaDetalle
     {
-
         public string AutoProducto { get; set; }
         public string Codigo { get; set; }
         public string Nombre  { get; set; }
@@ -75,8 +73,6 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public string CodigoVendedor { get; set; }
         public string AutoVendedor { get; set; }
         public string CierreFtp { get; set; }
-
-
         public FichaDetalle()
         {
             AutoProducto = "";
@@ -143,8 +139,11 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             CodigoVendedor = "";
             AutoVendedor = "";
             CierreFtp = "";
+            estatusDivisa = "";
+            aplicarPorctAumento = "";
         }
-
+        //
+        public string estatusDivisa { get; set; }
+        public string aplicarPorctAumento { get; set; }
     }
-
 }

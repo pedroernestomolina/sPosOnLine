@@ -20,5 +20,6 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public string siglasDoc { get; set; }
         public int signoDoc { get; set; }
         public bool isAnulado { get; set; }
+        public string nroDocAplica { get; set; }
     }
 }

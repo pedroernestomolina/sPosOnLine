@@ -188,6 +188,11 @@ namespace PosOnLine.Src.CuadreCierre.vista
         }
         private void Frm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            e.Cancel=true;
+            if (_controlador.AbandonarFichaIsOk) 
+            {
+                e.Cancel = false;
+            }
         }
         private void Frm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -207,9 +212,11 @@ namespace PosOnLine.Src.CuadreCierre.vista
         }
         private void BT_PROCESAR_Click(object sender, EventArgs e)
         {
+            ProcesarCierre();
         }
         private void BT_SALIDA_Click(object sender, EventArgs e)
         {
+            AbandonarFicha();
         }
         //
         private void DGV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -255,6 +262,22 @@ namespace PosOnLine.Src.CuadreCierre.vista
             refrescarData();
         }
         //
+        private void ProcesarCierre()
+        {
+            _controlador.ProcesarCierre();
+            if (_controlador.ProcesarCierreIsOk)
+            {
+                salir();
+            }
+        }
+        private void AbandonarFicha()
+        {
+            _controlador.AbandonarFicha();
+            if (_controlador.AbandonarFichaIsOk) 
+            {
+                salir();
+            }
+        }
         private void BT_REP_PAGO_DETALLE_Click(object sender, EventArgs e)
         {
             reportePagoDetalle();
@@ -320,6 +343,10 @@ namespace PosOnLine.Src.CuadreCierre.vista
         private void reportePagoMovil()
         {
             _controlador.reportePagoMovil();
+        }
+        private void salir() 
+        {
+            Close();
         }
     }
 }

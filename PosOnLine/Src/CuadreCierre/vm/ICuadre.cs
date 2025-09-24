@@ -38,5 +38,10 @@ namespace PosOnLine.Src.CuadreCierre.vm
         void reporteVentaCredito();
         void reporteCambiosVuelto();
         void reportePagoMovil();
+        //
+        bool ProcesarCierreIsOk { get; }
+        bool AbandonarFichaIsOk { get; }
+        void ProcesarCierre();
+        void AbandonarFicha();
     }
 }

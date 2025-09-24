@@ -443,15 +443,9 @@ namespace PosOnLine.Src.FormaPago.vm
         public void procesarFicha()
         {
             _procesarPagoIsOk = false;
-            if (_tipoDocumento == Domain.Models.Enumerados.TipoDocumento.Devolucion)
+            if (!_isPendiente || _estatusCuentaIsCredito)
             {
-            }
-            else 
-            {
-                if (!_isPendiente || _estatusCuentaIsCredito)
-                {
-                    _procesarPagoIsOk = true;
-                }
+                _procesarPagoIsOk = true;
             }
         }
         public void abandonarFicha()

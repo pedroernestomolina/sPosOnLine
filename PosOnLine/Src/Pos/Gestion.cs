@@ -956,7 +956,6 @@ namespace PosOnLine.Src.Pos
 
 
                                 //NUEVO METODO PARA FORMAS DE PAGO
-                                var _prcDoc = false;
                                 if (_clienteFicha == null)
                                 {
                                     throw new Exception("CLIENTE NO SELECCIONADO");
@@ -986,43 +985,19 @@ namespace PosOnLine.Src.Pos
                                     !_docAplicarNotaCredito.IsDocumentoCredito);
                                 if (_dataRetFormaPago != null)
                                 {
-                                    if (_docAplicarNotaCredito.IsDocumentoCredito) 
+                                    if (_docAplicarNotaCredito.IsDocumentoCredito)
                                     {
                                         _dataRetFormaPago.EstatusCuentaIsCredito = true;
                                         _dataRetFormaPago.MontoCambioDarMonLocal = 0m;
                                         _dataRetFormaPago.MontoCambioDarMonReferencia = 0m;
                                     }
-                                    /*
-                                    if (_dataRetFormaPago.MontoCambioDarMonLocal > 0m)
-                                    {
-                                        _dataRetCambioVuelto = LlamarValidarCambio(
-                                            _dataRetFormaPago.MontoCambioDarMonLocal,
-                                            _dataRetFormaPago.FactorCambio);
-                                        if (_dataRetCambioVuelto != null)
-                                        {
-                                            if (_dataRetCambioVuelto.MontoPorPagoMovil > 0m)
-                                            {
-                                                _dataRetSolPagoMovil = LlamarPagoMovil(
-                                                    _dataRetCambioVuelto.MontoPorPagoMovil,
-                                                    _cliente);
-                                                if (_dataRetSolPagoMovil != null)
-                                                {
-                                                    _prcDoc = true;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                _prcDoc = true;
-                                            }
-                                        }
-                                    }
                                     else
                                     {
-                                        _prcDoc = true;
-                                    }
-                                     */
-                                    if (_prcDoc)
-                                    {
+                                        if (_dataRetFormaPago.MontoCambioDar > 0m)
+                                        {
+                                            Helpers.Msg.Alerta("NO PUEDE HABER CAMBIO A DAR PARA ESTE TIPO DE DOCUMENTO");
+                                            return;
+                                        }
                                     }
                                     if (Helpers.Msg.Procesar("Procesar Documento ?"))
                                     {
@@ -1046,40 +1021,6 @@ namespace PosOnLine.Src.Pos
                                         Reiniciar();
                                     }
                                 }
-                                /*
-                                if (_docAplicarNotaCredito.IsDocumentoCredito) 
-                                {
-                                    _prcDoc = true;
-                                }
-                                if (_prcDoc)
-                                {
-                                    if (Helpers.Msg.Procesar("Procesar Documento ?"))
-                                    {
-                                        var _docAgregar = ProcesarDocumentoNotaCredito(
-                                                _dataRetFormaPago,
-                                                _dataRetCambioVuelto,
-                                                _dataRetSolPagoMovil);
-                                        var result = _ucGestion.AgregarNotaCredito(_docAgregar);
-
-                                        _formaPago.limpiezaGeneral();
-
-                                        var xdatImprimir = _ucGestion.CargarDataDocumento(result);
-                                        if (xdatImprimir != null)
-                                        {
-                                            imprimirDoc(xdatImprimir, result);
-                                        }
-                                        _gestionItem.Limpiar();
-                                        _gestionCliente.Limpiar();
-                                        _dataRetFormaPago.Limpiar();
-                                        Inicializa();
-                                        Reiniciar();
-                                    }
-                                }
-                                 */
-
-
-
-
 
 
                             }
@@ -4706,6 +4647,8 @@ namespace PosOnLine.Src.Pos
                         CodigoVendedor = _vendedorAsignado.codigo,
                         AutoVendedor = _vendedorAsignado.id,
                         CierreFtp = "",
+                        estatusDivisa= s.Ficha.estatusDivisa,
+                        aplicarPorctAumento=s.Ficha.aplicarPorctAumento,
                     };
                     return nr;
                 }).ToList();
@@ -5330,7 +5273,7 @@ namespace PosOnLine.Src.Pos
                 var importeDocumentoDivisa = _dataRetFormaPago.MontoPagarDivisa;
                 var documento = "";
                 var factorCambio = _tasaCambioActual;
-                var saldoPendiente = isCredito ? importeDocumento : 0.0m;
+                //var saldoPendiente = isCredito ? importeDocumento : 0.0m;
 
 
                 OOB.Documento.Agregar.NotaCredito.FichaClienteSaldo _clienteSaldo = null;
@@ -5363,7 +5306,18 @@ namespace PosOnLine.Src.Pos
                 var _montoBonoPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoMonLocalPorPagoDivisa, 2, MidpointRounding.AwayFromZero);
                 var _estatusPorBonoPorPagoDivisa = dataPagoRecolectada.EstatusBonoPorPagoDivisa;
                 var _montoBonoEnDivisaPorPagoDivisa = Math.Round(dataPagoRecolectada.MontoBonoMonReferenciaPorPagoDivisa, 2, MidpointRounding.AwayFromZero);
-                //
+                var _saldoPendiente = 0m;
+                if (isCredito)
+                {
+                    if (rglaNegocio.DocVentaProcesar_EsCredito_MontoCobrar_AplicarBonoFull())
+                    {
+                        _montoBonoPorPagoDivisa = _dataRetFormaPago.MaximoBonoDadoMonLocal_PorPagoDivisa;
+                        _montoBonoEnDivisaPorPagoDivisa = _dataRetFormaPago.MaximoBonoDadoPorPagoDivisa;
+                        _estatusPorBonoPorPagoDivisa = "1";
+                        _saldoPendiente = importeDocumentoDivisa - _montoBonoEnDivisaPorPagoDivisa;
+                    }
+                }
+
                 var fichaOOB = new OOB.Documento.Agregar.NotaCredito.Ficha()
                 {
                     idOperador = Sistema.PosEnUso.id,
@@ -5424,7 +5378,6 @@ namespace PosOnLine.Src.Pos
                     DirDespacho = "",
                     Estacion = Sistema.EquipoEstacion,
                     Renglones = _gestionItem.CantRenglones,
-                    SaldoPendiente = saldoPendiente,
                     ComprobanteRetencionIslr = "",
                     DiasValidez = 0,
                     AutoUsuario = Sistema.Usuario.id,
@@ -5474,6 +5427,7 @@ namespace PosOnLine.Src.Pos
                     estatusPorVueltoEnPagoMovil = _dataRetSolPagoMovil != null ? "1" : "0", //dataPagoRecolectada.AplicaPagoMovil ? "1" : "0",
                     //
                     estatusFiscal = _docAplicarNotaCredito.estatusFiscal,
+                    SaldoPendiente = _saldoPendiente,
                 };
                 fichaOOB.ClienteSaldo = _clienteSaldo;
 
@@ -5893,7 +5847,7 @@ namespace PosOnLine.Src.Pos
                     montoMonLocal = importeDocumento,
                     montoMonReferencia = importeDocumentoDivisa,
                     montoPendMonLocal = 0m,
-                    montoPendMonReferencia = 0m,
+                    montoPendMonReferencia = _saldoPendiente,
                     montoRecibidoMonLocal = _montoRecMonLocal,
                     montoRecibidoMonReferencia = _montoRecMonReferencia,
                     nombreDocumento = _tipoDocumentoDevVenta.nombre,
@@ -6016,39 +5970,6 @@ namespace PosOnLine.Src.Pos
                     }
                 }
                 return fichaOOB;
-
-
-                /*
-                var r01 = Sistema.MyData.Documento_Agregar_NotaCredito(fichaOOB);
-                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
-                {
-                    Helpers.Msg.Error(r01.Mensaje);
-                    return;
-                }
-
-                var xdata = CargarDataDocumento(r01.Auto);
-                if (xdata != null)
-                {
-                    Sistema.ImprimirNotaCredito.setData(xdata);
-                    if (_docAplicarNotaCredito.IsFiscal)
-                    {
-                        Sistema.ImprimirNotaCredito.ImprimirDoc();
-                    }
-                    else
-                    {
-                        _imprimirDocTick = null;
-                        if (Sistema.ImprimirNotaCredito is Helpers.Imprimir.IDocTicket)
-                        {
-                            _imprimirDocTick = (Helpers.Imprimir.DocumentoTicket)Sistema.ImprimirNotaCredito;
-                            printDocument2.Print();
-                        }
-                    }
-                }
-                _gestionItem.Limpiar();
-                _gestionCliente.Limpiar();
-                Inicializa();
-                Reiniciar();
-                 */
             }
             catch (Exception e)
             {

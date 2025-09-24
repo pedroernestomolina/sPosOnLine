@@ -48,7 +48,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
                 {
                     DataRow p = ds.Tables["Pago"].NewRow();
                     p["id1"] = xid.ToString().Trim().PadLeft(4, '0');
-                    p["documento"] = rg.docNumero + Environment.NewLine+rg.docSiglas;
+                    p["documento"] = rg.docNumero + Environment.NewLine+rg.docSiglas+Environment.NewLine+rg.nroDocAplica;
                     p["fechaHora"] = rg.docHora + Environment.NewLine + rg.docFecha.ToShortDateString();
                     p["nombreRazonSocial"] = rg.cliCiRif + Environment.NewLine + rg.cliNombre;
                     p["dirFiscal"] = rg.cliDir;
@@ -70,7 +70,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
                     }
                     if (!rg.isAnulado)
                     {
-                        p["estatus"] = "Activo";
+                        p["estatus"] = "";
                         p["monto"] = rg.docMonto*rg.docSigno;
                         p["montoRecibido"] = _montoRecibido;
                         if (rg.isCredito)

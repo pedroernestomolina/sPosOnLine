@@ -122,11 +122,13 @@
                             <TextRun>
                               <Value>=Fields!documento.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>6pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>documento</rd:DefaultName>
@@ -136,6 +138,7 @@
                           <Style>Solid</Style>
                         </Border>
                         <BackgroundColor>=IIf(Fields!estatus.Value="ANULADO","RED","NO COLOR")</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -155,12 +158,14 @@
                             <TextRun>
                               <Value>=Fields!estatus.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>6pt</FontSize>
                                 <Color>=IIf(Fields!estatus.Value="ANULADO","WHITE","BLACK")</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>estatus</rd:DefaultName>
@@ -170,6 +175,7 @@
                           <Style>Solid</Style>
                         </Border>
                         <BackgroundColor>=IIf(Fields!estatus.Value="ANULADO","RED","NO COLOR")</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>

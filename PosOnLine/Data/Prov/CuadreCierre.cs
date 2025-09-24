@@ -198,6 +198,7 @@ namespace PosOnLine.Data.Prov
                             tasaReferencia = s.tasaReferencia,
                             telefonos = s.telefonos,
                             siglasDoc = s.siglasDoc,
+                            nroDocAplica= s.nroDocAplica,
                         };
                         return nr;
                     }).ToList();
@@ -307,6 +308,7 @@ namespace PosOnLine.Data.Prov
                             siglasDoc = s.siglasDoc,
                             signoDoc = s.signoDoc,
                             isAnulado = s.estatusAnulado.Trim().ToUpper()=="1",
+                            nroDocAplica= s.nroDocAplica,
                         };
                         return nr;
                     }).ToList();
@@ -418,6 +420,11 @@ namespace PosOnLine.Data.Prov
             }
             //
             return rt;
+        }
+        //
+        public OOB.Resultado.FichaEntidad<int> 
+            CuadreCierre_CerrarePos(OOB.CuadreCierre.CierrePos.Ficha ficha)
+        {
         }
     }
 }

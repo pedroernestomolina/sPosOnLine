@@ -14,6 +14,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         private decimal _montoDivisaDevuelta;
         private decimal _tasaPonderada;
         private decimal _importe;
+        private decimal _segunSistema; 
         //
         public string idMP { get; set; }
         public string codigoMP { get; set; }
@@ -24,6 +25,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public decimal totalMontoRecibidoMonLocal { get; set; }
         public decimal tasaFactorPonderado { get; set; }
         public decimal importe { get { return _importe; } }
+        public decimal MontoSegunSistema { get { return _segunSistema; } }
         //
         public string CabDescripcion { get { return descripcionMP.Trim() + " " + simboloMon.Trim(); } }
         public string CabMontoSist { get { return (totalMontoRecibido - _montoPorVuelto- _cantDivisaDevuelta).ToString("n2"); } }
@@ -48,11 +50,13 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public void setVueltoPorMontoDado(decimal monto)
         {
             _montoPorVuelto = monto;
+            _segunSistema = totalMontoRecibido-monto;
             actualizarTasaPonderadaImporte();
         }
         public  void setCantDivisaDevuelta(int cntDivisa)
         {
             _cantDivisaDevuelta = cntDivisa;
+            _segunSistema = totalMontoRecibido - cntDivisa;
             actualizarTasaPonderadaImporte();
         }
         public void setMontoDivisaDevuelta(decimal monto)
