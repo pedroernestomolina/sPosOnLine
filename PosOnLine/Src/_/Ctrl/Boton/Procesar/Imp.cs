@@ -13,13 +13,13 @@ namespace PosOnLine.Src.__.Ctrl.Boton.Procesar
             :base()
         {
         }
-        public override void Opcion()
-        {
-            _opcion = Helpers.Msg.Abandonar("Procesar / Guardar Cambios ?:");
-        }
         public void setOpcion(bool p)
         {
             _opcion = p;
+        }
+        public override void Opcion(string msg = "Procesar / Guardar Cambios ?:")
+        {
+            _opcion = Helpers.Msg.Procesar(msg);
         }
     }
 }

@@ -28,6 +28,6 @@ namespace PosOnLine.Data.Infra
             CuadreCierre_Reporte_PagoMovilPorRealizar(int idResumen);
         //
         OOB.Resultado.FichaEntidad<int>
-            CuadreCierre_CerrarePos(OOB.CuadreCierre.CierrePos.Ficha ficha);
+            CuadreCierre_CerrarPos(OOB.CuadreCierre.CierrePos.Ficha ficha);
     }
 }

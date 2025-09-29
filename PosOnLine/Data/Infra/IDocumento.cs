@@ -13,15 +13,15 @@ namespace PosOnLine.Data.Infra
             Documento_Get_Lista(OOB.Documento.Lista.Filtro filtro);
         OOB.Resultado.FichaEntidad<OOB.Documento.Entidad.Ficha> 
             Documento_GetById(string idAuto);
-        OOB.Resultado.Lista<OOB.Documento.Entidad.FichaMetodoPago> 
-            Documento_Get_MetodosPago_ByIdRecibo(string idRecibo);
-
-
+        //
         OOB.Resultado.Ficha 
             Documento_Anular_NotaEntrega(OOB.Documento.Anular.NotaEntrega.Ficha ficha);
         OOB.Resultado.Ficha 
             Documento_Anular_NotaCredito(OOB.Documento.Anular.NotaCredito.Ficha ficha);
         OOB.Resultado.Ficha 
             Documento_Anular_Factura(OOB.Documento.Anular.Factura.Ficha ficha);
+        //
+        OOB.Resultado.FichaEntidad<OOB.Documento.RecopilarData.Anular.Ficha >
+            Documento_RecopilarData_Anular(string idDoc);
     }
 }

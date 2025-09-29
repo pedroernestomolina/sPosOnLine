@@ -16,6 +16,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public List<MetodoPagoUso> MetodosPagoUsados { get { return _lstMP; } }
         public List<TipoDocUso> TiposDocumentoEmitidos { get { return _lstDoc; } }
         public TotalesRecogido Totales { get { return _totales; } }
+        public decimal VueltoMontoPorPagoMovil { get { return _totales.vueltoPagoMovil; } }
         public decimal VueltoMontoPorEfectivo { get { return _totales.vueltoDadoEfectivo; } }
         public int VueltoCntPorDivisa { get { return _totales.cntDivisaEntregada; } }
         public decimal VueltoMontoPorDivisa { get { return _totales.vueltoDadoDivisaMonLocal; } }

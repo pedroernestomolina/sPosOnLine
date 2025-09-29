@@ -8,10 +8,19 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Documento.Entidad
 {
-    
     public class FichaMetodoPago
     {
-
+        public string codigoMP { get; set; }
+        public string descMP { get; set; }
+        public decimal montoIngresado { get; set; }
+        public string lote { get; set; }
+        public string referencia { get; set; }
+        public string codigoMon { get; set; }
+        public string simboloMon { get; set; }
+        public decimal tasaMon { get; set; }
+        public decimal montoMonLocal { get; set; }
+        public decimal tasaFactorRef { get; set; }
+        /*
         public string autoMedioPago { get; set; }
         public string codigoMedioPago { get; set; }
         public string descMedioPago { get; set; }
@@ -44,7 +53,6 @@ namespace PosOnLine.OOB.Documento.Entidad
             lote = "";
             referencia = "";
         }
-
+         */
     }
-
 }

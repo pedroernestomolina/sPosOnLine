@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Pos.Cerrar 
 {
-    
     public class FichaArqueo
     {
-
         public string autoArqueo { get; set; }
         public decimal diferencia { get; set; }
         public decimal efectivo { get; set; }
@@ -51,8 +49,7 @@ namespace PosOnLine.OOB.Pos.Cerrar
         public decimal montoNCr { get; set; }
         //
         public decimal vueltoPorPagoMovil { get; set; }
-
-
+        //
         public FichaArqueo()
         {
             autoArqueo = "";
@@ -95,7 +92,5 @@ namespace PosOnLine.OOB.Pos.Cerrar
             montoNCr = 0.0m;
             vueltoPorPagoMovil = 0m;
         }
-
     }
-
 }

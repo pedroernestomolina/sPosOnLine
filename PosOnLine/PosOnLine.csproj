@@ -129,6 +129,7 @@
     <Compile Include="Data\Prov\Documento_Agregar_Factura.cs" />
     <Compile Include="Data\Prov\Documento_Agregar_NotaCredito.cs" />
     <Compile Include="Data\Prov\Documento_Agregar_NotaEntrega.cs" />
+    <Compile Include="Data\Prov\Documento_RecopilarData_Anular.cs" />
     <Compile Include="Data\Prov\Jornada.cs" />
     <Compile Include="Data\Prov\MediosPago.cs" />
     <Compile Include="Data\Prov\Moneda.cs" />
@@ -259,8 +260,10 @@
     <Compile Include="OOB\Configuracion\Entidad\Enumerados.cs" />
     <Compile Include="OOB\Configuracion\Entidad\Ficha.cs" />
     <Compile Include="OOB\Configuracion\Enumerados.cs" />
+    <Compile Include="OOB\CuadreCierre\CierrePos\Documento.cs" />
     <Compile Include="OOB\CuadreCierre\CierrePos\MetodoPago.cs" />
     <Compile Include="OOB\CuadreCierre\CierrePos\Ficha.cs" />
+    <Compile Include="OOB\CuadreCierre\CierrePos\Total.cs" />
     <Compile Include="OOB\CuadreCierre\CuadreResumen\Documento.cs" />
     <Compile Include="OOB\CuadreCierre\CuadreResumen\MetodoPago.cs" />
     <Compile Include="OOB\CuadreCierre\CuadreResumen\Totales.cs" />
@@ -340,12 +343,16 @@
     <Compile Include="OOB\Documento\Anular\NotaEntrega\FichaResumen.cs" />
     <Compile Include="OOB\Documento\Anular\Resumen.cs" />
     <Compile Include="OOB\Documento\Entidad\Ficha.cs" />
+    <Compile Include="OOB\Documento\Entidad\FichaCuerpo.cs" />
     <Compile Include="OOB\Documento\Entidad\FichaItem.cs" />
     <Compile Include="OOB\Documento\Entidad\FichaMedida.cs" />
     <Compile Include="OOB\Documento\Entidad\FichaMetodoPago.cs" />
     <Compile Include="OOB\Documento\Entidad\FichaPrecio.cs" />
     <Compile Include="OOB\Documento\Lista\Ficha.cs" />
     <Compile Include="OOB\Documento\Lista\Filtro.cs" />
+    <Compile Include="OOB\Documento\RecopilarData\Anular\Documento.cs" />
+    <Compile Include="OOB\Documento\RecopilarData\Anular\Ficha.cs" />
+    <Compile Include="OOB\Documento\RecopilarData\Anular\Kardex.cs" />
     <Compile Include="OOB\MediosPago\Entidad\Ficha.cs" />
     <Compile Include="OOB\Moneda\Entidad\Ficha.cs" />
     <Compile Include="OOB\MovCaja\Anular\Ficha.cs" />
@@ -439,6 +446,15 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sistema.cs" />
+    <Compile Include="Src\AdmAnularDoc\Domain\Models\DataAnular.cs" />
+    <Compile Include="Src\AdmAnularDoc\Domain\Models\Documento.cs" />
+    <Compile Include="Src\AdmAnularDoc\Domain\Models\Kardex.cs" />
+    <Compile Include="Src\AdmAnularDoc\Domain\ReglaNegocio\IRule.cs" />
+    <Compile Include="Src\AdmAnularDoc\Domain\ReglaNegocio\RuleImpl.cs" />
+    <Compile Include="Src\AdmAnularDoc\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\AdmAnularDoc\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\AdmAnularDoc\vm\AnularDocImpl.cs" />
+    <Compile Include="Src\AdmAnularDoc\vm\IAnularDoc.cs" />
     <Compile Include="Src\AdministradorDoc\Lista\data.cs" />
     <Compile Include="Src\AdministradorDoc\Lista\Enumerados.cs" />
     <Compile Include="Src\AdministradorDoc\Lista\Gestion.cs" />
@@ -538,28 +554,34 @@
     <Compile Include="Src\Consultor\ModoAdm\imp_vta.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IPrdConsultar.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
+    <Compile Include="Src\CuadreCierreProceso\Domain\Models\CierrePorDocumento.cs" />
     <Compile Include="Src\CuadreCierreProceso\Domain\Models\CierreFicha.cs" />
     <Compile Include="Src\CuadreCierreProceso\Domain\Models\CierrePorMetodoPago.cs" />
+    <Compile Include="Src\CuadreCierreProceso\Domain\Models\CierreTotales.cs" />
+    <Compile Include="Src\CuadreCierreProceso\Domain\ReglaNegocio\IRule.cs" />
+    <Compile Include="Src\CuadreCierreProceso\Domain\ReglaNegocio\RuleImpl.cs" />
     <Compile Include="Src\CuadreCierreProceso\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\CuadreCierreProceso\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\CuadreCierreProceso\vm\CierreProcesoImpl.cs" />
     <Compile Include="Src\CuadreCierreProceso\vm\ICierreProceso.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\CuadreCierre\Domain\converter.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\DataResumenRecolectada.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\MedioPago.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\MetodoPagoUso.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\MyData.cs" />
-    <Compile Include="Src\CuadreCierre\Domain\Models\RepoCambiosVuelto.cs" />
-    <Compile Include="Src\CuadreCierre\Domain\Models\RepoPagoDetalleEnc.cs" />
-    <Compile Include="Src\CuadreCierre\Domain\Models\RepoPagoDetalleDet.cs" />
-    <Compile Include="Src\CuadreCierre\Domain\Models\RepoPagoMovil.cs" />
-    <Compile Include="Src\CuadreCierre\Domain\Models\RepoPagoResumen.cs" />
-    <Compile Include="Src\CuadreCierre\Domain\Models\RepoVentaCredito.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\Models\RepoCambiosVuelto.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\Models\RepoPagoDetalleEnc.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\Models\RepoPagoDetalleDet.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\Models\RepoPagoMovil.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\Models\RepoPagoResumen.cs" />
+    <Compile Include="Src\CuadreCierreRepo\Domain\Models\RepoVentaCredito.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\TipoDocUso.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\TotalesRecogido.cs" />
     <Compile Include="Src\CuadreCierre\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\CuadreCierre\Domain\UseCase\IUseCase.cs" />
-    <Compile Include="Src\CuadreCierre\repo\DS.Designer.cs">
+    <Compile Include="Src\CuadreCierreRepo\repo\DS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DS.xsd</DependentUpon>
@@ -574,18 +596,25 @@
     <Compile Include="Src\CuadreCierre\vm\CuadreImpl.cs" />
     <Compile Include="Src\CuadreCierre\vm\ICtrlMedPago.cs" />
     <Compile Include="Src\CuadreCierre\vm\ICuadre.cs" />
-    <Compile Include="Src\CuadreCierre\vm\IRepoCambiosVuelto.cs" />
-    <Compile Include="Src\CuadreCierre\vm\IRepoPagoMovil.cs" />
-    <Compile Include="Src\CuadreCierre\vm\IRepoPagoResumen.cs" />
-    <Compile Include="Src\CuadreCierre\vm\IRepoPagoDetalle.cs" />
-    <Compile Include="Src\CuadreCierre\vm\IRepoVentaCredito.cs" />
-    <Compile Include="Src\CuadreCierre\vm\RepoCambiosVueltoImpl.cs" />
-    <Compile Include="Src\CuadreCierre\vm\RepoPagoMovilImpl.cs" />
-    <Compile Include="Src\CuadreCierre\vm\RepoPagoResumenImpl.cs" />
-    <Compile Include="Src\CuadreCierre\vm\RepoVentaCreditoImpl.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\IRepoCambiosVuelto.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\IRepoPagoMovil.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\IRepoPagoResumen.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\IRepoPagoDetalle.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\IRepoVentaCredito.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\RepoCambiosVueltoImpl.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoMovilImpl.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoResumenImpl.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\RepoVentaCreditoImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Enumerados.cs" />
+    <Compile Include="Src\PosImprimirTicket\Domain\converter.cs" />
+    <Compile Include="Src\PosImprimirTicket\Domain\Models\Data.cs" />
+    <Compile Include="Src\PosImprimirTicket\Domain\Models\DataRecolectar.cs" />
+    <Compile Include="Src\PosImprimirTicket\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\PosImprimirTicket\Domain\UseCase\UsaeCaseImpl.cs" />
+    <Compile Include="Src\PosImprimirTicket\vm\IPosImprimir.cs" />
+    <Compile Include="Src\PosImprimirTicket\vm\PosImprimirImpl.cs" />
     <Compile Include="Src\_Domain\IRepo.cs" />
-    <Compile Include="Src\CuadreCierre\vm\RepoPagoDetalleImpl.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoDetalleImpl.cs" />
     <Compile Include="Src\FabModAdm.cs" />
     <Compile Include="Src\FabModSuc.cs" />
     <Compile Include="Src\FormaPagoCambioVuelto\Domain\Models\DataRetornar.cs" />
@@ -1169,19 +1198,19 @@
     <EmbeddedResource Include="Src\Consultor\ModoAdm\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\CuadreCierre\repo\PagoDetalle.rdlc">
+    <EmbeddedResource Include="Src\CuadreCierreRepo\repo\PagoDetalle.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\CuadreCierre\repo\PagoMovil.rdlc">
+    <EmbeddedResource Include="Src\CuadreCierreRepo\repo\PagoMovil.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\CuadreCierre\repo\PagoResumen.rdlc">
+    <EmbeddedResource Include="Src\CuadreCierreRepo\repo\PagoResumen.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\CuadreCierre\repo\VentCredito.rdlc">
+    <EmbeddedResource Include="Src\CuadreCierreRepo\repo\VentCredito.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Src\CuadreCierre\repo\VueltosEntregado.rdlc">
+    <EmbeddedResource Include="Src\CuadreCierreRepo\repo\VueltosEntregado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\CuadreCierre\vista\Frm.resx">
@@ -1364,15 +1393,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Src\CuadreCierre\repo\DS.xsc">
+    <None Include="Src\CuadreCierreRepo\repo\DS.xsc">
       <DependentUpon>DS.xsd</DependentUpon>
     </None>
-    <None Include="Src\CuadreCierre\repo\DS.xsd">
+    <None Include="Src\CuadreCierreRepo\repo\DS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Src\CuadreCierre\repo\DS.xss">
+    <None Include="Src\CuadreCierreRepo\repo\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
     </None>
     <None Include="Src\Reportes\DS.xsc">

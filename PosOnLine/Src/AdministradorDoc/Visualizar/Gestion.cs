@@ -8,17 +8,13 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.AdministradorDoc.Visualizar
 {
-    
     public class Gestion
     {
-
-
         private string _autoDoc;
         private List<data> _detalles;
         private BindingSource _bs;
         private OOB.Documento.Entidad.Ficha _documento;
-
-
+        //
         public BindingSource Source { get { return _bs; } }
         public string Fecha
         {
@@ -26,29 +22,27 @@ namespace PosOnLine.Src.AdministradorDoc.Visualizar
             {
                 var xr = "";
                 if (_documento != null)
-                    xr = _documento.Fecha.ToShortDateString();
+                    xr = _documento.cuerpo.Fecha.ToShortDateString();
                 return xr;
             }
         }
-
         public string DocumentoTipo 
         {
             get 
             {
                 var xr = "";
                 if (_documento != null)
-                    xr = _documento.DocumentoNombre;
+                    xr = _documento.cuerpo.DocumentoNombre;
                 return xr;
             }
         }
-
         public string DocumentoNro
         {
             get
             {
                 var xr = "";
                 if (_documento != null)
-                    xr = _documento.DocumentoNro;
+                    xr = _documento.cuerpo.DocumentoNro;
                 return xr;
             }
         }
@@ -59,7 +53,7 @@ namespace PosOnLine.Src.AdministradorDoc.Visualizar
                 var xr = "";
                 if (_documento != null)
                 {
-                    xr += _documento.CiRif + Environment.NewLine + _documento.RazonSocial + Environment.NewLine + _documento.DirFiscal;
+                    xr += _documento.cuerpo.CiRif + Environment.NewLine + _documento.cuerpo.RazonSocial + Environment.NewLine + _documento.cuerpo.DirFiscal;
                 }
                 return xr;
             }
@@ -71,13 +65,11 @@ namespace PosOnLine.Src.AdministradorDoc.Visualizar
                 var xr = 0.0m;
                 if (_documento != null)
                 {
-                    xr = _documento.Total* _documento.Signo;
+                    xr = _documento.cuerpo.Total* _documento.cuerpo.Signo;
                 }
                 return xr;
             }
         }
-
-
         public Gestion()
         {
             _autoDoc = "";
@@ -86,8 +78,6 @@ namespace PosOnLine.Src.AdministradorDoc.Visualizar
             _bs.DataSource = _detalles;
             _documento = null;
         }
-
-
         private VerFrm frm;
         public void Inicia()
         {
@@ -101,12 +91,10 @@ namespace PosOnLine.Src.AdministradorDoc.Visualizar
                 frm.ShowDialog();
             }
         }
-
         public void setDocumento(Lista.data item)
         {
             _autoDoc = item.idDocumento;
         }
-
         private bool CargarData()
         {
             var rt = true;
@@ -129,14 +117,11 @@ namespace PosOnLine.Src.AdministradorDoc.Visualizar
 
             return rt;
         }
-
         public void Inicializa()
         {
             _autoDoc = "";
             _detalles.Clear();
             _documento = null;
         }
-
     }
-
 }

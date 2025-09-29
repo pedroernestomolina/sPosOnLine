@@ -88,6 +88,7 @@ namespace PosOnLine.Data.Prov
                             montoRecibidoMonLocal = s.montoRecibidoMonLocal,
                             montoRecibidoMonReferencia = s.montoRecibidoMonReferencia,
                             varianteDoc = s.varianteDoc,
+                            signoDoc= s.signoDoc,
                         };
                     }).ToList();
                 }
@@ -423,8 +424,88 @@ namespace PosOnLine.Data.Prov
         }
         //
         public OOB.Resultado.FichaEntidad<int> 
-            CuadreCierre_CerrarePos(OOB.CuadreCierre.CierrePos.Ficha ficha)
+            CuadreCierre_CerrarPos(OOB.CuadreCierre.CierrePos.Ficha ficha)
         {
+            var rt = new OOB.Resultado.FichaEntidad<int> ();
+            //
+            try
+            {
+                var t = ficha.totales;
+                var fichaDTO = new DtoLibPos.CuadreCierre.CerrarPos.Ficha()
+                {
+                    estatus = ficha.MetodoViejo.estatus,
+                    idOperador = ficha.MetodoViejo.idOperador,
+                    idResumen = ficha.idResumen,
+                    documentos = ficha.documentos.Select(s =>
+                    {
+                        return new DtoLibPos.CuadreCierre.CerrarPos.Documento()
+                        {
+                            cntMovActivo = s.cntMovActivo,
+                            cntMovAnulado = s.cntMovAnulado,
+                            cntMovContado = s.cntMovContado,
+                            cntMovCredito = s.cntMovCredito,
+                            cntTotalmov = s.cntTotalmov,
+                            codigoDoc = s.codigoDoc,
+                            descDoc = s.descDoc,
+                            importeMovActivoMonReferencia = s.importeMovActivoMonReferencia,
+                            importeMovActMonLocal = s.importeMovActMonLocal,
+                            importeMovAnuladoMonReferencia = s.importeMovAnuladoMonReferencia,
+                            importeMovContadoMonReferencia = s.importeMovContadoMonReferencia,
+                            importeMovCreditoMonLocal = s.importeMovCreditoMonLocal,
+                            importeMovCreditoMonReferencia = s.importeMovCreditoMonReferencia,
+                            importMovAnuladoMonLocal = s.importMovAnuladoMonLocal,
+                            importteMovContadoMonLocal = s.importteMovContadoMonLocal,
+                            siglasDoc = s.siglasDoc,
+                            signoDoc = s.signoDoc,
+                            varianteDoc = s.varianteDoc,
+                        };
+                    }).ToList(),
+                    metPago = ficha.metPago.Select(s =>
+                    {
+                        return new DtoLibPos.CuadreCierre.CerrarPos.MetodoPago()
+                        {
+                            codigoMon = s.codigoMon,
+                            codigoMP = s.codigoMP,
+                            descMon = "",
+                            descMP = s.descMP,
+                            importeMonLocal = s.importeMonLocal,
+                            montoSegunSistema = s.montoSegunSistema,
+                            montoSegunUsuario = s.montoSegunUsuario,
+                            simboloMon = s.simboloMon,
+                            tasaFactorPonderadoMon = s.tasaFactorPonderadoMon,
+                        };
+                    }).ToList(),
+                    totales = new DtoLibPos.CuadreCierre.CerrarPos.Total()
+                    {
+                        cntDivisaPorVuelto = t.cntDivisaPorVuelto,
+                        estatusCuadre = t.estatusCuadre,
+                        totalCuadreMonLocal = t.totalCuadreMonLocal,
+                        totalCajaSegunSistemaMonLocal = t.totalCajaSegunSistemaMonLocal,
+                        totalCajaSegunUsuarioMonLocal = t.totalCajaSegunUsuarioMonLocal,
+                        vueltoCambioPorDivisa = t.vueltoCambioPorDivisa,
+                        vueltoCambioPorEfectivo = t.vueltoCambioPorEfectivo,
+                        vueltoCambioPorPagoMovil = t.vueltoCambioPorPagoMovil,
+                    },
+                    arqueoCerrar = new DtoLibPos.CuadreCierre.CerrarPos.Arqueo()
+                    {
+                        autoArqueo = ficha.MetodoViejo.arqueo.autoArqueo,
+                        cierreFtp = ficha.MetodoViejo.arqueo.cierreFtp,
+                    }
+                };
+                var rst = MyData.CuadrCierre_CerrarPos(fichaDTO);
+                if (rst.Result == DtoLib.Enumerados.EnumResult.isError) 
+                {
+                    throw new Exception(rst.Mensaje);
+                }
+                rt.Entidad = rst.Entidad;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return rt;
         }
     }
 }

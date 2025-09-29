@@ -13,8 +13,45 @@ namespace PosOnLine.Src.CuadreCierreProceso.Domain.UseCase
         {
             try
             {
+                var t = ficha.cierreTotal;
                 var fichaOOB = new OOB.CuadreCierre.CierrePos.Ficha()
                 {
+                    idResumen = ficha.idResumen,
+                    totales = new OOB.CuadreCierre.CierrePos.Total()
+                    {
+                        cntDivisaPorVuelto = t.cntDivisaPorVuelto,
+                        estatusCuadre = t.estatusCuadre,
+                        totalCuadreMonLocal = t.totalCuadreMonLocal,
+                        totalCajaSegunSistemaMonLocal = t.totalCajaSegunSistemaMonLocal,
+                        totalCajaSegunUsuarioMonLocal = t.totalCajaSegunUsuarioMonLocal,
+                        vueltoCambioPorDivisa = t.vueltoCambioPorDivisa,
+                        vueltoCambioPorEfectivo = t.vueltoCambioPorEfectivo,
+                        vueltoCambioPorPagoMovil = t.vueltoCambioPorPagoMovil,
+                    },
+                    documentos = ficha.cierrePorDoc.Select(s =>
+                    {
+                        return new OOB.CuadreCierre.CierrePos.Documento()
+                        {
+                            cntMovActivo = s.cntMovActivo,
+                            cntMovAnulado = s.cntMovAnulado,
+                            cntMovContado = s.cntMovContado,
+                            cntMovCredito = s.cntMovCredito,
+                            cntTotalmov = s.cntTotalmov,
+                            codigoDoc = s.codigoDoc,
+                            descDoc = s.descDoc,
+                            importeMovActivoMonReferencia = s.importeMovActivoMonReferencia,
+                            importeMovActMonLocal = s.importeMovActMonLocal,
+                            importeMovAnuladoMonReferencia = s.importeMovAnuladoMonReferencia,
+                            importeMovContadoMonReferencia = s.importeMovContadoMonReferencia,
+                            importeMovCreditoMonLocal = s.importeMovCreditoMonLocal,
+                            importeMovCreditoMonReferencia = s.importeMovCreditoMonReferencia,
+                            importMovAnuladoMonLocal = s.importMovAnuladoMonLocal,
+                            importteMovContadoMonLocal = s.importteMovContadoMonLocal,
+                            siglasDoc = s.siglasDoc,
+                            signoDoc = s.signoDoc,
+                            varianteDoc = s.varianteDoc,
+                        };
+                    }).ToList(),
                     metPago = ficha.cierrePorMetPago.Select(s =>
                     {
                         return new OOB.CuadreCierre.CierrePos.MetodoPago()
@@ -31,7 +68,16 @@ namespace PosOnLine.Src.CuadreCierreProceso.Domain.UseCase
                         };
                     }).ToList(),
                 };
-                var result = Sistema.MyData.CuadreCierre_CerrarePos(fichaOOB);
+                fichaOOB.MetodoViejo = new OOB.Pos.Cerrar.Ficha()
+                {
+                    idOperador = Sistema.PosEnUso.id,
+                    estatus = "C",
+                    arqueo = new OOB.Pos.Cerrar.FichaArqueo()
+                    {
+                        autoArqueo = Sistema.PosEnUso.idAutoArqueoCierre,
+                    },
+                };
+                var result = Sistema.MyData.CuadreCierre_CerrarPos(fichaOOB);
                 if (result.Result== OOB.Resultado.Enumerados.EnumResult.isError)
                 {
                     throw new Exception(result.Mensaje);

@@ -50,20 +50,25 @@ namespace PosOnLine.Data.Prov
             Pendiente_CtasPendientes(int idOperador)
         {
             var result = new OOB.Resultado.FichaEntidad<int>();
-
-            var filtroDTO= new DtoLibPos.Pendiente.Cnt.Filtro();
-            if (idOperador != -1)
-                filtroDTO.idOperador = idOperador;
-                
-            var r01 = MyData.Pendiente_CtasPendientes(filtroDTO);
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                result.Mensaje = r01.Mensaje;
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
+                var filtroDTO = new DtoLibPos.Pendiente.Cnt.Filtro();
+                if (idOperador != -1)
+                    filtroDTO.idOperador = idOperador;
+                var r01 = MyData.Pendiente_CtasPendientes(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                result.Entidad = r01.Entidad;
             }
-            result.Entidad = r01.Entidad;
-
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return result;
         }
         public OOB.Resultado.Lista<OOB.Pendiente.Lista.Ficha> 

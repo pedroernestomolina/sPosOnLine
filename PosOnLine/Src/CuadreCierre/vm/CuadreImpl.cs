@@ -32,14 +32,15 @@ namespace PosOnLine.Src.CuadreCierre.vm
         private BindingSource _bsMedPagoMonReferencia;
         private ICtrlMedPago _cbMedPagoMonLocal;
         private ICtrlMedPago _cbMedPagoMonReferencia;
-        private IRepoPagoDetalle _repoPagoDetalle;
-        private IRepoPagoResumen _repoPagoResumen;
-        private IRepoVentaCredito _repoVentaCredito;
-        private IRepoCambiosVuelto _repoCambiosVuelto;
-        private IRepoPagoMovil _repoPagoMovil;
         private bool _procesarCierreIsOk;
         private __.Ctrl.Boton.Abandonar.IAbandonar _abandonarFicha;
         private CuadreCierreProceso.vm.ICierreProceso _cierreProceso;
+        //
+        private CuadreCierreRepo.vm.IRepoPagoDetalle _repoPagoDetalle;
+        private CuadreCierreRepo.vm.IRepoPagoResumen _repoPagoResumen;
+        private CuadreCierreRepo.vm.IRepoVentaCredito _repoVentaCredito;
+        private CuadreCierreRepo.vm.IRepoCambiosVuelto _repoCambiosVuelto;
+        private CuadreCierreRepo.vm.IRepoPagoMovil _repoPagoMovil;
         //
         public bool ProcesarCierreIsOk { get { return _procesarCierreIsOk; } }
         public bool AbandonarFichaIsOk { get { return _abandonarFicha.OpcionIsOK; } }
@@ -71,11 +72,11 @@ namespace PosOnLine.Src.CuadreCierre.vm
             _ucCargarMonedaLocal = new _Domain.UseCase.CargarMonedaLocalImpl();
             _ucCargarMonedaReferencia = new _Domain.UseCase.CargarMonedaReferenciaImpl();
             //
-            _repoPagoDetalle = new RepoPagoDetalleImpl();
-            _repoPagoResumen = new RepoPagoResumenImpl();
-            _repoVentaCredito = new RepoVentaCreditoImpl();
-            _repoCambiosVuelto = new RepoCambiosVueltoImpl();
-            _repoPagoMovil = new RepoPagoMovilImpl();
+            _repoPagoDetalle = new CuadreCierreRepo.vm.RepoPagoDetalleImpl();
+            _repoPagoResumen = new CuadreCierreRepo.vm.RepoPagoResumenImpl();
+            _repoVentaCredito = new CuadreCierreRepo.vm.RepoVentaCreditoImpl();
+            _repoCambiosVuelto = new CuadreCierreRepo.vm.RepoCambiosVueltoImpl();
+            _repoPagoMovil = new CuadreCierreRepo.vm.RepoPagoMovilImpl();
             //
             _bsResumen = new BindingSource();
             //
@@ -188,7 +189,21 @@ namespace PosOnLine.Src.CuadreCierre.vm
         }
         public void ProcesarCierre()
         {
+            _cierreProceso.setIdResumen(Sistema.PosEnUso.idResumen);
+            var _totales = new CuadreCierreProceso.Domain.Models.CierreTotales()
+            {
+                cntDivisaPorVuelto = _myData.VueltoCntPorDivisa,
+                estatusCuadre = _estadoCuadreCierre,
+                totalCuadreMonLocal = _montoPendSobrante,
+                vueltoCambioPorDivisa = _myData.VueltoMontoPorDivisa,
+                vueltoCambioPorEfectivo = _myData.VueltoMontoPorEfectivo,
+                vueltoCambioPorPagoMovil = _myData.VueltoMontoPorPagoMovil,
+                totalCajaSegunSistemaMonLocal = _myData.MontoCuadrar,
+                totalCajaSegunUsuarioMonLocal = (Get_ImporteRecibido + Get_MontoMPPorPagoBonoDivisa),
+            };
+            _cierreProceso.setTotalesCierre(_totales);
             _cierreProceso.setMetodosPagoImplementados(_myData.MetodosPagoUsado);
+            _cierreProceso.setDocumentos(_myData.DataResumenRecolectada.TiposDocumentoEmitidos);
             _procesarCierreIsOk = _cierreProceso.ProcesarCierre();
         }
         public void AbandonarFicha()
@@ -205,8 +220,8 @@ namespace PosOnLine.Src.CuadreCierre.vm
                 setMediosPago(_ucCargarMediosPago.Invoke());
                 setMedioPagoPorBonoDivisa(_ucCargarMedioPagoPorBonoDivisa.Invoke());
                 setDataResumenRecolectada(_uc.CuadreResumen(Sistema.PosEnUso.idResumen));
-                _lstMedPagoMonLocal = _myData.MediosPago.Where(w => w.codigoCurrencies == _myData.MonedaLocal.codigo).ToList();
-                _lstMedPagoMonReferencia = _myData.MediosPago.Where(w => w.codigoCurrencies == _myData.MonedaReferencia.codigo).ToList();
+                _lstMedPagoMonLocal = _myData.MediosPago.Where(w => w.codigoCurrencies == _myData.MonedaLocal.codigo && w.aplicaRetornoCambioVuelto).ToList();
+                _lstMedPagoMonReferencia = _myData.MediosPago.Where(w => w.codigoCurrencies == _myData.MonedaReferencia.codigo && w.aplicaRetornoCambioVuelto).ToList();
                 _cbMedPagoMonLocal.CargarData(_lstMedPagoMonLocal);
                 _cbMedPagoMonReferencia.CargarData(_lstMedPagoMonReferencia);
                 _bsTipoDoc.DataSource = _myData.DataResumenRecolectada.TiposDocumentoEmitidos;
@@ -243,29 +258,24 @@ namespace PosOnLine.Src.CuadreCierre.vm
         }
         public void reportePagoDetalle()
         {
-            _repoPagoDetalle.setDataCargar(_uc.ReportePagoDetalle(Sistema.PosEnUso.idResumen));
             _repoPagoDetalle.setMonedaLocal(_myData.MonedaLocal);
             _repoPagoDetalle.Generar();
         }
         public void reportePagoResumen()
         {
-            _repoPagoResumen.setDataCargar(_uc.ReportePagoResumen(Sistema.PosEnUso.idResumen));
             _repoPagoResumen.setMonedaLocal(_myData.MonedaLocal);
             _repoPagoResumen.Generar();
         }
         public void reporteVentaCredito()
         {
-            _repoVentaCredito.setDataCargar(_uc.ReporteVentaCredito(Sistema.PosEnUso.idResumen));
             _repoVentaCredito.Generar();
         }
         public void reporteCambiosVuelto()
         {
-            _repoCambiosVuelto.setDataCargar(_uc.ReporteCambiosVueltoEntregado(Sistema.PosEnUso.idResumen));
             _repoCambiosVuelto.Generar();
         }
         public void reportePagoMovil()
         {
-            _repoPagoMovil.setDataCargar(_uc.ReportePagoMovilPorRealizar(Sistema.PosEnUso.idResumen));
             _repoPagoMovil.Generar();
         }
         //

@@ -35,6 +35,7 @@ namespace PosOnLine.Src._Domain.UseCase
                         aplicaLoteRef = s.aplicaLoteRef,
                         aplicaBonoPagoDivisa = s.aplicaBonoPagoDivisa,
                         aplicaIGTF = s.aplicaIGTF,
+                        aplicaRetornoCambioVuelto=s.aplicaRetornoCambioVuelto,
                     };
                     return nr;
                 }).ToList();

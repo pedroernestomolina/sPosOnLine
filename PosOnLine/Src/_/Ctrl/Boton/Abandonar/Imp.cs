@@ -13,7 +13,7 @@ namespace PosOnLine.Src.__.Ctrl.Boton.Abandonar
             :base()
         {
         }
-        public override void Opcion()
+        public override void Opcion(string msg = "")
         {
             _opcion = Helpers.Msg.Abandonar();
         }

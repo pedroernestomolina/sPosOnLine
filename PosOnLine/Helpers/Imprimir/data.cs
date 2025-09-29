@@ -15,7 +15,6 @@ namespace PosOnLine.Helpers.Imprimir
             public string Direccion { get; set; }
             public string CiRif { get; set; }
             public string Telefonos { get; set; }
-
             public Negocio()
             {
                 Nombre = "";
@@ -36,13 +35,13 @@ namespace PosOnLine.Helpers.Imprimir
             public int DocumentoDiasCredito { get; set; }
             public string DocumentoAplica { get; set; }
             public string DocumentoHora { get; set; }
-
+            //
             public string NombreCli { get; set; }
             public string DireccionCli { get; set; }
             public string CiRifCli { get; set; }
             public string CodigoCli { get; set; }
             public string TelefonoCli { get; set; }
-
+            //
             public decimal FactorCambio { get; set; }
             public decimal SubTotal { get; set; }
             public decimal Descuento { get; set; }
@@ -58,8 +57,21 @@ namespace PosOnLine.Helpers.Imprimir
             public decimal TasaIGTF { get; set; }
             public decimal MontoIGTF { get; set; }
             public bool AplicaIGTF { get; set; }
-
-
+            //
+            public decimal VueltoEfectivo { get; set; }
+            public decimal VueltoDivisa { get; set; }
+            public decimal VueltoPagoMovil { get; set; }
+            public decimal CntDivisaVueltoDivisa { get; set; }
+            //
+            public decimal BonoPorPagoDivisa { get; set; }
+            public decimal MontoBonoPorPagoDivisa { get; set; }
+            public decimal CntDivisaAplicaBonoPorPagoDivisa { get; set; }
+            //
+            public string DocumentoAplica_SerialFiscal { get; set; }
+            public DateTime DocumentoAplica_Fecha { get; set; }
+            //
+            public decimal SaldoPendientDiv { get; set; }
+            //
             public decimal SubTotalItemFull 
             { 
                 get 
@@ -69,8 +81,6 @@ namespace PosOnLine.Helpers.Imprimir
                     return r;
                 } 
             }
-
-
             public Encabezado()
             {
                 NombreCli = "";
@@ -78,7 +88,7 @@ namespace PosOnLine.Helpers.Imprimir
                 CiRifCli = "";
                 CodigoCli = "";
                 TelefonoCli = "";
-
+                //
                 DocumentoAplica = "";
                 DocumentoCondicionPago = "";
                 DocumentoControl = "";
@@ -89,7 +99,7 @@ namespace PosOnLine.Helpers.Imprimir
                 DocumentoNro = "";
                 DocumentoSerie = "";
                 DocumentoHora = "";
-
+                //
                 FactorCambio = 0.0m;
                 SubTotal = 0.0m;
                 Descuento = 0.0m;
@@ -120,19 +130,6 @@ namespace PosOnLine.Helpers.Imprimir
                 //
                 SaldoPendientDiv = 0m;
             }
-            public decimal VueltoEfectivo { get; set; }
-            public decimal VueltoDivisa { get; set; }
-            public decimal VueltoPagoMovil { get; set; }
-            public decimal CntDivisaVueltoDivisa { get; set; }
-            //
-            public decimal BonoPorPagoDivisa { get; set; }
-            public decimal MontoBonoPorPagoDivisa { get; set; }
-            public decimal CntDivisaAplicaBonoPorPagoDivisa { get; set; }
-            //
-            public string DocumentoAplica_SerialFiscal { get; set; }
-            public DateTime DocumentoAplica_Fecha { get; set; }
-            //
-            public decimal SaldoPendientDiv { get; set; }
         }
         public class Item
         {
@@ -164,8 +161,6 @@ namespace PosOnLine.Helpers.Imprimir
                     return r; 
                 }
             }
-
-
             public Item()
             {
                 NombrePrd = "";
@@ -183,7 +178,6 @@ namespace PosOnLine.Helpers.Imprimir
                 TotalUnd = 0.0m;
                 TasaIva = 0.0m;
             }
-
         }
         public class MetodoPago 
         {
@@ -203,8 +197,6 @@ namespace PosOnLine.Helpers.Imprimir
             public decimal cant { get; set; }
             public decimal peso { get; set; }
             public decimal volumen { get; set; }
-
-
             public MedidaEmp() 
             {
                 desc = "";
@@ -213,8 +205,7 @@ namespace PosOnLine.Helpers.Imprimir
                 volumen = 0m;
             }
         }
-
-
+        //
         public Negocio negocio { get; set; }
         public Encabezado encabezado { get; set; }
         public List<Item> item { get; set; }

@@ -22,6 +22,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public decimal VueltoMontoPorEfectivo { get { return _dataResumenRecolectada.VueltoMontoPorEfectivo; } }
         public int VueltoCntPorDivisa { get { return _dataResumenRecolectada.VueltoCntPorDivisa; } }
         public decimal VueltoMontoPorDivisa { get { return _dataResumenRecolectada.VueltoMontoPorDivisa; } }
+        public decimal VueltoMontoPorPagoMovil { get { return _dataResumenRecolectada.VueltoMontoPorPagoMovil; } }
         public _Domain.Models.Moneda MonedaLocal { get { return _monedaLocal; } }
         public _Domain.Models.Moneda MonedaReferencia { get { return _monedaReferencia; } }
         public List<string> DataResumen { get { return _dataResumen; } }

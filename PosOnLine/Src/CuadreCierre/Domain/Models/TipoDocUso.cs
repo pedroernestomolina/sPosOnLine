@@ -21,6 +21,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public bool esAnulado { get; set; }
         public string nombreDoc { get; set; }
         public string atributoDoc { get; set; }
+        public int signoDoc { get; set; }
         //
         public string DescripcionDoc { get { return nombreDoc + " " + atributoDoc; } }
         //

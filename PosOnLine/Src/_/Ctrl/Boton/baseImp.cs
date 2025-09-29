@@ -10,8 +10,9 @@ namespace PosOnLine.Src.__.Ctrl.Boton
     public abstract class baseImp: IBoton
     {
         protected bool _opcion;
-
+        //
         public bool OpcionIsOK { get { return _opcion; } }
+        //
         public baseImp()
         {
             _opcion = false;
@@ -20,6 +21,6 @@ namespace PosOnLine.Src.__.Ctrl.Boton
         {
             _opcion = false;
         }
-        public abstract void Opcion();
+        public abstract void Opcion(string msg = "");
     }
 }

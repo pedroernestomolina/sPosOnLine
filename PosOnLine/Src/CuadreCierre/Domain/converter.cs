@@ -24,6 +24,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain
                 nombreCurrencies = mp.nombreCurrencies,
                 nombreMp = mp.nombreMp,
                 simboloCurrencies = mp.simboloCurrencies,
+                aplicaRetornoCambioVuelto = mp.aplicaRetornoCambioVuelto,
             };
         }
     }

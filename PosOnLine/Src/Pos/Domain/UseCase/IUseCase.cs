@@ -11,8 +11,6 @@ namespace PosOnLine.Src.Pos.Domain.UseCase
     {
         Models.ResultadoAgregarDoc
             AgregarFactura(OOB.Documento.Agregar.Factura.Ficha doc);
-        Helpers.Imprimir.data 
-            CargarDataDocumento(Models.ResultadoAgregarDoc result);
         Models.ResultadoAgregarDoc
             AgregarNotaCredito(OOB.Documento.Agregar.NotaCredito.Ficha doc);
     }

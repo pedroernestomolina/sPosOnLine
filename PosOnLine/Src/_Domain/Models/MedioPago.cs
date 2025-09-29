@@ -19,5 +19,6 @@ namespace PosOnLine.Src._Domain.Models
         public bool aplicaLoteRef { get; set; }
         public bool aplicaBonoPagoDivisa { get; set; }
         public bool aplicaIGTF { get; set; }
+        public bool aplicaRetornoCambioVuelto { get; set; }
     }
 }

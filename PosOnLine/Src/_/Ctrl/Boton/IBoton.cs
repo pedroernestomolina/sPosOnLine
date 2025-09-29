@@ -11,6 +11,6 @@ namespace PosOnLine.Src.__.Ctrl.Boton
     {
         bool OpcionIsOK { get; }
         void Inicializa();
-        void Opcion();
+        void Opcion(string msg="");
     }
 }

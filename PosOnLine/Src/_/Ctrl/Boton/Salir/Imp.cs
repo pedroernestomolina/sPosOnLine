@@ -13,7 +13,7 @@ namespace PosOnLine.Src.__.Ctrl.Boton.Salir
             :base()
         {
         }
-        public override void Opcion()
+        public override void Opcion(string msg = "")
         {
             _opcion = true;
         }

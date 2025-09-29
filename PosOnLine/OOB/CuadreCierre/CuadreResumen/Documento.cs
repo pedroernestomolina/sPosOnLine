@@ -20,5 +20,6 @@ namespace PosOnLine.OOB.CuadreCierre.CuadreResumen
         public string varianteDoc { get; set; }
         public bool esCredito { get; set; }
         public bool esAnulado { get; set; }
+        public int signoDoc { get; set; }
     }
 }
