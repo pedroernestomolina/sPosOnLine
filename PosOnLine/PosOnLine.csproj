@@ -473,6 +473,19 @@
     <Compile Include="Src\AdministradorDoc\Visualizar\VerFrm.Designer.cs">
       <DependentUpon>VerFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Src\AdmVisualizarDoc\Domain\Models\Cuerpo.cs" />
+    <Compile Include="Src\AdmVisualizarDoc\Domain\Models\DocVisualizar.cs" />
+    <Compile Include="Src\AdmVisualizarDoc\Domain\Models\Encabezado.cs" />
+    <Compile Include="Src\AdmVisualizarDoc\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\AdmVisualizarDoc\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\AdmVisualizarDoc\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\AdmVisualizarDoc\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\AdmVisualizarDoc\vm\IVisualizar.cs" />
+    <Compile Include="Src\AdmVisualizarDoc\vm\VisualizarImpl.cs" />
     <Compile Include="Src\Agencia\Agregar\Agregar.cs" />
     <Compile Include="Src\Agencia\Agregar\AgregarFrm.cs">
       <SubType>Form</SubType>
@@ -816,6 +829,7 @@
     <Compile Include="Src\Zufu\ClienteComp\Listar\Vista\IVista.cs" />
     <Compile Include="Src\Zufu\IPosZufuCliente.cs" />
     <Compile Include="Src\Zufu\ListaPorPlu\Imp.cs" />
+    <Compile Include="Src\_Domain\Models\Enumerados.cs" />
     <Compile Include="Src\_Domain\Models\MedioPago.cs" />
     <Compile Include="Src\_Domain\Models\Moneda.cs" />
     <Compile Include="Src\_Domain\UseCase\CargarMediosPagoImpl.cs" />
@@ -1173,6 +1187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\AdministradorDoc\Visualizar\VerFrm.resx">
       <DependentUpon>VerFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\AdmVisualizarDoc\vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Agencia\Agregar\AgregarFrm.resx">
       <DependentUpon>AgregarFrm.cs</DependentUpon>

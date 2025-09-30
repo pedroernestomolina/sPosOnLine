@@ -9,6 +9,7 @@ namespace PosOnLine.Src._Domain
 {
     public interface IRepo
     {
+        void setIdResumen(int id);
         void Generar();
     }
 }

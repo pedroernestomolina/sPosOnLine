@@ -34,7 +34,6 @@ namespace PosOnLine.OOB.Documento.Anular.Factura
         public decimal montoFac_Anu { get; set; }
         public decimal montoNte_Anu { get; set; }
 
-
         public FichaResumen()
             : base()
         {

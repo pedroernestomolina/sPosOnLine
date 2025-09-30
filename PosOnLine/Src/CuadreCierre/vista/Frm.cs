@@ -96,69 +96,69 @@ namespace PosOnLine.Src.CuadreCierre.vista
             CB_MEDIOS_PAGO_REFERENCIA.DisplayMember = "desc";
             CB_MEDIOS_PAGO_REFERENCIA.ValueMember = "id";
         }
-        private void InicializaDGVResumenTipoDoc()
-        {
-            var f = new Font("Serif", 8, FontStyle.Bold);
-            var f1 = new Font("Serif", 10, FontStyle.Regular);
-            //
-            DGV_RESUMEN_TIPO_DOC.RowHeadersVisible = false;
-            DGV_RESUMEN_TIPO_DOC.AllowUserToAddRows = false;
-            DGV_RESUMEN_TIPO_DOC.AllowUserToDeleteRows = false;
-            DGV_RESUMEN_TIPO_DOC.AutoGenerateColumns = false;
-            DGV_RESUMEN_TIPO_DOC.AllowUserToResizeRows = false;
-            DGV_RESUMEN_TIPO_DOC.AllowUserToResizeColumns = false;
-            DGV_RESUMEN_TIPO_DOC.AllowUserToOrderColumns = false;
-            DGV_RESUMEN_TIPO_DOC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DGV_RESUMEN_TIPO_DOC.MultiSelect = false;
-            DGV_RESUMEN_TIPO_DOC.ReadOnly = true;
-            //
-            var c0 = new DataGridViewTextBoxColumn();
-            c0.DataPropertyName = "CabCntDoc";
-            c0.HeaderText = "Cnt/Doc";
-            c0.Visible = true;
-            c0.HeaderCell.Style.Font = f;
-            c0.DefaultCellStyle.Font = f;
-            c0.DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
-            c0.Width = 60;
-            //
-            var c1 = new DataGridViewTextBoxColumn();
-            c1.DataPropertyName = "CabDescripcion";
-            c1.HeaderText = "Descripcion";
-            c1.Visible = true;
-            c1.MinimumWidth = 180;
-            c1.HeaderCell.Style.Font = f;
-            c1.DefaultCellStyle.Font = f;
-            c1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            c1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            //
-            var c2 = new DataGridViewTextBoxColumn();
-            c2.DataPropertyName = "CabImporteMonLocal";
-            c2.HeaderText = "Importe";
-            c2.Name = "Monto";
-            c2.Visible = true;
-            c2.Width = 120;
-            c2.HeaderCell.Style.Font = f;
-            c2.DefaultCellStyle.Font = f;
-            c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            //
-            var c4 = new DataGridViewTextBoxColumn();
-            c4.DataPropertyName = "CabImporteMonReferencia";
-            c4.HeaderText = "Importe $";
-            c4.Visible = true;
-            c4.Width = 120;
-            c4.HeaderCell.Style.Font = f;
-            c4.DefaultCellStyle.Font = f;
-            c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            //
-            DGV_RESUMEN_TIPO_DOC.Columns.Add(c0);
-            DGV_RESUMEN_TIPO_DOC.Columns.Add(c1);
-            DGV_RESUMEN_TIPO_DOC.Columns.Add(c2);
-            DGV_RESUMEN_TIPO_DOC.Columns.Add(c4);
-        }
+        //private void InicializaDGVResumenTipoDoc()
+        //{
+        //    var f = new Font("Serif", 8, FontStyle.Bold);
+        //    var f1 = new Font("Serif", 10, FontStyle.Regular);
+        //    //
+        //    DGV_RESUMEN_TIPO_DOC.RowHeadersVisible = false;
+        //    DGV_RESUMEN_TIPO_DOC.AllowUserToAddRows = false;
+        //    DGV_RESUMEN_TIPO_DOC.AllowUserToDeleteRows = false;
+        //    DGV_RESUMEN_TIPO_DOC.AutoGenerateColumns = false;
+        //    DGV_RESUMEN_TIPO_DOC.AllowUserToResizeRows = false;
+        //    DGV_RESUMEN_TIPO_DOC.AllowUserToResizeColumns = false;
+        //    DGV_RESUMEN_TIPO_DOC.AllowUserToOrderColumns = false;
+        //    DGV_RESUMEN_TIPO_DOC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        //    DGV_RESUMEN_TIPO_DOC.MultiSelect = false;
+        //    DGV_RESUMEN_TIPO_DOC.ReadOnly = true;
+        //    //
+        //    var c0 = new DataGridViewTextBoxColumn();
+        //    c0.DataPropertyName = "CabCntDoc";
+        //    c0.HeaderText = "Cnt/Doc";
+        //    c0.Visible = true;
+        //    c0.HeaderCell.Style.Font = f;
+        //    c0.DefaultCellStyle.Font = f;
+        //    c0.DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+        //    c0.Width = 60;
+        //    //
+        //    var c1 = new DataGridViewTextBoxColumn();
+        //    c1.DataPropertyName = "CabDescripcion";
+        //    c1.HeaderText = "Descripcion";
+        //    c1.Visible = true;
+        //    c1.MinimumWidth = 180;
+        //    c1.HeaderCell.Style.Font = f;
+        //    c1.DefaultCellStyle.Font = f;
+        //    c1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        //    c1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        //    //
+        //    var c2 = new DataGridViewTextBoxColumn();
+        //    c2.DataPropertyName = "CabImporteMonLocal";
+        //    c2.HeaderText = "Importe";
+        //    c2.Name = "Monto";
+        //    c2.Visible = true;
+        //    c2.Width = 120;
+        //    c2.HeaderCell.Style.Font = f;
+        //    c2.DefaultCellStyle.Font = f;
+        //    c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+        //    //
+        //    var c4 = new DataGridViewTextBoxColumn();
+        //    c4.DataPropertyName = "CabImporteMonReferencia";
+        //    c4.HeaderText = "Importe $";
+        //    c4.Visible = true;
+        //    c4.Width = 120;
+        //    c4.HeaderCell.Style.Font = f;
+        //    c4.DefaultCellStyle.Font = f;
+        //    c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+        //    //
+        //    DGV_RESUMEN_TIPO_DOC.Columns.Add(c0);
+        //    DGV_RESUMEN_TIPO_DOC.Columns.Add(c1);
+        //    DGV_RESUMEN_TIPO_DOC.Columns.Add(c2);
+        //    DGV_RESUMEN_TIPO_DOC.Columns.Add(c4);
+        //}
         public Frm()
         {
             InitializeComponent();
-            InicializaDGVResumenTipoDoc();
+            //InicializaDGVResumenTipoDoc();
             InicializaDGV();
             InicializaCB();
         }
@@ -171,7 +171,7 @@ namespace PosOnLine.Src.CuadreCierre.vista
             _modo_inicializar = true;
             LB_RESUMEN.DataSource = _controlador.Get_ResumenSource;
             DGV.DataSource = _controlador.Get_MetodosPagoSource;
-            DGV_RESUMEN_TIPO_DOC.DataSource = _controlador.Get_TipoDocSource;
+            //DGV_RESUMEN_TIPO_DOC.DataSource = _controlador.Get_TipoDocSource;
             CB_MEDIOS_PAGO_LOCAL.DataSource = _controlador.Get_MediosPagoLocalSource;
             CB_MEDIOS_PAGO_LOCAL.SelectedValue = _controlador.Get_IdMedioPagoLocal;
             CB_MEDIOS_PAGO_REFERENCIA.DataSource = _controlador.Get_MediosPagoReferenciaSource;
@@ -189,13 +189,17 @@ namespace PosOnLine.Src.CuadreCierre.vista
         private void Frm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel=true;
-            if (_controlador.AbandonarFichaIsOk) 
+            if (_controlador.AbandonarFichaIsOk || _controlador.ProcesarCierreIsOk ) 
             {
                 e.Cancel = false;
             }
         }
         private void Frm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
         }
         //
         private void BT_LIMPIAR_VUELTO_MON_LOCAL_Click(object sender, EventArgs e)

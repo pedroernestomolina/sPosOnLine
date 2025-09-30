@@ -34,7 +34,8 @@ namespace PosOnLine.Data.Prov
                             hora = s.hora,
                             id = s.id,
                             idEquipo = s.idEquipo,
-                            idCierre = s.idCierre
+                            idCierre = s.idCierre,
+                            idResumen = s.idResumen,
                         };
                     }).ToList();
                 }

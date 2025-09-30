@@ -110,7 +110,7 @@ namespace PosOnLine.Src.CuadreCierreProceso.vm
             {
                 try
                 {
-                    _rule.CuentasPendientes();
+                    //_rule.CuentasPendientes();
                     _uc.CerrarPos(_cierreFicha);
                     rt=true;
                 }

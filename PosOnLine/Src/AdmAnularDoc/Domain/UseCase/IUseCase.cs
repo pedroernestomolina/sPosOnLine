@@ -11,5 +11,11 @@ namespace PosOnLine.Src.AdmAnularDoc.Domain.UseCase
     {
         Domain.Models.DataAnular
             RecopilarDataDocumentoAnular(string idDoc);
+        void 
+            AnularFactura(Models.DataAnular dataAnular, string motivo);
+        void 
+            AnularNotaCredito(Models.DataAnular dataAnular, string motivo);
+        void 
+            AnularNotaEntrega(Models.DataAnular dataAnular, string motivo);
     }
 }

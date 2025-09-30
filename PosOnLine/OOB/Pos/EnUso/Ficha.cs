@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Pos.EnUso
 {
-    
     public class Ficha
     {
-
         public int id { get; set; }
         public string idAutoArqueoCierre { get; set; }
         public int idResumen { get; set; }
@@ -20,18 +18,15 @@ namespace PosOnLine.OOB.Pos.EnUso
         public DateTime fechaApertura { get; set; }
         public string horaApertura { get; set; }
         public bool IsEnUso { get { return id != -1; } }
-
-
         public Ficha()
         {
             Inicializa();
         }
-
         public void Cerrar()
         {
             Inicializa();
         }
-
+        //
         private void Inicializa()
         {
             id = -1;
@@ -43,7 +38,5 @@ namespace PosOnLine.OOB.Pos.EnUso
             fechaApertura = DateTime.Now.Date;
             horaApertura = "";
         }
-
     }
-
 }

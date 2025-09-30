@@ -9,6 +9,9 @@ namespace PosOnLine.Src.AdmAnularDoc.vm
 {
     public interface IAnularDoc
     {
-        void AnularDoc(string idDoc);
+        bool 
+            AnularDoc(string idDoc);
+        void 
+            Inicializa();
     }
 }

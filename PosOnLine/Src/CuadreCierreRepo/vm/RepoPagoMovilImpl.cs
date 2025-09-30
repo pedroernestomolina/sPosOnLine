@@ -13,19 +13,24 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
     {
         private List<Domain.Models.RepoPagoMovil> _lista;
         private Domain.UseCase.IUseCase _uc;
+        private int _idResumen;
         //
         public RepoPagoMovilImpl()
         {
             _uc = new Domain.UseCase.UseCaseImpl();
         }
         //
+        public void setIdResumen(int id)
+        {
+            _idResumen = id;
+        }
         private void setDataCargar(List<Domain.Models.RepoPagoMovil> list)
         {
             _lista = list;
         }
         public void Generar()
         {
-            setDataCargar(_uc.ReportePagoMovilPorRealizar(Sistema.PosEnUso.idResumen));
+            setDataCargar(_uc.ReportePagoMovilPorRealizar(_idResumen));
             //
             var pt = AppDomain.CurrentDomain.BaseDirectory + @"\Src\CuadreCierreRepo\repo\PagoMovil.rdlc";
             var ds = new repo.DS();

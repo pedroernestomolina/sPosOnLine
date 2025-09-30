@@ -64,6 +64,12 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
             _montoDivisaDevuelta = monto;
             actualizarTasaPonderadaImporte();
         }
+        public void setActivarMontoPorBonoPagoDivisa()
+        {
+            _segunSistema=totalMontoRecibido;
+            MontoSegunUsu = totalMontoRecibido;
+            _importe = totalMontoRecibidoMonLocal;
+        }
         private void actualizarTasaPonderadaImporte() 
         {
             decimal _cnt = (totalMontoRecibido -_cantDivisaDevuelta );

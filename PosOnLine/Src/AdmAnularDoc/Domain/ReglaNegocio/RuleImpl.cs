@@ -15,11 +15,11 @@ namespace PosOnLine.Src.AdmAnularDoc.Domain.ReglaNegocio
         }
         public void ParaAnularDoc(Models.DataAnular data)
         {
-            if (data.doc.estatusDocFiscal)
+            if (data.doc.isDocFiscal)
             {
                 throw new Exception("DOCUMENTO FISCAL NO PUEDE SER ANULADO");
             }
-            if (data.doc.estatusAnulado)
+            if (data.doc.isAnulado)
             {
                 throw new Exception("Documento Se Encuentra Ya Anulado");
             }

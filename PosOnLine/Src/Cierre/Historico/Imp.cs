@@ -63,6 +63,17 @@ namespace PosOnLine.Src.Cierre.Historico
             if (ItemActual == null) return;
             var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
             Utils.ReporteResumen(_it.idCierre);
+
+
+
+            _Domain.UseCase.ICargarMonedaLocal _ucCargarMonedaLocal;
+            _ucCargarMonedaLocal = new _Domain.UseCase.CargarMonedaLocalImpl();
+            //
+            CuadreCierreRepo.vm.IRepoPagoResumen _repoPagoResumen;
+            _repoPagoResumen = new CuadreCierreRepo.vm.RepoPagoResumenImpl();
+            _repoPagoResumen.setMonedaLocal(_ucCargarMonedaLocal.Invoke());
+            _repoPagoResumen.setIdResumen(_it.idResumen);
+            _repoPagoResumen.Generar();
         }
         //
         private bool cargarData()

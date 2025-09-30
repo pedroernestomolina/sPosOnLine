@@ -13,19 +13,24 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
     {
         private List<Domain.Models.RepoCambiosVuelto> _lista;
         private Domain.UseCase.IUseCase _uc;
+        private int _idResumen;
         //
         public RepoCambiosVueltoImpl()
         {
             _uc = new Domain.UseCase.UseCaseImpl();
         }
         //
+        public void setIdResumen(int id)
+        {
+            _idResumen = id;
+        }
         private void setDataCargar(List<Domain.Models.RepoCambiosVuelto> list)
         {
             _lista = list;
         }
         public void Generar()
         {
-            setDataCargar(_uc.ReporteCambiosVueltoEntregado(Sistema.PosEnUso.idResumen));
+            setDataCargar(_uc.ReporteCambiosVueltoEntregado(_idResumen));
             //
             var pt = AppDomain.CurrentDomain.BaseDirectory + @"\Src\CuadreCierreRepo\repo\VueltosEntregado.rdlc";
             var ds = new repo.DS();

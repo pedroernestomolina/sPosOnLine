@@ -13,10 +13,15 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
     {
         private List<Domain.Models.RepoVentaCredito> _lista;
         private Domain.UseCase.UseCaseImpl _uc;
+        private int _idResumen;
         //
         public RepoVentaCreditoImpl()
         {
             _uc = new Domain.UseCase.UseCaseImpl();
+        }
+        public void setIdResumen(int id)
+        {
+            _idResumen = id;
         }
         private void setDataCargar(List<Domain.Models.RepoVentaCredito> list)
         {
@@ -25,7 +30,7 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
         //
         public void Generar()
         {
-            setDataCargar(_uc.ReporteVentaCredito(Sistema.PosEnUso.idResumen));
+            setDataCargar(_uc.ReporteVentaCredito(_idResumen));
             //
             var pt = AppDomain.CurrentDomain.BaseDirectory + @"\Src\CuadreCierreRepo\repo\VentCredito.rdlc";
             var ds = new repo.DS();

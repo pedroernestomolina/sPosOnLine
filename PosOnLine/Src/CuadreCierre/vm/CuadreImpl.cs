@@ -57,6 +57,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
         public decimal Get_VueltoMontoPorEfectivo { get { return _myData.VueltoMontoPorEfectivo; } }
         public int Get_VueltoCntPorDivisa { get { return _myData.VueltoCntPorDivisa; } }
         public decimal Get_VueltoMontoPorDivisa { get { return _myData.VueltoMontoPorDivisa; } }
+        public decimal Get_VueltoMontoPorPagoMovil { get { return _myData.VueltoMontoPorPagoMovil; } }
         public object Get_MediosPagoLocalSource { get { return _cbMedPagoMonLocal.GetSource; } }
         public string Get_IdMedioPagoLocal { get { return _cbMedPagoMonLocal.GetId; } }
         public object Get_MediosPagoReferenciaSource { get { return _cbMedPagoMonReferencia.GetSource; } }
@@ -189,6 +190,12 @@ namespace PosOnLine.Src.CuadreCierre.vm
         }
         public void ProcesarCierre()
         {
+            var _bonoPorPagoDivisa = _myData.MetodosPagoUsado.Find(f => f.idMP == _medioPagoPorBonoDivisa.idMp);
+            if (_bonoPorPagoDivisa != null) 
+            {
+                _bonoPorPagoDivisa.setActivarMontoPorBonoPagoDivisa();
+            }
+            //
             _cierreProceso.setIdResumen(Sistema.PosEnUso.idResumen);
             var _totales = new CuadreCierreProceso.Domain.Models.CierreTotales()
             {
@@ -199,12 +206,16 @@ namespace PosOnLine.Src.CuadreCierre.vm
                 vueltoCambioPorEfectivo = _myData.VueltoMontoPorEfectivo,
                 vueltoCambioPorPagoMovil = _myData.VueltoMontoPorPagoMovil,
                 totalCajaSegunSistemaMonLocal = _myData.MontoCuadrar,
-                totalCajaSegunUsuarioMonLocal = (Get_ImporteRecibido + Get_MontoMPPorPagoBonoDivisa),
+                totalCajaSegunUsuarioMonLocal = ((Get_ImporteRecibido - Get_VueltoMontoPorPagoMovil) + Get_MontoMPPorPagoBonoDivisa),
             };
             _cierreProceso.setTotalesCierre(_totales);
             _cierreProceso.setMetodosPagoImplementados(_myData.MetodosPagoUsado);
             _cierreProceso.setDocumentos(_myData.DataResumenRecolectada.TiposDocumentoEmitidos);
             _procesarCierreIsOk = _cierreProceso.ProcesarCierre();
+            if (_procesarCierreIsOk) 
+            {
+                Sistema.PosEnUso.Cerrar();
+            }
         }
         public void AbandonarFicha()
         {
@@ -263,6 +274,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
         }
         public void reportePagoResumen()
         {
+            _repoPagoResumen.setIdResumen(Sistema.PosEnUso.idResumen);
             _repoPagoResumen.setMonedaLocal(_myData.MonedaLocal);
             _repoPagoResumen.Generar();
         }
@@ -281,7 +293,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
         //
         private void recalcular() 
         {
-            _montoPendSobrante = (Get_ImporteRecibido - (MontoCuadrar - Get_MontoMPPorPagoBonoDivisa));
+            _montoPendSobrante = ((Get_ImporteRecibido - Get_VueltoMontoPorPagoMovil) - (MontoCuadrar - Get_MontoMPPorPagoBonoDivisa));
             if (_montoPendSobrante > 0m)
             {
                 _estadoCuadreCierre = "Sobrante";

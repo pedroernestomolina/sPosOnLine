@@ -14,10 +14,15 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
         private Domain.UseCase.IUseCase _uc;
         private List<Domain.Models.RepoPagoDetalleEnc> _lista;
         private _Domain.Models.Moneda _monedaLocal;
+        private int _idResumen;
         //
         public RepoPagoDetalleImpl()
         {
             _uc = new Domain.UseCase.UseCaseImpl();
+        }
+        public void setIdResumen(int id)
+        {
+            _idResumen = id;
         }
         public void setMonedaLocal(_Domain.Models.Moneda moneda)
         {
@@ -29,7 +34,7 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
         }
         public void Generar()
         {
-            setDataCargar(_uc.ReportePagoDetalle(Sistema.PosEnUso.idResumen));
+            setDataCargar(_uc.ReportePagoDetalle(_idResumen));
             var pt = AppDomain.CurrentDomain.BaseDirectory + @"\Src\CuadreCierreRepo\repo\PagoDetalle.rdlc";
             var ds = new repo.DS();
             var xid = 0;
