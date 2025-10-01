@@ -507,5 +507,46 @@ namespace PosOnLine.Data.Prov
             //
             return rt;
         }
+        public OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.Ficha> 
+            CuadrCierre_Get_ObtenerCierre_byIdOperador(string id)
+        {
+            var rt = new OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.Ficha>();
+            //
+            try
+            {
+                var rst = MyData.CuadrCierre_Get_ObtenerCierre_byIdOperador(id);
+                if (rst.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rst.Mensaje);
+                }
+                if (rst.Entidad == null)
+                {
+                    throw new Exception("PROBLEMA AL CARGAR DATA");
+                }
+                var s = rst.Entidad;
+                rt.Entidad = new OOB.CuadreCierre.ObtenerCierre.Ficha()
+                {
+                    codigoSucursal = s.codigoSucursal,
+                    codigoUsuario = s.codigoUsuario,
+                    estatusOperador = s.estatusOperador,
+                    fechaApertura = s.fechaApertura,
+                    fechaCierre = s.fechaCierre,
+                    horaApertura = s.horaApertura,
+                    horaCierre = s.horaCierre,
+                    idArqueo = s.idArqueo,
+                    idResumen = s.idResumen,
+                    nombreUsuario = s.nombreUsuario,
+                    nroCierre = s.nroCierre,
+                    terminal = s.terminal,
+                };
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return rt;
+        }
     }
 }

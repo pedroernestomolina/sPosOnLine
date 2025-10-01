@@ -9,20 +9,17 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.CuadreCierreRepo.vm
 {
-    public class RepoPagoResumenImpl: IRepoPagoResumen
+    public class RepoPagoResumenImpl : BaseRepo, IRepoPagoResumen
     {
         private Domain.Models.RepoPagoResumen _data;
         private _Domain.Models.Moneda _monedaLocal;
         private Domain.UseCase.IUseCase _uc;
-        private int _idResumen;
+        private _Domain.UseCase.ICargarMonedaLocal _ucMonedaLocal;
         //
         public RepoPagoResumenImpl()
         {
             _uc = new Domain.UseCase.UseCaseImpl();
-        }
-        public void setIdResumen(int id)
-        {
-            _idResumen = id;
+            _ucMonedaLocal = new _Domain.UseCase.CargarMonedaLocalImpl();
         }
         public void setDataCargar(Domain.Models.RepoPagoResumen data)
         {
@@ -32,53 +29,69 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
         {
             _monedaLocal = moneda;
         }
-        public void Generar()
+        public override void Generar()
         {
-            setDataCargar(_uc.ReportePagoResumen(_idResumen));
-            //
-            var pt = AppDomain.CurrentDomain.BaseDirectory + @"\Src\CuadreCierreRepo\repo\PagoResumen.rdlc";
-            var ds = new repo.DS();
-            var xd = 0;
-            var timporte = 0.0m;
-            var tasa = "";
-            foreach (var rg in _data.metodo.OrderBy(o => o.descMP).ToList())
+            try
             {
-                xd += 1;
-                timporte += rg.montoRecibidoMonLocal;
-                tasa = "";
-                if (_monedaLocal!=null)
+                if (!EsHistorico)
                 {
-                    if (rg.codigoMoneda.Trim() != _monedaLocal.codigo)
+                    setMonedaLocal(_ucMonedaLocal.Invoke());
+                }
+                setDataCargar(_uc.ReportePagoResumen(IdResumen));
+                //
+                var pt = AppDomain.CurrentDomain.BaseDirectory + @"\Src\CuadreCierreRepo\repo\PagoResumen.rdlc";
+                var ds = new repo.DS();
+                var xd = 0;
+                var timporte = 0.0m;
+                var tasa = "";
+                foreach (var rg in _data.metodo.OrderBy(o => o.descMP).ToList())
+                {
+                    xd += 1;
+                    timporte += rg.montoRecibidoMonLocal;
+                    tasa = "";
+                    if (_monedaLocal != null)
                     {
-                        tasa = "/" + rg.tasaRespectoMonReferencia.ToString("n2") + "*" + rg.tasaReferencia.ToString("n2");
+                        if (rg.codigoMoneda.Trim() != _monedaLocal.codigo)
+                        {
+                            tasa = "/" + rg.tasaRespectoMonReferencia.ToString("n2") + "*" + rg.tasaReferencia.ToString("n2");
+                        }
+                        else
+                        {
+                            tasa = rg.tasaReferencia.ToString("n2");
+                        }
                     }
                     else 
                     {
-                        tasa = rg.tasaReferencia.ToString("n2");
+                        tasa = "/" + rg.tasaRespectoMonReferencia.ToString("n2") + "*" + rg.tasaReferencia.ToString("n2");
                     }
+                    DataRow p = ds.Tables["PagoResumen"].NewRow();
+                    p["id"] = xd.ToString().Trim().PadLeft(3, '0');
+                    p["medio"] = rg.descMP;
+                    p["tasa"] = tasa;
+                    p["lote"] = rg.recibido.ToString("n2") + rg.simboloMoneda;
+                    p["cntDivisa"] = 0;
+                    p["cntMov"] = rg.cntMov.ToString("n0");
+                    p["importe"] = rg.montoRecibidoMonLocal;
+                    ds.Tables["PagoResumen"].Rows.Add(p);
                 }
-                DataRow p = ds.Tables["PagoResumen"].NewRow();
-                p["id"] = xd.ToString().Trim().PadLeft(3,'0');
-                p["medio"] = rg.descMP;
-                p["tasa"] = tasa;
-                p["lote"] = rg.recibido.ToString("n2") + rg.simboloMoneda;
-                p["cntDivisa"] = 0;
-                p["cntMov"] = rg.cntMov.ToString("n0");
-                p["importe"] = rg.montoRecibidoMonLocal;
-                ds.Tables["PagoResumen"].Rows.Add(p);
+                //
+                var Rds = new List<ReportDataSource>();
+                var pmt = new List<ReportParameter>();
+                pmt.Add(new ReportParameter("tImporte", timporte.ToString("n2")));
+                pmt.Add(new ReportParameter("tCambio", _data.montoVueltoMonLocal.ToString("n2")));
+                pmt.Add(new ReportParameter("tituloRepo", EsHistorico?" HISTORICO Nro: "+CierreNro :""));
+                Rds.Add(new ReportDataSource("PagoResumen", ds.Tables["PagoResumen"]));
+                //
+                var frp = new __.Reporte.Frm();
+                frp.rds = Rds;
+                frp.prmts = pmt;
+                frp.Path = pt;
+                frp.ShowDialog();
             }
-            //
-            var Rds = new List<ReportDataSource>();
-            var pmt = new List<ReportParameter>();
-            pmt.Add(new ReportParameter("tImporte", timporte.ToString("n2")));
-            pmt.Add(new ReportParameter("tCambio", _data.montoVueltoMonLocal.ToString("n2")));
-            Rds.Add(new ReportDataSource("PagoResumen", ds.Tables["PagoResumen"]));
-            //
-            var frp = new __.Reporte.Frm ();
-            frp.rds = Rds;
-            frp.prmts = pmt;
-            frp.Path = pt;
-            frp.ShowDialog();
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+            }
         }
     }
 }

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Src._Domain
+namespace PosOnLine.Src.CuadreCierreImprimir.vm
 {
-    public interface IRepo
+    public interface ICierreImprimir
     {
+        void setIdCierre(int id);
         void Generar();
     }
 }

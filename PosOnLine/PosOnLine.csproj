@@ -267,6 +267,7 @@
     <Compile Include="OOB\CuadreCierre\CuadreResumen\Documento.cs" />
     <Compile Include="OOB\CuadreCierre\CuadreResumen\MetodoPago.cs" />
     <Compile Include="OOB\CuadreCierre\CuadreResumen\Totales.cs" />
+    <Compile Include="OOB\CuadreCierre\ObtenerCierre\Ficha.cs" />
     <Compile Include="OOB\CuadreCierre\Reportes\CambiosVuelto\Ficha.cs" />
     <Compile Include="OOB\CuadreCierre\Reportes\PagoDetalle\Ficha.cs" />
     <Compile Include="OOB\CuadreCierre\Reportes\PagoMovil\Ficha.cs" />
@@ -567,6 +568,10 @@
     <Compile Include="Src\Consultor\ModoAdm\imp_vta.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IPrdConsultar.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\vm\CierreImprimirImpl.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\vm\ICierreImprimir.cs" />
     <Compile Include="Src\CuadreCierreProceso\Domain\Models\CierrePorDocumento.cs" />
     <Compile Include="Src\CuadreCierreProceso\Domain\Models\CierreFicha.cs" />
     <Compile Include="Src\CuadreCierreProceso\Domain\Models\CierrePorMetodoPago.cs" />
@@ -579,6 +584,8 @@
     <Compile Include="Src\CuadreCierreProceso\vm\ICierreProceso.cs" />
     <Compile Include="Src\CuadreCierreRepo\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\CuadreCierreRepo\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\BaseRepo.cs" />
+    <Compile Include="Src\CuadreCierreRepo\vm\IRepo.cs" />
     <Compile Include="Src\CuadreCierre\Domain\converter.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\DataResumenRecolectada.cs" />
     <Compile Include="Src\CuadreCierre\Domain\Models\MedioPago.cs" />

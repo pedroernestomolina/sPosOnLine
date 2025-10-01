@@ -269,25 +269,27 @@ namespace PosOnLine.Src.CuadreCierre.vm
         }
         public void reportePagoDetalle()
         {
-            _repoPagoDetalle.setMonedaLocal(_myData.MonedaLocal);
+            _repoPagoDetalle.setIdResumen(Sistema.PosEnUso.idResumen);
             _repoPagoDetalle.Generar();
         }
         public void reportePagoResumen()
         {
             _repoPagoResumen.setIdResumen(Sistema.PosEnUso.idResumen);
-            _repoPagoResumen.setMonedaLocal(_myData.MonedaLocal);
             _repoPagoResumen.Generar();
         }
         public void reporteVentaCredito()
         {
+            _repoVentaCredito.setIdResumen(Sistema.PosEnUso.idResumen);
             _repoVentaCredito.Generar();
         }
         public void reporteCambiosVuelto()
         {
+            _repoCambiosVuelto.setIdResumen(Sistema.PosEnUso.idResumen);
             _repoCambiosVuelto.Generar();
         }
         public void reportePagoMovil()
         {
+            _repoPagoMovil.setIdResumen(Sistema.PosEnUso.idResumen);
             _repoPagoMovil.Generar();
         }
         //

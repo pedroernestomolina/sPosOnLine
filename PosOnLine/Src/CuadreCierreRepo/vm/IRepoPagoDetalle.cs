@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.CuadreCierreRepo.vm
 {
-    public interface IRepoPagoDetalle : _Domain.IRepo
+    public interface IRepoPagoDetalle : IRepo
     {
-        void setMonedaLocal(_Domain.Models.Moneda moneda);
     }
 }

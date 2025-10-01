@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.CuadreCierreRepo.vm
 {
-    public interface IRepoVentaCredito: _Domain.IRepo
+    public interface IRepoVentaCredito: IRepo
     {
     }
 }

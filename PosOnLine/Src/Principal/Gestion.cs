@@ -8,11 +8,8 @@ using System.Windows.Forms;
 
 namespace PosOnLine.Src.Principal
 {
-    
     public class Gestion
     {
-
-
         private Pos.Gestion _gestionPos;
         private PassWord.Gestion _gestionPassW;
         private AdministradorDoc.Principal.Gestion _gestionDoc;
@@ -21,8 +18,9 @@ namespace PosOnLine.Src.Principal
         private Configuracion.SucursalDeposito.Gestion _gestionCnfSucDeposito;
         private Pos.ICliente _gCliente;
         private Cierre.Historico.IHistoria _gCierreHist;
-
-
+        //
+        private CuadreCierre.vm.ICuadre _newCuadreCierre;
+        //
         public string BD_Ruta { get { return Sistema.Instancia; } }
         public string BD_Nombre { get { return Sistema.BaseDatos; } }
         public string Version { get { return "Ver. " + Application.ProductVersion; } }
@@ -300,10 +298,6 @@ namespace PosOnLine.Src.Principal
 
 
         //*
-        //
-        private CuadreCierre.vm.ICuadre _newCuadreCierre;
-
-
         private Cierre.Fiscal.ICierre _cierrePosFiscal;
         private Cierre.NoFiscal.INoFiscal _cierrePosNoFiscal;
         public void CerrarPos()
@@ -317,6 +311,7 @@ namespace PosOnLine.Src.Principal
                 }
                 if (Helpers.PassWord.PassWIsOk(Sistema.FuncionPosCerrarPos))
                 {
+                    /*
                     if (_cierrePosNoFiscal == null) 
                     {
                         _cierrePosNoFiscal = new Cierre.NoFiscal.Imp();
@@ -340,7 +335,7 @@ namespace PosOnLine.Src.Principal
                             Helpers.Msg.OK("OPERADOR CERRRADO EXITOSAMENTE !!!!!");
                         }
                     }
-
+                     */
 
                     //*
                     //CUADRE CIERRE
@@ -351,6 +346,10 @@ namespace PosOnLine.Src.Principal
                     }
                     _newCuadreCierre.Inicializa();
                     _newCuadreCierre.Inicia();
+                    if (_newCuadreCierre.ProcesarCierreIsOk)
+                    {
+                        Helpers.Msg.OK("OPERADOR CERRRADO EXITOSAMENTE !!!!!");
+                    }
                 }
             }
             else 

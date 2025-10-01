@@ -29,5 +29,7 @@ namespace PosOnLine.Data.Infra
         //
         OOB.Resultado.FichaEntidad<int>
             CuadreCierre_CerrarPos(OOB.CuadreCierre.CierrePos.Ficha ficha);
+        OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.Ficha>
+            CuadrCierre_Get_ObtenerCierre_byIdOperador(string id);
     }
 }

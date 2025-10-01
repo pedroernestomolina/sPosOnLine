@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Src.CuadreCierreRepo.vm
+namespace PosOnLine.Src.CuadreCierreImprimir.Domain.UseCase
 {
-    public interface IRepoPagoMovil: IRepo
+    public class UseCaseImpl: IUseCase
     {
     }
 }

@@ -43,36 +43,53 @@ namespace PosOnLine.Src.Cierre.Historico
         public void ImprimirCierre()
         {
             if (ItemActual == null) return;
-            var _it = (data)ItemActual;
+            var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
             cargarPrepararCierre(_it.id);
+
+
+            //
+            CuadreCierreImprimir.vm.ICierreImprimir _imprimirCierre;
+            _imprimirCierre = new CuadreCierreImprimir.vm.CierreImprimirImpl();
+            _imprimirCierre.setIdCierre(_it.cierreNro);
+            _imprimirCierre.Generar();
         }
         public void VentCredito()
         {
             if (ItemActual == null) return;
             var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
             Utils.VentCredito(_it.idCierre);
+            //
+
+
+            CuadreCierreRepo.vm.IRepoVentaCredito _repoVtaCredito;
+            _repoVtaCredito = new CuadreCierreRepo.vm.RepoVentaCreditoImpl();
+            _repoVtaCredito.setIdResumenHistorico(_it.idResumen, _it.cierreNro);
+            _repoVtaCredito.Generar();
         }
         public void PagoDetalles()
         {
             if (ItemActual == null) return;
             var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
             Utils.ReporteDetalle(_it.idCierre);
+            //
+
+
+            CuadreCierreRepo.vm.IRepoPagoDetalle _repoPagoDetalle;
+            _repoPagoDetalle = new CuadreCierreRepo.vm.RepoPagoDetalleImpl();
+            _repoPagoDetalle.setIdResumenHistorico(_it.idResumen, _it.cierreNro);
+            _repoPagoDetalle.Generar();
         }
         public void PagoResumen()
         {
             if (ItemActual == null) return;
             var _it = (OOB.Cierre.Lista.Ficha)((data)ItemActual).Ficha;
             Utils.ReporteResumen(_it.idCierre);
+            
 
-
-
-            _Domain.UseCase.ICargarMonedaLocal _ucCargarMonedaLocal;
-            _ucCargarMonedaLocal = new _Domain.UseCase.CargarMonedaLocalImpl();
             //
             CuadreCierreRepo.vm.IRepoPagoResumen _repoPagoResumen;
             _repoPagoResumen = new CuadreCierreRepo.vm.RepoPagoResumenImpl();
-            _repoPagoResumen.setMonedaLocal(_ucCargarMonedaLocal.Invoke());
-            _repoPagoResumen.setIdResumen(_it.idResumen);
+            _repoPagoResumen.setIdResumenHistorico(_it.idResumen, _it.cierreNro);
             _repoPagoResumen.Generar();
         }
         //

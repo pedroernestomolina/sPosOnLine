@@ -1640,7 +1640,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>PAGO DETALLE</Value>
+                  <Value>PAGO DETALLE:</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1654,7 +1654,7 @@
           <Top>1.97238cm</Top>
           <Left>0.00001cm</Left>
           <Height>0.6cm</Height>
-          <Width>8.61299cm</Width>
+          <Width>3.69174cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1839,6 +1839,39 @@
             </Border>
           </Style>
         </Line>
+        <Textbox Name="tituloRepo">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!tituloRepo.Value</Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>tituloRepo</rd:DefaultName>
+          <Top>1.97238cm</Top>
+          <Left>3.86814cm</Left>
+          <Height>0.6cm</Height>
+          <Width>9.81012cm</Width>
+          <ZIndex>7</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -1960,6 +1993,11 @@
     </ReportParameter>
     <ReportParameter Name="cambioDarTotal">
       <DataType>Float</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="tituloRepo">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

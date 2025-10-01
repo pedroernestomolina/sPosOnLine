@@ -1305,7 +1305,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>VUELTOS / CAMBIOS ENTREGADOS</Value>
+                  <Value>VUELTOS / CAMBIOS ENTREGADOS:</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1318,7 +1318,7 @@
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>1.76361cm</Top>
           <Height>0.6cm</Height>
-          <Width>8.61299cm</Width>
+          <Width>7.92507cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1503,6 +1503,39 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
+        <Textbox Name="tituloRepo">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!tituloRepo.Value</Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>tituloRepo</rd:DefaultName>
+          <Top>1.76361cm</Top>
+          <Left>8.06618cm</Left>
+          <Height>0.6cm</Height>
+          <Width>8.29174cm</Width>
+          <ZIndex>7</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -1601,6 +1634,13 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="tituloRepo">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>a8e8e57f-c349-44be-b41f-490f4f26bb7b</rd:ReportID>
 </Report>
