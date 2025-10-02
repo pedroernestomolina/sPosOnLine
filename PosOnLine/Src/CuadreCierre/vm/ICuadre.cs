@@ -43,5 +43,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
         bool AbandonarFichaIsOk { get; }
         void ProcesarCierre();
         void AbandonarFicha();
+        //
+        void Invoke();
     }
 }

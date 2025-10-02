@@ -30,6 +30,10 @@ namespace PosOnLine.Data.Infra
         OOB.Resultado.FichaEntidad<int>
             CuadreCierre_CerrarPos(OOB.CuadreCierre.CierrePos.Ficha ficha);
         OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.Ficha>
-            CuadrCierre_Get_ObtenerCierre_byIdOperador(string id);
+            CuadreCierre_Get_ObtenerCierre_byIdOperador(int id);
+        OOB.Resultado.Lista<OOB.CuadreCierre.ObtenerCierre.Ficha>
+            CuadreCierre_Get_ListaCierre();
+        OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.DataResumen.Ficha>
+            CuadreCierre_Get_ObtenerCierreDataResumen_byIdResumen(int idResumen);
     }
 }

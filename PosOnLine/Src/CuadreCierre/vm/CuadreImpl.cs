@@ -115,6 +115,15 @@ namespace PosOnLine.Src.CuadreCierre.vm
             _estadoCuadreCierre = "";
             _montoPendSobrante = 0m;
         }
+        public void Invoke()
+        {
+            Inicializa();
+            Inicia();
+            if (ProcesarCierreIsOk)
+            {
+                Helpers.Msg.OK("OPERADOR CERRRADO EXITOSAMENTE !!!!!");
+            }
+        }
         vista.Frm frm;
         public void Inicia()
         {

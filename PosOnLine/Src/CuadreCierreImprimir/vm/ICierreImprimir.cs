@@ -9,7 +9,7 @@ namespace PosOnLine.Src.CuadreCierreImprimir.vm
 {
     public interface ICierreImprimir
     {
-        void setIdCierre(int id);
+        void setIdOperador(int id);
         void Generar();
     }
 }

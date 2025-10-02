@@ -10,6 +10,8 @@ namespace PosOnLine.Helpers.Imprimir
     public interface IReporteCuadreCaja
     {
         void setData(dataCuadre ds);
+        void setListaDataImprimir(List<string> lst); 
         void ImprimirDoc();
+        void ImprimirDocLista();
     }
 }

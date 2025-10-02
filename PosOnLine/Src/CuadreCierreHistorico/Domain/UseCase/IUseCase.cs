@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PosOnLine.Src.CuadreCierreImprimir.Domain.UseCase
+namespace PosOnLine.Src.CuadreCierreHistorico.Domain.UseCase
 {
     public interface IUseCase
     {
-        Models.CierreImprimir
-            CargarCierreOperador(int idOperador);
+        List<Models.Cierre> 
+            CargarListaCierresHistorico();
     }
 }

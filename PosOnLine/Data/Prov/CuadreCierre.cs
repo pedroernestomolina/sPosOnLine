@@ -492,7 +492,7 @@ namespace PosOnLine.Data.Prov
                         cierreFtp = ficha.MetodoViejo.arqueo.cierreFtp,
                     }
                 };
-                var rst = MyData.CuadrCierre_CerrarPos(fichaDTO);
+                var rst = MyData.CuadreCierre_CerrarPos(fichaDTO);
                 if (rst.Result == DtoLib.Enumerados.EnumResult.isError) 
                 {
                     throw new Exception(rst.Mensaje);
@@ -508,13 +508,13 @@ namespace PosOnLine.Data.Prov
             return rt;
         }
         public OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.Ficha> 
-            CuadrCierre_Get_ObtenerCierre_byIdOperador(string id)
+            CuadreCierre_Get_ObtenerCierre_byIdOperador(int id)
         {
             var rt = new OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.Ficha>();
             //
             try
             {
-                var rst = MyData.CuadrCierre_Get_ObtenerCierre_byIdOperador(id);
+                var rst = MyData.CuadreCierre_Get_ObtenerCierre_byIdOperador(id);
                 if (rst.Result == DtoLib.Enumerados.EnumResult.isError)
                 {
                     throw new Exception(rst.Mensaje);
@@ -528,7 +528,7 @@ namespace PosOnLine.Data.Prov
                 {
                     codigoSucursal = s.codigoSucursal,
                     codigoUsuario = s.codigoUsuario,
-                    estatusOperador = s.estatusOperador,
+                    isCerradoOperador = s.estatusOperador.Trim().ToUpper()=="C",
                     fechaApertura = s.fechaApertura,
                     fechaCierre = s.fechaCierre,
                     horaApertura = s.horaApertura,
@@ -536,8 +536,150 @@ namespace PosOnLine.Data.Prov
                     idArqueo = s.idArqueo,
                     idResumen = s.idResumen,
                     nombreUsuario = s.nombreUsuario,
-                    nroCierre = s.nroCierre,
+                    nroCierre = s.nroCierre.ToString().PadLeft(6,'0'),
                     terminal = s.terminal,
+                    idOperador = s.idOperador,
+                };
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return rt;
+        }
+        public OOB.Resultado.Lista<OOB.CuadreCierre.ObtenerCierre.Ficha> 
+            CuadreCierre_Get_ListaCierre()
+        {
+            var rt = new OOB.Resultado.Lista<OOB.CuadreCierre.ObtenerCierre.Ficha>();
+            //
+            try
+            {
+                var rs = MyData.CuadreCierre_Get_ListaCierre();
+                if (rs.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rs.Mensaje);
+                }
+                if (rs.Lista == null)
+                {
+                    throw new Exception("DATA NO CARAGADA");
+                }
+                var lst = new List<OOB.CuadreCierre.ObtenerCierre.Ficha>();
+                if (rs.Lista.Count > 0)
+                {
+                    lst = rs.Lista.Select(s =>
+                    {
+                        var nr = new OOB.CuadreCierre.ObtenerCierre.Ficha()
+                        {
+                            codigoSucursal = s.codigoSucursal,
+                            codigoUsuario = s.codigoUsuario,
+                            isCerradoOperador = s.estatusOperador.Trim().ToUpper()=="C",
+                            fechaApertura = s.fechaApertura,
+                            fechaCierre = s.fechaCierre,
+                            horaApertura = s.horaApertura,
+                            horaCierre = s.horaCierre,
+                            idArqueo = s.idArqueo,
+                            idResumen = s.idResumen,
+                            nombreUsuario = s.nombreUsuario,
+                            nroCierre = s.nroCierre.ToString().Trim().PadLeft(6,'0'),
+                            terminal = s.terminal,
+                            idOperador= s.idOperador,
+                        };
+                        return nr;
+                    }).ToList();
+                }
+                rt.ListaD = lst;
+            }
+            catch (Exception e)
+            {
+                rt.Mensaje = e.Message;
+                rt.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return rt;
+        }
+        public OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.DataResumen.Ficha> 
+            CuadreCierre_Get_ObtenerCierreDataResumen_byIdResumen(int idResumen)
+        {
+            var rt = new OOB.Resultado.FichaEntidad<OOB.CuadreCierre.ObtenerCierre.DataResumen.Ficha>(); 
+            //
+            try
+            {
+                var rst = MyData.CuadreCierre_Get_ObtenerCierreDataResumen_byIdResumen(idResumen);
+                if (rst.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rst.Mensaje);
+                }
+                if (rst.Entidad == null)
+                {
+                    throw new Exception("PROBLEMA AL CARGAR DATA");
+                }
+                if (rst.Entidad.documentos == null)
+                {
+                    throw new Exception("PROBLEMA AL CARGAR DATA DOCUMENTOS");
+                }
+                if (rst.Entidad.metPago == null)
+                {
+                    throw new Exception("PROBLEMA AL CARGAR DATA METODOS DE PAGO");
+                }
+                if (rst.Entidad.total == null)
+                {
+                    throw new Exception("PROBLEMA AL CARGAR DATA TOTALES");
+                }
+                var ss = rst.Entidad;
+                rt.Entidad = new OOB.CuadreCierre.ObtenerCierre.DataResumen.Ficha()
+                {
+                    documentos = ss.documentos.Select(s =>
+                    {
+                        return new OOB.CuadreCierre.ObtenerCierre.DataResumen.PorDocumento()
+                        {
+                            cntMovActivo = s.cntMovActivo,
+                            cntMovAnulado = s.cntMovAnulado,
+                            cntMovContado = s.cntMovContado,
+                            cntMovCredito = s.cntMovCredito,
+                            cntTotalmov = s.cntTotalmov,
+                            codigoDoc = s.codigoDoc,
+                            descDoc = s.descDoc,
+                            importeMovActivoMonReferencia = s.importeMovActivoMonReferencia,
+                            importeMovActMonLocal = s.importeMovActMonLocal,
+                            importeMovAnuladoMonReferencia = s.importeMovAnuladoMonReferencia,
+                            importeMovContadoMonLocal = s.importeMovContadoMonLocal,
+                            importeMovContadoMonReferencia = s.importeMovContadoMonReferencia,
+                            importeMovCreditoMonLocal = s.importeMovCreditoMonLocal,
+                            importeMovCreditoMonReferencia = s.importeMovCreditoMonReferencia,
+                            importMovAnuladoMonLocal = s.importMovAnuladoMonLocal,
+                            siglasDoc = s.siglasDoc,
+                            signoDoc = s.signoDoc,
+                            varianteDoc = s.varianteDoc,
+                        };
+                    }).ToList(),
+                    metPago = ss.metPago.Select(s =>
+                    {
+                        return new OOB.CuadreCierre.ObtenerCierre.DataResumen.PorMetPago()
+                        {
+                            codigoMon = s.codigoMon,
+                            codigoMP = s.codigoMP,
+                            descMon = s.descMon,
+                            descMP = s.descMP,
+                            importeMonLocal = s.importeMonLocal,
+                            montoSegunSistema = s.montoSegunSistema,
+                            montoSegunUsuario = s.montoSegunUsuario,
+                            simboloMon = s.simboloMon,
+                            tasaFactorPonderadoMon = s.tasaFactorPonderadoMon,
+                        };
+                    }).ToList(),
+                    total = new OOB.CuadreCierre.ObtenerCierre.DataResumen.Total()
+                    {
+                        cntDivisaPorVuelto = ss.total.cntDivisaPorVuelto,
+                        estatusCuadre = ss.total.estatusCuadre,
+                        totalCajaSegunSistemaMonLocal = ss.total.totalCajaSegunSistemaMonLocal,
+                        totalCajaSegunUsuarioMonLocal = ss.total.totalCajaSegunUsuarioMonLocal,
+                        totalCuadreMonLocal = ss.total.totalCuadreMonLocal,
+                        vueltoCambioPorDivisa = ss.total.vueltoCambioPorDivisa,
+                        vueltoCambioPorEfectivo = ss.total.vueltoCambioPorEfectivo,
+                        vueltoCambioPorPagoMovil = ss.total.vueltoCambioPorPagoMovil,
+                    },
                 };
             }
             catch (Exception e)

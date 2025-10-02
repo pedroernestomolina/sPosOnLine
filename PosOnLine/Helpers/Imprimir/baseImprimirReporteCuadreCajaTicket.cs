@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Helpers.Imprimir
 {
-    abstract public class baseImprimirReporteCuadreCajaTicket: baseImprimirReporteCuadreCaja, IReporteCuadreCajaTicket
+    abstract public class baseImprimirReporteCuadreCajaTicket: baseImprimirReporteCuadreCaja, 
+        IReporteCuadreCajaTicket
     {
         protected ITicket _ticket;
         //

@@ -9,24 +9,80 @@ namespace PosOnLine.Src.CuadreCierreImprimir.vm
 {
     public class CierreImprimirImpl: ICierreImprimir
     {
-        private int _idCierre;
         private Domain.UseCase.IUseCase _uc;
+        private int _idOperador;
+        private System.Drawing.Printing.PrintDocument _printDoc;
+        private Helpers.Imprimir.baseImprimirReporteCuadreCajaTicket _rpt;
         //
         public CierreImprimirImpl()
         {
             _uc = new Domain.UseCase.UseCaseImpl();
+            _printDoc = new System.Drawing.Printing.PrintDocument();
+            _printDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDoc_PrintPage);
         }
         //
-        public void setIdCierre(int id)
+        public void setIdOperador(int id)
         {
-            _idCierre = id;
+            _idOperador= id;
         }
         //
         public void Generar()
         {
             try
             {
-                _uc.
+                var rst = _uc.CargarCierreOperador(_idOperador);
+                var lst = new List<string>();
+
+                lst.Clear();
+                lst.Add("REPORTE CAJA");
+                lst.Add("");
+                lst.Add("NUMERO: " + rst.dataCierre.nroCierre);
+                lst.Add("EQUIPO: " + rst.dataCierre.terminal);
+                lst.Add("OPERAD: " + rst.dataCierre.Usuario);
+                lst.Add("FECHA : " + rst.dataCierre.fechaHoraCierre);
+                lst.Add("");
+                lst.Add("");
+                foreach(var doc in rst.tiposDoc)
+                {
+                    lst.Add("POR: "+doc.descDoc);
+                    lst.Add("Movimientos Activo  : "+doc.cntMovActivo.ToString());
+                    lst.Add("Importe Moneda Local: "+doc.importeMovActMonLocal.ToString("n2"));
+                    lst.Add("Importe Moneda Ref  : "+doc.importeMovActivoMonReferencia.ToString("n2"));
+                    lst.Add("----------------------");
+                    lst.Add("");
+                    lst.Add("CONTADO: ");
+                    lst.Add("Cant Movimientos    : " + doc.cntMovContado.ToString());
+                    lst.Add("Importe Moneda Local: " + doc.importeMovContadoMonLocal.ToString("n2"));
+                    lst.Add("Importe Moneda Ref  : " + doc.importeMovContadoMonReferencia.ToString("n2"));
+                    lst.Add("----------------------");
+                    lst.Add("");
+                    lst.Add("CREDITO: ");
+                    lst.Add("Cant Movimientos    : " + doc.cntMovCredito.ToString());
+                    lst.Add("Importe Moneda Local: " + doc.importeMovCreditoMonLocal.ToString("n2"));
+                    lst.Add("Importe Moneda Ref  : " + doc.importeMovCreditoMonReferencia.ToString("n2"));
+                    lst.Add("----------------------");
+                    lst.Add("");
+                    lst.Add("Movimientos Anulados: ");
+                    lst.Add("Cant Movimientos    : " + doc.cntMovAnulado.ToString());
+                    lst.Add("Importe Moneda Local: " + doc.importMovAnuladoMonLocal.ToString("n2"));
+                    lst.Add("Importe Moneda Ref  : " + doc.importeMovAnuladoMonReferencia.ToString("n2"));
+                    lst.Add("----------------------");
+                    lst.Add("");
+                    lst.Add("Cant Total/Mov      : "+ doc.cntTotalmov.ToString());
+                    lst.Add("Total Moneda Local  : ");
+                    lst.Add("Total Moneda Ref    : ");
+                    lst.Add("----------------------");
+                    lst.Add("");
+                }
+
+
+                Sistema.ImprimirReporteCuadreCaja.setListaDataImprimir(lst);
+                if (Sistema.ImprimirReporteCuadreCaja is Helpers.Imprimir.IReporteCuadreCajaTicket)
+                {
+                    _printDoc.Print();
+                }
+                else
+                    Sistema.ImprimirReporteCuadreCaja.ImprimirDoc();
             }
             catch (Exception e)
             {
@@ -85,6 +141,12 @@ namespace PosOnLine.Src.CuadreCierreImprimir.vm
                 Helpers.Msg.Error(e.Message);
             }
              **/
+        }
+        private void printDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            _rpt = (Helpers.Imprimir.baseImprimirReporteCuadreCajaTicket)Sistema.ImprimirReporteCuadreCaja;
+            _rpt.setControladorTickera(e);
+            _rpt.ImprimirDocLista();
         }
     }
 }

@@ -10,6 +10,6 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
     public interface IRepo: _Domain.IRepo
     {
         void setIdResumen(int id);
-        void setIdResumenHistorico(int idResumen, int cierreNro);
+        void setIdResumenHistorico(int idResumen, string cierreNro);
     }
 }

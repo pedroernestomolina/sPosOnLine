@@ -20,6 +20,7 @@ namespace PosOnLine.Src.Principal
         private Cierre.Historico.IHistoria _gCierreHist;
         //
         private CuadreCierre.vm.ICuadre _newCuadreCierre;
+        private CuadreCierreHistorico.vm.IHistorico _newCuadreCierreHistorico;
         //
         public string BD_Ruta { get { return Sistema.Instancia; } }
         public string BD_Nombre { get { return Sistema.BaseDatos; } }
@@ -91,6 +92,9 @@ namespace PosOnLine.Src.Principal
             _gestionPos.setGestionPassW(_gestionPassW);
             _gCierreHist = new Cierre.Historico.Imp();
             Helpers.PassWord.setGestion(_gestionPassW);
+            //
+            _newCuadreCierre = new CuadreCierre.vm.CuadreImpl();
+            _newCuadreCierreHistorico = new CuadreCierreHistorico.vm.HistoricoImpl();
         }
 
 
@@ -340,16 +344,8 @@ namespace PosOnLine.Src.Principal
                     //*
                     //CUADRE CIERRE
                     //
-                    if (_newCuadreCierre == null) 
-                    {
-                        _newCuadreCierre = new CuadreCierre.vm.CuadreImpl();
-                    }
-                    _newCuadreCierre.Inicializa();
-                    _newCuadreCierre.Inicia();
-                    if (_newCuadreCierre.ProcesarCierreIsOk)
-                    {
-                        Helpers.Msg.OK("OPERADOR CERRRADO EXITOSAMENTE !!!!!");
-                    }
+
+                    _newCuadreCierrePos();
                 }
             }
             else 
@@ -358,7 +354,6 @@ namespace PosOnLine.Src.Principal
                 return;
             }
         }
-
         public void Test_BD()
         {
             var r01 = Sistema.MyData.Test();
@@ -370,7 +365,6 @@ namespace PosOnLine.Src.Principal
 
             Helpers.Msg.Alerta("BASE DE DATOS CONECTADA CON EXITO !!!");
         }
-
         public void ConfiguracionSistema()
         {
             if (Sistema.Usuario.IsInvitado)
@@ -486,10 +480,10 @@ namespace PosOnLine.Src.Principal
 
         public void CierreHistorico()
         {
-            _gCierreHist.Inicializa();
-            _gCierreHist.Inicia();
+            //_gCierreHist.Inicializa();
+            //_gCierreHist.Inicia();
+            newCierreHistorico();
         }
-
 
         public System.Drawing.Image LogoImagen 
         { 
@@ -510,6 +504,19 @@ namespace PosOnLine.Src.Principal
         public void setFomrMontarPedido(bool opc)
         {
             _habilitarFormMontarPedido = opc;
+        }
+
+
+        //
+        //
+        //
+        private void _newCuadreCierrePos()
+        {
+            _newCuadreCierre.Invoke();
+        }
+        private void newCierreHistorico()
+        {
+            _newCuadreCierreHistorico.Invoke();
         }
     }
 }

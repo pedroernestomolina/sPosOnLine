@@ -90,5 +90,10 @@ namespace PosOnLine.Helpers.Imprimir.CuadreCaja._70
             //
             _ticket.Reporte(_lista);
         }
+        public override void 
+            ImprimirDocLista()
+        {
+            _ticket.Reporte(ListaDataImprimir);
+        }
     }
 }

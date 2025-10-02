@@ -267,6 +267,10 @@
     <Compile Include="OOB\CuadreCierre\CuadreResumen\Documento.cs" />
     <Compile Include="OOB\CuadreCierre\CuadreResumen\MetodoPago.cs" />
     <Compile Include="OOB\CuadreCierre\CuadreResumen\Totales.cs" />
+    <Compile Include="OOB\CuadreCierre\ObtenerCierre\DataResumen\Ficha.cs" />
+    <Compile Include="OOB\CuadreCierre\ObtenerCierre\DataResumen\PorDocumento.cs" />
+    <Compile Include="OOB\CuadreCierre\ObtenerCierre\DataResumen\PorMetPago.cs" />
+    <Compile Include="OOB\CuadreCierre\ObtenerCierre\DataResumen\Total.cs" />
     <Compile Include="OOB\CuadreCierre\ObtenerCierre\Ficha.cs" />
     <Compile Include="OOB\CuadreCierre\Reportes\CambiosVuelto\Ficha.cs" />
     <Compile Include="OOB\CuadreCierre\Reportes\PagoDetalle\Ficha.cs" />
@@ -568,6 +572,22 @@
     <Compile Include="Src\Consultor\ModoAdm\imp_vta.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IPrdConsultar.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
+    <Compile Include="Src\CuadreCierreHistorico\Domain\Models\Cierre.cs" />
+    <Compile Include="Src\CuadreCierreHistorico\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CuadreCierreHistorico\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\CuadreCierreHistorico\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\CuadreCierreHistorico\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\CuadreCierreHistorico\vm\HistoricoImpl.cs" />
+    <Compile Include="Src\CuadreCierreHistorico\vm\IHistorico.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\Domain\Models\CierreImprimir.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\Domain\Models\DataCierre.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\Domain\Models\FormaPago.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\Domain\Models\TipoDocumento.cs" />
+    <Compile Include="Src\CuadreCierreImprimir\Domain\Models\Totales.cs" />
     <Compile Include="Src\CuadreCierreImprimir\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\CuadreCierreImprimir\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\CuadreCierreImprimir\vm\CierreImprimirImpl.cs" />
@@ -1222,6 +1242,9 @@
     <EmbeddedResource Include="Src\Consultor\ModoAdm\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\CuadreCierreHistorico\vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\CuadreCierreRepo\repo\PagoDetalle.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -1566,7 +1589,6 @@
   <ItemGroup>
     <Folder Include="OOB\Permiso\Buscar\NewFolder1\" />
     <Folder Include="Src\CuadreCierreFiscal\" />
-    <Folder Include="Src\CuadreCierreHistorico\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibControles\LibControles.csproj">

@@ -166,7 +166,5 @@ namespace PosOnLine.Src.Principal
         {
             _controlador.CierreHistorico();
         }
-
     }
-
 }

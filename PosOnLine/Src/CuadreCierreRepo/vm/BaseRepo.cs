@@ -11,11 +11,11 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
     {
         private  int _idResumen;
         private bool _esHistorico;
-        private  int _cierreNro;
+        private  string _cierreNro;
         //
         public int IdResumen { get { return _idResumen; } }
         public bool EsHistorico { get { return _esHistorico; } }
-        public string CierreNro { get { return _cierreNro.ToString().PadLeft(6, '0'); } }
+        public string CierreNro { get { return _cierreNro; } }
         //
         public BaseRepo()
         {
@@ -26,7 +26,7 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
         {
             _idResumen=id;
         }
-        public void setIdResumenHistorico(int idResumen, int cierreNro)
+        public void setIdResumenHistorico(int idResumen, string cierreNro)
         {
             _idResumen = idResumen;
             _cierreNro = cierreNro;
