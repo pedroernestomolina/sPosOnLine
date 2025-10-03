@@ -41,6 +41,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
         private CuadreCierreRepo.vm.IRepoVentaCredito _repoVentaCredito;
         private CuadreCierreRepo.vm.IRepoCambiosVuelto _repoCambiosVuelto;
         private CuadreCierreRepo.vm.IRepoPagoMovil _repoPagoMovil;
+        private CuadreCierreImprimir.vm.ICierreImprimir _imprimirCierre;
         //
         public bool ProcesarCierreIsOk { get { return _procesarCierreIsOk; } }
         public bool AbandonarFichaIsOk { get { return _abandonarFicha.OpcionIsOK; } }
@@ -78,6 +79,8 @@ namespace PosOnLine.Src.CuadreCierre.vm
             _repoVentaCredito = new CuadreCierreRepo.vm.RepoVentaCreditoImpl();
             _repoCambiosVuelto = new CuadreCierreRepo.vm.RepoCambiosVueltoImpl();
             _repoPagoMovil = new CuadreCierreRepo.vm.RepoPagoMovilImpl();
+            //
+            _imprimirCierre = new CuadreCierreImprimir.vm.CierreImprimirImpl();
             //
             _bsResumen = new BindingSource();
             //
@@ -223,6 +226,8 @@ namespace PosOnLine.Src.CuadreCierre.vm
             _procesarCierreIsOk = _cierreProceso.ProcesarCierre();
             if (_procesarCierreIsOk) 
             {
+                _imprimirCierre.setIdOperador(Sistema.PosEnUso.id);
+                _imprimirCierre.Generar();
                 Sistema.PosEnUso.Cerrar();
             }
         }

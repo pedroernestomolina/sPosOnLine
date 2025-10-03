@@ -42,39 +42,72 @@ namespace PosOnLine.Src.CuadreCierreImprimir.vm
                 lst.Add("FECHA : " + rst.dataCierre.fechaHoraCierre);
                 lst.Add("");
                 lst.Add("");
+                var _importeActMonLocal=0m;
+                var _importeActMonRef=0m;
                 foreach(var doc in rst.tiposDoc)
                 {
+                    _importeActMonLocal+= doc.importeMovActMonLocal;
+                    _importeActMonRef += doc.importeMovActivoMonReferencia;
                     lst.Add("POR: "+doc.descDoc);
-                    lst.Add("Movimientos Activo  : "+doc.cntMovActivo.ToString());
-                    lst.Add("Importe Moneda Local: "+doc.importeMovActMonLocal.ToString("n2"));
-                    lst.Add("Importe Moneda Ref  : "+doc.importeMovActivoMonReferencia.ToString("n2"));
+                    lst.Add("Movimientos Activo  : " + formateaCnt(doc.cntMovActivo));
+                    lst.Add("Importe Moneda Local: " + formateaMnt(doc.importeMovActMonLocal));
+                    lst.Add("Importe Moneda Ref  : " + formateaMnt(doc.importeMovActivoMonReferencia));
                     lst.Add("----------------------");
                     lst.Add("");
                     lst.Add("CONTADO: ");
-                    lst.Add("Cant Movimientos    : " + doc.cntMovContado.ToString());
-                    lst.Add("Importe Moneda Local: " + doc.importeMovContadoMonLocal.ToString("n2"));
-                    lst.Add("Importe Moneda Ref  : " + doc.importeMovContadoMonReferencia.ToString("n2"));
+                    lst.Add("Cant Movimientos    : " + formateaCnt(doc.cntMovContado));
+                    lst.Add("Importe Moneda Local: " + formateaMnt(doc.importeMovContadoMonLocal));
+                    lst.Add("Importe Moneda Ref  : " + formateaMnt(doc.importeMovContadoMonReferencia));
                     lst.Add("----------------------");
                     lst.Add("");
                     lst.Add("CREDITO: ");
-                    lst.Add("Cant Movimientos    : " + doc.cntMovCredito.ToString());
-                    lst.Add("Importe Moneda Local: " + doc.importeMovCreditoMonLocal.ToString("n2"));
-                    lst.Add("Importe Moneda Ref  : " + doc.importeMovCreditoMonReferencia.ToString("n2"));
+                    lst.Add("Cant Movimientos    : " + formateaCnt(doc.cntMovCredito));
+                    lst.Add("Importe Moneda Local: " + formateaMnt(doc.importeMovCreditoMonLocal));
+                    lst.Add("Importe Moneda Ref  : " + formateaMnt(doc.importeMovCreditoMonReferencia));
                     lst.Add("----------------------");
                     lst.Add("");
                     lst.Add("Movimientos Anulados: ");
-                    lst.Add("Cant Movimientos    : " + doc.cntMovAnulado.ToString());
-                    lst.Add("Importe Moneda Local: " + doc.importMovAnuladoMonLocal.ToString("n2"));
-                    lst.Add("Importe Moneda Ref  : " + doc.importeMovAnuladoMonReferencia.ToString("n2"));
+                    lst.Add("Cant Movimientos    : " + formateaCnt(doc.cntMovAnulado));
+                    lst.Add("Importe Moneda Local: " + formateaMnt(doc.importMovAnuladoMonLocal));
+                    lst.Add("Importe Moneda Ref  : " + formateaMnt(doc.importeMovAnuladoMonReferencia));
                     lst.Add("----------------------");
                     lst.Add("");
-                    lst.Add("Cant Total/Mov      : "+ doc.cntTotalmov.ToString());
-                    lst.Add("Total Moneda Local  : ");
-                    lst.Add("Total Moneda Ref    : ");
+                    lst.Add("Cant Total/Mov      : "+ formateaCnt(doc.cntTotalmov));
+                    lst.Add("----------------------");
+                    lst.Add("");
+                    lst.Add("");
+                }
+                lst.Add("Mov Activo M/Local  : " + formateaMnt(_importeActMonLocal));
+                lst.Add("Mov Activo M/Ref    : " + formateaMnt(_importeActMonRef));
+                lst.Add("----------------------");
+                lst.Add("");
+                lst.Add("");
+
+                lst.Add("DESGLOZE DINERO");
+                foreach (var mt in rst.formasPago)
+                {
+                    lst.Add("METODO/PAGO: " + mt.descMP);
+                    lst.Add("Moneda              : " + mt.codigoMon+"("+mt.simboloMon+")");
+                    lst.Add("Segun Sistema       : " + formateaMnt(mt.montoSegunSistema));
+                    lst.Add("Segun Usuario       : " + formateaMnt(mt.montoSegunUsuario));
+                    lst.Add("Diferencia          : " + mt.diferenciaDesc);
                     lst.Add("----------------------");
                     lst.Add("");
                 }
-
+                var t = rst.totales;
+                lst.Add("");
+                lst.Add("");
+                lst.Add("Segun/Sistema       : " + formateaMnt(t.totalCajaSegunSistemaMonLocal));
+                lst.Add("Segun/Usuario       : " + formateaMnt(t.totalCajaSegunUsuarioMonLocal));
+                lst.Add("Estatus Del Cuadre  : " + t.estatusCuadre);
+                lst.Add("Por Monto           : " + formateaMnt(t.totalCuadreMonLocal));
+                lst.Add("--------------------- ");
+                lst.Add("Vuelto Por Efectivo : " + formateaMnt(t.vueltoCambioPorEfectivo));
+                lst.Add("Vuelto Por Divisa   : " + formateaMnt(t.vueltoCambioPorDivisa));
+                lst.Add("Cant Divisa         : " + formateaCnt(t.cntDivisaPorVuelto));
+                lst.Add("Vuelto Por Pag/Movil: " + formateaMnt(t.vueltoCambioPorPagoMovil));
+                lst.Add("");
+                lst.Add("");
 
                 Sistema.ImprimirReporteCuadreCaja.setListaDataImprimir(lst);
                 if (Sistema.ImprimirReporteCuadreCaja is Helpers.Imprimir.IReporteCuadreCajaTicket)
@@ -88,59 +121,14 @@ namespace PosOnLine.Src.CuadreCierreImprimir.vm
             {
                 Helpers.Msg.Error(e.Message);
             }
-            /*
-            try
-            {
-                var r01 = Sistema.MyData.Cierre_GetById(id);
-                var _dat = new dataCierre(r01.Entidad);
-                //
-                var dat = new Helpers.Imprimir.dataCuadre();
-                dat.cntFAC = _dat.cntFac;
-                dat.cntNCR = _dat.cntNCR;
-                dat.montoFAC = _dat.montoFAC;
-                dat.montoNCR = _dat.montoNCR;
-                dat.montoVenta = _dat.montoVenta;
-                dat.montoVentaContado = _dat.montoVentaContado;
-                dat.montoVentaCredito = _dat.montoVentaCredito;
-                dat.devoluciones_s = _dat.devoluciones_s;
-                dat.credito_s = _dat.credito_s;
-                dat.efectivo_s = _dat.efectivo_s;
-                dat.divisa_s = _dat.divisa_s;
-                dat.electronico_s = _dat.electronico_s;
-                dat.otros_s = _dat.otros_s;
-                dat.cnt_divisa_s = _dat.cnt_divisa_s;
-                dat.cnt_efectivo_s = _dat.cnt_efectivo_s;
-                dat.cnt_electronico_s = _dat.cnt_electronico_s;
-                dat.cnt_otros_s = _dat.cnt_otros_s;
-                dat.cuadre_s = _dat.cuadre_s;
-                //desgloze segun usuario
-                dat.efectivo_u = _dat.efectivo_u;
-                dat.divisa_u = _dat.divisa_u;
-                dat.electronico_u = _dat.electronico_u;
-                dat.otros_u = _dat.otros_u;
-                dat.cnt_divisa_u = _dat.cnt_divisa_u;
-                dat.cuadre_u = _dat.cuadre_u;
-                dat.vueltoPorPagoMovil = _dat.vueltoPorPagoMovil;
-                //
-                dat.Usuario = _dat.Usuario;
-                dat.cntDocContado = _dat.cntDocContado;
-                dat.cntDocCredito = _dat.cntDocCredito;
-                dat.nroCierre = _dat.nroCierre;
-                //
-                Sistema.ImprimirReporteCuadreCaja.setData(dat);
-                if (Sistema.ImprimirReporteCuadreCaja is Helpers.Imprimir.IReporteCuadreCajaTicket)
-                {
-                    _rpt = (Helpers.Imprimir.baseImprimirReporteCuadreCajaTicket)Sistema.ImprimirReporteCuadreCaja;
-                    _printDoc.Print();
-                }
-                else
-                    Sistema.ImprimirReporteCuadreCaja.ImprimirDoc();
-            }
-            catch (Exception e)
-            {
-                Helpers.Msg.Error(e.Message);
-            }
-             **/
+        }
+        private string formateaCnt(int cnt)
+        {
+            return string.Format("{0,15:n0}", cnt);
+        }
+        private string formateaMnt(decimal mnt)
+        {
+            return string.Format("{0,15:n2}", mnt);
         }
         private void printDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {

@@ -18,5 +18,27 @@ namespace PosOnLine.Src.CuadreCierreImprimir.Domain.Models
         public decimal montoSegunSistema { get; set; }
         public decimal montoSegunUsuario { get; set; }
         public decimal importeMonLocal { get; set; }
+        //
+        public string diferenciaDesc 
+        { 
+            get
+            { 
+                var rt = "";
+                var dif = montoSegunSistema - montoSegunUsuario;
+                if (dif > 0m) 
+                {
+                    rt = Math.Abs(dif).ToString("n2")+" En Contra";
+                }
+                else if (dif < 0m)
+                {
+                    rt = Math.Abs(dif).ToString("n2")+" A Favor";
+                }
+                else
+                {
+                    rt = Math.Abs(dif).ToString("n2")+" Ok";
+                }
+                return rt;
+            } 
+        }
     }
 }
