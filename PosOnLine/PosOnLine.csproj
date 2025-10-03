@@ -653,6 +653,17 @@
     <Compile Include="Src\PosImprimirTicket\Domain\UseCase\UsaeCaseImpl.cs" />
     <Compile Include="Src\PosImprimirTicket\vm\IPosImprimir.cs" />
     <Compile Include="Src\PosImprimirTicket\vm\PosImprimirImpl.cs" />
+    <Compile Include="Src\PosItemCambiarPrecio\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\PosItemCambiarPrecio\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\PosItemCambiarPrecio\Domain\Models\ItemCambio.cs" />
+    <Compile Include="Src\PosItemCambiarPrecio\vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\PosItemCambiarPrecio\vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\PosItemCambiarPrecio\vm\CambiarPrecioImpl.cs" />
+    <Compile Include="Src\PosItemCambiarPrecio\vm\ICambiarPrecio.cs" />
     <Compile Include="Src\_Domain\IRepo.cs" />
     <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoDetalleImpl.cs" />
     <Compile Include="Src\FabModAdm.cs" />
@@ -1302,6 +1313,9 @@
     <EmbeddedResource Include="Src\Pedido\SolicitarNumeroPedido\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Src\PosItemCambiarPrecio\vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Src\Pos\PosPedidoFrm.resx">
       <DependentUpon>PosPedidoFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1589,6 +1603,7 @@
   <ItemGroup>
     <Folder Include="OOB\Permiso\Buscar\NewFolder1\" />
     <Folder Include="Src\CuadreCierreFiscal\" />
+    <Folder Include="Src\PosItem\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibControles\LibControles.csproj">

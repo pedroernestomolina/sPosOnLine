@@ -73,6 +73,10 @@ namespace PosOnLine.Src.Pos
         private decimal _tasaIGTF = 0.0m;
         //
         private Helpers.Imprimir.DocumentoTicket _imprimirDocTick;
+
+        //
+        private FormaPago.vm.IFormaPago _formaPago;
+
         //
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
         public string UsuarioActual { get { return Sistema.Usuario.codigo + Environment.NewLine + Sistema.Usuario.nombre; } }
@@ -156,6 +160,10 @@ namespace PosOnLine.Src.Pos
             _gSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
             //
             _clienteFicha = null;
+
+            //
+            // NEW
+            _formaPago = new FormaPago.vm.FormaPagoImpl();
         }
 
 
@@ -623,6 +631,7 @@ namespace PosOnLine.Src.Pos
                 _gestionItem.AnularVenta(!IsNotaCredito);
                 if (_gestionItem.AnularVentaIsOk)
                 {
+                    _formaPago.limpiarItemsFormaPago();
                     _gestionCliente.Limpiar();
                     Inicializa();
                     Reiniciar();
@@ -683,6 +692,7 @@ namespace PosOnLine.Src.Pos
                         _gestionItem.DejarCtaPendiente(_clienteFicha, _idSucursal, _idDeposito, _idVendedor);
                         if (_gestionItem.DejarCtaPendienteIsOk)
                         {
+                            _formaPago.limpiarItemsFormaPago();
                             _gestionCliente.Limpiar();
                             Inicializa();
                             Reiniciar();
@@ -705,6 +715,7 @@ namespace PosOnLine.Src.Pos
                         _gestionPendiente.Inicia();
                         if (_gestionPendiente.AbrirCtaPendienteIsOk)
                         {
+                            _formaPago.limpiarItemsFormaPago();
                             ActualizarData();
                             if (_gestionPendiente.CtaPediente.Ficha != null)
                             {
@@ -999,7 +1010,6 @@ namespace PosOnLine.Src.Pos
 
 
         //PARA EL NUEVO METODO DE FORMA DE PAGO
-        private FormaPago.vm.IFormaPago _formaPago;
         private FormaPago.Domain.Models.DataRetornar
             LlamarFormaPagoNuevo(decimal porcBono,
                                 FormaPago.Domain.Models.Cliente cliente,
@@ -1010,10 +1020,6 @@ namespace PosOnLine.Src.Pos
                                 EnumModoFuncion modoFuncion = EnumModoFuncion.Facturacion,
                                 bool activarFicha = true)
         {
-            if (_formaPago == null)
-            {
-                _formaPago = new PosOnLine.Src.FormaPago.vm.FormaPagoImpl();
-            }
             PosOnLine.Src.FormaPago.Domain.Models.Enumerados.TipoDocumento _tipoDoc = FormaPago.Domain.Models.Enumerados.TipoDocumento.Venta;
             if (modoFuncion == EnumModoFuncion.NotaCredito)
             {
@@ -1182,11 +1188,28 @@ namespace PosOnLine.Src.Pos
 
 
 
+        private PosItemCambiarPrecio.vm.ICambiarPrecio _vmCambioprecio;
         private OOB.Usuario.Entidad.Ficha _usuAutoria;
         public void CambiarPrecio()
         {
             if (_modoFuncion == EnumModoFuncion.NotaCredito) { return; }
             if (_gestionItem.DataItemActual == null) { return; }
+
+
+
+            //
+            // Metodo Para Cambiar Precio
+            var _idItem = _gestionItem.DataItemActual.Id;
+            if (_vmCambioprecio == null)
+            {
+                _vmCambioprecio = new PosItemCambiarPrecio.vm.CambiarPrecioImpl();
+            }
+            _vmCambioprecio.Invoke(_idItem);
+            //
+            //
+
+
+
             if (_gCambioPrecio == null)
             {
                 _gCambioPrecio = Sistema.MiFabrica.CreateInstace_PosCambioPrecioPrd();

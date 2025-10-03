@@ -39,13 +39,14 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
             _dataResumenRecolectada = data;
             //
             var ls = data.TiposDocumentoEmitidos.GroupBy(g => g.codigoDoc).Select(s => new { codigoDoc = s.Key, lista = s.ToList() }).ToList();
-            var _ct = 20;
+            var _ct = 30;
             var _cl = _ct+5;
             var _st = "";
+
             _st = "Cnt/Doc Emitidos: ".Trim().PadLeft(_ct, ' ');
+            _st += formateaCnt(ls.Sum(s=> s.lista.Sum(ss=>ss.cntDoc)));
             _dataResumen.Add(_st);
-            _st = ls.Sum(s=> s.lista.Sum(ss=>ss.cntDoc)).ToString().Trim().PadLeft(_cl, ' ');
-            _dataResumen.Add(_st);
+            var _montoCaja = 0m;
             foreach (var it in ls) 
             {
                 if (it.codigoDoc.Trim().ToUpper() == "01")
@@ -60,43 +61,71 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
                 {
                     _st = "NO IDENTIFICADO: ".Trim().PadLeft(_ct, ' ');
                 }
-                _dataResumen.Add(_st);
-                _st = it.lista.Sum(s => s.cntDoc).ToString().Trim().PadLeft(_cl, ' ');
+                _st += formateaCnt(it.lista.Sum(s => s.cntDoc));
                 _dataResumen.Add(_st);
                 //
                 _st = "Activas: ".Trim().PadLeft(_ct, ' ');
-                _dataResumen.Add(_st);
-                _st = it.lista.Where(w=>w.esAnulado==false).Sum(s=>s.cntDoc).ToString().Trim().PadLeft(_cl, ' ');
+                _st +=  formateaCnt(it.lista.Where(w => w.esAnulado == false).Sum(s => s.cntDoc));
                 _dataResumen.Add(_st);
                 //
                 _st = "Importe: ".Trim().PadLeft(_ct, ' ');
-                _dataResumen.Add(_st);
-                _st = it.lista.Where(w=>w.esAnulado==false).Sum(r => r.montoMonLocal).ToString("n2").Trim().PadLeft(_cl, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado == false).Sum(r => r.montoMonLocal));
                 _dataResumen.Add(_st);
                 //
                 _st = "Importe $: ".Trim().PadLeft(_ct, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado == false).Sum(r => r.montoMonReferencia));
                 _dataResumen.Add(_st);
-                _st = it.lista.Where(w => w.esAnulado == false).Sum(r => r.montoMonReferencia).ToString("n2").Trim().PadLeft(_cl, ' ');
+
+                //
+                _st = "CONTADO: ".Trim().PadLeft(_ct, ' ');
+                _st += formateaCnt(it.lista.Where(w => w.esAnulado == false && w.esCredito == false).Sum(s => s.cntDoc));
                 _dataResumen.Add(_st);
+                //
+                _st = "Importe: ".Trim().PadLeft(_ct, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado == false && w.esCredito == false).Sum(r => r.montoMonLocal));
+                _dataResumen.Add(_st);
+                _montoCaja += it.lista.Where(w => w.esAnulado == false && w.esCredito == false).Sum(r => r.montoMonLocal);
+                //
+                _st = "Importe $: ".Trim().PadLeft(_ct, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado == false && w.esCredito == false).Sum(r => r.montoMonReferencia));
+                _dataResumen.Add(_st);
+
+                //
+                _st = "CREDITO: ".Trim().PadLeft(_ct, ' ');
+                _st += formateaCnt(it.lista.Where(w => w.esAnulado == false && w.esCredito).Sum(s => s.cntDoc));
+                _dataResumen.Add(_st);
+                //
+                _st = "Importe: ".Trim().PadLeft(_ct, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado == false && w.esCredito).Sum(r => r.montoMonLocal));
+                _dataResumen.Add(_st);
+                //
+                _st = "Importe $: ".Trim().PadLeft(_ct, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado == false && w.esCredito).Sum(r => r.montoMonReferencia));
+                _dataResumen.Add(_st);
+
                 //
                 _st = "Anuladas: ".Trim().PadLeft(_ct, ' ');
-                _dataResumen.Add(_st);
-                _st = it.lista.Where(w=>w.esAnulado).Sum(s => s.cntDoc).ToString().Trim().PadLeft(_cl, ' ');
+                _st += formateaCnt(it.lista.Where(w => w.esAnulado).Sum(s => s.cntDoc));
                 _dataResumen.Add(_st);
                 //
                 _st = "Importe: ".Trim().PadLeft(_ct, ' ');
-                _dataResumen.Add(_st);
-                _st = it.lista.Where(w => w.esAnulado ).Sum(r => r.montoMonLocal).ToString("n2").Trim().PadLeft(_cl, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado).Sum(r => r.montoMonLocal));
                 _dataResumen.Add(_st);
                 //
                 _st = "Importe $: ".Trim().PadLeft(_ct, ' ');
-                _dataResumen.Add(_st);
-                _st = it.lista.Where(w => w.esAnulado ).Sum(r => r.montoMonReferencia).ToString("n2").Trim().PadLeft(_cl, ' ');
+                _st += formateaMnt(it.lista.Where(w => w.esAnulado).Sum(r => r.montoMonReferencia));
                 _dataResumen.Add(_st);
                 //
                 _st = "".Trim().PadLeft(_ct, ' ');
                 _dataResumen.Add(_st);
+                _dataResumen.Add("");
+                _dataResumen.Add("");
             }
+            _st = "Monto En Caja: ".Trim().PadLeft(_ct, ' ');
+            _st += formateaMnt(_montoCaja);
+            _dataResumen.Add(_st);
+            _dataResumen.Add("");
+            _dataResumen.Add("");
         }
         public void setMediosPago(List<Models.MedioPago> lst)
         {
@@ -109,6 +138,15 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
         public void setMonedaLocal(_Domain.Models.Moneda moneda)
         {
             _monedaLocal = moneda;
+        }
+        //
+        private string formateaCnt(int cnt)
+        {
+            return string.Format("{0,15:n0}", cnt);
+        }
+        private string formateaMnt(decimal mnt)
+        {
+            return string.Format("{0,15:n2}", mnt);
         }
     }
 }

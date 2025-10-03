@@ -63,6 +63,9 @@ namespace PosOnLine.Src.CuadreCierre.vm
         public string Get_IdMedioPagoLocal { get { return _cbMedPagoMonLocal.GetId; } }
         public object Get_MediosPagoReferenciaSource { get { return _cbMedPagoMonReferencia.GetSource; } }
         public string Get_IdMedioPagoReferencia { get { return _cbMedPagoMonReferencia.GetId; } }
+        public string Get_VueltoCntPorDivisaDesc { get { return _myData.VueltoCntPorDivisa.ToString("n0")+_myData.MonedaReferencia.simbolo; } }
+        public string Get_VueltoMontoPorEfectivoDesc { get { return _myData.VueltoMontoPorEfectivo.ToString("n2")+_myData.MonedaLocal.simbolo; } }
+        public string Get_VueltoMontoPorPagoMovilDesc { get { return _myData.VueltoMontoPorPagoMovil.ToString("n2")+_myData.MonedaLocal.simbolo; } }
         //
         public CuadreImpl()
         {

@@ -614,5 +614,9 @@ namespace PosOnLine.Src.FormaPago.vm
             };
             return rt;
         }
+        public void limpiarItemsFormaPago()
+        {
+            _blFormasPago.Clear();
+        }
     }
 }

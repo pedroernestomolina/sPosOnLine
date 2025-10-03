@@ -62,5 +62,6 @@ namespace PosOnLine.Src.FormaPago.vm
         void ctaCredito();
         void abandonarFicha();
         void procesarFicha();
+        void limpiarItemsFormaPago();
     }
 }

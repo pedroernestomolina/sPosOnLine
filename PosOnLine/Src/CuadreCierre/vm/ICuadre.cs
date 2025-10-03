@@ -23,6 +23,9 @@ namespace PosOnLine.Src.CuadreCierre.vm
         string Get_IdMedioPagoLocal { get; }
         object Get_MediosPagoReferenciaSource { get; }
         string Get_IdMedioPagoReferencia { get; }
+        string Get_VueltoCntPorDivisaDesc { get; }
+        string Get_VueltoMontoPorEfectivoDesc { get; }
+        string Get_VueltoMontoPorPagoMovilDesc { get; }
         //
         void setVueltoMedPagoLocal(string id);
         void setVueltoMedPagoReferencia(string id);
