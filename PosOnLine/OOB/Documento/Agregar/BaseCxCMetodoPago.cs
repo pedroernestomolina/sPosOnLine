@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Documento.Agregar
 {
-
     public class BaseCxCMetodoPago
     {
-
         public string AutoMedioPago { get; set; }
         public string AutoAgencia { get; set; }
         public string Medio { get; set; }
@@ -35,7 +33,5 @@ namespace PosOnLine.OOB.Documento.Agregar
         public decimal OpTasa { get; set; }
         public string OpAplicaConversion { get; set; }
         public string CodigoSucursal { get; set; }
-
     }
-
 }

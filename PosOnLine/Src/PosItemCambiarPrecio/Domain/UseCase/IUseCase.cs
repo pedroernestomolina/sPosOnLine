@@ -10,6 +10,6 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.UseCase
     public interface IUseCase
     {
         Models.ItemCambio 
-            CargarItemCambio(int idItem);
+            CargarItem(int idItem);
     }
 }

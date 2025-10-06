@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
 {
-    
     public class FichaCxC: BaseCxC
     {
-
-
+        public string CierrePosArqueo { get; set; }
         public FichaCxC()
         {
             CCobranza = 0.0m;
@@ -47,8 +45,8 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
             CodigoSucursal = "";
             RestaDivisa = 0m;
             ImporteNetoDivisa = 0m;
+            //
+            CierrePosArqueo = "";
         }
-
     }
-
 }

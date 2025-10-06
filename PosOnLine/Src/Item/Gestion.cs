@@ -916,5 +916,8 @@ namespace PosOnLine.Src.Item
                 return rt;
             }
         }
+
+
+        public decimal TotalPesoVolumen { get { return _litems.Sum(s => s.PesoVolumen); } }
     }
 }

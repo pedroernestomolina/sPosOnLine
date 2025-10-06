@@ -11,24 +11,22 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
     {
         private int _idItemCambiarPrecio;
         private bool _procesarCambioIsOK;
-        private decimal _precioPagoBs;
-        private decimal _precioPagoPrdNoDivisa;
-        private decimal _precioPagoDivisa;
         private decimal _precioIngresado;
         private __.Ctrl.Boton.Abandonar.IAbandonar _btAbandonar;
         private __.Ctrl.Boton.Procesar.IProcesar _btProcesar;
         private Domain.UseCase.IUseCase _uc;
+        private Domain.Models.ItemCambio _itemCambio;
         //
-        public decimal Get_PrecioPagoBs { get { return _precioPagoBs; } }
-        public decimal Get_PrecioPagoPrdNoDivisa { get { return _precioPagoPrdNoDivisa; } }
-        public decimal Get_PrecioPagoDivisa { get { return _precioPagoDivisa; } }
-        public decimal PrecioIngresado { get { return _precioIngresado; } }
+        public decimal Get_PrecioPagoBs { get { return _itemCambio.PrecioPagoBs; } }
+        public decimal Get_PrecioPagoPrdNoDivisa { get { return _itemCambio.PrecioPagoPrdNoDivisa; } }
+        public decimal Get_PrecioPagoDivisa { get { return _itemCambio.PrecioPagoDivisa; } }
+        public string Get_ProductoInfo { get { return _itemCambio.ProductoInfo; } }
+        public decimal Get_PorctAumentoProductosNoDivisa { get { return _itemCambio.PorctAumentoPrdNoAdmPorDivisa; } }
         public bool AbandonarFichaIsOK { get { return _btAbandonar.OpcionIsOK; } }
         public bool ProcesarCambioIsOK { get { return _procesarCambioIsOK; } }
         //
         public CambiarPrecioImpl()
         {
-            _precioIngresado = 0m;
             _procesarCambioIsOK = false;
             _btAbandonar = new __.Ctrl.Boton.Abandonar.Imp();
             _btProcesar = new __.Ctrl.Boton.Procesar.Imp();
@@ -63,12 +61,24 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
                 frm.ShowDialog();
             }
         }
+        public void setPagoMontoBs(decimal monto)
+        {
+            //_pagoMontoBs = monto;
+        }
+        public void setPagoDivisa(decimal monto)
+        {
+            //_pagoMontoDivisa= monto;
+        }
+        public void setPagoProductoNoDivisa(decimal monto)
+        {
+            //_pagoMontoProductoNoDivisa= monto;
+        }
         //
         private bool cargarData()
         {
             try
             {
-                var rst = _uc.CargarItemCambio(_idItemCambiarPrecio);
+                _itemCambio = _uc.CargarItem(_idItemCambiarPrecio);
                 return true;
             }
             catch (Exception e)
@@ -85,6 +95,12 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
         {
             _procesarCambioIsOK = false;
             _btProcesar.Opcion("Cambiar Precio De Item ?");
+        }
+
+
+        public decimal PrecioIngresado
+        {
+            get { return 0m; }
         }
     }
 }

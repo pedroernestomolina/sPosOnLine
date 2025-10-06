@@ -108,6 +108,7 @@
     <Compile Include="Data\Infra\IPedido.cs" />
     <Compile Include="Data\Infra\IPendiente.cs" />
     <Compile Include="Data\Infra\IPermiso.cs" />
+    <Compile Include="Data\Infra\IPosCambioPrecio.cs" />
     <Compile Include="Data\Infra\IProducto.cs" />
     <Compile Include="Data\Infra\IProducto_ModoAdm.cs" />
     <Compile Include="Data\Infra\IReportePos.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Data\Prov\Pedido_TrasladarVenta.cs" />
     <Compile Include="Data\Prov\Pendiente.cs" />
     <Compile Include="Data\Prov\Permiso.cs" />
+    <Compile Include="Data\Prov\PosCambioPrecio.cs" />
     <Compile Include="Data\Prov\Producto.cs" />
     <Compile Include="Data\Prov\Producto_ModoAdm.cs" />
     <Compile Include="Data\Prov\ReportesPos.cs" />
@@ -377,6 +379,7 @@
     <Compile Include="OOB\Pendiente\Lista\Filtro.cs" />
     <Compile Include="OOB\Permiso\Buscar\Ficha.cs" />
     <Compile Include="OOB\Permiso\Entidad\Ficha.cs" />
+    <Compile Include="OOB\PosCambioPrecio\ObtenerDataItem\Ficha.cs" />
     <Compile Include="OOB\Pos\Abrir\Arqueo.cs" />
     <Compile Include="OOB\Pos\Abrir\Ficha.cs" />
     <Compile Include="OOB\Pos\Abrir\Operador.cs" />
@@ -653,6 +656,7 @@
     <Compile Include="Src\PosImprimirTicket\Domain\UseCase\UsaeCaseImpl.cs" />
     <Compile Include="Src\PosImprimirTicket\vm\IPosImprimir.cs" />
     <Compile Include="Src\PosImprimirTicket\vm\PosImprimirImpl.cs" />
+    <Compile Include="Src\PosItemCambiarPrecio\Domain\Models\Item.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\Domain\Models\ItemCambio.cs" />

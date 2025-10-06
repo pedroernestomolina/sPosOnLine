@@ -110,6 +110,8 @@ namespace PosOnLine.Src.Pos
         public bool IsNotaCredito { get { return _modoFuncion == EnumModoFuncion.NotaCredito; } }
         public bool IsNotaEntrega { get { return _modoFuncion == EnumModoFuncion.NotaEntrega; } }
         public bool IsTickeraOk { get { return _isTickeraOk; } }
+        public decimal TotalPesoVolumen { get { return _gestionItem.TotalPesoVolumen; } }
+
 
         public bool SalirIsOk
         {
@@ -2724,6 +2726,8 @@ namespace PosOnLine.Src.Pos
                     CodigoSucursal = _sucursalAsignada.codigo,
                     RestaDivisa = isCredito ? importeDocumentoDivisaCxc : 0.0m,
                     ImporteNetoDivisa = Math.Round(netoMontoDivisa, 2, MidpointRounding.AwayFromZero),
+                    //
+                    CierrePosArqueo = Sistema.PosEnUso.idAutoArqueoCierre,
                 };
 
                 var PMontoEfectivo = 0.0m;
@@ -2824,6 +2828,8 @@ namespace PosOnLine.Src.Pos
                         CodigoSucursal = _sucursalAsignada.codigo,
                         RestaDivisa = 0m,
                         ImporteNetoDivisa = 0m,
+                        //
+                        CierrePosArqueo = Sistema.PosEnUso.idAutoArqueoCierre,
                     };
                     var _montoRecibidoDivisa = 0m;
                     var _cambioDivisa = 0m;
@@ -2950,6 +2956,15 @@ namespace PosOnLine.Src.Pos
                             OpTasa = factorCambio,
                             OpAplicaConversion = _aplicaFactorConversion,
                             CodigoSucursal = _sucursalAsignada.codigo,
+                            //
+                            MontoMonedaRecibe=it.montoIngresado,
+                            CodigoMonedaRecibe=it.medioPago.codigoCurrencies,
+                            SimboloMonedaRecibe=it.medioPago.simboloCurrencies,
+                            TasaMonedaRecibe=it.factorCambioMedioPago,
+                            LoteNroMonedaRecibe=it.lote,
+                            ReferenciaNroMonedaRecibe=it.referencia,
+                            MontoMonedaLocal=it.montoMonedaLocal,
+                            MontoMonedaReferencia=it.montoMonedaRefenencia,
                         });
                     }
                     if (_dataRetFormaPago.FPBonoPorDivisa != null)
@@ -3005,6 +3020,15 @@ namespace PosOnLine.Src.Pos
                             OpTasa = factorCambio,
                             OpAplicaConversion = _aplicaFactorConversion,
                             CodigoSucursal = _sucursalAsignada.codigo,
+                            //
+                            MontoMonedaRecibe = it.montoMonedaRefenencia,
+                            CodigoMonedaRecibe = it.medioPago.codigoCurrencies,
+                            SimboloMonedaRecibe = it.medioPago.simboloCurrencies,
+                            TasaMonedaRecibe = 1m,
+                            LoteNroMonedaRecibe = it.lote,
+                            ReferenciaNroMonedaRecibe = it.referencia,
+                            MontoMonedaLocal = it.montoMonedaLocal,
+                            MontoMonedaReferencia = it.montoMonedaRefenencia,
                         });
                     }
                     fichaOOB.DocCxCPago.Pago = p;
@@ -3538,6 +3562,8 @@ namespace PosOnLine.Src.Pos
                     CodigoSucursal = _sucursalAsignada.codigo,
                     RestaDivisa = isCredito ? importeDocumentoDivisa : 0.0m,
                     ImporteNetoDivisa = Math.Round(netoMontoDivisa, 2, MidpointRounding.AwayFromZero),
+                    //
+                    CierrePosArqueo = Sistema.PosEnUso.idAutoArqueoCierre,
                 };
 
 
@@ -3589,6 +3615,8 @@ namespace PosOnLine.Src.Pos
                         CodigoSucursal = _sucursalAsignada.codigo,
                         RestaDivisa = 0m,
                         ImporteNetoDivisa = 0m,
+                        //
+                        CierrePosArqueo = Sistema.PosEnUso.idAutoArqueoCierre,
                     };
                     var _montoRecibidoDivisa = 0m;
                     var _cambioDivisa = 0m;
@@ -3717,6 +3745,15 @@ namespace PosOnLine.Src.Pos
                             OpTasa = factorCambio,
                             OpAplicaConversion = _aplicaFactorConversion,
                             CodigoSucursal = _sucursalAsignada.codigo,
+                            //
+                            MontoMonedaRecibe = it.montoIngresado,
+                            CodigoMonedaRecibe = it.medioPago.codigoCurrencies,
+                            SimboloMonedaRecibe = it.medioPago.simboloCurrencies,
+                            TasaMonedaRecibe = it.factorCambioMedioPago,
+                            LoteNroMonedaRecibe = it.lote,
+                            ReferenciaNroMonedaRecibe = it.referencia,
+                            MontoMonedaLocal = it.montoMonedaLocal,
+                            MontoMonedaReferencia = it.montoMonedaRefenencia,
                         });
                     }
                     if (_dataRetFormaPago.FPBonoPorDivisa != null)
@@ -3772,6 +3809,15 @@ namespace PosOnLine.Src.Pos
                             OpTasa = factorCambio,
                             OpAplicaConversion = _aplicaFactorConversion,
                             CodigoSucursal = _sucursalAsignada.codigo,
+                            //
+                            MontoMonedaRecibe = it.montoMonedaRefenencia,
+                            CodigoMonedaRecibe = it.medioPago.codigoCurrencies,
+                            SimboloMonedaRecibe = it.medioPago.simboloCurrencies,
+                            TasaMonedaRecibe = 1m,
+                            LoteNroMonedaRecibe = it.lote,
+                            ReferenciaNroMonedaRecibe = it.referencia,
+                            MontoMonedaLocal = it.montoMonedaLocal,
+                            MontoMonedaReferencia = it.montoMonedaRefenencia,
                         });
                     }
                     fichaOOB.DocCxCPago.Pago = p;
@@ -3934,18 +3980,6 @@ namespace PosOnLine.Src.Pos
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

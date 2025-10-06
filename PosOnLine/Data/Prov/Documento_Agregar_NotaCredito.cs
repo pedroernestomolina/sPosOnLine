@@ -293,6 +293,8 @@ namespace PosOnLine.Data.Prov
                 CodigoSucursal = dc.CodigoSucursal,
                 RestaDivisa = dc.RestaDivisa,
                 ImporteNetoDivisa = dc.ImporteNetoDivisa,
+                //
+                CierrePosArqueo = dc.CierrePosArqueo,
             };
             fichaDTO.DocCxC = docCxC;
             //
@@ -338,6 +340,8 @@ namespace PosOnLine.Data.Prov
                     CodigoSucursal = xp.CodigoSucursal,
                     RestaDivisa = xp.RestaDivisa,
                     ImporteNetoDivisa = xp.ImporteNetoDivisa,
+                    //
+                    CierrePosArqueo = dc.CierrePosArqueo,
                 };
                 //
                 var xpR = ficha.DocCxCPago.Recibo;
@@ -416,6 +420,15 @@ namespace PosOnLine.Data.Prov
                         OpTasa = s.OpTasa,
                         OpAplicaConversion = s.OpAplicaConversion,
                         CodigoSucursal = s.CodigoSucursal,
+                        //
+                        CodigoMonedaRecibe = s.CodigoMonedaRecibe,
+                        LoteNroMonedaRecibe = s.LoteNroMonedaRecibe,
+                        MontoMonedaLocal = s.MontoMonedaLocal,
+                        MontoMonedaRecibe = s.MontoMonedaRecibe,
+                        MontoMonedaReferencia = s.MontoMonedaReferencia,
+                        ReferenciaNroMonedaRecibe = s.ReferenciaNroMonedaRecibe,
+                        SimboloMonedaRecibe = s.SimboloMonedaRecibe,
+                        TasaMonedaRecibe = s.TasaMonedaRecibe,
                     };
                     return nr;
                 }).ToList();

@@ -216,5 +216,7 @@ namespace PosOnLine.Src.Item
                 return rt;
             } 
         }
+
+        public decimal PesoVolumen { get { return _it.peso * _it.cantidad; } }
     }
 }

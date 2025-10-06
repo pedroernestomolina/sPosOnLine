@@ -290,6 +290,8 @@ namespace PosOnLine.Data.Prov
                 CodigoSucursal = dc.CodigoSucursal,
                 RestaDivisa = dc.RestaDivisa,
                 ImporteNetoDivisa = dc.ImporteNetoDivisa,
+                //
+                CierrePosArqueo = dc.CierrePosArqueo,
             };
             fichaDTO.DocCxC = docCxC;
             //
@@ -348,6 +350,8 @@ namespace PosOnLine.Data.Prov
                     CodigoSucursal = xp.CodigoSucursal,
                     RestaDivisa = xp.RestaDivisa,
                     ImporteNetoDivisa = xp.ImporteNetoDivisa,
+                    //
+                    CierrePosArqueo = dc.CierrePosArqueo,
                 };
                 //
                 var xpR = ficha.DocCxCPago.Recibo;
@@ -426,6 +430,15 @@ namespace PosOnLine.Data.Prov
                         OpTasa = s.OpTasa,
                         OpAplicaConversion = s.OpAplicaConversion,
                         CodigoSucursal = s.CodigoSucursal,
+                        //
+                        CodigoMonedaRecibe = s.CodigoMonedaRecibe,
+                        LoteNroMonedaRecibe = s.LoteNroMonedaRecibe,
+                        MontoMonedaLocal = s.MontoMonedaLocal,
+                        MontoMonedaRecibe = s.MontoMonedaRecibe,
+                        MontoMonedaReferencia = s.MontoMonedaReferencia,
+                        ReferenciaNroMonedaRecibe = s.ReferenciaNroMonedaRecibe,
+                        SimboloMonedaRecibe = s.SimboloMonedaRecibe,
+                        TasaMonedaRecibe = s.TasaMonedaRecibe,
                     };
                     return nr;
                 }).ToList();
@@ -484,7 +497,6 @@ namespace PosOnLine.Data.Prov
                 montoVueltoPorPagoMovil = ficha.Resumen.montoVueltoPorPagoMovil,
                 cntDivisaPorVueltoDivisa = ficha.Resumen.cntDivisaPorVueltoDivisa,
             };
-
 
             //
             var resumenGeneral = new DtoLibPos.Documento.Agregar.Factura.FichaPosResumenGeneral();
@@ -553,7 +565,6 @@ namespace PosOnLine.Data.Prov
             fichaDTO.detalleFormaPago = lst_DetalleFormaPago;
             //
 
-
             if (ficha.SerieFiscal != null)
             {
                 fichaDTO.SerieFiscal = new DtoLibPos.Documento.Agregar.Factura.FichaSerie() { auto = ficha.SerieFiscal.auto };
@@ -619,8 +630,6 @@ namespace PosOnLine.Data.Prov
             fichaDTO.Precios = _fichaPrecios;
             //
             //
-
-
             //
             var r01 = MyData.Documento_Agregar_Factura(fichaDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)

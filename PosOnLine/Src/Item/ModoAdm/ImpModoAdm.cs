@@ -50,6 +50,7 @@ namespace PosOnLine.Src.Item.ModoAdm
         public decimal PrdContenido { get { return _prdContenidoInf; } }
         public BindingList<data> Items { get { return _blitems; } }
         public data DataItemActual { get { return (data)_bsitems.Current; } }
+        public decimal TotalPesoVolumen { get { return _litems.Sum(s => s.PesoVolumen); } }
 
 
         public ImpModoAdm()

@@ -29,10 +29,12 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
         {
             _modoInicializa = true;
             IrFocoPrincipal();
+            L_PRODUCTO.Text = _controlador.Get_ProductoInfo;
             L_PRECIO_BS.Text = _controlador.Get_PrecioPagoBs.ToString("n2");
+            L_PRODUCTO_NO_DIVISA.Text = "Precio Pago Producto No Divisa con " + _controlador.Get_PorctAumentoProductosNoDivisa.ToString("n2") + "%";
             L_PRECIO_PRD_NO_DIVISA.Text = _controlador.Get_PrecioPagoPrdNoDivisa.ToString("n2");
             L_PRECIO_DIVISA.Text = _controlador.Get_PrecioPagoDivisa.ToString("n2");
-            TB_PRECIO.Text = _controlador.PrecioIngresado.ToString();
+            TB_PAGO_BS.Text = _controlador.PrecioIngresado.ToString();
             /*
             L_INF_PRODUCTO.Text = _controlador.DataPanel.producto;
             L_INF_PRECIO_ACTUAL.Text = _controlador.DataPanel.precioActual.ToString("n2");
@@ -61,6 +63,47 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
+        //
+        private void RB_PAGO_BS_CheckedChanged(object sender, EventArgs e)
+        {
+            TB_PAGO_BS.Enabled = RB_PAGO_BS.Checked;
+        }
+        private void RB_PAGO_PRD_NO_DIVISA_CheckedChanged(object sender, EventArgs e)
+        {
+            TB_PAGO_NO_DIVISA.Enabled = RB_PAGO_PRD_NO_DIVISA.Checked;
+        }
+        private void RB_PAGO_DIVISA_CheckedChanged(object sender, EventArgs e)
+        {
+            TB_PAGO_DIVISA.Enabled = RB_PAGO_DIVISA.Checked;
+        }
+        private void TB_PAGO_BS_Leave(object sender, EventArgs e)
+        {
+            var _monto = 0m;
+            if (!string.IsNullOrEmpty(TB_PAGO_BS.Text.Trim()))
+            {
+                _monto = decimal.Parse(TB_PAGO_BS.Text.Trim());
+            }
+            _controlador.setPagoMontoBs(_monto);
+        }
+        private void TB_PAGO_NO_DIVISA_Leave(object sender, EventArgs e)
+        {
+            var _monto = 0m;
+            if (!string.IsNullOrEmpty(TB_PAGO_NO_DIVISA.Text.Trim()))
+            {
+                _monto = decimal.Parse(TB_PAGO_NO_DIVISA.Text.Trim());
+            }
+            _controlador.setPagoProductoNoDivisa(_monto);
+        }
+        private void TB_PAGO_DIVISA_Leave(object sender, EventArgs e)
+        {
+            var _monto = 0m;
+            if (!string.IsNullOrEmpty(TB_PAGO_DIVISA.Text.Trim()))
+            {
+                _monto = decimal.Parse(TB_PAGO_DIVISA.Text.Trim());
+            }
+            _controlador.setPagoDivisa(_monto);
+        }
+        //
         private void BT_ACEPTAR_Click(object sender, EventArgs e)
         {
             ProcesarCambio();

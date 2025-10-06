@@ -12,8 +12,7 @@ namespace PosOnLine.Src.Item
     public interface IModo
     {
         event EventHandler Hnd_Item_Cambio;
-
-
+        //
         int CantItem { get; }
         decimal TotalPeso { get;  }
         int CantRenglones { get; }
@@ -29,8 +28,8 @@ namespace PosOnLine.Src.Item
         BindingList<data> Items { get; }
         data DataItemActual { get; }
         decimal TotalIva { get; }
-
-
+        decimal TotalPesoVolumen { get; }
+        //
         void setGestionMultiplicar(Pos.IMultiplicar _gestionMultiplicar);
         void setGestionPendiente(Pendiente.Gestion _gestionPendiente);
         void setDepositoAsignado(OOB.Deposito.Entidad.Ficha _depositoAsignado);
@@ -42,8 +41,7 @@ namespace PosOnLine.Src.Item
         void SetCantIncrementar(data it, int p);
         void setDescuentoFinal(decimal dsctoFinal);
         void setItemActualInicializar();
-
-
+        //
         void Inicializar();
         void RegistraItem(string autoPrd, string tipoPrecio, int cnt=1);
         bool AnularVentaIsOk { get; }

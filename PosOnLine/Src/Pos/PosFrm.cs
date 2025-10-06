@@ -239,6 +239,7 @@ namespace PosOnLine.Src.Pos
 
         private void ActualizarTotal()
         {
+            L_PESO_VOLUMEN.Text = _controlador.TotalPesoVolumen.ToString("n3");
             L_CTAS_PEND.Text = _controlador.CntCtasPendientes.ToString("n0");
             L_TOTAL_ITEMS.Text = _controlador.CantItem.ToString("n0");
             L_TOTAL_KILOS.Text = _controlador.TotalPeso.ToString("n3");
