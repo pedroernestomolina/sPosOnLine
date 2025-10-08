@@ -11,5 +11,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.UseCase
     {
         Models.ItemCambio 
             CargarItem(int idItem);
+        void 
+            ProcesarCambioPrecio(OOB.PosCambioPrecio.ProcesarCambiar.Ficha ficha);
     }
 }

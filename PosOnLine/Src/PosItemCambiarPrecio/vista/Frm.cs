@@ -31,21 +31,30 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
             IrFocoPrincipal();
             L_PRODUCTO.Text = _controlador.Get_ProductoInfo;
             L_PRECIO_BS.Text = _controlador.Get_PrecioPagoBs.ToString("n2");
-            L_PRODUCTO_NO_DIVISA.Text = "Precio Pago Producto No Divisa con " + _controlador.Get_PorctAumentoProductosNoDivisa.ToString("n2") + "%";
+            L_PRODUCTO_NO_ADM_DIVISA.Text = "Precio Pago Producto No Divisa con " + _controlador.Get_PorctAumentoProductosNoDivisa.ToString("n2") + "%";
             L_PRECIO_PRD_NO_DIVISA.Text = _controlador.Get_PrecioPagoPrdNoDivisa.ToString("n2");
             L_PRECIO_DIVISA.Text = _controlador.Get_PrecioPagoDivisa.ToString("n2");
-            TB_PAGO_BS.Text = _controlador.PrecioIngresado.ToString();
-            /*
-            L_INF_PRODUCTO.Text = _controlador.DataPanel.producto;
-            L_INF_PRECIO_ACTUAL.Text = _controlador.DataPanel.precioActual.ToString("n2");
-            L_UTILIDAD_ACTUAL.Text = _controlador.DataPanel.utilidadActual.ToString("n2") + "%";
-            L_UTILIDAD_NUEVA.Text = _controlador.DataPanel.utilidadNueva.ToString("n2") + "%";
-            TB_PRECIO_NUEVO.Text = "";
-            CHB_APLICANDO_BONO.Checked = _controlador.DataFicha.Get_AplicaBono;
-            CHB_APLICANDO_BONO.Checked = !CHB_APLICANDO_BONO.Checked;
-            CHB_APLICAR_PORCT_AUMENTO.Enabled = !_controlador.DataFicha.EstatusDivisa;
-            CHB_APLICAR_PORCT_AUMENTO.Checked = _controlador.DataFicha.AplicarPorcAumento;
-             */
+            L_UTILIDAD.Text = _controlador.Get_Utilidad.ToString("n2")+"%";
+            //
+            L_COSTO_EMPQ_VTA.Text = _controlador.Get_CostoEmpaqueVenta.ToString("n2");
+            L_ADM_POR_DIVISA.Text = _controlador.Get_IsProductoAdmPorDivisa ? "SI" : "NO";
+            L_TASA_SISTEMA.Text = _controlador.Get_TasaSistema.ToString("n2");
+            //
+            TB_PAGO_BS.Text = "";
+            TB_PAGO_DIVISA.Text = "";
+            TB_PAGO_NO_DIVISA.Text = "";
+            RB_PAGO_BS.Checked = false;
+            RB_PAGO_DIVISA.Checked = false;
+            RB_PAGO_PRD_NO_DIVISA.Checked = false;
+            RB_PAGO_PRD_NO_DIVISA.Enabled = !_controlador.Get_IsProductoAdmPorDivisa;
+            //
+            CHB_ACTIVAR_PORC_AUMENTO.Visible = !_controlador.Get_IsProductoAdmPorDivisa;
+            CHB_ACTIVAR_PORC_AUMENTO.Checked = _controlador.DarPorcentajeAumento;
+            //
+            CHB_MAS_MENOS_INF.Checked = false;
+            P_PRECIO.Visible = true;
+            P_INFO.Visible = false;
+            //
             _modoInicializa = false;
         }
         private void Frm_FormClosing(object sender, FormClosingEventArgs e)
@@ -66,14 +75,17 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
         //
         private void RB_PAGO_BS_CheckedChanged(object sender, EventArgs e)
         {
+            if (_modoInicializa) return;
             TB_PAGO_BS.Enabled = RB_PAGO_BS.Checked;
         }
         private void RB_PAGO_PRD_NO_DIVISA_CheckedChanged(object sender, EventArgs e)
         {
+            if (_modoInicializa) return;
             TB_PAGO_NO_DIVISA.Enabled = RB_PAGO_PRD_NO_DIVISA.Checked;
         }
         private void RB_PAGO_DIVISA_CheckedChanged(object sender, EventArgs e)
         {
+            if (_modoInicializa) return;
             TB_PAGO_DIVISA.Enabled = RB_PAGO_DIVISA.Checked;
         }
         private void TB_PAGO_BS_Leave(object sender, EventArgs e)
@@ -84,6 +96,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
                 _monto = decimal.Parse(TB_PAGO_BS.Text.Trim());
             }
             _controlador.setPagoMontoBs(_monto);
+            ActualizarPrecios();
         }
         private void TB_PAGO_NO_DIVISA_Leave(object sender, EventArgs e)
         {
@@ -93,6 +106,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
                 _monto = decimal.Parse(TB_PAGO_NO_DIVISA.Text.Trim());
             }
             _controlador.setPagoProductoNoDivisa(_monto);
+            ActualizarPrecios();
         }
         private void TB_PAGO_DIVISA_Leave(object sender, EventArgs e)
         {
@@ -102,6 +116,27 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
                 _monto = decimal.Parse(TB_PAGO_DIVISA.Text.Trim());
             }
             _controlador.setPagoDivisa(_monto);
+            ActualizarPrecios();
+        }
+        private void CHB_MAS_MENOS_INF_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_modoInicializa) return;
+            var info = "Mostar más Información";
+            if (CHB_MAS_MENOS_INF.Checked)
+            {
+                info = "Mostar menos Información";
+                P_INFO.Visible = true;
+            }
+            else 
+            {
+                P_INFO.Visible = false;
+            }
+            CHB_MAS_MENOS_INF.Text=info;
+        }
+        private void CHB_ACTIVAR_PORC_AUMENTO_CheckedChanged(object sender, EventArgs e)
+        {
+            _controlador.setSwitchPorcentajeAumento(CHB_ACTIVAR_PORC_AUMENTO.Checked);
+            ActualizarPrecios();
         }
         //
         private void BT_ACEPTAR_Click(object sender, EventArgs e)
@@ -112,54 +147,6 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
         {
             AbandonarFicha();
         }
-        /*
-        private void TB_PRECIO_NUEVO_Leave(object sender, EventArgs e)
-        {
-            var _precio = 0m;
-            if (TB_PRECIO_NUEVO.Text.Trim() != "") 
-            {
-                _precio = decimal.Parse(TB_PRECIO_NUEVO.Text);
-            }
-            _controlador.setPrecioNuevo(_precio);
-            L_UTILIDAD_NUEVA.Text = _controlador.DataPanel.utilidadNueva.ToString("n2") + "%";
-        }
-        private void CHB_APLICANDO_BONO_CheckedChanged(object sender, EventArgs e)
-        {
-            _controlador.AplicarBono(CHB_APLICANDO_BONO.Checked);
-            L_INF_PRECIO_ACTUAL.Text = _controlador.DataPanel.precioActual.ToString("n2");
-            L_UTILIDAD_NUEVA.Text = _controlador.DataPanel.utilidadNueva.ToString("n2") + "%";
-        }
-
-        private void BT_PANEL_INF_Click(object sender, EventArgs e)
-        {
-            PanelInformativo();
-        }
-
-        private void BT_ACEPTAR_Click(object sender, EventArgs e)
-        {
-            ProcesarCambios();
-        }
-        private void BT_SALIR_Click(object sender, EventArgs e)
-        {
-            AbandonarFicha();
-        }
-
-        //
-        private void PanelInformativo()
-        {
-            _controlador.PanelInformativo();
-        }
-        private void CHB_CAMBIAR_VARIOS_PRECIOS_CheckedChanged(object sender, EventArgs e)
-        {
-            _controlador.setCambiarVariosPrecios();
-        }
-
-        private void CHB_APLICAR_PORCT_AUMENTO_CheckedChanged(object sender, EventArgs e)
-        {
-            if (_modoInicializa) return;
-            _controlador.setAplicarAumentoPorPorct(CHB_APLICAR_PORCT_AUMENTO.Checked);
-        }
-         */
         //
         private void ProcesarCambio()
         {
@@ -177,6 +164,22 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
             if (_controlador.AbandonarFichaIsOK)
             {
                 salir();
+            }
+        }
+        private void ActualizarPrecios() 
+        {
+            L_PRODUCTO_NO_ADM_DIVISA.Text = "Precio Pago Producto No Divisa con " + _controlador.Get_PorctAumentoProductosNoDivisa.ToString("n2") + "%";
+            L_PRECIO_BS.Text = _controlador.Get_PrecioPagoBs.ToString("n2");
+            L_PRECIO_PRD_NO_DIVISA.Text = _controlador.Get_PrecioPagoPrdNoDivisa.ToString("n2");
+            L_PRECIO_DIVISA.Text = _controlador.Get_PrecioPagoDivisa.ToString("n2");
+            L_UTILIDAD.Text = _controlador.Get_Utilidad.ToString("n2") + "%";
+            if (_controlador.Get_Utilidad >= 0m)
+            {
+                P_UTILIDAD.BackColor = Color.Green;
+            }
+            else 
+            {
+                P_UTILIDAD.BackColor = Color.Brown;
             }
         }
         private void IrFocoPrincipal()

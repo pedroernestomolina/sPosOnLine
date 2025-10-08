@@ -17,9 +17,11 @@ namespace PosOnLine.OOB.PosCambioPrecio.ObtenerDataItem
         public decimal pFullMonReferencia { get; set; }
         public decimal tasaIva { get; set; }
         public int contEmpqVta { get; set; }
+        public string descEmpqVta { get; set; }
         public bool isAdmPorDivisa { get; set; }
         public int contEmpqCompra { get; set; }
         public decimal costoEmpqCompraMonReferencia { get; set; }
         public decimal costoEmpqUndMonLocal { get; set; }
+        public bool aplicaPorcAumento { get; set; }
     }
 }

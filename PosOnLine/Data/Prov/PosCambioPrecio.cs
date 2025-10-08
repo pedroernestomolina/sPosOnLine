@@ -41,7 +41,50 @@ namespace PosOnLine.Data.Prov
                     tasaIva = s.tasaIva,
                     contEmpqCompra = s.contEmpqCompra,
                     costoEmpqCompraMonReferencia = s.costoDivisaEmpqCompra,
+                    descEmpqVta=s.descEmpqVta,
+                    aplicaPorcAumento = (s.estatusAplicaPorcAumento == "" && s.estatusAdmPorDivisa.Trim().ToUpper() != "1")
                 };
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
+        public OOB.Resultado.Ficha 
+            PosCambioPrecio_ProcesarCambio(OOB.PosCambioPrecio.ProcesarCambiar.Ficha ficha)
+        {
+            var result = new OOB.Resultado.Ficha();
+            //
+            try
+            {
+                var fichaDTO = new DtoLibPos.PosCambioPrecio.ProcesarCambio.Ficha()
+                {
+                    item = new DtoLibPos.PosCambioPrecio.ProcesarCambio.DataItem()
+                    {
+                        idItem = ficha.item.idItem,
+                        idOperador = ficha.item.idOperador,
+                        pFullMonDiv = ficha.item.pFullMonDiv,
+                        pNetoMonAct = ficha.item.pNetoMonAct,
+                        aplicarPorcAumento = ficha.item.AplicarPorcAumentoPrdNoDivisa,
+                    },
+                    logReg = new DtoLibPos.PosCambioPrecio.ProcesarCambio.LogReg()
+                    {
+                        accion = ficha.logReg.accion,
+                        codigoUsuarioAutoriza = ficha.logReg.codigoUsuarioAutoriza,
+                        descripcion = ficha.logReg.descripcion,
+                        idOperador = ficha.logReg.idOperador,
+                        idUsuarioAutoriza = ficha.logReg.idUsuarioAutoriza,
+                        nombreUsuarioAutoriza = ficha.logReg.nombreUsuarioAutoriza,
+                    },
+                };
+                var rt = MyData.PosCambioPrecio_ProcesarCambio(fichaDTO);
+                if (rt.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rt.Mensaje);
+                }
             }
             catch (Exception e)
             {

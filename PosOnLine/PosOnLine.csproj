@@ -380,6 +380,9 @@
     <Compile Include="OOB\Permiso\Buscar\Ficha.cs" />
     <Compile Include="OOB\Permiso\Entidad\Ficha.cs" />
     <Compile Include="OOB\PosCambioPrecio\ObtenerDataItem\Ficha.cs" />
+    <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\DataItem.cs" />
+    <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\Ficha.cs" />
+    <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\LogReg.cs" />
     <Compile Include="OOB\Pos\Abrir\Arqueo.cs" />
     <Compile Include="OOB\Pos\Abrir\Ficha.cs" />
     <Compile Include="OOB\Pos\Abrir\Operador.cs" />
@@ -657,6 +660,7 @@
     <Compile Include="Src\PosImprimirTicket\vm\IPosImprimir.cs" />
     <Compile Include="Src\PosImprimirTicket\vm\PosImprimirImpl.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\Domain\Models\Item.cs" />
+    <Compile Include="Src\PosItemCambiarPrecio\Domain\Models\Usuario.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\Domain\Models\ItemCambio.cs" />

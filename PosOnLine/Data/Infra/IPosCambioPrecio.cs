@@ -11,5 +11,7 @@ namespace PosOnLine.Data.Infra
     {
         OOB.Resultado.FichaEntidad<OOB.PosCambioPrecio.ObtenerDataItem.Ficha>
             PosCambioPrecio_ObtenerDataItem(int idItem);
+        OOB.Resultado.Ficha
+            PosCambioPrecio_ProcesarCambio(OOB.PosCambioPrecio.ProcesarCambiar.Ficha ficha);
     }
 }

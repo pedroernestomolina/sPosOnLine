@@ -1207,6 +1207,13 @@ namespace PosOnLine.Src.Pos
                 _vmCambioprecio = new PosItemCambiarPrecio.vm.CambiarPrecioImpl();
             }
             _vmCambioprecio.Invoke(_idItem);
+            if (_vmCambioprecio.ProcesarCambioIsOK) 
+            {
+                decimal pNeto = _vmCambioprecio.PrecioNetoMonActualActualizado;
+                decimal pFull = _vmCambioprecio.PrecioFullMonDivisaActualizado;
+                bool darPorctAumento = _vmCambioprecio.DarPorcentajeAumento;
+                _gestionItem.DataItemActual.setCambioPrecio(pNeto, pFull, darPorctAumento);
+            }
             //
             //
 

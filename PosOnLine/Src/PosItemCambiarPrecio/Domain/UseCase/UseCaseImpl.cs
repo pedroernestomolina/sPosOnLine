@@ -44,6 +44,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.UseCase
                     {
                         codigoPrd = it.codigoPrd,
                         contEmpqVta = it.contEmpqVta,
+                        descEmpqVta= it.descEmpqVta,
                         costoEmpqUndMonLocal = it.costoEmpqUndMonLocal,
                         descPrd = it.descPrd,
                         idItem = it.idItem,
@@ -54,8 +55,27 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.UseCase
                         tasaIva = it.tasaIva,
                         costoEmpqCompraMonReferencia = it.costoEmpqCompraMonReferencia,
                         contEmpqCompra = it.contEmpqCompra,
+                        pActualFullMonReferencia = it.pFullMonReferencia,
+                        pActualNetoMonLocal = it.pNetoMonLocal,
+                        aplicaPorcAumento = it.aplicaPorcAumento,
                     }
                 };
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void 
+            ProcesarCambioPrecio(OOB.PosCambioPrecio.ProcesarCambiar.Ficha ficha)
+        {
+            try
+            {
+                var rst = Sistema.MyData.PosCambioPrecio_ProcesarCambio(ficha);
+                if (rst.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                {
+                    throw new Exception(rst.Mensaje);
+                }
             }
             catch (Exception e)
             {

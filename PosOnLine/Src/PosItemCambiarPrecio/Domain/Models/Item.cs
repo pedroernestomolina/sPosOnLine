@@ -21,8 +21,14 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.Models
         public decimal costoEmpqUndMonLocal { get; set; }
         public int contEmpqCompra { get; set; }
         public decimal costoEmpqCompraMonReferencia { get; set; }
+        public decimal pActualNetoMonLocal { get; set; }
+        public decimal pActualFullMonReferencia { get; set; }
+        public string descEmpqVta { get; set; }
+        public bool aplicaPorcAumento { get; set; }
         //
+        public string empaqVenta { get { return descEmpqVta + "/" + contEmpqVta.ToString(); } }
         public decimal pNetoMonReferencia { get { return get_Neto(pFullMonReferencia, tasaIva); } }
+        public decimal pActualNetoMonReferencia { get { return get_Neto(pActualFullMonReferencia, tasaIva); } }
         public decimal costoPorUndEmpqCompraMonReferencia 
         { 
             get
@@ -57,12 +63,31 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.Models
             }
         }
         //
+        public void setPrecioNetoMonLocal(decimal precio)
+        {
+            pNetoMonLocal = precio;
+        }
+        public void setPrecioFullMonReferencia(decimal precio)
+        {
+            pFullMonReferencia = precio;
+        }
+        //
         private decimal get_Neto(decimal pfull, decimal tasaIva)
         {
             var rt = pfull;
             if (tasaIva > 0m)
             {
                 rt = pfull / ((tasaIva / 100m) + 1m);
+                rt = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+            }
+            return rt;
+        }
+        public decimal Full(decimal monto)
+        {
+            var rt = monto;
+            if (tasaIva > 0m) 
+            {
+                rt=monto * ((tasaIva / 100m) + 1m);
                 rt = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
             }
             return rt;

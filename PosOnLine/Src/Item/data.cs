@@ -204,6 +204,17 @@ namespace PosOnLine.Src.Item
             _it.setAplicarPorctAumentoPrecio(modo);
         }
 
+        //
+        //
+        //
+        public void setCambioPrecio(decimal pneto, decimal pdivisa, bool aplicaPorcAumento)
+        {
+            _it.pneto = pneto;
+            _it.pfullDivisa = pdivisa;
+            _it.setAplicarPorctAumentoPrecio(aplicaPorcAumento);
+        }
+
+
 
 
         public decimal TasaCambio { get { return _tasaCambio; } }
