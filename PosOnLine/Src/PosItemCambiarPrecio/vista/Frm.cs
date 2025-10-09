@@ -29,6 +29,8 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
         {
             _modoInicializa = true;
             IrFocoPrincipal();
+            CHB_CAMBIAR_VARIOS_PRECIOS.Checked = _controlador.Get_OpcionPermitirCambiarVariosPrecios_IsActiva;
+            //
             L_PRODUCTO.Text = _controlador.Get_ProductoInfo;
             L_PRECIO_BS.Text = _controlador.Get_PrecioPagoBs.ToString("n2");
             L_PRODUCTO_NO_ADM_DIVISA.Text = "Precio Pago Producto No Divisa con " + _controlador.Get_PorctAumentoProductosNoDivisa.ToString("n2") + "%";
@@ -73,6 +75,11 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
             }
         }
         //
+        private void CHB_CAMBIAR_VARIOS_PRECIOS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_modoInicializa) return;
+            _controlador.setSwitchPermitirCambiarVariosPrecios(CHB_CAMBIAR_VARIOS_PRECIOS.Checked);
+        }
         private void RB_PAGO_BS_CheckedChanged(object sender, EventArgs e)
         {
             if (_modoInicializa) return;

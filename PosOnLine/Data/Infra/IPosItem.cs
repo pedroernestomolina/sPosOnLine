@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Infra
 {
-    public interface IUsuario
+    public interface IPosItem
     {
-        OOB.Resultado.FichaEntidad<OOB.Usuario.Entidad.Ficha> 
-            Usuario_Identificar(OOB.Usuario.Identificar.Ficha ficha);
+        OOB.Resultado.Ficha
+            PosItem_ActualizarPrecioPorCambioTasa(OOB.PosItem.ActualizarPrecioPorCambioTasa.Ficha ficha);
     }
 }

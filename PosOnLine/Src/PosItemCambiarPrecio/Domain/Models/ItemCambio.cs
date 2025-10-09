@@ -158,6 +158,5 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.Models
             }
             return rt;
         }
-
     }
 }

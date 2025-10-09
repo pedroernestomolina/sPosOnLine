@@ -19,6 +19,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
         private decimal _precioFullMonDivisaActualizado;
         private decimal _precioNetoMonActualActualizado;
         private decimal _porctAumentoPrdNoAdmDivisa;
+        private bool _opcionPermitirCambiarVariosPrecios;
         //
         public decimal Get_PrecioPagoBs { get { return _itemCambio.PrecioPagoBs; } }
         public decimal Get_PrecioPagoPrdNoDivisa { get { return _itemCambio.PrecioPagoPrdNoDivisa; } }
@@ -34,22 +35,29 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
         public bool ProcesarCambioIsOK { get { return _procesarCambioIsOK; } }
         public decimal PrecioFullMonDivisaActualizado { get { return _precioFullMonDivisaActualizado; } }
         public decimal PrecioNetoMonActualActualizado { get { return _precioNetoMonActualActualizado; } }
+        public Domain.Models.Usuario Get_UsuarioAutoriza { get { return _usuAutoriza; } }
+        public bool Get_OpcionPermitirCambiarVariosPrecios_IsActiva { get { return _opcionPermitirCambiarVariosPrecios; } }
         //
         public CambiarPrecioImpl()
         {
+            _opcionPermitirCambiarVariosPrecios=false;
             _precioFullMonDivisaActualizado = 0m;
             _precioNetoMonActualActualizado = 0m;
             _procesarCambioIsOK = false;
             _btAbandonar = new __.Ctrl.Boton.Abandonar.Imp();
             _btProcesar = new __.Ctrl.Boton.Procesar.Imp();
             _uc = new Domain.UseCase.UseCaseImpl();
-            _usuAutoriza = new Domain.Models.Usuario();
         }
-        public void Invoke(int idItem)
+        public void Invoke(int idItem, Domain.Models.Usuario autoriza)
         {
             setItemCambiarPrecio(idItem);
+            setAutoriza(autoriza);
             Inicializa();
             Inicia();
+        }
+        private void setAutoriza(Domain.Models.Usuario autoriza)
+        {
+            _usuAutoriza = autoriza;
         }
         private void setItemCambiarPrecio(int idItem)
         {
@@ -108,6 +116,10 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
                 _itemCambio.PorctAumentoPrdNoAdmPorDivisa=0m;
             }
         }
+        public void setSwitchPermitirCambiarVariosPrecios(bool sw)
+        {
+            _opcionPermitirCambiarVariosPrecios = sw;
+        }
         //
         private bool cargarData()
         {
@@ -115,6 +127,13 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
             {
                 _itemCambio = _uc.CargarItem(_idItemCambiarPrecio);
                 _porctAumentoPrdNoAdmDivisa = _itemCambio.PorctAumentoPrdNoAdmPorDivisa;
+                if (!_itemCambio.ProductoIsAdmPorDivisa) 
+                {
+                    if (!_itemCambio.Item.aplicaPorcAumento) 
+                    {
+                        _itemCambio.PorctAumentoPrdNoAdmPorDivisa = 0m;
+                    }
+                }
                 return true;
             }
             catch (Exception e)
@@ -126,12 +145,20 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
         public void AbandonarFicha()
         {
             _btAbandonar.Opcion();
+            if (_btAbandonar.OpcionIsOK) 
+            {
+                verificarOpcionPermitirCambiarVariosPrecios();
+            }
         }
         public void ProcesarCambio()
         {
             _procesarCambioIsOK = false;
             try
             {
+                if (_usuAutoriza == null) 
+                {
+                    throw new Exception("DEBES INDICAR QUIEN AUTORIZA ESTE CAMBIO");
+                }
                 if (Get_Utilidad < 0m)
                 {
                     throw new Exception("UTILIDAD NO PUEDE SER NEGATIVA");
@@ -140,7 +167,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
                 if (_btProcesar.OpcionIsOK) 
                 {
                     var _aplicarPorcAumento="N";
-                    if (Get_IsProductoAdmPorDivisa) 
+                    if (!Get_IsProductoAdmPorDivisa) 
                     {
                         _aplicarPorcAumento = DarPorcentajeAumento ? "" : "N";
                     }
@@ -171,6 +198,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
                     _precioFullMonDivisaActualizado =_itemCambio.Item.pFullMonReferencia;
                     _precioNetoMonActualActualizado = _itemCambio.Item.pNetoMonLocal;
                     _procesarCambioIsOK = true;
+                    verificarOpcionPermitirCambiarVariosPrecios();
                 }
             }
             catch (Exception e)
@@ -192,6 +220,13 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
                 var rt = 0m;
                 rt = (1m - (_itemCambio.CostoEmpqVta / Get_PrecioPagoBs)) * 100;
                 return rt;
+            }
+        }
+        private void verificarOpcionPermitirCambiarVariosPrecios()
+        {
+            if (!Get_OpcionPermitirCambiarVariosPrecios_IsActiva)
+            {
+                _usuAutoriza = null;
             }
         }
     }

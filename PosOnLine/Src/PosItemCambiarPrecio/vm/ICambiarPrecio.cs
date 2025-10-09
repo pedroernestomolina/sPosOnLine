@@ -21,15 +21,18 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
         decimal PrecioNetoMonActualActualizado { get; }
         decimal PrecioFullMonDivisaActualizado { get; }
         bool DarPorcentajeAumento { get; }
+        Domain.Models.Usuario Get_UsuarioAutoriza { get; }
+        bool Get_OpcionPermitirCambiarVariosPrecios_IsActiva { get; }
         bool AbandonarFichaIsOK { get; }
         bool ProcesarCambioIsOK { get; }
         //
-        void Invoke(int idItem);
         void setPagoMontoBs(decimal monto);
         void setPagoDivisa(decimal monto);
         void setPagoProductoNoDivisa(decimal monto);
         void setSwitchPorcentajeAumento(bool sw);
+        void setSwitchPermitirCambiarVariosPrecios(bool sw);
         void AbandonarFicha();
         void ProcesarCambio();
+        void Invoke(int idItem, Domain.Models.Usuario autoriza);
     }
 }

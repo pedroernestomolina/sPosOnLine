@@ -110,5 +110,20 @@ namespace PosOnLine.OOB.Venta.Item.Entidad
         {
             aplicarPorctAumento = modo ? "" : "N";
         }
+        //
+        //
+        public bool isDivisa { get { return estatusDivisa.Trim().ToUpper() == "1"; } }
+        public decimal pNetMonDivisa { get { return neto(pfullDivisa); } }
+        //
+        private decimal neto(decimal monto) 
+        {
+            var rt = monto;
+            if (tasaIva > 0m) 
+            {
+                rt = monto / ((tasaIva / 100m) + 1m);
+                rt = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+            }
+            return rt;
+        }
     }
 }

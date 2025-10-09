@@ -18,7 +18,8 @@ namespace PosOnLine.Data.Infra
         IMediosPago,
         IMoneda,
         ICuadreCierre,
-        IPosCambioPrecio
+        IPosCambioPrecio,
+        IPosItem
     {
         OOB.Resultado.FichaEntidad<DateTime> 
             FechaServidor();

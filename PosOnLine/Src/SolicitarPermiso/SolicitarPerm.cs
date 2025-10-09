@@ -8,20 +8,17 @@ using System.Threading.Tasks;
 namespace PosOnLine.Src.SolicitarPermiso
 {
     
-    public class SolicitarPerm: ISolicitarPermiso
+    public class SolicitarPerm: ISolicitarPermiso, IGestion
     {
-
         private string _usuario;
         private string _password;
         private bool _aceptarIsOk;
         private bool _abandonarIsOk;
-
-
+        //
         public bool IsOk { get { return _aceptarIsOk; } }
         public string GetUsuario { get { return _usuario; } }
         public string GetPassword { get { return _password; } }
-
-
+        //
         public SolicitarPerm() 
         {
             _aceptarIsOk = false;
@@ -29,8 +26,11 @@ namespace PosOnLine.Src.SolicitarPermiso
             _usuario = "";
             _password = "";
         }
-
-
+        public void Invoke()
+        {
+            Inicializa();
+            Inicia();
+        }
         public void Inicializa()
         {
             _aceptarIsOk = false;
@@ -51,13 +51,6 @@ namespace PosOnLine.Src.SolicitarPermiso
                 frm.ShowDialog();
             }
         }
-
-        private bool CargarData()
-        {
-            return true;
-        }
-
-
         public bool AceptarIsOk { get { return _aceptarIsOk; } }
         public bool AbandonarIsOk { get { return _abandonarIsOk; } }
         public void Aceptar()
@@ -76,7 +69,10 @@ namespace PosOnLine.Src.SolicitarPermiso
         {
             _password = p;
         }
-
+        //
+        private bool CargarData()
+        {
+            return true;
+        }
     }
-
 }

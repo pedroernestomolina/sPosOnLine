@@ -49,14 +49,17 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.panel23 = new System.Windows.Forms.Panel();
+            this.TB_PAGO_BS = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel13 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.panel27 = new System.Windows.Forms.Panel();
             this.L_PRECIO_BS = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
+            this.L_PRODUCTO_NO_ADM_DIVISA = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.panel25 = new System.Windows.Forms.Panel();
+            this.TB_PAGO_NO_DIVISA = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel18 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.panel29 = new System.Windows.Forms.Panel();
@@ -66,6 +69,7 @@
             this.panel21 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.panel26 = new System.Windows.Forms.Panel();
+            this.TB_PAGO_DIVISA = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel22 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.panel31 = new System.Windows.Forms.Panel();
@@ -80,6 +84,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel30 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.panel38 = new System.Windows.Forms.Panel();
+            this.CHB_ACTIVAR_PORC_AUMENTO = new System.Windows.Forms.CheckBox();
             this.P_INFO = new System.Windows.Forms.Panel();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -104,12 +110,6 @@
             this.BT_SALIR = new System.Windows.Forms.Button();
             this.panel20 = new System.Windows.Forms.Panel();
             this.BT_ACEPTAR = new System.Windows.Forms.Button();
-            this.panel38 = new System.Windows.Forms.Panel();
-            this.CHB_ACTIVAR_PORC_AUMENTO = new System.Windows.Forms.CheckBox();
-            this.L_PRODUCTO_NO_ADM_DIVISA = new System.Windows.Forms.Label();
-            this.TB_PAGO_BS = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
-            this.TB_PAGO_NO_DIVISA = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
-            this.TB_PAGO_DIVISA = new PosOnLine.Lib.Controles.Numero.NumeroDecimal();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -148,6 +148,7 @@
             this.P_UTILIDAD.SuspendLayout();
             this.panel28.SuspendLayout();
             this.panel30.SuspendLayout();
+            this.panel38.SuspendLayout();
             this.P_INFO.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -161,7 +162,6 @@
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel20.SuspendLayout();
-            this.panel38.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -269,6 +269,7 @@
             this.CHB_CAMBIAR_VARIOS_PRECIOS.Text = "Cambiar Varios Precios";
             this.CHB_CAMBIAR_VARIOS_PRECIOS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CHB_CAMBIAR_VARIOS_PRECIOS.UseVisualStyleBackColor = true;
+            this.CHB_CAMBIAR_VARIOS_PRECIOS.CheckedChanged += new System.EventHandler(this.CHB_CAMBIAR_VARIOS_PRECIOS_CheckedChanged);
             // 
             // panel3
             // 
@@ -367,7 +368,7 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.72528F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.73993F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tableLayoutPanel6.Controls.Add(this.panel11, 2, 1);
             this.tableLayoutPanel6.Controls.Add(this.panel12, 3, 1);
             this.tableLayoutPanel6.Controls.Add(this.panel13, 4, 1);
@@ -403,7 +404,7 @@
             this.panel11.Margin = new System.Windows.Forms.Padding(1);
             this.panel11.Name = "panel11";
             this.panel11.Padding = new System.Windows.Forms.Padding(2);
-            this.panel11.Size = new System.Drawing.Size(188, 43);
+            this.panel11.Size = new System.Drawing.Size(187, 43);
             this.panel11.TabIndex = 0;
             // 
             // label3
@@ -412,7 +413,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(2, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(184, 39);
+            this.label3.Size = new System.Drawing.Size(183, 39);
             this.label3.TabIndex = 1;
             this.label3.Text = "Precio Pago (Bs):";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -421,7 +422,7 @@
             // 
             this.panel12.Controls.Add(this.tableLayoutPanel7);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(231, 21);
+            this.panel12.Location = new System.Drawing.Point(230, 21);
             this.panel12.Margin = new System.Windows.Forms.Padding(1);
             this.panel12.Name = "panel12";
             this.panel12.Padding = new System.Windows.Forms.Padding(2);
@@ -457,11 +458,27 @@
             this.panel23.Size = new System.Drawing.Size(131, 29);
             this.panel23.TabIndex = 0;
             // 
+            // TB_PAGO_BS
+            // 
+            this.TB_PAGO_BS.BackColor = System.Drawing.Color.Yellow;
+            this.TB_PAGO_BS.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TB_PAGO_BS.Enabled = false;
+            this.TB_PAGO_BS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_PAGO_BS.Location = new System.Drawing.Point(1, 1);
+            this.TB_PAGO_BS.MaxLength = 14;
+            this.TB_PAGO_BS.Name = "TB_PAGO_BS";
+            this.TB_PAGO_BS.Size = new System.Drawing.Size(129, 26);
+            this.TB_PAGO_BS.TabIndex = 0;
+            this.TB_PAGO_BS.Text = "0,00";
+            this.TB_PAGO_BS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TB_PAGO_BS.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Frm_KeyDown);
+            this.TB_PAGO_BS.Leave += new System.EventHandler(this.TB_PAGO_BS_Leave);
+            // 
             // panel13
             // 
             this.panel13.Controls.Add(this.tableLayoutPanel10);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(378, 21);
+            this.panel13.Location = new System.Drawing.Point(377, 21);
             this.panel13.Margin = new System.Windows.Forms.Padding(1);
             this.panel13.Name = "panel13";
             this.panel13.Padding = new System.Windows.Forms.Padding(2);
@@ -513,14 +530,25 @@
             this.panel14.Margin = new System.Windows.Forms.Padding(1);
             this.panel14.Name = "panel14";
             this.panel14.Padding = new System.Windows.Forms.Padding(2);
-            this.panel14.Size = new System.Drawing.Size(188, 43);
+            this.panel14.Size = new System.Drawing.Size(187, 43);
             this.panel14.TabIndex = 3;
+            // 
+            // L_PRODUCTO_NO_ADM_DIVISA
+            // 
+            this.L_PRODUCTO_NO_ADM_DIVISA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_PRODUCTO_NO_ADM_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_PRODUCTO_NO_ADM_DIVISA.Location = new System.Drawing.Point(2, 2);
+            this.L_PRODUCTO_NO_ADM_DIVISA.Name = "L_PRODUCTO_NO_ADM_DIVISA";
+            this.L_PRODUCTO_NO_ADM_DIVISA.Size = new System.Drawing.Size(183, 39);
+            this.L_PRODUCTO_NO_ADM_DIVISA.TabIndex = 2;
+            this.L_PRODUCTO_NO_ADM_DIVISA.Text = "Precio Pago (Bs):";
+            this.L_PRODUCTO_NO_ADM_DIVISA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panel15
             // 
             this.panel15.Controls.Add(this.tableLayoutPanel8);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(231, 66);
+            this.panel15.Location = new System.Drawing.Point(230, 66);
             this.panel15.Margin = new System.Windows.Forms.Padding(1);
             this.panel15.Name = "panel15";
             this.panel15.Padding = new System.Windows.Forms.Padding(2);
@@ -556,11 +584,27 @@
             this.panel25.Size = new System.Drawing.Size(131, 29);
             this.panel25.TabIndex = 0;
             // 
+            // TB_PAGO_NO_DIVISA
+            // 
+            this.TB_PAGO_NO_DIVISA.BackColor = System.Drawing.Color.Yellow;
+            this.TB_PAGO_NO_DIVISA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TB_PAGO_NO_DIVISA.Enabled = false;
+            this.TB_PAGO_NO_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_PAGO_NO_DIVISA.Location = new System.Drawing.Point(1, 1);
+            this.TB_PAGO_NO_DIVISA.MaxLength = 14;
+            this.TB_PAGO_NO_DIVISA.Name = "TB_PAGO_NO_DIVISA";
+            this.TB_PAGO_NO_DIVISA.Size = new System.Drawing.Size(129, 26);
+            this.TB_PAGO_NO_DIVISA.TabIndex = 0;
+            this.TB_PAGO_NO_DIVISA.Text = "0,00";
+            this.TB_PAGO_NO_DIVISA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TB_PAGO_NO_DIVISA.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Frm_KeyDown);
+            this.TB_PAGO_NO_DIVISA.Leave += new System.EventHandler(this.TB_PAGO_NO_DIVISA_Leave);
+            // 
             // panel18
             // 
             this.panel18.Controls.Add(this.tableLayoutPanel11);
             this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel18.Location = new System.Drawing.Point(378, 66);
+            this.panel18.Location = new System.Drawing.Point(377, 66);
             this.panel18.Margin = new System.Windows.Forms.Padding(1);
             this.panel18.Name = "panel18";
             this.panel18.Padding = new System.Windows.Forms.Padding(2);
@@ -612,7 +656,7 @@
             this.panel19.Margin = new System.Windows.Forms.Padding(1);
             this.panel19.Name = "panel19";
             this.panel19.Padding = new System.Windows.Forms.Padding(2);
-            this.panel19.Size = new System.Drawing.Size(188, 43);
+            this.panel19.Size = new System.Drawing.Size(187, 43);
             this.panel19.TabIndex = 6;
             // 
             // label4
@@ -621,7 +665,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(2, 2);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(184, 39);
+            this.label4.Size = new System.Drawing.Size(183, 39);
             this.label4.TabIndex = 2;
             this.label4.Text = "Precio Pago ($):";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -630,7 +674,7 @@
             // 
             this.panel21.Controls.Add(this.tableLayoutPanel9);
             this.panel21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel21.Location = new System.Drawing.Point(231, 111);
+            this.panel21.Location = new System.Drawing.Point(230, 111);
             this.panel21.Margin = new System.Windows.Forms.Padding(1);
             this.panel21.Name = "panel21";
             this.panel21.Padding = new System.Windows.Forms.Padding(2);
@@ -666,11 +710,27 @@
             this.panel26.Size = new System.Drawing.Size(131, 29);
             this.panel26.TabIndex = 0;
             // 
+            // TB_PAGO_DIVISA
+            // 
+            this.TB_PAGO_DIVISA.BackColor = System.Drawing.Color.Yellow;
+            this.TB_PAGO_DIVISA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TB_PAGO_DIVISA.Enabled = false;
+            this.TB_PAGO_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_PAGO_DIVISA.Location = new System.Drawing.Point(1, 1);
+            this.TB_PAGO_DIVISA.MaxLength = 14;
+            this.TB_PAGO_DIVISA.Name = "TB_PAGO_DIVISA";
+            this.TB_PAGO_DIVISA.Size = new System.Drawing.Size(129, 26);
+            this.TB_PAGO_DIVISA.TabIndex = 0;
+            this.TB_PAGO_DIVISA.Text = "0,00";
+            this.TB_PAGO_DIVISA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TB_PAGO_DIVISA.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Frm_KeyDown);
+            this.TB_PAGO_DIVISA.Leave += new System.EventHandler(this.TB_PAGO_DIVISA_Leave);
+            // 
             // panel22
             // 
             this.panel22.Controls.Add(this.tableLayoutPanel12);
             this.panel22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel22.Location = new System.Drawing.Point(378, 111);
+            this.panel22.Location = new System.Drawing.Point(377, 111);
             this.panel22.Margin = new System.Windows.Forms.Padding(1);
             this.panel22.Name = "panel22";
             this.panel22.Padding = new System.Windows.Forms.Padding(2);
@@ -770,7 +830,7 @@
             this.P_UTILIDAD.Controls.Add(this.L_UTILIDAD);
             this.P_UTILIDAD.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_UTILIDAD.ForeColor = System.Drawing.Color.White;
-            this.P_UTILIDAD.Location = new System.Drawing.Point(539, 23);
+            this.P_UTILIDAD.Location = new System.Drawing.Point(538, 23);
             this.P_UTILIDAD.Name = "P_UTILIDAD";
             this.P_UTILIDAD.Padding = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel6.SetRowSpan(this.P_UTILIDAD, 3);
@@ -792,7 +852,7 @@
             // 
             this.panel28.Controls.Add(this.label2);
             this.panel28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel28.Location = new System.Drawing.Point(378, 1);
+            this.panel28.Location = new System.Drawing.Point(377, 1);
             this.panel28.Margin = new System.Windows.Forms.Padding(1);
             this.panel28.Name = "panel28";
             this.panel28.Padding = new System.Windows.Forms.Padding(2);
@@ -814,7 +874,7 @@
             // 
             this.panel30.Controls.Add(this.label5);
             this.panel30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel30.Location = new System.Drawing.Point(537, 1);
+            this.panel30.Location = new System.Drawing.Point(536, 1);
             this.panel30.Margin = new System.Windows.Forms.Padding(1);
             this.panel30.Name = "panel30";
             this.panel30.Padding = new System.Windows.Forms.Padding(2);
@@ -831,6 +891,30 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Utilidad";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel38
+            // 
+            this.tableLayoutPanel6.SetColumnSpan(this.panel38, 5);
+            this.panel38.Controls.Add(this.CHB_ACTIVAR_PORC_AUMENTO);
+            this.panel38.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel38.Location = new System.Drawing.Point(11, 156);
+            this.panel38.Margin = new System.Windows.Forms.Padding(1);
+            this.panel38.Name = "panel38";
+            this.panel38.Padding = new System.Windows.Forms.Padding(2);
+            this.panel38.Size = new System.Drawing.Size(622, 29);
+            this.panel38.TabIndex = 13;
+            // 
+            // CHB_ACTIVAR_PORC_AUMENTO
+            // 
+            this.CHB_ACTIVAR_PORC_AUMENTO.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CHB_ACTIVAR_PORC_AUMENTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CHB_ACTIVAR_PORC_AUMENTO.Location = new System.Drawing.Point(2, 2);
+            this.CHB_ACTIVAR_PORC_AUMENTO.Name = "CHB_ACTIVAR_PORC_AUMENTO";
+            this.CHB_ACTIVAR_PORC_AUMENTO.Size = new System.Drawing.Size(618, 25);
+            this.CHB_ACTIVAR_PORC_AUMENTO.TabIndex = 1;
+            this.CHB_ACTIVAR_PORC_AUMENTO.Text = "Activar Porcentaje Aumento Para Productos No Administrado Por Divisa";
+            this.CHB_ACTIVAR_PORC_AUMENTO.UseVisualStyleBackColor = true;
+            this.CHB_ACTIVAR_PORC_AUMENTO.CheckedChanged += new System.EventHandler(this.CHB_ACTIVAR_PORC_AUMENTO_CheckedChanged);
             // 
             // P_INFO
             // 
@@ -1127,89 +1211,6 @@
             this.BT_ACEPTAR.UseVisualStyleBackColor = true;
             this.BT_ACEPTAR.Click += new System.EventHandler(this.BT_ACEPTAR_Click);
             // 
-            // panel38
-            // 
-            this.tableLayoutPanel6.SetColumnSpan(this.panel38, 5);
-            this.panel38.Controls.Add(this.CHB_ACTIVAR_PORC_AUMENTO);
-            this.panel38.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel38.Location = new System.Drawing.Point(11, 156);
-            this.panel38.Margin = new System.Windows.Forms.Padding(1);
-            this.panel38.Name = "panel38";
-            this.panel38.Padding = new System.Windows.Forms.Padding(2);
-            this.panel38.Size = new System.Drawing.Size(623, 29);
-            this.panel38.TabIndex = 13;
-            // 
-            // CHB_ACTIVAR_PORC_AUMENTO
-            // 
-            this.CHB_ACTIVAR_PORC_AUMENTO.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CHB_ACTIVAR_PORC_AUMENTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CHB_ACTIVAR_PORC_AUMENTO.Location = new System.Drawing.Point(2, 2);
-            this.CHB_ACTIVAR_PORC_AUMENTO.Name = "CHB_ACTIVAR_PORC_AUMENTO";
-            this.CHB_ACTIVAR_PORC_AUMENTO.Size = new System.Drawing.Size(619, 25);
-            this.CHB_ACTIVAR_PORC_AUMENTO.TabIndex = 1;
-            this.CHB_ACTIVAR_PORC_AUMENTO.Text = "Activar Porcentaje Aumento Para Productos No Administrado Por Divisa";
-            this.CHB_ACTIVAR_PORC_AUMENTO.UseVisualStyleBackColor = true;
-            this.CHB_ACTIVAR_PORC_AUMENTO.CheckedChanged += new System.EventHandler(this.CHB_ACTIVAR_PORC_AUMENTO_CheckedChanged);
-            // 
-            // L_PRODUCTO_NO_ADM_DIVISA
-            // 
-            this.L_PRODUCTO_NO_ADM_DIVISA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L_PRODUCTO_NO_ADM_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L_PRODUCTO_NO_ADM_DIVISA.Location = new System.Drawing.Point(2, 2);
-            this.L_PRODUCTO_NO_ADM_DIVISA.Name = "L_PRODUCTO_NO_ADM_DIVISA";
-            this.L_PRODUCTO_NO_ADM_DIVISA.Size = new System.Drawing.Size(184, 39);
-            this.L_PRODUCTO_NO_ADM_DIVISA.TabIndex = 2;
-            this.L_PRODUCTO_NO_ADM_DIVISA.Text = "Precio Pago (Bs):";
-            this.L_PRODUCTO_NO_ADM_DIVISA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // TB_PAGO_BS
-            // 
-            this.TB_PAGO_BS.BackColor = System.Drawing.Color.Yellow;
-            this.TB_PAGO_BS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TB_PAGO_BS.Enabled = false;
-            this.TB_PAGO_BS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_PAGO_BS.Location = new System.Drawing.Point(1, 1);
-            this.TB_PAGO_BS.MaxLength = 14;
-            this.TB_PAGO_BS.Name = "TB_PAGO_BS";
-            this.TB_PAGO_BS.Size = new System.Drawing.Size(129, 26);
-            this.TB_PAGO_BS.TabIndex = 0;
-            this.TB_PAGO_BS.Text = "0,00";
-            this.TB_PAGO_BS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TB_PAGO_BS.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Frm_KeyDown);
-            this.TB_PAGO_BS.Leave += new System.EventHandler(this.TB_PAGO_BS_Leave);
-            // 
-            // TB_PAGO_NO_DIVISA
-            // 
-            this.TB_PAGO_NO_DIVISA.BackColor = System.Drawing.Color.Yellow;
-            this.TB_PAGO_NO_DIVISA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TB_PAGO_NO_DIVISA.Enabled = false;
-            this.TB_PAGO_NO_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_PAGO_NO_DIVISA.Location = new System.Drawing.Point(1, 1);
-            this.TB_PAGO_NO_DIVISA.MaxLength = 14;
-            this.TB_PAGO_NO_DIVISA.Name = "TB_PAGO_NO_DIVISA";
-            this.TB_PAGO_NO_DIVISA.Size = new System.Drawing.Size(129, 26);
-            this.TB_PAGO_NO_DIVISA.TabIndex = 0;
-            this.TB_PAGO_NO_DIVISA.Text = "0,00";
-            this.TB_PAGO_NO_DIVISA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TB_PAGO_NO_DIVISA.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Frm_KeyDown);
-            this.TB_PAGO_NO_DIVISA.Leave += new System.EventHandler(this.TB_PAGO_NO_DIVISA_Leave);
-            // 
-            // TB_PAGO_DIVISA
-            // 
-            this.TB_PAGO_DIVISA.BackColor = System.Drawing.Color.Yellow;
-            this.TB_PAGO_DIVISA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TB_PAGO_DIVISA.Enabled = false;
-            this.TB_PAGO_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_PAGO_DIVISA.Location = new System.Drawing.Point(1, 1);
-            this.TB_PAGO_DIVISA.MaxLength = 14;
-            this.TB_PAGO_DIVISA.Name = "TB_PAGO_DIVISA";
-            this.TB_PAGO_DIVISA.Size = new System.Drawing.Size(129, 26);
-            this.TB_PAGO_DIVISA.TabIndex = 0;
-            this.TB_PAGO_DIVISA.Text = "0,00";
-            this.TB_PAGO_DIVISA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TB_PAGO_DIVISA.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Frm_KeyDown);
-            this.TB_PAGO_DIVISA.Leave += new System.EventHandler(this.TB_PAGO_DIVISA_Leave);
-            // 
             // Frm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1268,6 +1269,7 @@
             this.P_UTILIDAD.ResumeLayout(false);
             this.panel28.ResumeLayout(false);
             this.panel30.ResumeLayout(false);
+            this.panel38.ResumeLayout(false);
             this.P_INFO.ResumeLayout(false);
             this.tableLayoutPanel13.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -1282,7 +1284,6 @@
             this.panel5.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
-            this.panel38.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

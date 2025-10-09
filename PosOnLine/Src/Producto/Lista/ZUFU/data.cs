@@ -162,12 +162,14 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU
             var rt = "";
             if (_habilitarBonoDivisa)// && _ficha.EsAdmDivisa)
             {
-                var _factor = ((_porctBonoDivisa / 100) + 1);
+                //var _factor = ((_porctBonoDivisa / 100) + 1);
+                var _factor = ((100m - _porctBonoDivisa) / 100m);
                 if (_factor > 0m)
                 {
                     //rt += (montoLocal / _factor).ToString("n2") + "/ ( $ ";
                     //rt += (montoDivisa / _factor).ToString("n2") + " )";
-                    var _montoDivisa = montoDivisa / _factor;
+                    //var _montoDivisa = montoDivisa / _factor;
+                    var _montoDivisa = montoDivisa * _factor;
                     _montoDivisa = Math.Round(_montoDivisa, 2, MidpointRounding.AwayFromZero);
                     var _montoLocal = _montoDivisa * _factorCambio;
                     _montoLocal = Math.Round(_montoLocal, 2, MidpointRounding.AwayFromZero);

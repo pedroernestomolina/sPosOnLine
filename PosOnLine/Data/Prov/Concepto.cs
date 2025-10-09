@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Data.Prov
 {
-    
     public partial class DataPrv: IData
     {
-
         public OOB.Resultado.FichaEntidad<OOB.Concepto.Entidad.Ficha> 
             Concepto_GetFichaById(string id)
         {
@@ -71,7 +69,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

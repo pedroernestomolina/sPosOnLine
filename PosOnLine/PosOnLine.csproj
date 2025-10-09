@@ -109,6 +109,7 @@
     <Compile Include="Data\Infra\IPendiente.cs" />
     <Compile Include="Data\Infra\IPermiso.cs" />
     <Compile Include="Data\Infra\IPosCambioPrecio.cs" />
+    <Compile Include="Data\Infra\IPosItem.cs" />
     <Compile Include="Data\Infra\IProducto.cs" />
     <Compile Include="Data\Infra\IProducto_ModoAdm.cs" />
     <Compile Include="Data\Infra\IReportePos.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Data\Prov\Pendiente.cs" />
     <Compile Include="Data\Prov\Permiso.cs" />
     <Compile Include="Data\Prov\PosCambioPrecio.cs" />
+    <Compile Include="Data\Prov\PosItem.cs" />
     <Compile Include="Data\Prov\Producto.cs" />
     <Compile Include="Data\Prov\Producto_ModoAdm.cs" />
     <Compile Include="Data\Prov\ReportesPos.cs" />
@@ -383,6 +385,8 @@
     <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\DataItem.cs" />
     <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\Ficha.cs" />
     <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\LogReg.cs" />
+    <Compile Include="OOB\PosItem\ActualizarPrecioPorCambioTasa\Ficha.cs" />
+    <Compile Include="OOB\PosItem\ActualizarPrecioPorCambioTasa\Item.cs" />
     <Compile Include="OOB\Pos\Abrir\Arqueo.cs" />
     <Compile Include="OOB\Pos\Abrir\Ficha.cs" />
     <Compile Include="OOB\Pos\Abrir\Operador.cs" />
@@ -672,6 +676,9 @@
     </Compile>
     <Compile Include="Src\PosItemCambiarPrecio\vm\CambiarPrecioImpl.cs" />
     <Compile Include="Src\PosItemCambiarPrecio\vm\ICambiarPrecio.cs" />
+    <Compile Include="Src\PosSolicitudUsuarioAdm\Domain\Models\UsuarioAutoriza.cs" />
+    <Compile Include="Src\PosSolicitudUsuarioAdm\vm\ISolicitudUsuarioAdm.cs" />
+    <Compile Include="Src\PosSolicitudUsuarioAdm\vm\SolicitudUsuarioAdmImpl.cs" />
     <Compile Include="Src\_Domain\IRepo.cs" />
     <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoDetalleImpl.cs" />
     <Compile Include="Src\FabModAdm.cs" />

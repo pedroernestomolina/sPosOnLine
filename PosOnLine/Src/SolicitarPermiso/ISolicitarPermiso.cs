@@ -7,22 +7,19 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.SolicitarPermiso
 {
-    
-    public interface ISolicitarPermiso: IGestion
+    public interface ISolicitarPermiso
     {
-
         bool IsOk { get; }
         string GetUsuario { get; }
         string GetPassword { get; }
         bool AceptarIsOk { get; }
         bool AbandonarIsOk { get; }
-
-
+        //
         void Aceptar();
         void Abandonar();
         void setUsuario(string p);
         void setClave(string p);
-
+        //
+        void Invoke();
     }
-
 }

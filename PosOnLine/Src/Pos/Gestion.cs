@@ -61,7 +61,6 @@ namespace PosOnLine.Src.Pos
         private bool _isTickeraOk;
 
         private PrecioMayor.IModo _gestionMayor;
-        private SolicitarPermiso.ISolicitarPermiso _gSolicitarPermiso;
         private IMultiplicar _gMultiplicar;
         //
         private OOB.Vendedor.Entidad.Ficha _vendedorPorDefecto;
@@ -74,10 +73,14 @@ namespace PosOnLine.Src.Pos
         //
         private Helpers.Imprimir.DocumentoTicket _imprimirDocTick;
 
-        //
-        private FormaPago.vm.IFormaPago _formaPago;
 
         //
+        private FormaPago.vm.IFormaPago _formaPago;
+        private PosItemCambiarPrecio.vm.ICambiarPrecio _vmCambioprecio;
+        private PosSolicitudUsuarioAdm.vm.ISolicitudUsuarioAdm _vmSolicitarPermiso;
+        //
+
+
         public Decimal TasaCambioActual { get { return _tasaCambioActual; } }
         public string UsuarioActual { get { return Sistema.Usuario.codigo + Environment.NewLine + Sistema.Usuario.nombre; } }
         public string EquipoEstacion { get { return Sistema.EquipoEstacion; } }
@@ -159,13 +162,18 @@ namespace PosOnLine.Src.Pos
             //_gestionProcesarPago = new Pago.Procesar.Gestion();
             _gestionProcesarPago = new Pago.ZUFU.ImpProcesar();
 
-            _gSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
             //
             _clienteFicha = null;
+
+
 
             //
             // NEW
             _formaPago = new FormaPago.vm.FormaPagoImpl();
+            _vmSolicitarPermiso = new PosSolicitudUsuarioAdm.vm.SolicitudUsuarioAdmImpl();
+            _vmCambioprecio = new PosItemCambiarPrecio.vm.CambiarPrecioImpl();
+            //
+            //
         }
 
 
@@ -471,6 +479,39 @@ namespace PosOnLine.Src.Pos
                 _gestionItem.setHabilitarPrecio5VentaMayor(r04.Entidad);
                 if (!IsNotaCredito)
                 {
+
+                    var _lst = new List<OOB.PosItem.ActualizarPrecioPorCambioTasa.Item>();
+                    foreach (var rg in r03.ListaD)
+                    {
+                        if (rg.isDivisa)
+                        {
+                            var neto = rg.pNetMonDivisa * _tasaCambioSistema;
+                            neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
+                            rg.pneto = neto;
+                        }
+                        else
+                        {
+                            var neto = rg.pNetMonDivisa * _tasaCambioActual;
+                            neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
+                            rg.pneto = neto;
+                        }
+                        _lst.Add(new OOB.PosItem.ActualizarPrecioPorCambioTasa.Item()
+                        {
+                            idItem=rg.id,
+                            precioNeto=rg.pneto,
+                        });
+                    }
+                    var fichaOOB = new OOB.PosItem.ActualizarPrecioPorCambioTasa.Ficha()
+                    {
+                        items = _lst,
+                    };
+                    var rstItem = Sistema.MyData.PosItem_ActualizarPrecioPorCambioTasa(fichaOOB);
+                    if (rstItem.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                    {
+                        throw new Exception(rstItem.Mensaje);
+                    }
+                    //
+
                     _gestionItem.setData(r03.ListaD, _tasaCambioActual);
                 }
                 else
@@ -766,6 +807,23 @@ namespace PosOnLine.Src.Pos
                 Helpers.Msg.Error(r01.Mensaje);
                 return;
             }
+
+            foreach (var rg in r01.ListaD) 
+            {
+                if (rg.isDivisa)
+                {
+                    var neto = rg.pNetMonDivisa * _tasaCambioSistema;
+                    neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
+                    rg.pneto = neto;
+                }
+                else 
+                {
+                    var neto = rg.pNetMonDivisa * _tasaCambioActual;
+                    neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
+                    rg.pneto = neto;
+                }
+            }
+
             _gestionItem.setData(r01.ListaD, _tasaCambioActual);
         }
 
@@ -1190,76 +1248,49 @@ namespace PosOnLine.Src.Pos
 
 
 
-        private PosItemCambiarPrecio.vm.ICambiarPrecio _vmCambioprecio;
-        private OOB.Usuario.Entidad.Ficha _usuAutoria;
         public void CambiarPrecio()
         {
             if (_modoFuncion == EnumModoFuncion.NotaCredito) { return; }
             if (_gestionItem.DataItemActual == null) { return; }
-
-
-
             //
-            // Metodo Para Cambiar Precio
-            var _idItem = _gestionItem.DataItemActual.Id;
-            if (_vmCambioprecio == null)
+            var seg = false;
+            PosItemCambiarPrecio.Domain.Models.Usuario autoriza = null;
+            if (_vmCambioprecio.Get_OpcionPermitirCambiarVariosPrecios_IsActiva &&
+                _vmCambioprecio.Get_UsuarioAutoriza != null)
             {
-                _vmCambioprecio = new PosItemCambiarPrecio.vm.CambiarPrecioImpl();
+                seg = true;
+                autoriza = _vmCambioprecio.Get_UsuarioAutoriza;
             }
-            _vmCambioprecio.Invoke(_idItem);
-            if (_vmCambioprecio.ProcesarCambioIsOK) 
+            else 
             {
-                decimal pNeto = _vmCambioprecio.PrecioNetoMonActualActualizado;
-                decimal pFull = _vmCambioprecio.PrecioFullMonDivisaActualizado;
-                bool darPorctAumento = _vmCambioprecio.DarPorcentajeAumento;
-                _gestionItem.DataItemActual.setCambioPrecio(pNeto, pFull, darPorctAumento);
-            }
-            //
-            //
-
-
-
-            if (_gCambioPrecio == null)
-            {
-                _gCambioPrecio = Sistema.MiFabrica.CreateInstace_PosCambioPrecioPrd();
-                if (_gCambioPrecio == null) { return; }
-            }
-            //
-            if (_gCambioPrecio.ActivarVariosCambiosIsOk && _usuAutoria != null)
-            {
-                _gCambioPrecio.Inicializa();
-                _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
-                _gCambioPrecio.setUsuarioAutoriza(_usuAutoria);
-                _gCambioPrecio.Inicia();
-                if (_gCambioPrecio.CambioPrecioIsOk)
+                _vmSolicitarPermiso.Invoke();
+                if (_vmSolicitarPermiso.Get_AutorizaPermisoIsOk) 
                 {
-                    _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
-                    _gestionItem.DataItemActual.setAplicarPorctAumentoPrecio(_gCambioPrecio.AplicarPorctAumentoPrecio.Trim().ToUpper() == "");
-                }
-            }
-            else
-            {
-                _gSolicitarPermiso.Inicializa();
-                _gSolicitarPermiso.Inicia();
-                if (!_gSolicitarPermiso.IsOk)
-                {
-                    return;
-                }
-                var _usu = _gSolicitarPermiso.GetUsuario;
-                var _psw = _gSolicitarPermiso.GetPassword;
-                _usuAutoria = Helpers.VerificarPermiso.Verificar(_usu, _psw);
-                if (_usuAutoria != null)
-                {
-                    _gCambioPrecio.Inicializa();
-                    _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
-                    _gCambioPrecio.setUsuarioAutoriza(_usuAutoria);
-                    _gCambioPrecio.Inicia();
-                    if (_gCambioPrecio.CambioPrecioIsOk)
+                    seg = true;
+                    var usu = _vmSolicitarPermiso.Get_UsuarioAutorizoPermiso;
+                    autoriza = new PosItemCambiarPrecio.Domain.Models.Usuario()
                     {
-                        _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
-                        _gestionItem.DataItemActual.setAplicarPorctAumentoPrecio(_gCambioPrecio.AplicarPorctAumentoPrecio.Trim().ToUpper() == "");
-                    }
+                        codigoUsu = usu.codigoUsu,
+                        idUsu = usu.idUsu,
+                        NombreUsu = usu.nombreUsu,
+                    };
                 }
+            }
+            if (seg)
+            {
+                //
+                // Metodo Para Cambiar Precio
+                var _idItem = _gestionItem.DataItemActual.Id;
+                _vmCambioprecio.Invoke(_idItem, autoriza);
+                if (_vmCambioprecio.ProcesarCambioIsOK)
+                {
+                    decimal pNeto = _vmCambioprecio.PrecioNetoMonActualActualizado;
+                    decimal pFull = _vmCambioprecio.PrecioFullMonDivisaActualizado;
+                    bool darPorctAumento = _vmCambioprecio.DarPorcentajeAumento;
+                    _gestionItem.DataItemActual.setCambioPrecio(pNeto, pFull, darPorctAumento);
+                }
+                //
+                //
             }
         }
 
@@ -2964,14 +2995,14 @@ namespace PosOnLine.Src.Pos
                             OpAplicaConversion = _aplicaFactorConversion,
                             CodigoSucursal = _sucursalAsignada.codigo,
                             //
-                            MontoMonedaRecibe=it.montoIngresado,
-                            CodigoMonedaRecibe=it.medioPago.codigoCurrencies,
-                            SimboloMonedaRecibe=it.medioPago.simboloCurrencies,
-                            TasaMonedaRecibe=it.factorCambioMedioPago,
-                            LoteNroMonedaRecibe=it.lote,
-                            ReferenciaNroMonedaRecibe=it.referencia,
-                            MontoMonedaLocal=it.montoMonedaLocal,
-                            MontoMonedaReferencia=it.montoMonedaRefenencia,
+                            MontoMonedaRecibe = it.montoIngresado,
+                            CodigoMonedaRecibe = it.medioPago.codigoCurrencies,
+                            SimboloMonedaRecibe = it.medioPago.simboloCurrencies,
+                            TasaMonedaRecibe = it.factorCambioMedioPago,
+                            LoteNroMonedaRecibe = it.lote,
+                            ReferenciaNroMonedaRecibe = it.referencia,
+                            MontoMonedaLocal = it.montoMonedaLocal,
+                            MontoMonedaReferencia = it.montoMonedaRefenencia,
                         });
                     }
                     if (_dataRetFormaPago.FPBonoPorDivisa != null)
@@ -3228,7 +3259,6 @@ namespace PosOnLine.Src.Pos
                 var dsctoFinal = 0.0m;
                 dsctoFinal = _docAplicarNotaCredito.cuerpo.Descuento1p;
                 _gestionItem.setDescuentoFinal(dsctoFinal);
-                _gestionProcesarPago.setDescuento(dsctoFinal);
 
 
                 var isCredito = _dataRetFormaPago.IsCreditoOk;
@@ -6018,3 +6048,104 @@ private void printDocument2_PrintPage(object sender, System.Drawing.Printing.Pri
     //_ImprimirDoc = null;
 }
  */
+
+
+
+
+
+/*
+        private OOB.Usuario.Entidad.Ficha _usuAutoria;
+        public void CambiarPrecio()
+        {
+            if (_modoFuncion == EnumModoFuncion.NotaCredito) { return; }
+            if (_gestionItem.DataItemActual == null) { return; }
+
+
+            var seg = false;
+            PosItemCambiarPrecio.Domain.Models.Usuario autoriza = null;
+            if (_vmCambioprecio.Get_OpcionPermitirCambiarVariosPrecios_IsActiva &&
+                _vmCambioprecio.Get_UsuarioAutoriza != null)
+            {
+                seg = true;
+                autoriza = _vmCambioprecio.Get_UsuarioAutoriza;
+            }
+            else 
+            {
+                _vmSolicitarPermiso.Invoke();
+                if (_vmSolicitarPermiso.Get_AutorizaPermisoIsOk) 
+                {
+                    seg = true;
+                    var usu = _vmSolicitarPermiso.Get_UsuarioAutorizoPermiso;
+                    autoriza = new PosItemCambiarPrecio.Domain.Models.Usuario()
+                    {
+                        codigoUsu = usu.codigoUsu,
+                        idUsu = usu.idUsu,
+                        NombreUsu = usu.nombreUsu,
+                    };
+                }
+            }
+            if (seg)
+            {
+                //
+                // Metodo Para Cambiar Precio
+                var _idItem = _gestionItem.DataItemActual.Id;
+                _vmCambioprecio.Invoke(_idItem, autoriza);
+                if (_vmCambioprecio.ProcesarCambioIsOK)
+                {
+                    decimal pNeto = _vmCambioprecio.PrecioNetoMonActualActualizado;
+                    decimal pFull = _vmCambioprecio.PrecioFullMonDivisaActualizado;
+                    bool darPorctAumento = _vmCambioprecio.DarPorcentajeAumento;
+                    _gestionItem.DataItemActual.setCambioPrecio(pNeto, pFull, darPorctAumento);
+                }
+                //
+                //
+            }
+
+
+            //if (_gCambioPrecio == null)
+            //{
+            //    _gCambioPrecio = Sistema.MiFabrica.CreateInstace_PosCambioPrecioPrd();
+            //    if (_gCambioPrecio == null) { return; }
+            //}
+            ////
+            //if (_gCambioPrecio.ActivarVariosCambiosIsOk && _usuAutoria != null)
+            //{
+            //    _gCambioPrecio.Inicializa();
+            //    _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
+            //    _gCambioPrecio.setUsuarioAutoriza(_usuAutoria);
+            //    _gCambioPrecio.Inicia();
+            //    if (_gCambioPrecio.CambioPrecioIsOk)
+            //    {
+            //        _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
+            //        _gestionItem.DataItemActual.setAplicarPorctAumentoPrecio(_gCambioPrecio.AplicarPorctAumentoPrecio.Trim().ToUpper() == "");
+            //    }
+            //}
+            //else
+            //{
+            //    _gSolicitarPermiso.Inicializa();
+            //    _gSolicitarPermiso.Inicia();
+            //    if (!_gSolicitarPermiso.IsOk)
+            //    {
+            //        return;
+            //    }
+            //    var _usu = _gSolicitarPermiso.GetUsuario;
+            //    var _psw = _gSolicitarPermiso.GetPassword;
+            //    _usuAutoria = Helpers.VerificarPermiso.Verificar(_usu, _psw);
+            //    if (_usuAutoria != null)
+            //    {
+            //        _gCambioPrecio.Inicializa();
+            //        _gCambioPrecio.setDataItem(_gestionItem.DataItemActual);
+            //        _gCambioPrecio.setUsuarioAutoriza(_usuAutoria);
+            //        _gCambioPrecio.Inicia();
+            //        if (_gCambioPrecio.CambioPrecioIsOk)
+            //        {
+            //            _gestionItem.DataItemActual.setPrecio(_gCambioPrecio.PrecioNuevo);
+            //            _gestionItem.DataItemActual.setAplicarPorctAumentoPrecio(_gCambioPrecio.AplicarPorctAumentoPrecio.Trim().ToUpper() == "");
+            //        }
+            //    }
+            //}
+
+        }
+ * 
+ */
+
