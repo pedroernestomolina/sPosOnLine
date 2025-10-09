@@ -17,6 +17,22 @@ namespace PosOnLine.Data.Prov
             //
             try
             {
+                var fichaDTO = new DtoLibPos.PosItem.ActualizarPrecioPorCambioTasa.Ficha()
+                {
+                    items = ficha.items.Select(s =>
+                    {
+                        return new DtoLibPos.PosItem.ActualizarPrecioPorCambioTasa.Item()
+                        {
+                            idItem = s.idItem,
+                            precioNeto = s.precioNeto,
+                        };
+                    }).ToList(),
+                };
+                var rst = MyData.PosItem_ActualizarPrecioPorCambioTasa(fichaDTO);
+                if (rst.Result ==  DtoLib.Enumerados.EnumResult.isError) 
+                {
+                    throw new Exception(rst.Mensaje);
+                }
             }
             catch (Exception e)
             {

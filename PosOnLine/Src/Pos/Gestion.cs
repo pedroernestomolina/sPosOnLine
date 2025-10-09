@@ -797,36 +797,57 @@ namespace PosOnLine.Src.Pos
 
         private void ActualizarData()
         {
-            var filtro = new OOB.Venta.Item.Lista.Filtro()
+            try
             {
-                idOperador = Sistema.PosEnUso.id,
-            };
-            var r01 = Sistema.MyData.Venta_Item_GetLista(filtro);
-            if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                var filtro = new OOB.Venta.Item.Lista.Filtro()
+                {
+                    idOperador = Sistema.PosEnUso.id,
+                };
+                var r01 = Sistema.MyData.Venta_Item_GetLista(filtro);
+                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                //
+                var _lst = new List<OOB.PosItem.ActualizarPrecioPorCambioTasa.Item>();
+                foreach (var rg in r01.ListaD)
+                {
+                    if (rg.isDivisa)
+                    {
+                        var neto = rg.pNetMonDivisa * _tasaCambioSistema;
+                        neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
+                        rg.pneto = neto;
+                    }
+                    else
+                    {
+                        var neto = rg.pNetMonDivisa * _tasaCambioActual;
+                        neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
+                        rg.pneto = neto;
+                    }
+                    _lst.Add(new OOB.PosItem.ActualizarPrecioPorCambioTasa.Item()
+                    {
+                        idItem = rg.id,
+                        precioNeto = rg.pneto,
+                    });
+                }
+                var fichaOOB = new OOB.PosItem.ActualizarPrecioPorCambioTasa.Ficha()
+                {
+                    items = _lst,
+                };
+                var rstItem = Sistema.MyData.PosItem_ActualizarPrecioPorCambioTasa(fichaOOB);
+                if (rstItem.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rstItem.Mensaje);
+                }
+                //
+                _gestionItem.setData(r01.ListaD, _tasaCambioActual);
+            }
+            catch (Exception e)
             {
-                Helpers.Msg.Error(r01.Mensaje);
+                Helpers.Msg.Error(e.Message);
                 return;
             }
-
-            foreach (var rg in r01.ListaD) 
-            {
-                if (rg.isDivisa)
-                {
-                    var neto = rg.pNetMonDivisa * _tasaCambioSistema;
-                    neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
-                    rg.pneto = neto;
-                }
-                else 
-                {
-                    var neto = rg.pNetMonDivisa * _tasaCambioActual;
-                    neto = Math.Round(neto, 2, MidpointRounding.AwayFromZero);
-                    rg.pneto = neto;
-                }
-            }
-
-            _gestionItem.setData(r01.ListaD, _tasaCambioActual);
         }
-
 
 
         private PosImprimirTicket.vm.IPosImprimir _vmImprimirTicket;
