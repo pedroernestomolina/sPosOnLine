@@ -436,6 +436,7 @@ namespace PosOnLine.Data.Prov
                     estatus = ficha.MetodoViejo.estatus,
                     idOperador = ficha.MetodoViejo.idOperador,
                     idResumen = ficha.idResumen,
+                    codigoSucursal= ficha.codigoSucursal,
                     documentos = ficha.documentos.Select(s =>
                     {
                         return new DtoLibPos.CuadreCierre.CerrarPos.Documento()

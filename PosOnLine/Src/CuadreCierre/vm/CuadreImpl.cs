@@ -184,6 +184,14 @@ namespace PosOnLine.Src.CuadreCierre.vm
             vueltoMedPagoLocal(id, Get_VueltoMontoPorEfectivo);
             recalcular();
         }
+        public void setMontoUsuario(decimal monto)
+        {
+            if (_bsMetodosPago.Current != null) 
+            {
+                var mt = (Domain.Models.MetodoPagoUso)_bsMetodosPago.Current;
+                mt.MontoSegunUsu = monto;
+            }
+        }
         public void LimpiarVueltoMonLocal()
         {
             var _id = _cbMedPagoMonLocal.GetId;

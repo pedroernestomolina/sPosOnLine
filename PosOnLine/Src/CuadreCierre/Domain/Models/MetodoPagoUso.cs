@@ -88,5 +88,9 @@ namespace PosOnLine.Src.CuadreCierre.Domain.Models
             _importe = MontoSegunUsu * _tasaPonderada;
             _importe = Math.Round(_importe, 2, MidpointRounding.AwayFromZero);
         }
+        public void setCargarMontoSegunSistema(decimal monto)
+        {
+            _segunSistema = monto;
+        }
     }
 }

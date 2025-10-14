@@ -17,6 +17,7 @@ namespace PosOnLine.Src.CuadreCierreProceso.Domain.UseCase
                 var fichaOOB = new OOB.CuadreCierre.CierrePos.Ficha()
                 {
                     idResumen = ficha.idResumen,
+                    codigoSucursal = Sistema.Sucursal.codigo,
                     totales = new OOB.CuadreCierre.CierrePos.Total()
                     {
                         cntDivisaPorVuelto = t.cntDivisaPorVuelto,

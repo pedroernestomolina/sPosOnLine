@@ -179,6 +179,13 @@ namespace PosOnLine.Src.CuadreCierre.vista
         {
             if (DGV.Columns[e.ColumnIndex].Name == "Monto") 
             {
+                DataGridViewCell cell = DGV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value != null)
+                {
+                    string valor = cell.Value.ToString();
+                    var numero = decimal.Parse(valor);
+                    _controlador.setMontoUsuario(numero);
+                }
                 _controlador.ActualizarImporteMetodoPago();
                 L_BONO_PAGO_DIVISA.Text = _controlador.Get_DescMPPorPagoBonoDivisa;
                 L_MONTO_BONO_PAGO_DIVISA.Text = _controlador.Get_MontoMPPorPagoBonoDivisa.ToString("n2");

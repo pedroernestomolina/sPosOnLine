@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>192.168.100.227</Instancia>
-    <Catalogo>zufu</Catalogo>
+    <Instancia>localhost</Instancia>
+    <Catalogo>divi</Catalogo>
   </Servidor>
-  <IdEquipo>5</IdEquipo>
-  <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
-  <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
+  <IdEquipo>3</IdEquipo>
+  <CodigoSucursalActiva>16</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <codigoDepositoActiva>24</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
   <SerieFactura>1</SerieFactura> 
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>

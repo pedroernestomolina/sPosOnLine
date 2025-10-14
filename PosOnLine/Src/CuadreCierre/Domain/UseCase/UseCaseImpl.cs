@@ -45,6 +45,7 @@ namespace PosOnLine.Src.CuadreCierre.Domain.UseCase
                         totalMontoRecibido = s.ingreso,
                         totalMontoRecibidoMonLocal = s.montoMonLocal,
                     };
+                    nr.setCargarMontoSegunSistema(s.ingreso);
                     return nr;
                 }).ToList();
                 rt.setMetodosPagoUsados(_lstMP);

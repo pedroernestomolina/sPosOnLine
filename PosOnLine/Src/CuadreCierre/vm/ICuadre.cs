@@ -29,6 +29,7 @@ namespace PosOnLine.Src.CuadreCierre.vm
         //
         void setVueltoMedPagoLocal(string id);
         void setVueltoMedPagoReferencia(string id);
+        void setMontoUsuario(decimal monto);
         //
         void ActualizarImporteMetodoPago();
         void MsgAlerta(string msg);
