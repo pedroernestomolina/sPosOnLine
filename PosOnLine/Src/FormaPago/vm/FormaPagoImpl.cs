@@ -57,6 +57,7 @@ namespace PosOnLine.Src.FormaPago.vm
         private decimal _maximoBonoDadoMonLocal_PorPagoDivisa;// INDICA EL MONTO MAXIMO BONO EN MONEDA LOCAL A DAR POR PAGO EN DIVISA 
         private FormaPago.Domain.Models.Enumerados.TipoDocumento _tipoDocumento;
         private bool _activarFicha;
+        private int _cntDigDecimalesParaDivisa = 5;
         //
         public object Get_MedioPagoSource { get { return _ctrlMedioPago.GetSource; } }
         public string Get_MedioPagoId { get { return _ctrlMedioPago.GetId; } }
@@ -88,6 +89,7 @@ namespace PosOnLine.Src.FormaPago.vm
         public bool EstatusCuentaIsCredito { get { return _estatusCuentaIsCredito; } }
         public Domain.Models.DataRetornar Get_DataRetornar { get { return dataRetornar(); } }
         public bool abandonarFichaIsOk { get { return _abandonarFicha.OpcionIsOK; } }
+        public int Get_CantidadDigDecimalParaExpresarDivisa { get { return _cntDigDecimalesParaDivisa; } }
         //
         public FormaPagoImpl()
         {
@@ -243,7 +245,7 @@ namespace PosOnLine.Src.FormaPago.vm
                         cantidad = _montoSolicitar,
                         codigoMoneda = _monedaReferencia.codigo,
                     };
-                    _montoIngresar = _miConvertidor.Convertir(_aConvertir, _myData.medioPagoSeleccionado.codigoCurrencies);
+                    _montoIngresar = _miConvertidor.Convertir(_aConvertir, _myData.medioPagoSeleccionado.codigoCurrencies, _cntDigDecimalesParaDivisa);
                 }
             }
         }
@@ -261,11 +263,13 @@ namespace PosOnLine.Src.FormaPago.vm
         }
         public void setMontoPorPagarMonDivisa(decimal monto)
         {
-            _totalMontoPorPagarDivisa = Math.Round(monto, 2, MidpointRounding.AwayFromZero);
+            //_totalMontoPorPagarDivisa = Math.Round(monto, 2, MidpointRounding.AwayFromZero);
+            _totalMontoPorPagarDivisa = Math.Round(monto, _cntDigDecimalesParaDivisa, MidpointRounding.AwayFromZero);
         }
         public void setPorctBono(decimal porctBono)
         {
-            _porctBono = Math.Round(porctBono, 4, MidpointRounding.AwayFromZero);
+            //_porctBono = Math.Round(porctBono, 4, MidpointRounding.AwayFromZero);
+            _porctBono = Math.Round(porctBono, _cntDigDecimalesParaDivisa, MidpointRounding.AwayFromZero);
         }
         public void setActivarBonoPorPagoDivsa(bool modo)
         {
@@ -330,21 +334,27 @@ namespace PosOnLine.Src.FormaPago.vm
                     cantidad = _montoIngresar,
                     codigoMoneda = _myData.medioPagoSeleccionado.codigoCurrencies,
                 };
-                var montoDivisa = _miConvertidor.Convertir(monto, _monedaReferencia.codigo);
-                montoDivisa = Math.Round(montoDivisa, 2, MidpointRounding.AwayFromZero);
+                var montoDivisa = _miConvertidor.Convertir(monto, _monedaReferencia.codigo, _cntDigDecimalesParaDivisa);
+                //montoDivisa = Math.Round(montoDivisa, 2, MidpointRounding.AwayFromZero);
+                montoDivisa = Math.Round(montoDivisa, _cntDigDecimalesParaDivisa, MidpointRounding.AwayFromZero);
                 //
-                monto = new __.ConvertidorMonedas.Monto()
+                var montoLocal = _montoIngresar;
+                if (monto.codigoMoneda != _monedaLocal.codigo)
                 {
-                    cantidad = montoDivisa,
-                    codigoMoneda = _monedaReferencia.codigo ,
-                };
-                var montoLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
-                montoLocal = Math.Round(montoLocal, 2, MidpointRounding.AwayFromZero);
-                //
-                if (_myData.medioPagoSeleccionado.aplicaBonoPagoDivisa)
-                {
-                    bonoAplica(montoDivisa);
+                    monto = new __.ConvertidorMonedas.Monto()
+                    {
+                        cantidad = montoDivisa,
+                        codigoMoneda = _monedaReferencia.codigo,
+                    };
+                    montoLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo, _cntDigDecimalesParaDivisa);
+                    montoLocal = Math.Round(montoLocal, 2, MidpointRounding.AwayFromZero);
+                    //
+                    if (_myData.medioPagoSeleccionado.aplicaBonoPagoDivisa)
+                    {
+                        bonoAplica(montoDivisa);
+                    }
                 }
+
                 var _factorCambioMedioPago = _miConvertidor.TasaCambio[_myData.medioPagoSeleccionado.codigoCurrencies];
                 var _fp = new FormaPago.Domain.Models.FormaPago()
                 {
@@ -357,6 +367,7 @@ namespace PosOnLine.Src.FormaPago.vm
                     montoMonedaRefenencia = montoDivisa,
                     simboloMonedaLocal = _monedaLocal.simbolo,
                     simboloMonedaReferencia = _monedaReferencia.simbolo,
+                    cntDigDecimalesToDivisa= _cntDigDecimalesParaDivisa,
                 };
                 _blFormasPago.Add(_fp);
                 //
@@ -474,7 +485,7 @@ namespace PosOnLine.Src.FormaPago.vm
                     {
                         cantidad = _bonoDivisa,
                         codigoMoneda = _monedaReferencia.codigo
-                    }, _monedaLocal.codigo);
+                    }, _monedaLocal.codigo, _cntDigDecimalesParaDivisa);
             }
             _formaPagoPorBonoDivisa.lote = "";
             _formaPagoPorBonoDivisa.medioPago = _medioPagoPorBonoDivisa;
@@ -536,7 +547,8 @@ namespace PosOnLine.Src.FormaPago.vm
             _montoPorPagarDivisa = _totalMontoPorPagarDivisa;
             _montoDsctoMonReferencia = (_porctDsctoDado / 100m) * _montoPorPagarDivisa;
             _montoPorPagarDivisa -= _montoDsctoMonReferencia;
-            _montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, 2, MidpointRounding.AwayFromZero);
+            //_montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, 2, MidpointRounding.AwayFromZero);
+            _montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, _cntDigDecimalesParaDivisa, MidpointRounding.AwayFromZero);
 
             //
             _maximoBonoDadoPorPagoDivisa= 0m;
@@ -552,18 +564,19 @@ namespace PosOnLine.Src.FormaPago.vm
                 cantidad = _maximoBonoDadoPorPagoDivisa,
                 codigoMoneda = _monedaReferencia.codigo,
             };
-            _maximoBonoDadoMonLocal_PorPagoDivisa = _miConvertidor.Convertir(_aConvertir, _monedaLocal.codigo);
+            _maximoBonoDadoMonLocal_PorPagoDivisa = _miConvertidor.Convertir(_aConvertir, _monedaLocal.codigo, 2);
             //
 
             _montoPorPagarDivisa += _igtfMontoMonReferencia;
-            _montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, 2, MidpointRounding.AwayFromZero);
+            //_montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, 2, MidpointRounding.AwayFromZero);
+            _montoPorPagarDivisa = Math.Round(_montoPorPagarDivisa, _cntDigDecimalesParaDivisa, MidpointRounding.AwayFromZero);
             //
             _aConvertir = new __.ConvertidorMonedas.Monto()
             {
                 cantidad = _montoPorPagarDivisa,
                 codigoMoneda = _monedaReferencia.codigo,
             };
-            _montoPorPagarLocal = _miConvertidor.Convertir(_aConvertir, _monedaLocal.codigo);
+            _montoPorPagarLocal = _miConvertidor.Convertir(_aConvertir, _monedaLocal.codigo, 2);
             //
         }
         //
@@ -575,14 +588,14 @@ namespace PosOnLine.Src.FormaPago.vm
                  cantidad= _igtfBaseAplicar,
                  codigoMoneda=_monedaReferencia.codigo,
             };
-            var _igtfBaseAplicarMonLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
+            var _igtfBaseAplicarMonLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo, 2);
             //
             monto = new __.ConvertidorMonedas.Monto()
             {
                  cantidad= _igtfMontoMonReferencia,
                  codigoMoneda=_monedaReferencia.codigo,
             };
-            var _igtfImporteMonLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo);
+            var _igtfImporteMonLocal = _miConvertidor.Convertir(monto, _monedaLocal.codigo, 2);
 
             var rt = new Domain.Models.DataRetornar()
             {

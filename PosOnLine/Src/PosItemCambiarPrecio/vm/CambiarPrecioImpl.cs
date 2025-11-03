@@ -37,6 +37,24 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
         public decimal PrecioNetoMonActualActualizado { get { return _precioNetoMonActualActualizado; } }
         public Domain.Models.Usuario Get_UsuarioAutoriza { get { return _usuAutoriza; } }
         public bool Get_OpcionPermitirCambiarVariosPrecios_IsActiva { get { return _opcionPermitirCambiarVariosPrecios; } }
+        public string Get_CostoEmpaqueVentaDescripcion
+        {
+            get 
+            {
+                var _tMonAct = (_itemCambio.CostoEmpqVta * _itemCambio.TasaDivisaPos) / _itemCambio.TasaDivisaSistema;
+                _tMonAct = Math.Round(_tMonAct, 4, MidpointRounding.AwayFromZero);
+                var _tMonRef= _itemCambio.CostoEmpqVta;
+                _tMonRef = Math.Round(_tMonRef, 2, MidpointRounding.AwayFromZero);
+                var rt = _tMonRef.ToString("n2");
+                //if (!_itemCambio.ProductoIsAdmPorDivisa) 
+                //{
+                //    rt +=" / " + _tMonAct.ToString("n4");
+                //}
+                rt += " / " + _tMonAct.ToString("n4");
+                return rt;
+            }
+        }
+
         //
         public CambiarPrecioImpl()
         {

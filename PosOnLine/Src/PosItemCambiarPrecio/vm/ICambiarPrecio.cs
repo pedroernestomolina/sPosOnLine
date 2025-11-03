@@ -25,6 +25,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vm
         bool Get_OpcionPermitirCambiarVariosPrecios_IsActiva { get; }
         bool AbandonarFichaIsOK { get; }
         bool ProcesarCambioIsOK { get; }
+        string Get_CostoEmpaqueVentaDescripcion { get; }
         //
         void setPagoMontoBs(decimal monto);
         void setPagoDivisa(decimal monto);

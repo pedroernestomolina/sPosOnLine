@@ -38,7 +38,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
             L_PRECIO_DIVISA.Text = _controlador.Get_PrecioPagoDivisa.ToString("n2");
             L_UTILIDAD.Text = _controlador.Get_Utilidad.ToString("n2")+"%";
             //
-            L_COSTO_EMPQ_VTA.Text = _controlador.Get_CostoEmpaqueVenta.ToString("n2");
+            L_COSTO_EMPQ_VTA.Text = _controlador.Get_CostoEmpaqueVentaDescripcion;
             L_ADM_POR_DIVISA.Text = _controlador.Get_IsProductoAdmPorDivisa ? "SI" : "NO";
             L_TASA_SISTEMA.Text = _controlador.Get_TasaSistema.ToString("n2");
             //
@@ -56,6 +56,15 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
             CHB_MAS_MENOS_INF.Checked = false;
             P_PRECIO.Visible = true;
             P_INFO.Visible = false;
+            //
+            if (_controlador.Get_Utilidad >= 0m)
+            {
+                P_UTILIDAD.BackColor = Color.Green;
+            }
+            else
+            {
+                P_UTILIDAD.BackColor = Color.Brown;
+            }
             //
             _modoInicializa = false;
         }

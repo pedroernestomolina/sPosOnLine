@@ -368,7 +368,7 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.72528F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.73993F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel6.Controls.Add(this.panel11, 2, 1);
             this.tableLayoutPanel6.Controls.Add(this.panel12, 3, 1);
             this.tableLayoutPanel6.Controls.Add(this.panel13, 4, 1);
@@ -404,7 +404,7 @@
             this.panel11.Margin = new System.Windows.Forms.Padding(1);
             this.panel11.Name = "panel11";
             this.panel11.Padding = new System.Windows.Forms.Padding(2);
-            this.panel11.Size = new System.Drawing.Size(187, 43);
+            this.panel11.Size = new System.Drawing.Size(186, 43);
             this.panel11.TabIndex = 0;
             // 
             // label3
@@ -413,7 +413,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(2, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(183, 39);
+            this.label3.Size = new System.Drawing.Size(182, 39);
             this.label3.TabIndex = 1;
             this.label3.Text = "Precio Pago (Bs):";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -422,11 +422,11 @@
             // 
             this.panel12.Controls.Add(this.tableLayoutPanel7);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(230, 21);
+            this.panel12.Location = new System.Drawing.Point(229, 21);
             this.panel12.Margin = new System.Windows.Forms.Padding(1);
             this.panel12.Name = "panel12";
             this.panel12.Padding = new System.Windows.Forms.Padding(2);
-            this.panel12.Size = new System.Drawing.Size(145, 43);
+            this.panel12.Size = new System.Drawing.Size(144, 43);
             this.panel12.TabIndex = 1;
             // 
             // tableLayoutPanel7
@@ -444,7 +444,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(141, 39);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(140, 39);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
             // panel23
@@ -455,7 +455,7 @@
             this.panel23.Margin = new System.Windows.Forms.Padding(0);
             this.panel23.Name = "panel23";
             this.panel23.Padding = new System.Windows.Forms.Padding(1);
-            this.panel23.Size = new System.Drawing.Size(131, 29);
+            this.panel23.Size = new System.Drawing.Size(130, 29);
             this.panel23.TabIndex = 0;
             // 
             // TB_PAGO_BS
@@ -467,7 +467,7 @@
             this.TB_PAGO_BS.Location = new System.Drawing.Point(1, 1);
             this.TB_PAGO_BS.MaxLength = 14;
             this.TB_PAGO_BS.Name = "TB_PAGO_BS";
-            this.TB_PAGO_BS.Size = new System.Drawing.Size(129, 26);
+            this.TB_PAGO_BS.Size = new System.Drawing.Size(128, 26);
             this.TB_PAGO_BS.TabIndex = 0;
             this.TB_PAGO_BS.Text = "0,00";
             this.TB_PAGO_BS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -478,11 +478,11 @@
             // 
             this.panel13.Controls.Add(this.tableLayoutPanel10);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(377, 21);
+            this.panel13.Location = new System.Drawing.Point(375, 21);
             this.panel13.Margin = new System.Windows.Forms.Padding(1);
             this.panel13.Name = "panel13";
             this.panel13.Padding = new System.Windows.Forms.Padding(2);
-            this.panel13.Size = new System.Drawing.Size(157, 43);
+            this.panel13.Size = new System.Drawing.Size(156, 43);
             this.panel13.TabIndex = 2;
             // 
             // tableLayoutPanel10
@@ -497,7 +497,7 @@
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(153, 39);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(152, 39);
             this.tableLayoutPanel10.TabIndex = 0;
             // 
             // panel27
@@ -508,7 +508,7 @@
             this.panel27.Margin = new System.Windows.Forms.Padding(0);
             this.panel27.Name = "panel27";
             this.panel27.Padding = new System.Windows.Forms.Padding(2);
-            this.panel27.Size = new System.Drawing.Size(153, 39);
+            this.panel27.Size = new System.Drawing.Size(152, 39);
             this.panel27.TabIndex = 0;
             // 
             // L_PRECIO_BS
@@ -517,7 +517,7 @@
             this.L_PRECIO_BS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.L_PRECIO_BS.Location = new System.Drawing.Point(2, 2);
             this.L_PRECIO_BS.Name = "L_PRECIO_BS";
-            this.L_PRECIO_BS.Size = new System.Drawing.Size(149, 35);
+            this.L_PRECIO_BS.Size = new System.Drawing.Size(148, 35);
             this.L_PRECIO_BS.TabIndex = 3;
             this.L_PRECIO_BS.Text = "999,999.99";
             this.L_PRECIO_BS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -530,7 +530,7 @@
             this.panel14.Margin = new System.Windows.Forms.Padding(1);
             this.panel14.Name = "panel14";
             this.panel14.Padding = new System.Windows.Forms.Padding(2);
-            this.panel14.Size = new System.Drawing.Size(187, 43);
+            this.panel14.Size = new System.Drawing.Size(186, 43);
             this.panel14.TabIndex = 3;
             // 
             // L_PRODUCTO_NO_ADM_DIVISA
@@ -539,7 +539,7 @@
             this.L_PRODUCTO_NO_ADM_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.L_PRODUCTO_NO_ADM_DIVISA.Location = new System.Drawing.Point(2, 2);
             this.L_PRODUCTO_NO_ADM_DIVISA.Name = "L_PRODUCTO_NO_ADM_DIVISA";
-            this.L_PRODUCTO_NO_ADM_DIVISA.Size = new System.Drawing.Size(183, 39);
+            this.L_PRODUCTO_NO_ADM_DIVISA.Size = new System.Drawing.Size(182, 39);
             this.L_PRODUCTO_NO_ADM_DIVISA.TabIndex = 2;
             this.L_PRODUCTO_NO_ADM_DIVISA.Text = "Precio Pago (Bs):";
             this.L_PRODUCTO_NO_ADM_DIVISA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -548,11 +548,11 @@
             // 
             this.panel15.Controls.Add(this.tableLayoutPanel8);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(230, 66);
+            this.panel15.Location = new System.Drawing.Point(229, 66);
             this.panel15.Margin = new System.Windows.Forms.Padding(1);
             this.panel15.Name = "panel15";
             this.panel15.Padding = new System.Windows.Forms.Padding(2);
-            this.panel15.Size = new System.Drawing.Size(145, 43);
+            this.panel15.Size = new System.Drawing.Size(144, 43);
             this.panel15.TabIndex = 4;
             // 
             // tableLayoutPanel8
@@ -570,7 +570,7 @@
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(141, 39);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(140, 39);
             this.tableLayoutPanel8.TabIndex = 1;
             // 
             // panel25
@@ -581,7 +581,7 @@
             this.panel25.Margin = new System.Windows.Forms.Padding(0);
             this.panel25.Name = "panel25";
             this.panel25.Padding = new System.Windows.Forms.Padding(1);
-            this.panel25.Size = new System.Drawing.Size(131, 29);
+            this.panel25.Size = new System.Drawing.Size(130, 29);
             this.panel25.TabIndex = 0;
             // 
             // TB_PAGO_NO_DIVISA
@@ -593,7 +593,7 @@
             this.TB_PAGO_NO_DIVISA.Location = new System.Drawing.Point(1, 1);
             this.TB_PAGO_NO_DIVISA.MaxLength = 14;
             this.TB_PAGO_NO_DIVISA.Name = "TB_PAGO_NO_DIVISA";
-            this.TB_PAGO_NO_DIVISA.Size = new System.Drawing.Size(129, 26);
+            this.TB_PAGO_NO_DIVISA.Size = new System.Drawing.Size(128, 26);
             this.TB_PAGO_NO_DIVISA.TabIndex = 0;
             this.TB_PAGO_NO_DIVISA.Text = "0,00";
             this.TB_PAGO_NO_DIVISA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -604,11 +604,11 @@
             // 
             this.panel18.Controls.Add(this.tableLayoutPanel11);
             this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel18.Location = new System.Drawing.Point(377, 66);
+            this.panel18.Location = new System.Drawing.Point(375, 66);
             this.panel18.Margin = new System.Windows.Forms.Padding(1);
             this.panel18.Name = "panel18";
             this.panel18.Padding = new System.Windows.Forms.Padding(2);
-            this.panel18.Size = new System.Drawing.Size(157, 43);
+            this.panel18.Size = new System.Drawing.Size(156, 43);
             this.panel18.TabIndex = 5;
             // 
             // tableLayoutPanel11
@@ -623,7 +623,7 @@
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 1;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(153, 39);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(152, 39);
             this.tableLayoutPanel11.TabIndex = 1;
             // 
             // panel29
@@ -634,7 +634,7 @@
             this.panel29.Margin = new System.Windows.Forms.Padding(0);
             this.panel29.Name = "panel29";
             this.panel29.Padding = new System.Windows.Forms.Padding(2);
-            this.panel29.Size = new System.Drawing.Size(153, 39);
+            this.panel29.Size = new System.Drawing.Size(152, 39);
             this.panel29.TabIndex = 0;
             // 
             // L_PRECIO_PRD_NO_DIVISA
@@ -643,7 +643,7 @@
             this.L_PRECIO_PRD_NO_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.L_PRECIO_PRD_NO_DIVISA.Location = new System.Drawing.Point(2, 2);
             this.L_PRECIO_PRD_NO_DIVISA.Name = "L_PRECIO_PRD_NO_DIVISA";
-            this.L_PRECIO_PRD_NO_DIVISA.Size = new System.Drawing.Size(149, 35);
+            this.L_PRECIO_PRD_NO_DIVISA.Size = new System.Drawing.Size(148, 35);
             this.L_PRECIO_PRD_NO_DIVISA.TabIndex = 3;
             this.L_PRECIO_PRD_NO_DIVISA.Text = "999,999.99";
             this.L_PRECIO_PRD_NO_DIVISA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -656,7 +656,7 @@
             this.panel19.Margin = new System.Windows.Forms.Padding(1);
             this.panel19.Name = "panel19";
             this.panel19.Padding = new System.Windows.Forms.Padding(2);
-            this.panel19.Size = new System.Drawing.Size(187, 43);
+            this.panel19.Size = new System.Drawing.Size(186, 43);
             this.panel19.TabIndex = 6;
             // 
             // label4
@@ -665,7 +665,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(2, 2);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(183, 39);
+            this.label4.Size = new System.Drawing.Size(182, 39);
             this.label4.TabIndex = 2;
             this.label4.Text = "Precio Pago ($):";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -674,11 +674,11 @@
             // 
             this.panel21.Controls.Add(this.tableLayoutPanel9);
             this.panel21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel21.Location = new System.Drawing.Point(230, 111);
+            this.panel21.Location = new System.Drawing.Point(229, 111);
             this.panel21.Margin = new System.Windows.Forms.Padding(1);
             this.panel21.Name = "panel21";
             this.panel21.Padding = new System.Windows.Forms.Padding(2);
-            this.panel21.Size = new System.Drawing.Size(145, 43);
+            this.panel21.Size = new System.Drawing.Size(144, 43);
             this.panel21.TabIndex = 7;
             // 
             // tableLayoutPanel9
@@ -696,7 +696,7 @@
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(141, 39);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(140, 39);
             this.tableLayoutPanel9.TabIndex = 1;
             // 
             // panel26
@@ -707,7 +707,7 @@
             this.panel26.Margin = new System.Windows.Forms.Padding(0);
             this.panel26.Name = "panel26";
             this.panel26.Padding = new System.Windows.Forms.Padding(1);
-            this.panel26.Size = new System.Drawing.Size(131, 29);
+            this.panel26.Size = new System.Drawing.Size(130, 29);
             this.panel26.TabIndex = 0;
             // 
             // TB_PAGO_DIVISA
@@ -719,7 +719,7 @@
             this.TB_PAGO_DIVISA.Location = new System.Drawing.Point(1, 1);
             this.TB_PAGO_DIVISA.MaxLength = 14;
             this.TB_PAGO_DIVISA.Name = "TB_PAGO_DIVISA";
-            this.TB_PAGO_DIVISA.Size = new System.Drawing.Size(129, 26);
+            this.TB_PAGO_DIVISA.Size = new System.Drawing.Size(128, 26);
             this.TB_PAGO_DIVISA.TabIndex = 0;
             this.TB_PAGO_DIVISA.Text = "0,00";
             this.TB_PAGO_DIVISA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -730,11 +730,11 @@
             // 
             this.panel22.Controls.Add(this.tableLayoutPanel12);
             this.panel22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel22.Location = new System.Drawing.Point(377, 111);
+            this.panel22.Location = new System.Drawing.Point(375, 111);
             this.panel22.Margin = new System.Windows.Forms.Padding(1);
             this.panel22.Name = "panel22";
             this.panel22.Padding = new System.Windows.Forms.Padding(2);
-            this.panel22.Size = new System.Drawing.Size(157, 43);
+            this.panel22.Size = new System.Drawing.Size(156, 43);
             this.panel22.TabIndex = 8;
             // 
             // tableLayoutPanel12
@@ -749,7 +749,7 @@
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(153, 39);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(152, 39);
             this.tableLayoutPanel12.TabIndex = 2;
             // 
             // panel31
@@ -760,7 +760,7 @@
             this.panel31.Margin = new System.Windows.Forms.Padding(0);
             this.panel31.Name = "panel31";
             this.panel31.Padding = new System.Windows.Forms.Padding(2);
-            this.panel31.Size = new System.Drawing.Size(153, 39);
+            this.panel31.Size = new System.Drawing.Size(152, 39);
             this.panel31.TabIndex = 0;
             // 
             // L_PRECIO_DIVISA
@@ -769,7 +769,7 @@
             this.L_PRECIO_DIVISA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.L_PRECIO_DIVISA.Location = new System.Drawing.Point(2, 2);
             this.L_PRECIO_DIVISA.Name = "L_PRECIO_DIVISA";
-            this.L_PRECIO_DIVISA.Size = new System.Drawing.Size(149, 35);
+            this.L_PRECIO_DIVISA.Size = new System.Drawing.Size(148, 35);
             this.L_PRECIO_DIVISA.TabIndex = 3;
             this.L_PRECIO_DIVISA.Text = "999,999.99";
             this.L_PRECIO_DIVISA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -830,11 +830,11 @@
             this.P_UTILIDAD.Controls.Add(this.L_UTILIDAD);
             this.P_UTILIDAD.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_UTILIDAD.ForeColor = System.Drawing.Color.White;
-            this.P_UTILIDAD.Location = new System.Drawing.Point(538, 23);
+            this.P_UTILIDAD.Location = new System.Drawing.Point(535, 23);
             this.P_UTILIDAD.Name = "P_UTILIDAD";
             this.P_UTILIDAD.Padding = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel6.SetRowSpan(this.P_UTILIDAD, 3);
-            this.P_UTILIDAD.Size = new System.Drawing.Size(93, 129);
+            this.P_UTILIDAD.Size = new System.Drawing.Size(92, 129);
             this.P_UTILIDAD.TabIndex = 10;
             // 
             // L_UTILIDAD
@@ -843,7 +843,7 @@
             this.L_UTILIDAD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.L_UTILIDAD.Location = new System.Drawing.Point(2, 2);
             this.L_UTILIDAD.Name = "L_UTILIDAD";
-            this.L_UTILIDAD.Size = new System.Drawing.Size(89, 125);
+            this.L_UTILIDAD.Size = new System.Drawing.Size(88, 125);
             this.L_UTILIDAD.TabIndex = 4;
             this.L_UTILIDAD.Text = "999,999.99";
             this.L_UTILIDAD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -852,11 +852,11 @@
             // 
             this.panel28.Controls.Add(this.label2);
             this.panel28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel28.Location = new System.Drawing.Point(377, 1);
+            this.panel28.Location = new System.Drawing.Point(375, 1);
             this.panel28.Margin = new System.Windows.Forms.Padding(1);
             this.panel28.Name = "panel28";
             this.panel28.Padding = new System.Windows.Forms.Padding(2);
-            this.panel28.Size = new System.Drawing.Size(157, 18);
+            this.panel28.Size = new System.Drawing.Size(156, 18);
             this.panel28.TabIndex = 11;
             // 
             // label2
@@ -865,7 +865,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(2, 2);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(153, 14);
+            this.label2.Size = new System.Drawing.Size(152, 14);
             this.label2.TabIndex = 2;
             this.label2.Text = "Precios";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -874,11 +874,11 @@
             // 
             this.panel30.Controls.Add(this.label5);
             this.panel30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel30.Location = new System.Drawing.Point(536, 1);
+            this.panel30.Location = new System.Drawing.Point(533, 1);
             this.panel30.Margin = new System.Windows.Forms.Padding(1);
             this.panel30.Name = "panel30";
             this.panel30.Padding = new System.Windows.Forms.Padding(2);
-            this.panel30.Size = new System.Drawing.Size(97, 18);
+            this.panel30.Size = new System.Drawing.Size(96, 18);
             this.panel30.TabIndex = 12;
             // 
             // label5
@@ -887,7 +887,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(2, 2);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 14);
+            this.label5.Size = new System.Drawing.Size(92, 14);
             this.label5.TabIndex = 2;
             this.label5.Text = "Utilidad";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -901,7 +901,7 @@
             this.panel38.Margin = new System.Windows.Forms.Padding(1);
             this.panel38.Name = "panel38";
             this.panel38.Padding = new System.Windows.Forms.Padding(2);
-            this.panel38.Size = new System.Drawing.Size(622, 29);
+            this.panel38.Size = new System.Drawing.Size(618, 29);
             this.panel38.TabIndex = 13;
             // 
             // CHB_ACTIVAR_PORC_AUMENTO
@@ -910,7 +910,7 @@
             this.CHB_ACTIVAR_PORC_AUMENTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CHB_ACTIVAR_PORC_AUMENTO.Location = new System.Drawing.Point(2, 2);
             this.CHB_ACTIVAR_PORC_AUMENTO.Name = "CHB_ACTIVAR_PORC_AUMENTO";
-            this.CHB_ACTIVAR_PORC_AUMENTO.Size = new System.Drawing.Size(618, 25);
+            this.CHB_ACTIVAR_PORC_AUMENTO.Size = new System.Drawing.Size(614, 25);
             this.CHB_ACTIVAR_PORC_AUMENTO.TabIndex = 1;
             this.CHB_ACTIVAR_PORC_AUMENTO.Text = "Activar Porcentaje Aumento Para Productos No Administrado Por Divisa";
             this.CHB_ACTIVAR_PORC_AUMENTO.UseVisualStyleBackColor = true;

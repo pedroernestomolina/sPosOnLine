@@ -22,7 +22,7 @@ namespace PosOnLine.Src.__.ConvertidorMonedas
         }
         //
         public decimal 
-            Convertir(Monto monto, string codigoMoneda) 
+            Convertir(Monto monto, string codigoMoneda, int cntDigToRedondeo=2) 
         {
             try
             {
@@ -36,7 +36,8 @@ namespace PosOnLine.Src.__.ConvertidorMonedas
 
                 //Convertir desde la moneda base a la moneda Destino
                 decimal rt =montoDolares * TasaCambio[codigoMoneda];
-                return Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+                //return Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+                return Math.Round(rt, cntDigToRedondeo, MidpointRounding.AwayFromZero);
             }
             catch(KeyNotFoundException e1)
             {

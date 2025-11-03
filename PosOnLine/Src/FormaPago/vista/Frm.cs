@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -131,7 +132,10 @@ namespace PosOnLine.Src.FormaPago.vista
             L_CLIENTE_DATA.Text = _controlador.Get_ClienteData;
             //
             L_TOTAL_PAGAR_MON_LOCAL.Text = _controlador.Get_TotalPagarMonLocal.ToString("n2") + _controlador.Get_SimboloMonedaLocal;
-            L_TOTAL_PAGAR_MON_REFERENCIA.Text = _controlador.Get_TotalPagarMonDivisa.ToString("n2") + _controlador.Get_SimboloMonedaReferencia;
+            //L_TOTAL_PAGAR_MON_REFERENCIA.Text = _controlador.Get_TotalPagarMonDivisa.ToString("n2") + _controlador.Get_SimboloMonedaReferencia;
+            var cntDigDecToDivisa = _controlador.Get_CantidadDigDecimalParaExpresarDivisa;
+            var formatoDivisa = "n" + cntDigDecToDivisa.ToString();
+            L_TOTAL_PAGAR_MON_REFERENCIA.Text = _controlador.Get_TotalPagarMonDivisa.ToString(formatoDivisa) + _controlador.Get_SimboloMonedaReferencia;
             //
             L_PORCT_DSCT_DADO.Text = _controlador.Get_PorctDesctoDado.ToString("n2");
             L_MONTO_DSCTO.Text = _controlador.Get_MontoDscto.ToString("n2");
@@ -178,8 +182,11 @@ namespace PosOnLine.Src.FormaPago.vista
                 if (_controlador.MontoMaxIngresarPagoDivisa > 0m) 
                 {
                     _modoInicio = true;
-                    TB_MONTO_INGRESADO.Text = _controlador.MontoMaxIngresarPagoDivisa.ToString(); 
-                    _modoInicio =false;
+                    //TB_MONTO_INGRESADO.Text = _controlador.MontoMaxIngresarPagoDivisa.ToString();
+                    var rt = _controlador.MontoMaxIngresarPagoDivisa.ToString("n2", CultureInfo.GetCultureInfo("es-ES"));
+                    rt = rt.Replace(".", "");
+                    TB_MONTO_INGRESADO.Text = rt;
+                    _modoInicio = false;
                 }
             }
         }
@@ -263,7 +270,10 @@ namespace PosOnLine.Src.FormaPago.vista
                 L_RESTA_CAMBIO.Text = "Monto Cambio" + Environment.NewLine + "Vuelto a Dar";
             }
             var _monRestaMonLocal = _controlador.Get_MontoRestaCambioMonLocal.ToString("n2") + _controlador.Get_SimboloMonedaLocal;
-            var _monRestaMonRef = _controlador.Get_MontoRestaCambioMonReferencia.ToString("n2") + _controlador.Get_SimboloMonedaReferencia;
+            //var _monRestaMonRef = _controlador.Get_MontoRestaCambioMonReferencia.ToString("n2") + _controlador.Get_SimboloMonedaReferencia;
+            var cntDigDecToDivisa = _controlador.Get_CantidadDigDecimalParaExpresarDivisa;
+            var formatoDivisa = "n" + cntDigDecToDivisa.ToString();
+            var _monRestaMonRef = _controlador.Get_MontoRestaCambioMonReferencia.ToString(formatoDivisa) + _controlador.Get_SimboloMonedaReferencia;
             L_MONTO_RESTA_CAMBIO_MON_LOCAL.Text = _monRestaMonLocal;
             L_MONTO_RESTA_CAMBIO_MON_REFERENCIA.Text = _monRestaMonRef;
             //

@@ -67,7 +67,7 @@ namespace PosOnLine.Src.FormaPagoCambioVuelto.ConVuelto.vm
         //
         public void setMontoValidar(decimal monto)
         {
-            _montoValidar = monto;
+            _montoValidar = Math.Round(monto, 2, MidpointRounding.AwayFromZero);
         }
         public void setTasaCambio(decimal factor)
         {

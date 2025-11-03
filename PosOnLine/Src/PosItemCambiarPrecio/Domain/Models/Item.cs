@@ -37,7 +37,7 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.Domain.Models
                 if (contEmpqCompra>0m)
                 {
                     rt = costoEmpqCompraMonReferencia / contEmpqCompra;
-                    rt = Math.Round(rt, 2, MidpointRounding.AwayFromZero);
+                    rt = Math.Round(rt, 4, MidpointRounding.AwayFromZero);
                 }
                 return rt;
             }

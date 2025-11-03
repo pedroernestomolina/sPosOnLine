@@ -182,7 +182,7 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
         public override void Reporte(IEnumerable<string> lineas)
         {
             var l = 0;
-            var fr = new Font(FontFamily.GenericMonospace, 7, FontStyle.Bold);
+            var fr = new Font(FontFamily.GenericMonospace, 5, FontStyle.Bold);
             foreach (var lin in lineas)
             {
                 eg.Graphics.DrawString(lin, fr, Brushes.Black, 0, l);

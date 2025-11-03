@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>localhost</Instancia>
-    <Catalogo>divi</Catalogo>
+    <Instancia>10.10.100.131</Instancia>
+    <Catalogo>zufu</Catalogo>
   </Servidor>
   <IdEquipo>3</IdEquipo>
-  <CodigoSucursalActiva>16</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
-  <codigoDepositoActiva>24</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
+  <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
+  <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
   <SerieFactura>1</SerieFactura> 
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
-  <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
-  <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
-  <ModoImpresionNCredito>T80</ModoImpresionNCredito>
-  <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
+  <ModoImpresionFactura>T58</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
+  <ModoImpresionNEntrega>T58</ModoImpresionNEntrega>
+  <ModoImpresionNCredito>T58</ModoImpresionNCredito>
+  <ModoImpresionCuadreCaja>T58</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>NO</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>SI</HabilitarAbrirDocPendOtrosUsuarios>
   <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>
   <DatosNegocioTicket>
     <Rif>J123456789-0</Rif>
-    <Nombre>SM CRISTAL LOS GUAYOS, CA</Nombre>
-    <Direccion>AVENIDA PRINCIPAL, LOS GUAYOS</Direccion>
+    <Nombre>MI NEGOCIO, CA</Nombre>
+    <Direccion>VALENCIA, CARABOBO</Direccion>
   </DatosNegocioTicket>
   <Venta_Adm>
     <Activar>No</Activar>
@@ -35,9 +35,9 @@
     <Habilitar_Opcion>SI</Habilitar_Opcion>
     <Id_Buscar>0000000001</Id_Buscar>
     <Codigo_Asignar></Codigo_Asignar>
-    <CiRif_Asignar>V7127658</CiRif_Asignar>
-    <Nombre_Asignar>PEDRO MOLINA</Nombre_Asignar>
-    <DirFiscal_Asignar>SAN DIEGO, CARABOBO</DirFiscal_Asignar>
+    <CiRif_Asignar>V00000001</CiRif_Asignar>
+    <Nombre_Asignar>CONTADO</Nombre_Asignar>
+    <DirFiscal_Asignar>VALENCIA, CARABOBO</DirFiscal_Asignar>
     <Telefono_Asignar></Telefono_Asignar>
   </Cliente_Por_Defecto>
 </Configuracion>

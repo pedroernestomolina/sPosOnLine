@@ -39,6 +39,7 @@ namespace PosOnLine.Src.FormaPago.vm
         bool EstatusCuentaIsCredito { get; }
         bool abandonarFichaIsOk { get; }
         FormaPago.Domain.Models.DataRetornar Get_DataRetornar { get; }
+        int Get_CantidadDigDecimalParaExpresarDivisa { get; }
         //
         void setMedioPago(string id);
         void setMontoIngresar(decimal monto);

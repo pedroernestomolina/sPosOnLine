@@ -19,6 +19,7 @@ namespace PosOnLine.Src.FormaPago.Domain.Models
         public decimal montoMonedaLocal { get; set; }
         public string simboloMonedaLocal { get; set; }
         public string simboloMonedaReferencia { get; set; }
+        public int cntDigDecimalesToDivisa { get; set; }
         public decimal Monto { get { return montoIngresado; } }
         public FormaPago()
         {
@@ -32,7 +33,9 @@ namespace PosOnLine.Src.FormaPago.Domain.Models
             get 
             {
                 var rt = "";
-                rt = montoMonedaLocal.ToString("n2") + simboloMonedaLocal.Trim() + " / " + montoMonedaRefenencia.ToString("n2") + simboloMonedaReferencia.Trim();
+                //rt = montoMonedaLocal.ToString("n2") + simboloMonedaLocal.Trim() + " / " + montoMonedaRefenencia.ToString("n2") + simboloMonedaReferencia.Trim();
+                var _formato = "n" + cntDigDecimalesToDivisa.ToString();
+                rt = montoMonedaLocal.ToString("n2") + simboloMonedaLocal.Trim() + " / " + montoMonedaRefenencia.ToString(_formato) + simboloMonedaReferencia.Trim();
                 return rt;
             } 
         }
