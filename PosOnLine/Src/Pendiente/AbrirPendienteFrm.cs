@@ -200,6 +200,9 @@ namespace PosOnLine.Src.Pendiente
             }
         }
 
+        private void BT_PROTEGER_CTA_Click(object sender, EventArgs e)
+        {
+            _controlador.ProtegerCta();
+        }
     }
-
 }

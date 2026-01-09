@@ -123,7 +123,7 @@ namespace PosOnLine.Data.Prov
             Pendiente_AbrirCta(int idCta, int idOperador)
         {
             var result = new OOB.Resultado.Ficha();
-
+            //
             var r01 = MyData.Pendiente_AbrirCta(idCta, idOperador);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
             {
@@ -131,7 +131,50 @@ namespace PosOnLine.Data.Prov
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
-
+            //
+            return result;
+        }
+        public OOB.Resultado.FichaEntidad<bool> 
+            Pendiente_VerificarEstatusCtaProtegida(int idCta)
+        {
+            var result = new OOB.Resultado.FichaEntidad<bool>();
+            //
+            try
+            {
+                var r01 = MyData.Pendiente_VerificarEstatusCtaProtegida(idCta);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                result.Entidad = r01.Entidad.Trim() == "1";
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
+        public OOB.Resultado.Ficha
+            Pendiente_AsignarEstatusCtaProtegida(int idCta)
+        {
+            var result = new OOB.Resultado.Ficha();
+            //
+            try
+            {
+                var r01 = MyData.Pendiente_AsignarEstatusCtaProtegida(idCta);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
             return result;
         }
     }

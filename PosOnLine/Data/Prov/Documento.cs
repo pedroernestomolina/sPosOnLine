@@ -204,6 +204,7 @@ namespace PosOnLine.Data.Prov
                     MontoPorVueltoEnDivisa = s.MontoPorVueltoEnDivisa,
                     MontoPorVueltoEnPagoMovil = s.MontoPorVueltoEnPagoMovil,
                     CantDivisaPorVueltoEnDivisa = s.CantDivisaPorVueltoEnDivisa,
+                    MontoBonoEnDivisaPorPagoDivisa =s.MontoBonoEnDivisaPorPagoDivisa,
                     //
                     BonoPorPagoDivisa = s.BonoPorPagoDivisa,
                     MontoBonoPorPagoDivisa = s.MontoBonoPorPagoDivisa,
@@ -311,6 +312,9 @@ namespace PosOnLine.Data.Prov
                     {
                         descPrd = p.descPrd,
                         precio = p.precio,
+                        bonoAplicar = p.bonoAplicar,
+                        descuento = p.descuento,
+                        precioFactura = p.precioFactura,
                     };
                     return pr;
                 }).ToList();

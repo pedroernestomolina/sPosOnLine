@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>10.10.100.131</Instancia>
+    <Instancia>192.168.9.50</Instancia>
     <Catalogo>zufu</Catalogo>
   </Servidor>
-  <IdEquipo>3</IdEquipo>
+  <IdEquipo>0</IdEquipo>
   <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
   <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
   <SerieFactura>1</SerieFactura> 
   <SerieNCredito>1D</SerieNCredito>
   <SerieNEntrega>Nen</SerieNEntrega>
-  <ModoImpresionFactura>T58</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
-  <ModoImpresionNEntrega>T58</ModoImpresionNEntrega>
-  <ModoImpresionNCredito>T58</ModoImpresionNCredito>
-  <ModoImpresionCuadreCaja>T58</ModoImpresionCuadreCaja>
+  <ModoImpresionFactura>T80</ModoImpresionFactura>  <!-- F, T80, T70, T80B, T58 -->
+  <ModoImpresionNEntrega>T80</ModoImpresionNEntrega>
+  <ModoImpresionNCredito>T80</ModoImpresionNCredito>
+  <ModoImpresionCuadreCaja>T80</ModoImpresionCuadreCaja>
   <ActivarModoSoloDocPendiente>NO</ActivarModoSoloDocPendiente>
   <HabilitarAbrirDocPendOtrosUsuarios>SI</HabilitarAbrirDocPendOtrosUsuarios>
   <HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>si</HABILITAR_TIPOS_EMPAQUE_AL_BUSCAR_POR_CODIGO_BARRA>

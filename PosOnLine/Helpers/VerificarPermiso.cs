@@ -11,7 +11,7 @@ namespace PosOnLine.Helpers
     public class VerificarPermiso
     {
         static public OOB.Usuario.Entidad.Ficha 
-            Verificar(string usu, string psw) 
+            Verificar(string usu, string psw, string codigoFun) 
         {
             try
             {
@@ -20,9 +20,19 @@ namespace PosOnLine.Helpers
                 usuarioOOB.clave = psw;
                 var r01 = Sistema.MyData.Usuario_Identificar(usuarioOOB);
                 //
+                if (codigoFun.Trim() == "") 
+                {
+                    if (r01.Entidad.idGrupo.Trim().ToUpper() != "0000000001")
+                    {
+                        throw new Exception("USUARIO DEBE SER UN ADMINISTRADOR");
+                    }
+                    return r01.Entidad;
+                }
+                //
                 var permisoOOB = new OOB.Permiso.Buscar.Ficha();
                 permisoOOB.IdGrupoUsuario = r01.Entidad.idGrupo;
-                permisoOOB.CodigoFuncion = Sistema.FuncionPosCambiarPrecioVenta;
+                //permisoOOB.CodigoFuncion = Sistema.FuncionPosCambiarPrecioVenta;
+                permisoOOB.CodigoFuncion = codigoFun;
                 var r02 = Sistema.MyData.Permiso_Pos(permisoOOB);
                 if (r02.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {

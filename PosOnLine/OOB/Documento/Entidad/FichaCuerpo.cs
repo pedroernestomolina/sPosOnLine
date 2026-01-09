@@ -121,6 +121,7 @@ namespace PosOnLine.OOB.Documento.Entidad
         public decimal BonoPorPagoDivisa { get; set; }
         public decimal MontoBonoPorPagoDivisa { get; set; }
         public decimal CntDivisaAplicaBonoPorPagoDivisa { get; set; }
+        public decimal MontoBonoEnDivisaPorPagoDivisa { get; set; }
         //
         public string estatusFiscal { get; set; }
         public bool IsFiscal { get { return estatusFiscal.Trim().ToUpper() == "1"; } }
@@ -236,6 +237,7 @@ namespace PosOnLine.OOB.Documento.Entidad
             MontoPorVueltoEnDivisa = 0m;
             MontoPorVueltoEnPagoMovil = 0m;
             CantDivisaPorVueltoEnDivisa = 0m;
+            MontoBonoEnDivisaPorPagoDivisa = 0m;
             //
             BonoPorPagoDivisa = 0m;
             MontoBonoPorPagoDivisa = 0m;

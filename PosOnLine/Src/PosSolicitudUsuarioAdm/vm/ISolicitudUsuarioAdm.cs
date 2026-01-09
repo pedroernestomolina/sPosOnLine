@@ -12,6 +12,6 @@ namespace PosOnLine.Src.PosSolicitudUsuarioAdm.vm
         bool Get_AutorizaPermisoIsOk { get; }
         Domain.Models.UsuarioAutoriza Get_UsuarioAutorizoPermiso { get; }
         //
-        void Invoke();
+        void Invoke(string codigoFun);
     }
 }

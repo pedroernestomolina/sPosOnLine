@@ -1284,7 +1284,7 @@ namespace PosOnLine.Src.Pos
             }
             else 
             {
-                _vmSolicitarPermiso.Invoke();
+                _vmSolicitarPermiso.Invoke(Sistema.FuncionPosCambiarPrecioVenta);
                 if (_vmSolicitarPermiso.Get_AutorizaPermisoIsOk) 
                 {
                     seg = true;
@@ -2427,6 +2427,7 @@ namespace PosOnLine.Src.Pos
                     netoMontoDivisa = netoMonto / _tasaCambioActual;
                 }
 
+
                 var importeDocumento = _dataRetFormaPago.MontoPagar;
                 var importeDocumentoDivisa = _dataRetFormaPago.MontoPagarDivisa;
                 var documento = "";
@@ -2747,8 +2748,10 @@ namespace PosOnLine.Src.Pos
                 var importeDocumentoDivisaCxc = importeDocumentoDivisa;
                 if (isCredito)
                 {
-                    importeDocumentoCxc = _totalImporteMonActConBono;
-                    importeDocumentoDivisaCxc = _totalImporteMonDivConBono;
+                    //importeDocumentoCxc = _totalImporteMonActConBono;
+                    //importeDocumentoDivisaCxc = _totalImporteMonDivConBono;
+                    importeDocumentoCxc = Math.Round(_saldoPendiente* factorCambio,2, MidpointRounding.AwayFromZero);
+                    importeDocumentoDivisaCxc = _saldoPendiente;
                 }
                 fichaOOB.DocCxC = new OOB.Documento.Agregar.Factura.FichaCxC()
                 {

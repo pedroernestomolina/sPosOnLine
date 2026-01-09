@@ -115,18 +115,61 @@ namespace PosOnLine.Src.Pendiente
             return rt;
         }
 
+        private CtrlPendiente.Abrir.vm.IAbrir _abrirPend;
         public void AbrirCta()
         {
+            try
+            {
+                if (_bs.Current == null)
+                    return;
+                var _it = (data)_bs.Current;
+                if (_abrirPend == null)
+                {
+                    _abrirPend = new CtrlPendiente.Abrir.vm.AbrirImpl();
+                }
+                if (_abrirPend.AbrirCuenta(_it.Ficha.id))
+                {
+                    _abrirCtaPendienteIsOk = true;
+                    _ctaPendiente = _it;
+                }
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+            }
+            //COMO SE HACE ACTUALMENTE 
+            //abrirCta();
+        }
+        private CtrlPendiente.Proteger.vm.IProteger _protegerPend;
+        public void ProtegerCta()
+        {
+            try
+            {
+                if (_bs.Current == null)
+                    return;
+                var _it = (data)_bs.Current;
+                if (_protegerPend == null)
+                {
+                    _protegerPend = new CtrlPendiente.Proteger.vm.ProtegerImpl();
+                }
+                _protegerPend.ProtegerCuenta(_it.Ficha.id);
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+            }
+        }
+        private void abrirCta()
+        {
             _abrirCtaPendienteIsOk = false;
-
-            if (_bs.Current != null) 
+            if (_bs.Current != null)
             {
                 var it = (data)_bs.Current;
                 var msg = MessageBox.Show("Abrir Cuenta Pendiente ?", "*** ALERTA ***", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (msg == System.Windows.Forms.DialogResult.Yes)
                 {
                     var r01 = Sistema.MyData.Pendiente_AbrirCta(it.Ficha.id, Sistema.PosEnUso.id);
-                    if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                    if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                     {
                         Helpers.Msg.Error(r01.Mensaje);
                         return;
@@ -135,9 +178,6 @@ namespace PosOnLine.Src.Pendiente
                     _ctaPendiente = it;
                 }
             }
-
         }
-
     }
-
 }

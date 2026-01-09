@@ -20,7 +20,7 @@ namespace PosOnLine.Src.PosSolicitudUsuarioAdm.vm
         {
             _vmSolicitarPermiso = new SolicitarPermiso.SolicitarPerm();
         }
-        public void Invoke()
+        public void Invoke(string codigoFun)
         {
             _usuAutorizaPermiso = null;
             _autorizaPermisoIsOk = false;
@@ -34,7 +34,7 @@ namespace PosOnLine.Src.PosSolicitudUsuarioAdm.vm
                 //
                 var usuNombre = _vmSolicitarPermiso.GetUsuario;
                 var usuPsw = _vmSolicitarPermiso.GetPassword;
-                var _usuOOB = Helpers.VerificarPermiso.Verificar(usuNombre, usuPsw);
+                var _usuOOB = Helpers.VerificarPermiso.Verificar(usuNombre, usuPsw, codigoFun);
                 _autorizaPermisoIsOk = true;
                 _usuAutorizaPermiso = new Domain.Models.UsuarioAutoriza()
                 {

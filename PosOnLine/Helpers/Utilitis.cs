@@ -126,7 +126,7 @@ namespace PosOnLine.Helpers
                                             //Sistema.ImprimirFactura = new Helpers.Imprimir.Tickera58.Documento();
                                             //Sistema.ImprimirNotaCreditoNoFiscal = new Helpers.Imprimir.Tickera58.Documento();
                                             factTick= new Helpers.Imprimir.DocumentoTicket();
-                                            factTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            factTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket2());
                                             Sistema.ImprimirFactura = factTick;
                                             break;
                                     }
@@ -163,7 +163,7 @@ namespace PosOnLine.Helpers
                                         case "T58":
                                             //Sistema.ImprimirNotaEntrega = new Helpers.Imprimir.Tickera58.Documento();
                                             ntEntregaTick= new Helpers.Imprimir.DocumentoTicket();
-                                            ntEntregaTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            ntEntregaTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket2());
                                             Sistema.ImprimirNotaEntrega = ntEntregaTick;
                                             break;
                                     }
@@ -200,7 +200,7 @@ namespace PosOnLine.Helpers
                                             break;
                                         case "T58":
                                             ntCredTick= new Helpers.Imprimir.DocumentoTicket();
-                                            ntCredTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            ntCredTick.setTicket(new Helpers.Imprimir.Ticket._58.Ticket2());
                                             Sistema.ImprimirNotaCredito = ntCredTick;
                                             //Sistema.ImprimirNotaCredito = new Helpers.Imprimir.Tickera58.Documento();
                                             break;
@@ -238,7 +238,7 @@ namespace PosOnLine.Helpers
                                         case "T58":
                                             //Sistema.ImprimirCuadreCaja = new Helpers.Imprimir.Tickera58.CuadreDoc();
                                             rptCuadre = new Helpers.Imprimir.CuadreCaja._58.Imp();
-                                            rptCuadre.setTicket(new Helpers.Imprimir.Ticket._58.Ticket());
+                                            rptCuadre.setTicket(new Helpers.Imprimir.Ticket._58.Ticket2());
                                             Sistema.ImprimirReporteCuadreCaja = rptCuadre;
                                             break;
                                     }

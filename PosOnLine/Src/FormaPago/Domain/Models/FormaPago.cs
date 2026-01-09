@@ -26,7 +26,7 @@ namespace PosOnLine.Src.FormaPago.Domain.Models
             id = new Guid();
         }
         //
-        public string CabDescripcion { get { return medioPago.nombreMp; } }
+        public string CabDescripcion { get { return medioPago.nombreMp+",Ref # "+referencia; } }
         public string CabMonto { get { return montoIngresado.ToString("n2")+medioPago.simboloCurrencies; } }
         public string CabMontoCambio 
         {

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+/*
 namespace PosOnLine.Helpers.Imprimir.Ticket._58
 {
     public class Ticket2: baseTicket
@@ -13,16 +14,13 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
         public Ticket2()
             :base()
         {
-            caracterPorLinea = 35;
-            anchoPapel = 185;
+            caracterPorLinea = 32;
+            anchoPapel = 184;
         }
         public override void Imprimir()
         {
-            var fp = new Font("Arial", 5, FontStyle.Regular);
             var fr = new Font("Arial", 6, FontStyle.Regular);
-            var fb = new Font("Arial", 6, FontStyle.Bold);
-            var fc = new Font("Arial", 6, FontStyle.Bold);
-            var fd = new Font("Arial", 6, FontStyle.Bold); 
+            var fb = new Font("Arial", 7, FontStyle.Bold);
             //
             var dn = this.Negocio;
             var df = this.Documento;
@@ -78,15 +76,8 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
                 }
             }
 
-            if (df.IsAnulado)
-            {
-                l += 10f;
-                eg.Graphics.DrawString("ANULADO", fd, Brushes.Black, centrar("ANULADO"), l);
-                l += 5f;
-            }
-
             l += 10f;
-            eg.Graphics.DrawString(df.nombre, fc, Brushes.Black, centrar(df.nombre), l);
+            eg.Graphics.DrawString(df.nombre, fb, Brushes.Black, centrar(df.nombre), l);
             l += 10;
             eg.Graphics.DrawString(df.nombre+":", fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.numero, fr, Brushes.Black, dder2(df.numero,fr), l);
@@ -94,37 +85,43 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
             eg.Graphics.DrawString("FECHA: " + df.fecha, fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString("HORA: " + df.hora, fr, Brushes.Black, dder2("HORA: " + df.hora,fr), l);
             l += 10;
-            eg.Graphics.DrawString("-".PadRight(85, '-'), fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString("-".PadRight(58, '-'), fb, Brushes.Black, 0, l);
             l += 10;
 
             foreach (var r in df.Items)
             {
-                var sw = 0;
-                var xdes2 = r.sdescripcion;
-                eg.Graphics.DrawString(r.scantidadPrecio, fb, Brushes.Black, 0, l);
-                l += 10;
-                foreach (var xl in xdes2)
+                if (r.isPesado)
                 {
-                    if (xl.Length > 0)
+                }
+                else
+                {
+                    var xdes = r.descripcion.Trim();
+                    if (xdes.Length > 15)
+                        xdes = xdes.Substring(0, 15);
+
+                    if (r.cantidad != 1.0m)
                     {
-                        eg.Graphics.DrawString(xl, fb, Brushes.Black, 0, l);
-                        if (sw == 0)
-                        {
-                            eg.Graphics.DrawString(r.simporte, fb, Brushes.Black, dder2(r.simporte, fb), l);
-                            sw = 1;
-                        }
+                        eg.Graphics.DrawString(r.scantidadPrecio, fr, Brushes.Black, 0, l);
                         l += 10;
                     }
+                    if (r.empCont > 1) 
+                    {
+                        var empCont = r.empDesc.Trim() + "/" + r.empCont.ToString().Trim();
+                        eg.Graphics.DrawString(empCont, fr, Brushes.Black, 0, l);
+                        l += 10;
+                    }
+                    eg.Graphics.DrawString(xdes, fr, Brushes.Black, 0, l);
+                    eg.Graphics.DrawString(r.simporte, fr, Brushes.Black, dder2(r.simporte, fr), l);
+                    l += 10;
                 }
-                l += 5;
             }
 
-            eg.Graphics.DrawString("-".PadRight(85, '-'), fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString("-".PadRight(58, '-'), fb, Brushes.Black, 0, l);
             l += 10;
             eg.Graphics.DrawString("SUBTOTAL", fr, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.subtotal, fr, Brushes.Black, dder2(df.subtotal,fr), l);
             l += 10;
-            eg.Graphics.DrawString("-".PadRight(85, '-'), fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString("-".PadRight(58, '-'), fb, Brushes.Black, 0, l);
             l += 10;
 
             if (df.HayCargo || df.HayDescuento) 
@@ -134,7 +131,7 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
                     eg.Graphics.DrawString(df.descuento, fr, Brushes.Black, 0, l);
                     eg.Graphics.DrawString(df.descuentoMonto, fr, Brushes.Black, dder2(df.descuentoMonto,fr), l);
                     l += 10;
-                    eg.Graphics.DrawString("-".PadRight(90, '-'), fr, Brushes.Black, 0, l);
+                    eg.Graphics.DrawString("-".PadRight(50, '-'), fr, Brushes.Black, 0, l);
                     l += 10;
                 }
                 if (df.HayCargo)
@@ -142,7 +139,7 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
                     eg.Graphics.DrawString(df.cargo, fr, Brushes.Black, 0, l);
                     eg.Graphics.DrawString(df.cargoMonto, fr, Brushes.Black, dder2(df.cargoMonto,fr), l);
                     l += 10;
-                    eg.Graphics.DrawString("-".PadRight(90, '-'), fr, Brushes.Black, 0, l);
+                    eg.Graphics.DrawString("-".PadRight(50, '-'), fr, Brushes.Black, 0, l);
                     l += 10;
                 }
             }
@@ -150,17 +147,8 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
             eg.Graphics.DrawString("TOTAL", fb, Brushes.Black, 0, l);
             eg.Graphics.DrawString(df.total, fr, Brushes.Black, dder2(df.total,fr), l);
             l += 10;
-            eg.Graphics.DrawString("TOTAL(" + Sistema.SimboloDivisa_AlImprimirTicket + ")", fb, Brushes.Black, 0, l);
-            eg.Graphics.DrawString(df.totalDivisa, fr, Brushes.Black, dder2(df.totalDivisa, fr), l);
-            l += 10;
-            eg.Graphics.DrawString(df.bonoDivisa, fb, Brushes.Black, 0, l);
-            l += 10;
-            eg.Graphics.DrawString(df.bonoDscto, fb, Brushes.Black, 0, l);
-            if (df.saldoPendiente.Trim() != "")
-            {
-                l += 10;
-                eg.Graphics.DrawString(df.saldoPendiente, fb, Brushes.Black, 0, l);
-            }
+            eg.Graphics.DrawString("TOTAL US$", fb, Brushes.Black, 0, l);
+            eg.Graphics.DrawString(df.totalDivisa, fb, Brushes.Black, dder2(df.totalDivisa, fb), l);
             l += 15;
 
             foreach (var mp in df.MediosPago)
@@ -178,48 +166,19 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
                 eg.Graphics.DrawString("Vuelto en Efectivo:", fr, Brushes.Black, 0, l);
                 eg.Graphics.DrawString(df.vueltoEfectivo, fr, Brushes.Black, dder2(df.vueltoEfectivo, fr), l);
             }
-            if (df.vueltoDivisa != "") 
+            if (df.vueltoDivisa != "")
             {
                 l += 10;
-                eg.Graphics.DrawString("Vuelto en Divisa(" + Sistema.SimboloDivisa_AlImprimirTicket + "):", fr, Brushes.Black, 0, l);
+                eg.Graphics.DrawString("Vuelto en Divisa($):", fr, Brushes.Black, 0, l);
                 eg.Graphics.DrawString(df.vueltoDivisa, fr, Brushes.Black, dder2(df.vueltoDivisa, fr), l);
             }
-            if (df.vueltoPagoMovil != "") 
+            if (df.vueltoPagoMovil != "")
             {
                 l += 10;
                 eg.Graphics.DrawString("Vuelto en PagoMovil:", fr, Brushes.Black, 0, l);
                 eg.Graphics.DrawString(df.vueltoPagoMovil, fr, Brushes.Black, dder2(df.vueltoPagoMovil, fr), l);
             }
-
-            l += 15;
-            eg.Graphics.DrawString("EMPAQUE              CANT      PESO     VOLUMEN", fb, Brushes.Black, 0, l);
             l += 10;
-            foreach (var mp in df.MedidasEmp)
-            {
-                eg.Graphics.DrawString(mp.nombre, fb, Brushes.Black, 0, l);
-                l += 10;
-            }
-
-            //
-            if (df.Precios.Count > 0)
-            {
-                l += 15;
-                eg.Graphics.DrawString("Ref", fb, Brushes.Black, 0, l);
-                l += 10;
-                foreach (var p in df.Precios)
-                {
-                    eg.Graphics.DrawString(p, fp, Brushes.Black, 0, l);
-                    l += 10;
-                }
-            }
-            //
-
-            //if (df.ImageQR != null) 
-            //{
-            //    l += 10;
-            //    PointF loc = new PointF(10, l);
-            //    eg.Graphics.DrawImage(df.ImageQR, loc);
-            //}
         }
         public override void Reporte(IEnumerable<string> lineas)
         {
@@ -233,3 +192,4 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._58
         }
     }
 }
+*/

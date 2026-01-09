@@ -17,5 +17,9 @@ namespace PosOnLine.Data.Infra
             Pendiente_Lista(OOB.Pendiente.Lista.Filtro filtro);
         OOB.Resultado.Ficha 
             Pendiente_AbrirCta(int idCta, int idOperador);
+        OOB.Resultado.FichaEntidad<bool>
+            Pendiente_VerificarEstatusCtaProtegida(int idCta);
+        OOB.Resultado.Ficha
+            Pendiente_AsignarEstatusCtaProtegida(int idCta);
     }
 }

@@ -216,6 +216,7 @@
     <Compile Include="Helpers\Imprimir\ELIMINAR\Tickera80\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\baseTicket.cs" />
     <Compile Include="Helpers\Imprimir\Ticket\58\Ticket.cs" />
+    <Compile Include="Helpers\Imprimir\Ticket\58\Ticket2.cs" />
     <Compile Include="Helpers\Imprimir\Ticket\70\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\Ticket\80\Ticket.cs" />
     <Compile Include="Helpers\Imprimir\Ticket\80Basico\Ticket.cs" />
@@ -582,6 +583,16 @@
     <Compile Include="Src\Consultor\ModoAdm\imp_vta.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IPrdConsultar.cs" />
     <Compile Include="Src\Consultor\ModoAdm\IVta.cs" />
+    <Compile Include="Src\CtrlPendiente\Abrir\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CtrlPendiente\Abrir\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\CtrlPendiente\Abrir\vm\AbrirImpl.cs" />
+    <Compile Include="Src\CtrlPendiente\Abrir\vm\IAbrir.cs" />
+    <Compile Include="Src\CtrlPendiente\Proteger\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CtrlPendiente\Proteger\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\CtrlPendiente\Proteger\vm\IProteger.cs" />
+    <Compile Include="Src\CtrlPendiente\Proteger\vm\ProtegerImpl.cs" />
+    <Compile Include="Src\CtrlPendiente\_\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CtrlPendiente\_\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\CuadreCierreHistorico\Domain\Models\Cierre.cs" />
     <Compile Include="Src\CuadreCierreHistorico\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\CuadreCierreHistorico\Domain\UseCase\UseCaseImpl.cs" />
