@@ -2,7 +2,7 @@
 <Configuracion>
   <Servidor>
     <Instancia>192.168.9.50</Instancia>
-    <Catalogo>zufu</Catalogo>
+    <Catalogo>zufu26</Catalogo>
   </Servidor>
   <IdEquipo>0</IdEquipo>
   <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->

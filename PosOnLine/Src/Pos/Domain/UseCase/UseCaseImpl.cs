@@ -56,5 +56,15 @@ namespace PosOnLine.Src.Pos.Domain.UseCase
             };
             return rt;
         }
+        public decimal 
+            TasaActualSistema()
+        {
+            var result = Sistema.MyData.Configuracion_TasaCambioSistema();
+            if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+            {
+                throw new Exception(result.Mensaje);
+            }
+            return result.Entidad;
+        }
     }
 }

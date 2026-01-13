@@ -269,6 +269,8 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             DetalleFormaPago = new List<FichaPosResumenDetalleFormaPago>();
             ResumenGeneral= new FichaPosResumenGeneral();
             //
+
+            TasaActualSistema = 0m;
         }
 
         public bool aplicarIGTF { get; set; }
@@ -286,5 +288,7 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         public List<FichaPosResumenDetalleFormaPago> DetalleFormaPago { get; set; }
         public FichaPosResumenGeneral ResumenGeneral  { get; set; }
         //
+
+        public decimal TasaActualSistema { get; set; }
     }
 }

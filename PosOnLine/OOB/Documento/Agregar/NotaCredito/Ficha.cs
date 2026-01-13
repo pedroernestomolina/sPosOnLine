@@ -256,8 +256,12 @@ namespace PosOnLine.OOB.Documento.Agregar.NotaCredito
             //
             DetalleFormaPago = new List<FichaPosResumenDetalleFormaPago>();
             ResumenGeneral = new FichaPosResumenGeneral();
+            //
+            TasaActualSistema = 0m;
         }
         public List<FichaPosResumenDetalleFormaPago> DetalleFormaPago { get; set; }
         public FichaPosResumenGeneral ResumenGeneral { get; set; }
+
+        public decimal TasaActualSistema { get; set; }
     }
 }

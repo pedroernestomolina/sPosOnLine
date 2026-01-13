@@ -128,6 +128,8 @@ namespace PosOnLine.Data.Prov
                 zFiscal = ficha.zFiscal,
                 //
                 estatusMostrarLibroVenta = ficha.AplicarLibroVenta ? "1" : "",
+                //
+                TasaActualSistema = ficha.TasaActualSistema,
             };
             //
             if (ficha.ClienteSaldo == null)

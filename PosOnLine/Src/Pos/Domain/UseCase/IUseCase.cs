@@ -13,5 +13,6 @@ namespace PosOnLine.Src.Pos.Domain.UseCase
             AgregarFactura(OOB.Documento.Agregar.Factura.Ficha doc);
         Models.ResultadoAgregarDoc
             AgregarNotaCredito(OOB.Documento.Agregar.NotaCredito.Ficha doc);
+        decimal TasaActualSistema();
     }
 }

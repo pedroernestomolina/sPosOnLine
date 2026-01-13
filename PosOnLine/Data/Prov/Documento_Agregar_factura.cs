@@ -136,6 +136,8 @@ namespace PosOnLine.Data.Prov
                 estatusMostrarLibroVenta = ficha.AplicarLiBroVenta ? "1" : "",
                 // 
                 estatusCredito = ficha.EstatusCredito,
+                //
+                tasaActualSistema = ficha.TasaActualSistema,
             };
             var detalles = ficha.Detalles.Select(s =>
             {

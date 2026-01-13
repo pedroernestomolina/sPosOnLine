@@ -2386,6 +2386,7 @@ namespace PosOnLine.Src.Pos
         {
             try
             {
+                var _tasaActualSistema = _ucGestion.TasaActualSistema(); 
                 if (Sistema.Activar_VentasAdm)
                 {
                     var t01 = Sistema.MyData.Vendedor_GetFichaById(_gestionCliente.GetVendedorId);
@@ -2610,6 +2611,8 @@ namespace PosOnLine.Src.Pos
                     montoIGTF = _dataRetFormaPago.MontoPorIGTF,
                     AplicarLiBroVenta = _serieFactura.EstatusAplicaLibroVenta,
                     EstatusCredito = isCredito ? "1" : "0",
+                    //
+                    TasaActualSistema = _tasaActualSistema,
                 };
                 fichaOOB.Precios = _fichaPrecios;
 
@@ -3270,6 +3273,8 @@ namespace PosOnLine.Src.Pos
         {
             try
             {
+                var _tasaActualSistema = _ucGestion.TasaActualSistema();
+                //
                 var t01 = Sistema.MyData.Vendedor_GetFichaById(_docAplicarNotaCredito.cuerpo.AutoVendedor);
                 if (t01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
                 {
@@ -3468,6 +3473,8 @@ namespace PosOnLine.Src.Pos
                     //
                     estatusFiscal = _docAplicarNotaCredito.cuerpo.estatusFiscal,
                     SaldoPendiente = _saldoPendiente,
+                    //
+                    TasaActualSistema = _tasaActualSistema ,
                 };
                 fichaOOB.ClienteSaldo = _clienteSaldo;
 
