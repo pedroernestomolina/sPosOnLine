@@ -177,5 +177,32 @@ namespace PosOnLine.Data.Prov
             //
             return result;
         }
+        //
+        public OOB.Resultado.FichaEntidad<int>
+            Pendiente_CtasPendientesSinProteger(int idOperador)
+        {
+            var result = new OOB.Resultado.FichaEntidad<int>();
+            //
+            try
+            {
+                var filtroDTO = new DtoLibPos.Pendiente.Cnt.Filtro();
+                filtroDTO.HabilitarConteoCtasProtegidas = false;
+                if (idOperador != -1)
+                    filtroDTO.idOperador = idOperador;
+                var r01 = MyData.Pendiente_CtasPendientes(filtroDTO);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                result.Entidad = r01.Entidad;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
     }
 }

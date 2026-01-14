@@ -31,5 +31,27 @@ namespace PosOnLine.Src.CuadreCierreProceso.Domain.ReglaNegocio
                 throw new Exception(e.Message);
             }
         }
+        public void HabilitarReglaCuentasPendientesEnCasoDeNoEstarProtegidas()
+        {
+            try
+            {
+                int idPosUso = -1;
+                if (!Sistema.ModoAbrirDocPendOtrosUsuarios)
+                    idPosUso = Sistema.PosEnUso.id;
+                var r01 = Sistema.MyData.Pendiente_CtasPendientesSinProteger(idPosUso);
+                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                if (r01.Entidad > 0)
+                {
+                    throw new Exception("HAY CUENTAS PENDIENTES EN PROCESO !!");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

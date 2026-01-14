@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>192.168.9.50</Instancia>
+    <Instancia>10.10.100.138</Instancia>
     <Catalogo>zufu26</Catalogo>
   </Servidor>
-  <IdEquipo>0</IdEquipo>
+  <IdEquipo>2</IdEquipo>
   <CodigoSucursalActiva>12</CodigoSucursalActiva> <!-- CODIGO HEX SUCURSAL -->
   <codigoDepositoActiva>19</codigoDepositoActiva> <!-- CODIGO DEPOSITO -->
   <SerieFactura>1</SerieFactura> 

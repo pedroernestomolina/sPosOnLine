@@ -10,5 +10,6 @@ namespace PosOnLine.Src.CuadreCierreProceso.Domain.ReglaNegocio
     public interface IRule
     {
         void CuentasPendientes();
+        void HabilitarReglaCuentasPendientesEnCasoDeNoEstarProtegidas();
     }
 }
