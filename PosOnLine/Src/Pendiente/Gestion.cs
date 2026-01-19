@@ -179,5 +179,24 @@ namespace PosOnLine.Src.Pendiente
                 }
             }
         }
+        private CtrlPendiente.DesProteger.vm.IDesproteger _desProtegerPend;
+        public void DesProtegerCta()
+        {
+            try
+            {
+                if (_bs.Current == null)
+                    return;
+                var _it = (data)_bs.Current;
+                if (_desProtegerPend == null)
+                {
+                    _desProtegerPend = new CtrlPendiente.DesProteger.vm.DesprotegerImpl();
+                }
+                _desProtegerPend.DesProtegerCuenta(_it.Ficha.id);
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+            }
+        }
     }
 }

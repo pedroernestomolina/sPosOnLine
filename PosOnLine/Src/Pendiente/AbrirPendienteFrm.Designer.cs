@@ -41,11 +41,13 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.BT_ABRIR = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.BT_PROTEGER_CTA = new System.Windows.Forms.Button();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.BT_DESPROTEGER = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.DGV = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.BT_PROTEGER_CTA = new System.Windows.Forms.Button();
             this.panel9.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -55,9 +57,10 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
-            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel9
@@ -129,15 +132,17 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 5;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel5, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel7, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel8, 4, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(1);
@@ -155,7 +160,7 @@
             this.panel3.Margin = new System.Windows.Forms.Padding(1);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(2);
-            this.panel3.Size = new System.Drawing.Size(652, 59);
+            this.panel3.Size = new System.Drawing.Size(590, 59);
             this.panel3.TabIndex = 1;
             // 
             // label1
@@ -165,7 +170,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(2, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(648, 55);
+            this.label1.Size = new System.Drawing.Size(586, 55);
             this.label1.TabIndex = 0;
             this.label1.Text = "Abrir Cta En Pendiente";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -195,7 +200,7 @@
             // 
             this.panel5.Controls.Add(this.BT_ABRIR);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(731, 1);
+            this.panel5.Location = new System.Drawing.Point(669, 1);
             this.panel5.Margin = new System.Windows.Forms.Padding(1);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(4);
@@ -215,6 +220,56 @@
             this.toolTip1.SetToolTip(this.BT_ABRIR, "Click Para Seleccionar");
             this.BT_ABRIR.UseVisualStyleBackColor = true;
             this.BT_ABRIR.Click += new System.EventHandler(this.BT_ABRIR_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.BT_PROTEGER_CTA);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel7.Location = new System.Drawing.Point(731, 1);
+            this.panel7.Margin = new System.Windows.Forms.Padding(1);
+            this.panel7.Name = "panel7";
+            this.panel7.Padding = new System.Windows.Forms.Padding(4);
+            this.panel7.Size = new System.Drawing.Size(60, 59);
+            this.panel7.TabIndex = 3;
+            // 
+            // BT_PROTEGER_CTA
+            // 
+            this.BT_PROTEGER_CTA.BackgroundImage = global::PosOnLine.Properties.Resources.cerrar;
+            this.BT_PROTEGER_CTA.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BT_PROTEGER_CTA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BT_PROTEGER_CTA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BT_PROTEGER_CTA.Location = new System.Drawing.Point(4, 4);
+            this.BT_PROTEGER_CTA.Name = "BT_PROTEGER_CTA";
+            this.BT_PROTEGER_CTA.Size = new System.Drawing.Size(52, 51);
+            this.BT_PROTEGER_CTA.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.BT_PROTEGER_CTA, "Proteger Cuenta Pendiente");
+            this.BT_PROTEGER_CTA.UseVisualStyleBackColor = true;
+            this.BT_PROTEGER_CTA.Click += new System.EventHandler(this.BT_PROTEGER_CTA_Click);
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.BT_DESPROTEGER);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(793, 1);
+            this.panel8.Margin = new System.Windows.Forms.Padding(1);
+            this.panel8.Name = "panel8";
+            this.panel8.Padding = new System.Windows.Forms.Padding(4);
+            this.panel8.Size = new System.Drawing.Size(60, 59);
+            this.panel8.TabIndex = 4;
+            // 
+            // BT_DESPROTEGER
+            // 
+            this.BT_DESPROTEGER.BackgroundImage = global::PosOnLine.Properties.Resources.candado_abierto_32;
+            this.BT_DESPROTEGER.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BT_DESPROTEGER.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BT_DESPROTEGER.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BT_DESPROTEGER.Location = new System.Drawing.Point(4, 4);
+            this.BT_DESPROTEGER.Name = "BT_DESPROTEGER";
+            this.BT_DESPROTEGER.Size = new System.Drawing.Size(52, 51);
+            this.BT_DESPROTEGER.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.BT_DESPROTEGER, "Desproteger Cuenta Pendiente");
+            this.BT_DESPROTEGER.UseVisualStyleBackColor = true;
+            this.BT_DESPROTEGER.Click += new System.EventHandler(this.BT_DESPROTEGER_Click);
             // 
             // panel4
             // 
@@ -236,31 +291,6 @@
             this.DGV.TabIndex = 0;
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.BT_PROTEGER_CTA);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(793, 1);
-            this.panel7.Margin = new System.Windows.Forms.Padding(1);
-            this.panel7.Name = "panel7";
-            this.panel7.Padding = new System.Windows.Forms.Padding(4);
-            this.panel7.Size = new System.Drawing.Size(60, 59);
-            this.panel7.TabIndex = 3;
-            // 
-            // BT_PROTEGER_CTA
-            // 
-            this.BT_PROTEGER_CTA.BackgroundImage = global::PosOnLine.Properties.Resources.cerrar;
-            this.BT_PROTEGER_CTA.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BT_PROTEGER_CTA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BT_PROTEGER_CTA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BT_PROTEGER_CTA.Location = new System.Drawing.Point(4, 4);
-            this.BT_PROTEGER_CTA.Name = "BT_PROTEGER_CTA";
-            this.BT_PROTEGER_CTA.Size = new System.Drawing.Size(52, 51);
-            this.BT_PROTEGER_CTA.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.BT_PROTEGER_CTA, "Proteger Cuenta Pendiente");
-            this.BT_PROTEGER_CTA.UseVisualStyleBackColor = true;
-            this.BT_PROTEGER_CTA.Click += new System.EventHandler(this.BT_PROTEGER_CTA_Click);
             // 
             // AbrirPendienteFrm
             // 
@@ -284,9 +314,10 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
-            this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -310,6 +341,8 @@
         private System.Windows.Forms.Button BT_SALIDA;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Button BT_PROTEGER_CTA;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button BT_DESPROTEGER;
     }
 
 }

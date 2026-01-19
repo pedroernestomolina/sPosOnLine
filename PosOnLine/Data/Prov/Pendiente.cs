@@ -177,6 +177,27 @@ namespace PosOnLine.Data.Prov
             //
             return result;
         }
+        public OOB.Resultado.Ficha
+            Pendiente_QuitarEstatusCtaProtegida(int idCta)
+        {
+            var result = new OOB.Resultado.Ficha();
+            //
+            try
+            {
+                var r01 = MyData.Pendiente_QuitarEstatusCtaProtegida(idCta);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
+                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+            }
+            //
+            return result;
+        }
         //
         public OOB.Resultado.FichaEntidad<int>
             Pendiente_CtasPendientesSinProteger(int idOperador)

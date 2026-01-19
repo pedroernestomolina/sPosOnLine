@@ -21,6 +21,8 @@ namespace PosOnLine.Data.Infra
             Pendiente_VerificarEstatusCtaProtegida(int idCta);
         OOB.Resultado.Ficha
             Pendiente_AsignarEstatusCtaProtegida(int idCta);
+        OOB.Resultado.Ficha
+            Pendiente_QuitarEstatusCtaProtegida(int idCta);
         //
         OOB.Resultado.FichaEntidad<int> 
             Pendiente_CtasPendientesSinProteger(int idPosUso);

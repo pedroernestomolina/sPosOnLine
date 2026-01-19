@@ -587,6 +587,10 @@
     <Compile Include="Src\CtrlPendiente\Abrir\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\CtrlPendiente\Abrir\vm\AbrirImpl.cs" />
     <Compile Include="Src\CtrlPendiente\Abrir\vm\IAbrir.cs" />
+    <Compile Include="Src\CtrlPendiente\DesProteger\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\CtrlPendiente\DesProteger\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\CtrlPendiente\DesProteger\vm\DesprotegerImpl.cs" />
+    <Compile Include="Src\CtrlPendiente\DesProteger\vm\IDesproteger.cs" />
     <Compile Include="Src\CtrlPendiente\Proteger\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\CtrlPendiente\Proteger\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\CtrlPendiente\Proteger\vm\IProteger.cs" />
@@ -1557,6 +1561,7 @@
     <None Include="Resources\pedido_32.png" />
     <None Include="Resources\pedido_48.png" />
     <None Include="Resources\pedido_24.png" />
+    <None Include="Resources\candado_abierto_32.png" />
     <Content Include="Src\Imagenes\acceso.png" />
     <Content Include="Src\Imagenes\administrador.png" />
     <Content Include="Src\Imagenes\administrador_2_48.png" />
@@ -1609,6 +1614,7 @@
     <Content Include="Src\Imagenes\bt_vegetales.png" />
     <Content Include="Src\Imagenes\bt_vendedor.png" />
     <Content Include="Src\Imagenes\calc.png" />
+    <Content Include="Src\Imagenes\candado_abierto_32.png" />
     <Content Include="Src\Imagenes\carrito compra.png" />
     <Content Include="Src\Imagenes\CarritoCompra.png" />
     <Content Include="Src\Imagenes\carrito_compra.png" />
