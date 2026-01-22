@@ -42,6 +42,9 @@ namespace PosOnLine.Src.PosItemCambiarPrecio.vista
             L_ADM_POR_DIVISA.Text = _controlador.Get_IsProductoAdmPorDivisa ? "SI" : "NO";
             L_TASA_SISTEMA.Text = _controlador.Get_TasaSistema.ToString("n2");
             //
+            TB_PAGO_BS.Enabled = false;
+            TB_PAGO_DIVISA.Enabled = false;
+            TB_PAGO_NO_DIVISA.Enabled = false;
             TB_PAGO_BS.Text = "";
             TB_PAGO_DIVISA.Text = "";
             TB_PAGO_NO_DIVISA.Text = "";

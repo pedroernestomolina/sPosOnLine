@@ -132,6 +132,11 @@ namespace PosOnLine.OOB.Documento.Entidad
         public decimal baseAplicaIGTFMonDiv { get; set; }
         public decimal montoIGTF { get; set; }
         public bool isContado { get { return CondicionPago.Trim().ToUpper() == "CONTADO"; } }
+        //
+        public decimal porcSegunSistemaBonoPagoDivisa { get; set; }
+        public decimal porcSegunPosBonoPagoDivisa { get; set; }
+        public decimal porcAumentoPrdNoAdmDivisa { get; set; }
+        //
         public FichaCuerpo()
         {
             DocumentoNro = "";
@@ -250,6 +255,10 @@ namespace PosOnLine.OOB.Documento.Entidad
             montoIGTF = 0.0m;
             baseAplicaIGTFMonAct = 0.0m;
             baseAplicaIGTFMonDiv = 0.0m;
+            //
+            porcAumentoPrdNoAdmDivisa = 0m;
+            porcSegunPosBonoPagoDivisa = 0m;
+            porcSegunSistemaBonoPagoDivisa = 0m;
         }
     }
 }

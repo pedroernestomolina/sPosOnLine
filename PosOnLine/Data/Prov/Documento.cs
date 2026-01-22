@@ -217,6 +217,10 @@ namespace PosOnLine.Data.Prov
                     tasaIGTF = s.tasaIGTF,
                     baseAplicaIGTFMonAct = s.baseAplicaIGTFMonAct,
                     baseAplicaIGTFMonDiv = s.baseAplicaIGTFMonDiv,
+                    //
+                    porcSegunSistemaBonoPagoDivisa = s.porcSegunSistemaBonoPagoDivisa,
+                    porcSegunPosBonoPagoDivisa= s.porcSegunPosBonoPagoDivisa,
+                    porcAumentoPrdNoAdmDivisa= s.porcAumentoPrdNoAdmDivisa,
                 };
                 //
                 result.Entidad.items = r01.Entidad.items.Select(ss =>
@@ -315,6 +319,8 @@ namespace PosOnLine.Data.Prov
                         bonoAplicar = p.bonoAplicar,
                         descuento = p.descuento,
                         precioFactura = p.precioFactura,
+                        aplicaPorcAumento = p.estatusAplicaPorcAumento.Trim().ToUpper() == "1",
+                        isPrdDivisa= p.estatusPrdDivisa.Trim().ToUpper()=="1",
                     };
                     return pr;
                 }).ToList();

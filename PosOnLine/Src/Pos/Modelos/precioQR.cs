@@ -18,21 +18,28 @@ namespace PosOnLine.Src.Pos.Modelos
         public decimal porctBonoCalculado { get; set; }
         public decimal precioCliente { get { return calcPrecioCliente(); } }
         public bool isPorDivisa { get { return esAdmDivisa.Trim().ToUpper() == "1"; } }
-        public bool aplicaPorctAumento { get { return !isPorDivisa; } }
+        //public bool aplicaPorctAumento { get { return !isPorDivisa; } }
+        //
+        public bool aplicaPorctAumento { get; set; }
+        public decimal dsctFinal { get; set; }
         //
         private decimal calcPrecioCliente()
         {
             var rt = precioFact;
+            rt = rt - (rt * dsctFinal / 100m);
             if (porctBonoAplicar > 0m) 
             {
-                var dsct = precioFact * (porctBonoAplicar / 100m);
+                var dsct = rt * (porctBonoAplicar / 100m);
                 rt -= dsct;
                 if (esAdmDivisa.Trim().ToUpper() != "1") 
                 {
-                    if (porctAumentoPrecioAplicar > 0m) 
+                    if (aplicaPorctAumento) 
                     {
-                        var aumento = rt * (porctAumentoPrecioAplicar / 100m);
-                        rt += aumento;
+                        if (porctAumentoPrecioAplicar > 0m)
+                        {
+                            var aumento = rt * (porctAumentoPrecioAplicar / 100m);
+                            rt += aumento;
+                        }
                     }
                 }
             }

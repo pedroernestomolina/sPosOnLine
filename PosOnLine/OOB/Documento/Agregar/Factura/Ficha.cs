@@ -271,6 +271,9 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
             //
 
             TasaActualSistema = 0m;
+            PorcSegunSistemaPorBonoPagoDivisa = 0m;
+            PorcSegunPosPorBonoPagoDivisa = 0m;
+            PorcAumentoPorPrdNoAdmPorDivisa = 0m;
         }
 
         public bool aplicarIGTF { get; set; }
@@ -290,5 +293,8 @@ namespace PosOnLine.OOB.Documento.Agregar.Factura
         //
 
         public decimal TasaActualSistema { get; set; }
+        public decimal PorcSegunSistemaPorBonoPagoDivisa { get; set; }
+        public decimal PorcSegunPosPorBonoPagoDivisa { get; set; }
+        public decimal PorcAumentoPorPrdNoAdmPorDivisa { get; set; }
     }
 }

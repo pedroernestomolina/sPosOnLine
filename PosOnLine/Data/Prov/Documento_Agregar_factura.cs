@@ -138,6 +138,9 @@ namespace PosOnLine.Data.Prov
                 estatusCredito = ficha.EstatusCredito,
                 //
                 tasaActualSistema = ficha.TasaActualSistema,
+                porcSegunSistemaPorBonoPagoDivisa = ficha.PorcSegunSistemaPorBonoPagoDivisa,
+                porcSegunPosPorBonoPagoDivisa = ficha.PorcSegunPosPorBonoPagoDivisa ,
+                porcAumentoPorPrdNoAdmPorDivisa = ficha.PorcAumentoPorPrdNoAdmPorDivisa 
             };
             var detalles = ficha.Detalles.Select(s =>
             {

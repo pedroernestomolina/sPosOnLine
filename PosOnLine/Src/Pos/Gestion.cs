@@ -951,7 +951,8 @@ namespace PosOnLine.Src.Pos
                                         var _docAgregar = ProcesarDocumento(
                                                 _dataRetFormaPago,
                                                 _dataRetCambioVuelto,
-                                                _dataRetSolPagoMovil);
+                                                _dataRetSolPagoMovil,
+                                                _porcBono);
                                         var result = _ucGestion.AgregarFactura(_docAgregar);
 
                                         //LIMPIAR / INICIALIZAR
@@ -1174,7 +1175,7 @@ namespace PosOnLine.Src.Pos
 
 
 
-        private List<Modelos.precioQR> generarPreciosQR(decimal porctBono, decimal porctAumentoPrecio, decimal porctBonoCalculado)
+        private List<Modelos.precioQR> generarPreciosQR(decimal porctBono, decimal porctAumentoPrecio, decimal porctBonoCalculado, decimal dsctFinal=0m)
         {
             var lst = new List<Modelos.precioQR>();
             //
@@ -1188,7 +1189,9 @@ namespace PosOnLine.Src.Pos
                     esAdmDivisa = s.Ficha.estatusDivisa,
                     porctBonoAplicar = porctBono,
                     porctAumentoPrecioAplicar = porctAumentoPrecio,
-                    porctBonoCalculado = porctBonoCalculado
+                    porctBonoCalculado = porctBonoCalculado,
+                    aplicaPorctAumento = s.Ficha.aplicarPorctAumento.Trim().ToUpper()=="",
+                    dsctFinal=dsctFinal,
                 };
                 return nr;
             }).ToList();
@@ -2381,7 +2384,8 @@ namespace PosOnLine.Src.Pos
             ProcesarDocumento(
                 FormaPago.Domain.Models.DataRetornar _dataRetFormaPago,
                 FormaPagoCambioVuelto.Domain.Models.DataRetornar _dataRetCambioVuelto,
-                FormaPagoSolicitudPagoMovil.Domain.Models.DataRetornar _dataRetSolPagoMovil
+                FormaPagoSolicitudPagoMovil.Domain.Models.DataRetornar _dataRetSolPagoMovil,
+                decimal _porcentaBonoPorPagoDivisaSegunPos
             )
         {
             try
@@ -2466,11 +2470,11 @@ namespace PosOnLine.Src.Pos
                 List<Modelos.precioQR> rtPreciosQR = new List<Modelos.precioQR>();
                 if (isCredito || dataPagoRecolectada.EstatusBonoPorPagoDivisaIsActivo)
                 {
-                    rtPreciosQR = generarPreciosQR(_dsctoBonoPagoDivisa, _porcAumentoPrdNoAdmDivisa, _porctBonoPorPagoDivisa);
+                    rtPreciosQR = generarPreciosQR(_dsctoBonoPagoDivisa, _porcAumentoPrdNoAdmDivisa, _porcentaBonoPorPagoDivisaSegunPos, dsctoFinal);
                 }
                 else
                 {
-                    rtPreciosQR = generarPreciosQR(0m, 0m, 0m);
+                    rtPreciosQR = generarPreciosQR(0m, 0m, 0m, dsctoFinal);
                 }
                 //
                 //
@@ -2613,6 +2617,9 @@ namespace PosOnLine.Src.Pos
                     EstatusCredito = isCredito ? "1" : "0",
                     //
                     TasaActualSistema = _tasaActualSistema,
+                    PorcSegunSistemaPorBonoPagoDivisa=_dsctoBonoPagoDivisa,
+                    PorcSegunPosPorBonoPagoDivisa=_porcentaBonoPorPagoDivisaSegunPos,
+                    PorcAumentoPorPrdNoAdmPorDivisa=_porcAumentoPrdNoAdmDivisa,
                 };
                 fichaOOB.Precios = _fichaPrecios;
 

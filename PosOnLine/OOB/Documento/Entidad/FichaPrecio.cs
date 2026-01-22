@@ -14,5 +14,7 @@ namespace PosOnLine.OOB.Documento.Entidad
         public decimal precioFactura { get; set; }
         public decimal descuento { get; set; }
         public decimal bonoAplicar { get; set; }
+        public bool aplicaPorcAumento { get; set; }
+        public bool isPrdDivisa { get; set; }
     }
 }

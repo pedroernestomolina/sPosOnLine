@@ -147,15 +147,9 @@ namespace PosOnLine.Src.PosImprimirTicket.Domain.UseCase
                 var _lprecio = new List<String>();
                 var it = 1;
                 var _xrt = (xr1.Entidad.cuerpo.MontoDivisa - xr1.Entidad.cuerpo.MontoBonoEnDivisaPorPagoDivisa);
-                var _porct = (1m - (_xrt / xr1.Entidad.cuerpo.MontoDivisa)) * 100m;
-
-
                 foreach (var rg in xr1.Entidad.precios)
                 {
-                    var precio = rg.precioFactura-(rg.precioFactura * rg.descuento / 100m);
-                    //precio = precio - (precio * rg.bonoAplicar / 100m);
-                    precio = precio - (precio * _porct / 100m);
-                    //var rt = rg.descPrd.Trim() + " #" + rg.precio.ToString("n2").Trim() + "- ";
+                    var precio = rg.precio;
                     var rt = rg.descPrd.Trim() + " #" + precio.ToString("n2").Trim() + "- ";
                     it += 1;
                     _lprecio.Add(rt);
