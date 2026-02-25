@@ -201,28 +201,29 @@ namespace PosOnLine.Data.Prov
             Venta_Anular(OOB.Venta.Anular.Ficha ficha)
         {
             var result = new OOB.Resultado.Ficha();
-
-            var fichaDTO = new DtoLibPos.Venta.Anular .Ficha ()
+            //
+            var fichaDTO = new DtoLibPos.Venta.Anular.Ficha()
             {
-                 items= ficha.items.Select(s=>
-                 {
-                     var nr = new DtoLibPos.Venta.Anular.FichaItem()
-                     {
-                         idOperador = s.idOperador,
-                         idItem = s.idItem,
-                     };
-                     return nr;
-                 }).ToList(),
-                 itemDeposito= ficha.itemDeposito.Select(s=>
-                 {
-                     var nr = new DtoLibPos.Venta.Anular.FichaDeposito()
-                     {
-                         autoProducto = s.autoProducto,
-                         autoDeposito = s.autoDeposito,
-                         cantUndBloq = s.cantUndBloq,
-                     };
-                     return nr;
-                 }).ToList(),
+                IdOperador = ficha.IdOperador,
+                items = ficha.items.Select(s =>
+                {
+                    var nr = new DtoLibPos.Venta.Anular.FichaItem()
+                    {
+                        idOperador = s.idOperador,
+                        idItem = s.idItem,
+                    };
+                    return nr;
+                }).ToList(),
+                itemDeposito = ficha.itemDeposito.Select(s =>
+                {
+                    var nr = new DtoLibPos.Venta.Anular.FichaDeposito()
+                    {
+                        autoProducto = s.autoProducto,
+                        autoDeposito = s.autoDeposito,
+                        cantUndBloq = s.cantUndBloq,
+                    };
+                    return nr;
+                }).ToList(),
             };
             var r01 = MyData.Venta_Anular(fichaDTO);
             if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
@@ -231,7 +232,7 @@ namespace PosOnLine.Data.Prov
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
                 return result;
             }
-
+            //
             return result;
         }
         public OOB.Resultado.Ficha 
@@ -335,7 +336,5 @@ namespace PosOnLine.Data.Prov
 
             return result;
         }
-
     }
-
 }

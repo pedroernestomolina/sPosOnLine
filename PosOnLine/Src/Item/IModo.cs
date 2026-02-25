@@ -41,6 +41,7 @@ namespace PosOnLine.Src.Item
         void SetCantIncrementar(data it, int p);
         void setDescuentoFinal(decimal dsctoFinal);
         void setItemActualInicializar();
+        void setTasaCambioActual(decimal tasaPos);
         //
         void Inicializar();
         void RegistraItem(string autoPrd, string tipoPrecio, int cnt=1);

@@ -542,6 +542,7 @@ namespace PosOnLine.Src.Item
             {
                 var ficha = new OOB.Venta.Anular.Ficha()
                 {
+                    IdOperador = Sistema.PosEnUso.id,
                     items = litems,
                     itemDeposito = litemsDeposito,
                 };
@@ -916,8 +917,12 @@ namespace PosOnLine.Src.Item
                 return rt;
             }
         }
-
-
         public decimal TotalPesoVolumen { get { return _litems.Sum(s => s.PesoVolumen); } }
+
+
+        public void setTasaCambioActual(decimal tasaPos)
+        {
+            setTasaCambio(tasaPos);
+        }
     }
 }

@@ -66,5 +66,80 @@ namespace PosOnLine.Src.Pos.Domain.UseCase
             }
             return result.Entidad;
         }
+        public Models.CuentaControl 
+            ObtenerMiCuentaControl(int idOperador)
+        {
+            try
+            {
+                var result = Sistema.MyData.PosCtaControl_ObtenerDatosCtaControl(idOperador);
+                if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(result.Mensaje);
+                }
+                var f = result.Entidad;
+                return new Models.CuentaControl()
+                {
+                    idCliente = f.IdCliente,
+                    idCtaControl = f.IdCtaControl,
+                    isProtegida = f.IsProtegida,
+                    TasaPos = f.TasaPos,
+                };
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public bool 
+            VerificaSiExisteCuentaControlParaEsteOperador(int idOperador)
+        {
+            try
+            {
+                var result = Sistema.MyData.PosCtaControl_VerificaSiExisteParaEsteOperador(idOperador);
+                if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(result.Mensaje);
+                }
+                return result.Entidad;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public decimal 
+            ObtenerTasaPosActual()
+        {
+            try
+            {
+                var result = Sistema.MyData.Configuracion_FactorDivisa();
+                if (result.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(result.Mensaje);
+                }
+                return result.Entidad;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public bool
+            LimpiarOperadorControl(int idOperador)
+        {
+            try
+            {
+                var rt = Sistema.MyData.PosCtaControl_LimpiarDadoOperador(idOperador);
+                if (rt.Result == OOB.Resultado.Enumerados.EnumResult.isError) 
+                {
+                    throw new Exception(rt.Mensaje);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace PosOnLine.Data.Infra
         IMoneda,
         ICuadreCierre,
         IPosCambioPrecio,
-        IPosItem
+        IPosItem,
+        IPosCtaControl
     {
         OOB.Resultado.FichaEntidad<DateTime> 
             FechaServidor();

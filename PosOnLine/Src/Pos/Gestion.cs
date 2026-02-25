@@ -115,7 +115,6 @@ namespace PosOnLine.Src.Pos
         public bool IsTickeraOk { get { return _isTickeraOk; } }
         public decimal TotalPesoVolumen { get { return _gestionItem.TotalPesoVolumen; } }
 
-
         public bool SalirIsOk
         {
             get
@@ -187,6 +186,7 @@ namespace PosOnLine.Src.Pos
 
         public void Inicializa()
         {
+            _abandonarPosIsOk = false;
             _docAplicarNotaCredito = null;
             _modoFuncion = EnumModoFuncion.Facturacion;
             _gestionCliente.Inicializa();
@@ -477,8 +477,29 @@ namespace PosOnLine.Src.Pos
                 _gestionItem.setTarifaPrecio(_precioManejar);
                 _gestionItem.setValidarExistencia(Sistema.ConfiguracionActual.ValidarExistencia_Activa);
                 _gestionItem.setHabilitarPrecio5VentaMayor(r04.Entidad);
+                //
+                //
+                //
                 if (!IsNotaCredito)
                 {
+                    var _check= _ucGestion.VerificaSiExisteCuentaControlParaEsteOperador(Sistema.PosEnUso.id);
+                    if (_check) 
+                    {
+                        var _miCtaControl = _ucGestion.ObtenerMiCuentaControl(Sistema.PosEnUso.id);
+                        if (_miCtaControl == null)
+                        {
+                            throw new Exception("PROBLEMA AL OBTENER CUENTA CONTROL");
+                        }
+                        if (_miCtaControl.TasaPos > 0m) 
+                        {
+                            _tasaCambioActual = _miCtaControl.TasaPos;
+                            if (_tasaCambioSistema > 0m)
+                            {
+                                _dsctoBonoPagoDivisa = (1m - (_tasaCambioActual / _tasaCambioSistema)) * 100m;
+                            }
+                        }
+                    }
+                    //
 
                     var _lst = new List<OOB.PosItem.ActualizarPrecioPorCambioTasa.Item>();
                     foreach (var rg in r03.ListaD)
@@ -578,8 +599,31 @@ namespace PosOnLine.Src.Pos
             _gestionItem.setItemActualInicializar();
         }
 
+
+        private PosBuscarProducto.vm.IBuscarPrd _posPrdBuscar;
         public void BuscarProducto(string cadena)
         {
+            /*
+            if (_posPrdBuscar==null)
+            {
+                _posPrdBuscar = new PosBuscarProducto.vm.BuscarPrdImpl();
+                _posPrdBuscar.setIdDepositoManejar(_depositoAsignado.id);
+                _posPrdBuscar.setTarifaPrecio(_precioManejar);
+            }
+            var rs = _posPrdBuscar.Execute(cadena);
+            if (rs.IdPrdEncontrado != "")
+            {
+                _gestionItem.Inicializar();
+                _gestionItem.RegistraItem(rs.IdPrdEncontrado, _precioManejar, 1);
+            }
+            else 
+            {
+            }
+             */
+
+
+
+
             try
             {
                 if (cadena == "") { return; }
@@ -685,8 +729,26 @@ namespace PosOnLine.Src.Pos
 
         private void Reiniciar()
         {
-            _gestionCliente.Limpiar();
-            _vendedorAsignado = _vendedorPorDefecto;
+            try
+            {
+                var _tasaPos = _ucGestion.ObtenerTasaPosActual();
+                //
+                // ACTUALZAR TASA POS SISTEMA
+                //
+                _tasaCambioActual = _tasaPos;
+                if (_tasaCambioSistema > 0m)
+                {
+                    _dsctoBonoPagoDivisa = (1m - (_tasaCambioActual / _tasaCambioSistema)) * 100m;
+                }
+                _gestionItem.setTasaCambioActual(_tasaCambioActual);
+                //
+                _gestionCliente.Limpiar();
+                _vendedorAsignado = _vendedorPorDefecto;
+            }
+            catch (Exception e)
+            {
+                Helpers.Msg.Error(e.Message);
+            }
         }
 
         public void DevolucionItem()
@@ -758,6 +820,25 @@ namespace PosOnLine.Src.Pos
                         _gestionPendiente.Inicia();
                         if (_gestionPendiente.AbrirCtaPendienteIsOk)
                         {
+
+                            try
+                            {
+                                var _miCtaControl = _ucGestion.ObtenerMiCuentaControl(Sistema.PosEnUso.id);
+                                if (_miCtaControl.TasaPos > 0m)
+                                {
+                                    _tasaCambioActual = _miCtaControl.TasaPos;
+                                    if (_tasaCambioSistema > 0m)
+                                    {
+                                        _dsctoBonoPagoDivisa = (1m - (_tasaCambioActual / _tasaCambioSistema)) * 100m;
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                Helpers.Msg.Error(e.Message);
+                                return;
+                            }
+
                             _formaPago.limpiarItemsFormaPago();
                             ActualizarData();
                             if (_gestionPendiente.CtaPediente.Ficha != null)
@@ -4053,9 +4134,47 @@ namespace PosOnLine.Src.Pos
                 return null;
             }
         }
+        //
+        private TasaCambioPos.Vm.ITasaCambioPos _tasacambioPos;
+        public void CambiarTasaPos()
+        {
+            if (_tasacambioPos == null) 
+            {
+                _tasacambioPos = new TasaCambioPos.Vm.TasaCambioPosImpl();
+            }
+            _tasacambioPos.Invoke();
+            if (_tasacambioPos.CambioIsOK) 
+            {
+                _tasaCambioActual = _tasacambioPos.GetTasaPosInput;
+                _tasaCambioSistema = _tasacambioPos.GetTasaSistemaActualizada;
+                _dsctoBonoPagoDivisa = _tasacambioPos.GetDsctoBonoPagoDivisaActualizado;
+                _gestionItem.setData(_tasacambioPos.GetListaItemsActualizados, _tasaCambioActual);
+            }
+        }
+
+        private bool _abandonarPosIsOk=false;
+        public bool AbandonarPosIsOk { get { return _abandonarPosIsOk; } }
+        public void AbandonarPos()
+        {
+            _abandonarPosIsOk = false;
+            if (SalirIsOk)
+            {
+                try
+                {
+                    _abandonarPosIsOk = _ucGestion.LimpiarOperadorControl(Sistema.PosEnUso.id);
+                }
+                catch (Exception e)
+                {
+                    Helpers.Msg.Error(e.Message);
+                }
+            }
+            else 
+            {
+                Helpers.Msg.Error("HAY ITEMS EN PROCESO !!!");
+            }
+        }
     }
 }
-
 
 
 

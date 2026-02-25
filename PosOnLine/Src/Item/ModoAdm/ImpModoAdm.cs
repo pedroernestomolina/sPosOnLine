@@ -832,5 +832,11 @@ namespace PosOnLine.Src.Item.ModoAdm
                 return rt;
             }
         }
+
+
+        public void setTasaCambioActual(decimal tasaPos)
+        {
+            setTasaCambio(tasaPos);
+        }
     }
 }

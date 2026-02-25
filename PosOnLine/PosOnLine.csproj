@@ -109,6 +109,7 @@
     <Compile Include="Data\Infra\IPendiente.cs" />
     <Compile Include="Data\Infra\IPermiso.cs" />
     <Compile Include="Data\Infra\IPosCambioPrecio.cs" />
+    <Compile Include="Data\Infra\IPosCtaControl.cs" />
     <Compile Include="Data\Infra\IPosItem.cs" />
     <Compile Include="Data\Infra\IProducto.cs" />
     <Compile Include="Data\Infra\IProducto_ModoAdm.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Data\Prov\Pendiente.cs" />
     <Compile Include="Data\Prov\Permiso.cs" />
     <Compile Include="Data\Prov\PosCambioPrecio.cs" />
+    <Compile Include="Data\Prov\PosCtaControl.cs" />
     <Compile Include="Data\Prov\PosItem.cs" />
     <Compile Include="Data\Prov\Producto.cs" />
     <Compile Include="Data\Prov\Producto_ModoAdm.cs" />
@@ -386,6 +388,7 @@
     <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\DataItem.cs" />
     <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\Ficha.cs" />
     <Compile Include="OOB\PosCambioPrecio\ProcesarCambiar\LogReg.cs" />
+    <Compile Include="OOB\PosCtaControl\Obtener\Ficha.cs" />
     <Compile Include="OOB\PosItem\ActualizarPrecioPorCambioTasa\Ficha.cs" />
     <Compile Include="OOB\PosItem\ActualizarPrecioPorCambioTasa\Item.cs" />
     <Compile Include="OOB\Pos\Abrir\Arqueo.cs" />
@@ -671,6 +674,11 @@
     <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoResumenImpl.cs" />
     <Compile Include="Src\CuadreCierreRepo\vm\RepoVentaCreditoImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Enumerados.cs" />
+    <Compile Include="Src\PosBuscarProducto\Domain\Models\BusquedaResult.cs" />
+    <Compile Include="Src\PosBuscarProducto\Domain\UseCase\IUseCase.cs" />
+    <Compile Include="Src\PosBuscarProducto\Domain\UseCase\UseCaseImpl.cs" />
+    <Compile Include="Src\PosBuscarProducto\vm\BuscarPrdImpl.cs" />
+    <Compile Include="Src\PosBuscarProducto\vm\IBuscarPrd.cs" />
     <Compile Include="Src\PosImprimirTicket\Domain\converter.cs" />
     <Compile Include="Src\PosImprimirTicket\Domain\Models\Data.cs" />
     <Compile Include="Src\PosImprimirTicket\Domain\Models\DataRecolectar.cs" />
@@ -694,6 +702,21 @@
     <Compile Include="Src\PosSolicitudUsuarioAdm\Domain\Models\UsuarioAutoriza.cs" />
     <Compile Include="Src\PosSolicitudUsuarioAdm\vm\ISolicitudUsuarioAdm.cs" />
     <Compile Include="Src\PosSolicitudUsuarioAdm\vm\SolicitudUsuarioAdmImpl.cs" />
+    <Compile Include="Src\Pos\Domain\Models\CuentaControl.cs" />
+    <Compile Include="Src\Pos\Domain\Models\Mappers.cs" />
+    <Compile Include="Src\Pos\Domain\Models\PosProducto.cs" />
+    <Compile Include="Src\TasaCambioPos\Domain\Models\ModeloActualizarTasa.cs" />
+    <Compile Include="Src\TasaCambioPos\Domain\Models\ModeloRetornar.cs" />
+    <Compile Include="Src\TasaCambioPos\Domain\USeCase\IUseCase.cs" />
+    <Compile Include="Src\TasaCambioPos\Domain\USeCase\UseCaseImpl.cs" />
+    <Compile Include="Src\TasaCambioPos\Vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\TasaCambioPos\Vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\TasaCambioPos\Vm\ITasaCambioPos.cs" />
+    <Compile Include="Src\TasaCambioPos\Vm\TasaCambioPosImpl.cs" />
     <Compile Include="Src\_Domain\IRepo.cs" />
     <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoDetalleImpl.cs" />
     <Compile Include="Src\FabModAdm.cs" />
@@ -1366,6 +1389,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Reportes\VueltosEntregado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\TasaCambioPos\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\VentaAdm\ClienteAdm\AgregarEditar\AgregarEditarFrm.resx">
       <DependentUpon>AgregarEditarFrm.cs</DependentUpon>

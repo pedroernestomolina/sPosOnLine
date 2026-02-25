@@ -182,7 +182,17 @@ namespace PosOnLine.Src.FormaPago.vm
                 }).ToList());
                 setMedioPagoPorBonoDivisa(FormaPago.Domain.converter.MedioPago(_ucCargarMedioPagoPorBonoDivisa.Invoke()));
                 setConfiguracionIGTF(_useCase.CargarConfiguracionIGTF());
-                setMonedas(_useCase.CargarMonedas());
+
+                //
+                List<Domain.Models.Moneda> _lst = _useCase.CargarMonedas();
+                var _itMonLocal = _lst.Find(f => f.codigo == _monedaLocal.codigo);
+                if (_itMonLocal != null)
+                {
+                    _itMonLocal.tasaRespectoMonReferencia = Get_TasaFactorCambio;
+                }
+                setMonedas(_lst);
+                //
+
                 setActivarBonoPorPagoDivsa(_useCase.CargarConfiguracionBonoPorPagoDivisa());
                 return true;
             }

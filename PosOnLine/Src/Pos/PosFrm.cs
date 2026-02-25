@@ -367,15 +367,21 @@ namespace PosOnLine.Src.Pos
 
         private void Salida()
         {
-            this.Close();
+            _controlador.AbandonarPos();
+            if (_controlador.AbandonarPosIsOk)
+            {
+                this.Close();
+            }
         }
 
         private void PosVenta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!_controlador.SalirIsOk)
+            e.Cancel = true;
+            if (_controlador.AbandonarPosIsOk)
             {
-                MessageBox.Show("HAY ITEMS EN PROCESO !!!", "*** ALERTA ***", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                e.Cancel = true;
+                e.Cancel = false;
+                //MessageBox.Show("HAY ITEMS EN PROCESO !!!", "*** ALERTA ***", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                //e.Cancel = true;
             }
         }
     
@@ -543,6 +549,7 @@ namespace PosOnLine.Src.Pos
             ActualizarCliente();
             ActualizarTotal();
             ActualizarModo();
+            L_MONTO_DIVISA.Text = _controlador.TasaCambioActual.ToString("n3");
             IrFoco();
         }
 
@@ -610,6 +617,17 @@ namespace PosOnLine.Src.Pos
             ActualizarTotal();
             ActualizarModo();
             IrFoco();
+        }
+
+        private void L_MONTO_DIVISA_DoubleClick(object sender, EventArgs e)
+        {
+            CambiarTasaPos();
+        }
+        private void CambiarTasaPos()
+        {
+            _controlador.CambiarTasaPos();
+            L_MONTO_DIVISA.Text = _controlador.TasaCambioActual.ToString("n3");
+            Actualizar();
         }
     }
 }

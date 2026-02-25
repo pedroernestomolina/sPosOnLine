@@ -93,32 +93,37 @@ namespace PosOnLine.Data.Prov
             Configuracion_FactorDivisa()
         {
             var result = new OOB.Resultado.FichaEntidad<decimal>();
-
-            var r01 = MyData.Configuracion_FactorDivisa();
-            if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+            //
+            try
             {
-                result.Mensaje = r01.Mensaje;
+                var r01 = MyData.Configuracion_FactorDivisa();
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                //
+                var m1 = 0.0m;
+                var cnf = r01.Entidad;
+                if (cnf.Trim() != "")
+                {
+                    var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+                    var culture = CultureInfo.CreateSpecificCulture("es-ES");
+                    //var culture = CultureInfo.CreateSpecificCulture("en-EN");
+                    Decimal.TryParse(cnf, style, culture, out m1);
+                }
+                if (m1 <= 0m)
+                {
+                    throw  new Exception("TASA DIVISA INCORRECTA, NO PUEDE SER CERO (0)");
+                }
+                //
+                result.Entidad = m1;
+            }
+            catch (Exception e)
+            {
+                result.Mensaje = e.Message;
                 result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
             }
-
-            var m1 = 0.0m;
-            var cnf = r01.Entidad;
-            if (cnf.Trim() != "")
-            {
-                var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-                var culture = CultureInfo.CreateSpecificCulture("es-ES");
-                //var culture = CultureInfo.CreateSpecificCulture("en-EN");
-                Decimal.TryParse(cnf, style, culture, out m1);
-            }
-            if (m1 <= 0m)
-            {
-                result.Mensaje = "TASA DIVISA INCORRECTA, NO PUEDE SER CERO (0)";
-                result.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return result;
-            }
-            result.Entidad = m1;
-
+            //
             return result;
         }
         public OOB.Resultado.Ficha 

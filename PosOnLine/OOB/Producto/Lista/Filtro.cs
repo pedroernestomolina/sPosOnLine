@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.OOB.Producto.Lista
 {
-    
     public class Filtro
     {
-
         public string autoDeposito { get; set; }
         public string cadena { get; set; }
         public string idPrecioManejar { get; set; }
         public bool isPorPlu { get; set; }
-
-
         public Filtro()
         {
             cadena = "";
@@ -24,8 +20,5 @@ namespace PosOnLine.OOB.Producto.Lista
             idPrecioManejar = "";
             isPorPlu = false;
         }
-
-
     }
-
 }

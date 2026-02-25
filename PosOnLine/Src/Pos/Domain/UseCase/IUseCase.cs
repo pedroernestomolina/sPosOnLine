@@ -13,6 +13,15 @@ namespace PosOnLine.Src.Pos.Domain.UseCase
             AgregarFactura(OOB.Documento.Agregar.Factura.Ficha doc);
         Models.ResultadoAgregarDoc
             AgregarNotaCredito(OOB.Documento.Agregar.NotaCredito.Ficha doc);
-        decimal TasaActualSistema();
+        decimal 
+            TasaActualSistema();
+        Models.CuentaControl
+            ObtenerMiCuentaControl(int idOperador);
+        bool 
+            VerificaSiExisteCuentaControlParaEsteOperador(int idOperador);
+        decimal
+            ObtenerTasaPosActual();
+        bool
+            LimpiarOperadorControl(int idOperador);
     }
 }

@@ -19,6 +19,8 @@ namespace PosOnLine.Data.Prov
             {
                 var fichaDTO = new DtoLibPos.PosItem.ActualizarPrecioPorCambioTasa.Ficha()
                 {
+                    IdOperador = ficha.IdOperador,
+                    TasaPos = ficha.TasaPos,
                     items = ficha.items.Select(s =>
                     {
                         return new DtoLibPos.PosItem.ActualizarPrecioPorCambioTasa.Item()
