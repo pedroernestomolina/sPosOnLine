@@ -97,8 +97,20 @@ namespace PosOnLine.Helpers.Imprimir.Ticket._80
             eg.Graphics.DrawString("-".PadRight(85, '-'), fb, Brushes.Black, 0, l);
             l += 10;
 
+            var _separador = "";
+            if (df !=null && df.Items!=null && df.Items.Count>0) 
+            {
+                _separador=df.Items[0].empDesc.Trim().ToUpper();
+            }
             foreach (var r in df.Items)
             {
+                if (_separador.Trim().ToUpper() != r.empDesc.Trim().ToUpper())
+                { 
+                    _separador=r.empDesc.Trim().ToUpper();
+                    l += 5;
+                    eg.Graphics.DrawString("-".PadRight(85, '-'), fb, Brushes.Black, 0, l);
+                    l += 10;
+                }
                 var sw = 0;
                 var xdes2 = r.sdescripcion;
                 eg.Graphics.DrawString(r.scantidadPrecio, fb, Brushes.Black, 0, l);

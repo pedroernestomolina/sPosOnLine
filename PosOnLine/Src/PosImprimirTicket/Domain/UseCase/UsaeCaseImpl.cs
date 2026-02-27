@@ -97,7 +97,7 @@ namespace PosOnLine.Src.PosImprimirTicket.Domain.UseCase
                     //
                 };
                 xdata.item = new List<Models.Data.Item>();
-                foreach (var rg in xr1.Entidad.items)
+                foreach (var rg in xr1.Entidad.items.OrderBy(o=>o.Empaque).ToList())
                 {
                     var nr = new Models.Data.Item()
                     {
