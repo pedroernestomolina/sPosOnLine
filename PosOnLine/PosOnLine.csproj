@@ -36,10 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DtoLib">
-      <HintPath>..\..\..\BackEnd\bPosOnline\ServicePos\bin\Debug\DtoLib.dll</HintPath>
+      <HintPath>..\..\bPosOnLine\ServicePos\bin\Debug\DtoLib.dll</HintPath>
     </Reference>
     <Reference Include="DtoLibPos">
-      <HintPath>..\..\..\BackEnd\bPosOnline\ServicePos\bin\Debug\DtoLibPos.dll</HintPath>
+      <HintPath>..\..\bPosOnLine\ServicePos\bin\Debug\DtoLibPos.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -58,7 +58,7 @@
       <HintPath>Lib\Fiscal\LibFoxFiscal.dll</HintPath>
     </Reference>
     <Reference Include="LibUtilitis">
-      <HintPath>..\..\..\LibUtilitis\LibUtilitis\bin\Debug\LibUtilitis.dll</HintPath>
+      <HintPath>..\..\LibUtilitis\LibUtilitis\bin\Debug\LibUtilitis.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
@@ -71,7 +71,7 @@
       <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 6.8.1\Assemblies\v4.5\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="ServicePos">
-      <HintPath>..\..\..\BackEnd\bPosOnline\ServicePos\bin\Debug\ServicePos.dll</HintPath>
+      <HintPath>..\..\bPosOnLine\ServicePos\bin\Debug\ServicePos.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
