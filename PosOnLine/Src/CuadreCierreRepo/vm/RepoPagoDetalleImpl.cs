@@ -68,7 +68,7 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
                         p["cambioDar"] = rg.docCambioDar * rg.docSigno;
                         //
                         var _monto = rg.docMonto * rg.docSigno;
-                        var _medioPago = pg.codigoMP + "/ " + pg.descMP;
+                        var _medioPago = pg.codigoMP + "/ " + pg.descMP+ "Lote/Ref: "+pg.loteNro+"/"+pg.referenciaNro;
                         var _montoRecibido = (pg.montoRecibido * rg.docSigno).ToString("n2") + pg.simboloMoneda;
                         var _importe = pg.montoRecibioMonLocal * rg.docSigno;
                         var _tasa = "";
@@ -96,7 +96,13 @@ namespace PosOnLine.Src.CuadreCierreRepo.vm
                             }
                             else
                             {
-                                p["codigoMedioPago"] = pg.descMP;
+                                var _loteRef ="";
+                                if (!string.IsNullOrEmpty(pg.loteNro) || !string.IsNullOrEmpty(pg.referenciaNro))
+                                {
+                                    _loteRef = ", Lote/Ref: " + pg.loteNro + "/" + pg.referenciaNro; 
+                                }
+
+                                p["codigoMedioPago"] = pg.descMP + _loteRef;
                                 p["esCredito"] = "0";
                             }
                             p["tasa"] = _tasa;

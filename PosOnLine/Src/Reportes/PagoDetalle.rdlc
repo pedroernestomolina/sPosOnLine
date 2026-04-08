@@ -76,7 +76,7 @@
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>1.34083cm</Height>
+              <Height>2.00229cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -365,7 +365,7 @@
                         </TablixColumns>
                         <TablixRows>
                           <TablixRow>
-                            <Height>0.44694cm</Height>
+                            <Height>0.66743cm</Height>
                             <TablixCells>
                               <TablixCell>
                                 <CellContents>
@@ -514,7 +514,7 @@
                             </TablixCells>
                           </TablixRow>
                           <TablixRow>
-                            <Height>0.44694cm</Height>
+                            <Height>0.98493cm</Height>
                             <TablixCells>
                               <TablixCell>
                                 <CellContents>
@@ -652,7 +652,7 @@
                             </TablixCells>
                           </TablixRow>
                           <TablixRow>
-                            <Height>0.44694cm</Height>
+                            <Height>0.34993cm</Height>
                             <TablixCells>
                               <TablixCell>
                                 <CellContents>
@@ -1607,7 +1607,7 @@
         <DataSetName>Pago</DataSetName>
         <Top>0.03529cm</Top>
         <Left>0.00001cm</Left>
-        <Height>3.3525cm</Height>
+        <Height>4.01396cm</Height>
         <Width>26.17453cm</Width>
         <Style>
           <Border>
@@ -1633,7 +1633,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>PAGO DETALLE</Value>
+                  <Value>PAGO DETALLEs</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>

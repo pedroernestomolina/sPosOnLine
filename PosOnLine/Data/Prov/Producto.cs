@@ -234,6 +234,15 @@ namespace PosOnLine.Data.Prov
                 {
                     lst = r01.Lista.Select(s =>
                     {
+                        byte[] im=null;
+                        if (s.imagen != null && s.imagen.Length>0)
+                            im = s.imagen;
+                        else
+                            if (s.imgCatalogo != null && s.imgCatalogo.Length > 0)
+                            {
+                                //string base64String = "data:image/jpeg;base64,"+Convert.ToBase64String(s.imgCatalogo);
+                                //im = Convert.FromBase64String(base64String);
+                            }
                         var nr = new OOB.Producto.Lista.Ficha()
                         {
                             Auto = s.Auto,
@@ -276,7 +285,8 @@ namespace PosOnLine.Data.Prov
                             //
                             histPrecio = (s.histPrecio == null ? "" : "1"),
                             //
-                            imagen= s.imagen==null ? new byte[0] : s.imagen,
+                            //imagen= s.imagen==null ? new byte[0] : s.imagen,
+                            imagen= im==null ? new byte[0] : im,
                         };
                         return nr;
                     }).ToList();

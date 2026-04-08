@@ -567,7 +567,7 @@
                                           <TextRun>
                                             <Value>=Fields!codigoMedioPago.Value</Value>
                                             <Style>
-                                              <FontSize>7pt</FontSize>
+                                              <FontSize>6pt</FontSize>
                                             </Style>
                                           </TextRun>
                                         </TextRuns>
@@ -1640,7 +1640,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>PAGO DETALLE:</Value>
+                  <Value>PAGO DETALLEs:</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1654,7 +1654,7 @@
           <Top>1.97238cm</Top>
           <Left>0.00001cm</Left>
           <Height>0.6cm</Height>
-          <Width>3.69174cm</Width>
+          <Width>3.90341cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1858,9 +1858,9 @@
           </Paragraphs>
           <rd:DefaultName>tituloRepo</rd:DefaultName>
           <Top>1.97238cm</Top>
-          <Left>3.86814cm</Left>
+          <Left>4.07981cm</Left>
           <Height>0.6cm</Height>
-          <Width>9.81012cm</Width>
+          <Width>9.59845cm</Width>
           <ZIndex>7</ZIndex>
           <Style>
             <Border>
