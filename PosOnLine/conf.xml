@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuracion>
   <Servidor>
-    <Instancia>localhost</Instancia>
+    <Instancia>192.168.9.50</Instancia>
     <Catalogo>zufu26</Catalogo>
   </Servidor>
   <IdEquipo>3</IdEquipo>

@@ -240,8 +240,8 @@ namespace PosOnLine.Data.Prov
                         else
                             if (s.imgCatalogo != null && s.imgCatalogo.Length > 0)
                             {
-                                //string base64String = "data:image/jpeg;base64,"+Convert.ToBase64String(s.imgCatalogo);
-                                //im = Convert.FromBase64String(base64String);
+                                string base64String = Convert.ToBase64String(s.imgCatalogo);
+                                im = Convert.FromBase64String(base64String);
                             }
                         var nr = new OOB.Producto.Lista.Ficha()
                         {
