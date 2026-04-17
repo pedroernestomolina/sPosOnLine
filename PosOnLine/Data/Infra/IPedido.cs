@@ -10,7 +10,7 @@ namespace PosOnLine.Data.Infra
     public interface IPedido
     {
         OOB.Resultado.Ficha
-            Pedido_Guardar(OOB.Pedido.Guardar.Ficha ficha);
+            PedidoWeb_ObtenerListaPedidos(OOB.Pedido.Guardar.Ficha ficha);
         OOB.Resultado.FichaEntidad<int>
             Pedido_GetIdBy_Numero(int numero);
         OOB.Resultado.Ficha

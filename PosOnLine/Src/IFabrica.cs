@@ -33,5 +33,8 @@ namespace PosOnLine.Src
         //
         Pos.IClientePorDefecto 
             CreateInstace_ClientePorDefecto();
+        //
+
+
     }
 }

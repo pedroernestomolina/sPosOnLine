@@ -164,8 +164,6 @@ namespace PosOnLine.Src.Pos
             //
             _clienteFicha = null;
 
-
-
             //
             // NEW
             _formaPago = new FormaPago.vm.FormaPagoImpl();
@@ -2294,7 +2292,7 @@ namespace PosOnLine.Src.Pos
                                 factorCambio = _tasaCambioActual,
                                 cntItems = _gestionItem.CantRenglones,
                             };
-                            var rt = Sistema.MyData.Pedido_Guardar(ficha);
+                            var rt = Sistema.MyData.PedidoWeb_ObtenerListaPedidos(ficha);
                             PantallaInicial();
                         }
                     }
@@ -2387,7 +2385,27 @@ namespace PosOnLine.Src.Pos
             _habilitarModoPedido = opc;
         }
 
+        private bool _ModoZufu=true;
+        private PedidoWeb.ListaDo.Vm.IListaDo _listaPedWeb;
         public void ListarPedidos()
+        {
+            if (!IsNotaCredito)
+            {
+                if (_ModoZufu)
+                {
+                    if (_listaPedWeb == null)
+                    {
+                        _listaPedWeb = new PedidoWeb.ListaDo.Vm.ListaDoImpl();
+                    }
+                    _listaPedWeb.Invoke();
+                }
+                else
+                {
+                    ListaPedidoPanaderia();
+                }
+            }
+        }
+        private void ListaPedidoPanaderia()
         {
             if (Sistema.Modo_Pedido)
             {

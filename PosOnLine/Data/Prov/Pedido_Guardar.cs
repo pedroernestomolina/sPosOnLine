@@ -11,7 +11,7 @@ namespace PosOnLine.Data.Prov
     public partial class DataPrv: IData
     {
         public OOB.Resultado.Ficha 
-            Pedido_Guardar(OOB.Pedido.Guardar.Ficha ficha)
+            PedidoWeb_ObtenerListaPedidos(OOB.Pedido.Guardar.Ficha ficha)
         {
             var rt = new OOB.Resultado.Ficha();
             //
