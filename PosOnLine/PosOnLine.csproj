@@ -376,6 +376,7 @@
     <Compile Include="OOB\MovCaja\Registrar\Detalle.cs" />
     <Compile Include="OOB\MovCaja\Registrar\Ficha.cs" />
     <Compile Include="OOB\PedidoWeb\PedidoWeb.cs" />
+    <Compile Include="OOB\PedidoWeb\TrasladarPisoventa.cs" />
     <Compile Include="OOB\Pedido\Guardar\Ficha.cs" />
     <Compile Include="OOB\Pedido\ListaResumen\Entidad.cs" />
     <Compile Include="OOB\Pedido\ListaResumen\Filtros.cs" />
@@ -678,9 +679,9 @@
     <Compile Include="Src\CuadreCierreRepo\vm\RepoVentaCreditoImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Enumerados.cs" />
     <Compile Include="Src\IListaDe.cs" />
-    <Compile Include="Src\PedidoWeb\Domain\Models\Mappers.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\Modelo.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\PedidoWeb.cs" />
+    <Compile Include="Src\PedidoWeb\Domain\Models\TrasladoPisoVenta.cs" />
     <Compile Include="Src\PedidoWeb\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\PedidoWeb\Domain\UseCase\UseCaseImpl.cs" />
     <Compile Include="Src\PedidoWeb\ListaDo\Vista\Frm.cs">
@@ -700,6 +701,9 @@
     </Compile>
     <Compile Include="Src\PedidoWeb\MostarPedido\Vm\IMostarPedido.cs" />
     <Compile Include="Src\PedidoWeb\MostarPedido\Vm\MostrarPedidoImpl.cs" />
+    <Compile Include="Src\PedidoWeb\TrasladarPisoVta\Models\Modelo.cs" />
+    <Compile Include="Src\PedidoWeb\TrasladarPisoVta\Vm\ITrasladarPisoVta.cs" />
+    <Compile Include="Src\PedidoWeb\TrasladarPisoVta\Vm\TrasladarPisoVtaImpl.cs" />
     <Compile Include="Src\PosBuscarProducto\Domain\Models\BusquedaResult.cs" />
     <Compile Include="Src\PosBuscarProducto\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\PosBuscarProducto\Domain\UseCase\UseCaseImpl.cs" />

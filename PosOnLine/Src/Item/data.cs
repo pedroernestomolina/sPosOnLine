@@ -20,6 +20,7 @@ namespace PosOnLine.Src.Item
         public int Id { get { return _it.id; } }
         public string NombrePrd { get { return _it.nombre; } }
         public decimal Cantidad { get { return _it.cantidad; } }
+        public string CantidadDesc { get { return _it.cantidad.ToString("n3"); } }
         public int ContenidoEmp { get { return _it.empaqueContenido; } }
         public bool EsPesado { get { return _it.IsPesado; } }
         public decimal Importe { get { return Precio(); } }

@@ -13,5 +13,11 @@ namespace PosOnLine.Data.Infra
     
         OOB.Resultado.FichaEntidad<OOB.PedidoWeb.Entidad>
             PedidoWeb_ObtenerUnPedido(int idPedido);
+
+        OOB.Resultado.FichaEntidad<OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB>
+            PedidoWeb_CapturarTrasladoPisoventa(int idPedido);
+
+        OOB.Resultado.FichaEntidad<bool>
+            PedidoWeb_AplicarTrasladoPisoventa(OOB.PedidoWeb.AplicarTrasladoPisoVenta aplicarTraslado);
     }
 }

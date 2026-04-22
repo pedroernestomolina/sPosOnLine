@@ -13,5 +13,11 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
 
         Domain.Models.PedidoWeb
             CargarPedidoWebById(int idPedidoCargar);
+
+        Domain.Models.CapturarTraslado
+            CapturarTrasladoPisoVenta(int idPedido);
+
+        bool
+        AplicarTrasladoPisoVenta(Models.AplicarTraslado aplicarTraslado);
     }
 }

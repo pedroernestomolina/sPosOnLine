@@ -130,5 +130,117 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
                 throw new Exception(e.Message);
             }
         }
+
+        public Models.CapturarTraslado
+            CapturarTrasladoPisoVenta(int idPedido)
+        {
+            var rt = new Models.CapturarTraslado();
+            //
+            try
+            {
+                var r01 = Sistema.MyData.PedidoWeb_CapturarTrasladoPisoventa(idPedido);
+                if (r01.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+
+                if (r01.Entidad == null || r01.Entidad.Items == null)
+                {
+                    throw new Exception("No se encontraron items para trasladar.");
+                }
+
+                rt.Items = r01.Entidad.Items.Select(item => new Models.ItemsTrasladar
+                {
+                    idProducto = item.idProducto,
+                    idDepartamento = item.idDepartamento,
+                    idGrupo = item.idGrupo,
+                    idSubGrupo = item.idSubGrupo,
+                    idTasaFiscal = item.idTasaFiscal,
+                    codigoPrd = item.codigoPrd,
+                    nombrePrd = item.nombrePrd,
+                    cntSolicitada = item.cntSolicitada,
+                    pNeto = item.pNeto,
+                    pDivisaFull = item.pDivisaFull,
+                    tasaFiscal = item.tasaFiscal,
+                    categoriaPrd = item.categoriaPrd,
+                    decimalesPrd = item.decimalesPrd,
+                    descEmpq = item.descEmpq,
+                    contEmpq = item.contEmpq,
+                    estatusPesado = item.estatusPesado,
+                    costoUnd = item.costoUnd,
+                    costoPromUnd = item.costoPromUnd,
+                    costoCompra = item.costoCompra,
+                    costoProm = item.costoProm,
+                    pesoPrd = item.pesoPrd,
+                    volumenPrd = item.volumenPrd,
+                    estatusDivisa = item.estatusDivisa,
+                    exDisponible = item.exDisponible
+                }).ToList();
+                //
+                return rt;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public bool 
+            AplicarTrasladoPisoVenta(Models.AplicarTraslado aplicarTraslado)
+        {
+            try
+            {
+                var aplicar = new OOB.PedidoWeb.AplicarTrasladoPisoVenta()
+                {
+                    IdDeposito = aplicarTraslado.IdDeposito,
+                    IdOperador = aplicarTraslado.IdOperador,
+                    ItemsPisoVta = aplicarTraslado.Items.Where(w => w.CntDisponibleParaTrasladar > 0).Select(s => 
+                    {
+                        var it = new OOB.PedidoWeb.ItemPisoVentaTrasladar()
+                        {
+                            categoriaPrd = s.categoriaPrd,
+                            cntSolicitada = s.CntDisponibleParaTrasladar,
+                            codigoPrd = s.codigoPrd,
+                            contEmpq = s.contEmpq,
+                            costoCompra = s.costoCompra,
+                            costoProm = s.costoProm,
+                            costoPromUnd = s.costoPromUnd,
+                            costoUnd = s.costoUnd,
+                            decimalesPrd = s.decimalesPrd,
+                            descEmpq = s.descEmpq,
+                            estatusDivisa = s.estatusDivisa,
+                            estatusPesado = s.estatusPesado,
+                            idDepartamento = s.idDepartamento,
+                            idGrupo = s.idGrupo,
+                            idProducto = s.idProducto,
+                            idSubGrupo = s.idSubGrupo,
+                            idTasaFiscal = s.idTasaFiscal,
+                            nombrePrd = s.nombrePrd,
+                            pDivisaFull = s.pDivisaFull,
+                            pesoPrd = s.pesoPrd,
+                            pNeto = s.pNeto,
+                            tasaFiscal = s.tasaFiscal,
+                            volumenPrd = s.volumenPrd,
+                        };
+                        return it;
+                    }).ToList(),
+                    PrdBloquearEx = aplicarTraslado.Items.Where(w => w.CntDisponibleParaTrasladar > 0).Select(s =>
+                    {
+                        var ex = new OOB.PedidoWeb.PrdBloqueoExTrasladar()
+                        {
+                            CntBloquear = s.CntDisponibleParaTrasladar * s.contEmpq,
+                            IdProducto = s.idProducto,
+                        };
+                        return ex;
+                    }).ToList(),
+                };
+                var rt = Sistema.MyData.PedidoWeb_AplicarTrasladoPisoventa(aplicar);
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

@@ -70,6 +70,7 @@ namespace PosOnLine.Src.Pos
             var f = new Font("Serif", 8, FontStyle.Bold);
             var f1 = new Font("Serif", 10, FontStyle.Regular);
             var f2 = new Font("Serif", 8, FontStyle.Regular);
+            var f3 = new Font("Serif", 7, FontStyle.Regular);
 
             DGV_DETALLE.RowHeadersVisible = false;
             DGV_DETALLE.AllowUserToAddRows = false;
@@ -98,7 +99,7 @@ namespace PosOnLine.Src.Pos
             c2.Visible = true;
             c2.Width = 60;
             c2.HeaderCell.Style.Font = f;
-            c2.DefaultCellStyle.Font = f1;
+            c2.DefaultCellStyle.Font = f3;
             c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             var c9 = new DataGridViewTextBoxColumn();
@@ -116,7 +117,7 @@ namespace PosOnLine.Src.Pos
             c3.Visible = true;
             c3.Width = 100;
             c3.HeaderCell.Style.Font = f;
-            c3.DefaultCellStyle.Font = f1;
+            c3.DefaultCellStyle.Font = f3;
             c3.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             c3.DefaultCellStyle.Format = "n2";
 
@@ -145,7 +146,7 @@ namespace PosOnLine.Src.Pos
             c5.Visible = true;
             c5.Width = 100;
             c5.HeaderCell.Style.Font = f;
-            c5.DefaultCellStyle.Font = f1;
+            c5.DefaultCellStyle.Font = f3;
             c5.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             c5.DefaultCellStyle.Format = "n2";
 

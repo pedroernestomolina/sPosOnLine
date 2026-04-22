@@ -48,9 +48,7 @@ namespace PosOnLine.Data.Prov
             }
             catch (Exception e)
             {
-                r.Mensaje = e.Message;
-                r.Result = OOB.Resultado.Enumerados.EnumResult.isError;
-                return r;
+                throw new Exception(e.Message);
             }
         }
 
@@ -133,9 +131,130 @@ namespace PosOnLine.Data.Prov
             }
             catch (Exception e)
             {
-                r.Mensaje = e.Message;
-                r.Result = OOB.Resultado.Enumerados.EnumResult.isError;
+                throw new Exception(e.Message);
+            }
+        }
+
+        public OOB.Resultado.FichaEntidad<OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB> 
+            PedidoWeb_CapturarTrasladoPisoventa(int idPedido)
+        {
+            var r = new OOB.Resultado.FichaEntidad<OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB>();
+            //
+            try
+            {
+                var rt = MyData.PedidoWeb_CapturarTrasladoPisoVenta(idPedido);
+                if (rt.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rt.Mensaje);
+                }
+                if (rt.Entidad == null || rt.Entidad.Items == null || rt.Entidad.Items.Count == 0)
+                {
+                    throw new Exception("No se obtuvo información del pedido o está vacío");
+                }
+
+                var entidad = new OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB
+                {
+                    Items = rt.Entidad.Items.Select(item => new OOB.PedidoWeb.ItemsTrasladarPisoVentaOoB
+                    {
+                        idProducto = item.idProducto,
+                        idDepartamento = item.idDepartamento,
+                        idGrupo = item.idGrupo,
+                        idSubGrupo = item.idSubGrupo,
+                        idTasaFiscal = item.idTasaFiscal,
+                        codigoPrd = item.codigoPrd,
+                        nombrePrd = item.nombrePrd,
+                        cntSolicitada = item.cntSolicitada,
+                        pNeto = item.pNeto,
+                        pDivisaFull = item.pDivisaFull,
+                        tasaFiscal = item.tasaFiscal,
+                        categoriaPrd = item.categoriaPrd,
+                        decimalesPrd = item.decimalesPrd,
+                        descEmpq = item.descEmpq,
+                        contEmpq = item.contEmpq,
+                        estatusPesado = item.estatusPesado,
+                        costoUnd = item.costoUnd,
+                        costoPromUnd = item.costoPromUnd,
+                        costoCompra = item.costoCompra,
+                        costoProm = item.costoProm,
+                        pesoPrd = item.pesoPrd,
+                        volumenPrd = item.volumenPrd,
+                        estatusDivisa = item.estatusDivisa,
+                        exDisponible = item.exDisponible
+                    }).ToList()
+                };
+
+                r.Entidad = entidad;
                 return r;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public OOB.Resultado.FichaEntidad<bool> 
+            PedidoWeb_AplicarTrasladoPisoventa(OOB.PedidoWeb.AplicarTrasladoPisoVenta aplicarTraslado)
+        {
+            var r = new OOB.Resultado.FichaEntidad<bool>();
+            //
+            try
+            {
+                var dto = new DtoLibPos.PedidoWeb.AplicarTrasladoPisoVentaRequest()
+                {
+                    IdDeposito = aplicarTraslado.IdDeposito,
+                    IdOperador = aplicarTraslado.IdOperador,
+                    ItemBloqEx = aplicarTraslado.PrdBloquearEx.Select(it =>
+                    {
+                        var ex = new DtoLibPos.PedidoWeb.ItemsDepositoBloquearExRequest()
+                        {
+                            cntBloquear = it.CntBloquear,
+                            idDeposito = aplicarTraslado.IdDeposito,
+                            idProducto = it.IdProducto,
+                        };
+                        return ex;
+                    }).ToList(),
+                    ItemsPisoVta =aplicarTraslado.ItemsPisoVta.Select(it =>
+                    {
+                        var pv = new DtoLibPos.PedidoWeb.ItemsPisoVentaRequest()
+                        {
+                            categoriaPrd = it.categoriaPrd,
+                            cntSolicitada = it.cntSolicitada,
+                            codigoPrd = it.codigoPrd,
+                            contEmpq = it.contEmpq,
+                            costoCompra = it.costoCompra,
+                            costoProm = it.costoProm,
+                            costoPromUnd = it.costoPromUnd,
+                            costoUnd = it.costoUnd,
+                            decimalesPrd = it.decimalesPrd,
+                            descEmpq = it.descEmpq,
+                            estatusDivisa = it.estatusDivisa,
+                            estatusPesado = it.estatusPesado,
+                            idDepartamento = it.idDepartamento,
+                            idGrupo = it.idGrupo,
+                            idProducto = it.idProducto,
+                            idSubGrupo = it.idSubGrupo,
+                            idTasaFiscal = it.idTasaFiscal,
+                            nombrePrd = it.nombrePrd,
+                            pDivisaFull = it.pDivisaFull,
+                            pesoPrd = it.pesoPrd,
+                            pNeto = it.pNeto,
+                            tasaFiscal = it.tasaFiscal,
+                            volumenPrd = it.volumenPrd,
+                        };
+                        return pv;
+                    }).ToList(),
+                };
+                var rt = MyData.PedidoWeb_TrasladarPisoVenta(dto);
+                if (rt.Result== DtoLib.Enumerados.EnumResult.isError)
+                {
+                     throw new Exception(rt.Mensaje);
+                }
+                r.Entidad=true;
+                return r;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
     }

@@ -63,10 +63,17 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vm
                 _mostrarPedido.Invoke();
             }
         }
+        private TrasladarPisoVta.Vm.ITrasladarPisoVta _trasladarPedido;
         public void EnviarAlCarritoVenta()
         {
             if (ItemActual != null)
             {
+                if (_trasladarPedido == null) 
+                {
+                    _trasladarPedido = new TrasladarPisoVta.Vm.TrasladarPisoVtaImpl();
+                }
+                _trasladarPedido.setIdPedidoTrasaldar(ItemActual.Id);
+                _trasladarPedido.Invoke();
             }
         }
         //
