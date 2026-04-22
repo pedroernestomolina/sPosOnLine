@@ -10,5 +10,8 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
     {
         IEnumerable<Domain.Models.PedidoWeb>
             ObtenerListaDePedidosWebActivosSinProcesar();
+
+        Domain.Models.PedidoWeb
+            CargarPedidoWebById(int idPedidoCargar);
     }
 }

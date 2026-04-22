@@ -16,6 +16,8 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vm
         //
         public Domain.Models.Modelo MiModelo { get; set; }
         public object Get_SourceData { get { return _bs; } }
+        public int Get_ItemsEncontrados { get { return _bs.Count; } }
+        public Domain.Models.PedidoWeb ItemActual { get { return (Domain.Models.PedidoWeb)_bs.Current; } }
         //
         public ListaDoImpl()
         {
@@ -48,6 +50,25 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vm
                 frm.ShowDialog();
             }
         }
+        private MostarPedido.Vm.IMostarPedido _mostrarPedido;
+        public void VisualizarItem()
+        {
+            if (ItemActual != null)
+            {
+                if (_mostrarPedido == null)
+                {
+                    _mostrarPedido = new MostarPedido.Vm.MostrarPedidoImpl();
+                }
+                _mostrarPedido.setIdPedidoMostrar(ItemActual.Id);
+                _mostrarPedido.Invoke();
+            }
+        }
+        public void EnviarAlCarritoVenta()
+        {
+            if (ItemActual != null)
+            {
+            }
+        }
         //
         private bool CargarData()
         {
@@ -65,7 +86,6 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vm
                 return false;
             }
         }
-        //
         private void CargarListaItemBinding()
         {
             _bl.Clear();

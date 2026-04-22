@@ -10,5 +10,8 @@ namespace PosOnLine.Data.Infra
     {
         OOB.Resultado.Lista<OOB.PedidoWeb.Entidad>
             PedidoWeb_ObtenerListaPedidos(OOB.PedidoWeb.FiltrarLista ficha);
-       }
+    
+        OOB.Resultado.FichaEntidad<OOB.PedidoWeb.Entidad>
+            PedidoWeb_ObtenerUnPedido(int idPedido);
+    }
 }

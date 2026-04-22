@@ -8,18 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PosOnLine.Src.PedidoWeb.ListaDo.Vista
+namespace PosOnLine.Src.PedidoWeb.MostarPedido.Vista
 {
     public partial class Frm : Form
     {
-        private Vm.IListaDo _controlador;
+        private Vm.IMostarPedido _controlador;
         //
         public Frm()
         {
             InitializeComponent();
-            InicializaGrid();
+            InicializaDGV();
         }
-        private void InicializaGrid()
+        private void InicializaDGV()
         {
             var f = new Font("Serif", 8, FontStyle.Bold);
             var f1 = new Font("Serif", 9, FontStyle.Regular);
@@ -37,44 +37,44 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vista
             DGV.RowHeadersVisible = false;
             //
             var c1 = new DataGridViewTextBoxColumn();
-            c1.DataPropertyName = "PedidoNroDesc";
-            c1.HeaderText = "PedidoNro";
+            c1.DataPropertyName = "ItemDesc";
+            c1.HeaderText = "Descripcion";
             c1.Visible = true;
-            c1.Width = 80;
+            c1.MinimumWidth = 240;
             c1.HeaderCell.Style.Font = f;
             c1.DefaultCellStyle.Font = f2;
-            c1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            c1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            c1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //
+            var c2 = new DataGridViewTextBoxColumn();
+            c2.DataPropertyName = "ItemCnt";
+            c2.HeaderText = "Cnt";
+            c2.Visible = true;
+            c2.Width = 60;
+            c2.HeaderCell.Style.Font = f;
+            c2.DefaultCellStyle.Font = f2;
+            c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             //
             var c3 = new DataGridViewTextBoxColumn();
-            c3.DataPropertyName = "FechaDesc";
-            c3.HeaderText = "Fecha";
+            c3.DataPropertyName = "ItemEmpq";
+            c3.HeaderText = "Empaque";
             c3.Visible = true;
-            c3.Width = 80;
+            c3.Width = 100;
             c3.HeaderCell.Style.Font = f;
             c3.DefaultCellStyle.Font = f2;
             c3.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             //
-            var c2 = new DataGridViewTextBoxColumn();
-            c2.DataPropertyName = "EntidadDesc";
-            c2.HeaderText = "Entidad";
-            c2.Visible = true;
-            c2.MinimumWidth = 200;
-            c2.HeaderCell.Style.Font = f;
-            c2.DefaultCellStyle.Font = f2;
-            c2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            c2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            //
             var c4 = new DataGridViewTextBoxColumn();
-            c4.DataPropertyName = "CiRifEntidadDesc";
-            c4.HeaderText = "CiRif";
+            c4.DataPropertyName = "ItemPrecio";
+            c4.HeaderText = "Precio $";
             c4.Visible = true;
-            c4.Width = 110;
+            c4.Width = 100;
             c4.HeaderCell.Style.Font = f;
             c4.DefaultCellStyle.Font = f2;
-            c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            c4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             //
             var c5 = new DataGridViewTextBoxColumn();
-            c5.DataPropertyName = "ImporteDesc";
+            c5.DataPropertyName = "ItemImporte";
             c5.HeaderText = "Importe $";
             c5.Visible = true;
             c5.Width = 100;
@@ -82,48 +82,30 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vista
             c5.DefaultCellStyle.Font = f2;
             c5.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             //
-            var c6 = new DataGridViewTextBoxColumn();
-            c6.DataPropertyName = "ItemsDesc";
-            c6.HeaderText = "Items";
-            c6.Visible = true;
-            c6.Width = 60;
-            c6.HeaderCell.Style.Font = f;
-            c6.DefaultCellStyle.Font = f2;
-            c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            //
             DGV.Columns.Add(c1);
-            DGV.Columns.Add(c3);
             DGV.Columns.Add(c2);
+            DGV.Columns.Add(c3);
             DGV.Columns.Add(c4);
             DGV.Columns.Add(c5);
-            DGV.Columns.Add(c6);
         }
-        public void setControlador(Vm.IListaDo ctr)
+        //
+        public void setControlador(Vm.IMostarPedido ctr)
         {
             _controlador = ctr;
         }
         private void Frm_Load(object sender, EventArgs e)
         {
-            DGV.DataSource = _controlador.Get_SourceData;
-            L_ITEMS_ENCONTRADOS.Text = "Items Encontrados: " + _controlador.Get_ItemsEncontrados.ToString();
+            DGV.DataSource = _controlador.Get_DetallesSource;
+        }
+
+        private void BT_SALIDA_Click(object sender, EventArgs e)
+        {
+            Salir();
         }
         //
-        private void BT_LISTAR_ITEMS_Click(object sender, EventArgs e)
+        private void Salir()
         {
-            ListarPedido();
-        }
-        private void BT_CARRITO_Click(object sender, EventArgs e)
-        {
-            EnviarAlCarritoVenta();
-        }
-        //
-        private void ListarPedido() 
-        {
-            _controlador.VisualizarItem();
-        }
-        private void EnviarAlCarritoVenta()
-        {
-            _controlador.EnviarAlCarritoVenta();
+            this.Close();
         }
     }
 }

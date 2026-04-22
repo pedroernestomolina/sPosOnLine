@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.PedidoWeb.ListaDo.Vm
 {
-    public interface IListaDo
+    public interface IListaDo: IListaDe
     {
-        object Get_SourceData { get; }
-        //
         void Invoke();
+        //
+        void VisualizarItem();
+        void EnviarAlCarritoVenta();
     }
 }

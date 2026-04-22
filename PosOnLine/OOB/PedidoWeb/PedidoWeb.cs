@@ -29,6 +29,7 @@ namespace PosOnLine.OOB.PedidoWeb
         public string DescSucursal { get; set; }
         public string DescDeposito { get; set; }
         public int IdWebCliente { get; set; }
+        public List<Detalle> Detalles { get; set; }
         //
         public Entidad()
         {
@@ -52,8 +53,45 @@ namespace PosOnLine.OOB.PedidoWeb
             DescSucursal = "";
             DescDeposito = "";
             IdWebCliente = 0;
+            Detalles = new List<Detalle>();
         }
     }
+    public class Detalle
+    {
+        public int Id { get; set; }
+        public string IdProducto { get; set; }
+        public string DescProducto { get; set; }
+        public string DescWebProducto { get; set; }
+        public int CntSolicitada { get; set; }
+        public string IdEmpq { get; set; }
+        public string DescEmpq { get; set; }
+        public int ContEmpq { get; set; }
+        public string EstatusPrdHot { get; set; }
+        public string EstatusPrdDivisa { get; set; }
+        public decimal PrecioNetoMonLocal { get; set; }
+        public decimal PrecioFullMonRef { get; set; }
+        public decimal ImporteNetoMonLocal { get; set; }
+        public decimal ImporteMonRef { get; set; }
+        //
+        public Detalle()
+        {
+            Id = 0;
+            IdProducto = "";
+            DescProducto = "";
+            DescWebProducto = "";
+            CntSolicitada = 0;
+            IdEmpq = "";
+            DescEmpq = "";
+            ContEmpq = 0;
+            EstatusPrdHot = "";
+            EstatusPrdDivisa = "";
+            PrecioNetoMonLocal = 0.0m;
+            PrecioFullMonRef = 0.0m;
+            ImporteNetoMonLocal = 0.0m;
+            ImporteMonRef = 0.0m;
+        }
+    }
+
     public class FiltrarLista 
     {
         public bool FiltrarSoloActivo { get; set; }

@@ -677,6 +677,7 @@
     <Compile Include="Src\CuadreCierreRepo\vm\RepoPagoResumenImpl.cs" />
     <Compile Include="Src\CuadreCierreRepo\vm\RepoVentaCreditoImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Enumerados.cs" />
+    <Compile Include="Src\IListaDe.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\Mappers.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\Modelo.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\PedidoWeb.cs" />
@@ -690,6 +691,15 @@
     </Compile>
     <Compile Include="Src\PedidoWeb\ListaDo\Vm\IListaDo.cs" />
     <Compile Include="Src\PedidoWeb\ListaDo\Vm\ListaDoImpl.cs" />
+    <Compile Include="Src\PedidoWeb\MostarPedido\Domain\Modelo.cs" />
+    <Compile Include="Src\PedidoWeb\MostarPedido\Vista\Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\PedidoWeb\MostarPedido\Vista\Frm.Designer.cs">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Src\PedidoWeb\MostarPedido\Vm\IMostarPedido.cs" />
+    <Compile Include="Src\PedidoWeb\MostarPedido\Vm\MostrarPedidoImpl.cs" />
     <Compile Include="Src\PosBuscarProducto\Domain\Models\BusquedaResult.cs" />
     <Compile Include="Src\PosBuscarProducto\Domain\UseCase\IUseCase.cs" />
     <Compile Include="Src\PosBuscarProducto\Domain\UseCase\UseCaseImpl.cs" />
@@ -1377,6 +1387,9 @@
       <DependentUpon>ProcesarFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\PedidoWeb\ListaDo\Vista\Frm.resx">
+      <DependentUpon>Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Src\PedidoWeb\MostarPedido\Vista\Frm.resx">
       <DependentUpon>Frm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Src\Pedido\Lista\Frm.resx">
