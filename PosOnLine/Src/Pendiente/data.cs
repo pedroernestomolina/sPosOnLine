@@ -22,7 +22,7 @@ namespace PosOnLine.Src.Pendiente
         public string UsuCodigo { get { return _it.usuCodigo.Trim(); } }
         public string Usuario { get { return _it.usuDescripcion.Trim(); } }
         public string Vendedor { get { return _it.codVend.Trim() + "(" + _it.nombreVend.Trim() + ")"; } }
-
+        public string PedidoWeb { get { return _it.nroPedidoWeb > 0 ? "Pedido Web Nro: "+_it.nroPedidoWeb.ToString().Trim().PadLeft(8, '0') : ""; } }
 
         public data(OOB.Pendiente.Lista.Ficha it)
         {

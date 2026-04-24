@@ -10,6 +10,8 @@ namespace PosOnLine.Src.PedidoWeb.TrasladarPisoVta.Vm
     {
         void setIdPedidoTrasaldar(int idPedido);
         //
+        bool TrasladoPisoVtaExitoso { get; }
+        //
         void Invoke();
     }
 }

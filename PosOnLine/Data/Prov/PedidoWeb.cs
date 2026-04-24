@@ -135,7 +135,7 @@ namespace PosOnLine.Data.Prov
             }
         }
 
-        public OOB.Resultado.FichaEntidad<OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB> 
+        public OOB.Resultado.FichaEntidad<OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB>
             PedidoWeb_CapturarTrasladoPisoventa(int idPedido)
         {
             var r = new OOB.Resultado.FichaEntidad<OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB>();
@@ -147,6 +147,38 @@ namespace PosOnLine.Data.Prov
                 {
                     throw new Exception(rt.Mensaje);
                 }
+
+                // Validar que los datos del encabezado no sean nulos
+                if (rt.Entidad == null || rt.Entidad.Datos == null)
+                {
+                    throw new Exception("No se obtuvo información del encabezado del pedido");
+                }
+
+                // Mapear el encabezado del DTO al OOB
+                var encabezado = new OOB.PedidoWeb.CapturarEncTrasladarPisoVentaOoB
+                {
+                    Id = rt.Entidad.Datos.Id,
+                    FechaRegistro = rt.Entidad.Datos.FechaRegistro,
+                    NombreEntidad = rt.Entidad.Datos.NombreEntidad,
+                    CiRifEntidad = rt.Entidad.Datos.CiRifEntidad,
+                    DirEntidad = rt.Entidad.Datos.DirEntidad,
+                    TelefonoEntidad = rt.Entidad.Datos.TelefonoEntidad,
+                    IdSucursal = rt.Entidad.Datos.IdSucursal,
+                    IdDeposito = rt.Entidad.Datos.IdDeposito,
+                    DescSucursal = rt.Entidad.Datos.DescSucursal,
+                    DescDeposito = rt.Entidad.Datos.DescDeposito,
+                    IdWebCliente = rt.Entidad.Datos.IdWebCliente,
+                    ImporteMonRef = rt.Entidad.Datos.ImporteMonRef,
+                    ImporteMonLocal = rt.Entidad.Datos.ImporteMonLocal,
+                    TasaCambio = rt.Entidad.Datos.TasaCambio,
+                    TasaSistema = rt.Entidad.Datos.TasaSistema,
+                    CntArticulos = rt.Entidad.Datos.CntArticulos,
+                    CntItems = rt.Entidad.Datos.CntItems,
+                    PedidoNro = rt.Entidad.Datos.PedidoNro,
+                    EstatusAnulado = rt.Entidad.Datos.EstatusAnulado,
+                    EstatusProcesado = rt.Entidad.Datos.EstatusProcesado
+                };
+
                 if (rt.Entidad == null || rt.Entidad.Items == null || rt.Entidad.Items.Count == 0)
                 {
                     throw new Exception("No se obtuvo información del pedido o está vacío");
@@ -154,7 +186,7 @@ namespace PosOnLine.Data.Prov
 
                 var entidad = new OOB.PedidoWeb.CapturarTrasladoPisoVentaOoB
                 {
-                    Items = rt.Entidad.Items.Select(item => new OOB.PedidoWeb.ItemsTrasladarPisoVentaOoB
+                    Items = rt.Entidad.Items.Select(item => new OOB.PedidoWeb.CatpurarItemTrasladarPisoVentaOoB
                     {
                         idProducto = item.idProducto,
                         idDepartamento = item.idDepartamento,
@@ -179,9 +211,12 @@ namespace PosOnLine.Data.Prov
                         pesoPrd = item.pesoPrd,
                         volumenPrd = item.volumenPrd,
                         estatusDivisa = item.estatusDivisa,
-                        exDisponible = item.exDisponible
-                    }).ToList()
+                        exDisponible = item.exDisponible,
+                        costoDivisa= item.costoDivisa,
+                        contEmpqCompra=item.contEmpqCompra,
+                    }).ToList(),
                 };
+                entidad.Encabezado = encabezado;
 
                 r.Entidad = entidad;
                 return r;
@@ -192,7 +227,7 @@ namespace PosOnLine.Data.Prov
             }
         }
 
-        public OOB.Resultado.FichaEntidad<bool> 
+        public OOB.Resultado.FichaEntidad<bool>
             PedidoWeb_AplicarTrasladoPisoventa(OOB.PedidoWeb.AplicarTrasladoPisoVenta aplicarTraslado)
         {
             var r = new OOB.Resultado.FichaEntidad<bool>();
@@ -201,6 +236,17 @@ namespace PosOnLine.Data.Prov
             {
                 var dto = new DtoLibPos.PedidoWeb.AplicarTrasladoPisoVentaRequest()
                 {
+                    IdPedidoWeb=aplicarTraslado.IdPedidoWeb,
+                    NroPedidoWeb = aplicarTraslado.NroPedidoWeb,
+                    CiRifEntidad = aplicarTraslado.CiRifEntidad,
+                    CntRenglones = aplicarTraslado.CntRenglones,
+                    IdCliente = aplicarTraslado.IdCliente,
+                    IdSucursal = aplicarTraslado.IdSucursal,
+                    IdVendedor = aplicarTraslado.IdVendedor,
+                    ImporteFullMonRef = aplicarTraslado.ImporteFullMonRef,
+                    ImporteNetoMonLocal = aplicarTraslado.ImporteNetoMonLocal,
+                    NombreEntidad = aplicarTraslado.NombreEntidad,
+                    TasaCambioPos = aplicarTraslado.TasaCambioPos,
                     IdDeposito = aplicarTraslado.IdDeposito,
                     IdOperador = aplicarTraslado.IdOperador,
                     ItemBloqEx = aplicarTraslado.PrdBloquearEx.Select(it =>
@@ -213,7 +259,7 @@ namespace PosOnLine.Data.Prov
                         };
                         return ex;
                     }).ToList(),
-                    ItemsPisoVta =aplicarTraslado.ItemsPisoVta.Select(it =>
+                    ItemsPisoVta = aplicarTraslado.ItemsPisoVta.Select(it =>
                     {
                         var pv = new DtoLibPos.PedidoWeb.ItemsPisoVentaRequest()
                         {
@@ -245,11 +291,11 @@ namespace PosOnLine.Data.Prov
                     }).ToList(),
                 };
                 var rt = MyData.PedidoWeb_TrasladarPisoVenta(dto);
-                if (rt.Result== DtoLib.Enumerados.EnumResult.isError)
+                if (rt.Result == DtoLib.Enumerados.EnumResult.isError)
                 {
-                     throw new Exception(rt.Mensaje);
+                    throw new Exception(rt.Mensaje);
                 }
-                r.Entidad=true;
+                r.Entidad = true;
                 return r;
             }
             catch (Exception e)

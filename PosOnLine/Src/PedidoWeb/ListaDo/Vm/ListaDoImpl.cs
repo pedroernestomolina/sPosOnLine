@@ -74,6 +74,13 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vm
                 }
                 _trasladarPedido.setIdPedidoTrasaldar(ItemActual.Id);
                 _trasladarPedido.Invoke();
+                if (_trasladarPedido.TrasladoPisoVtaExitoso) 
+                {
+                    ItemActual.setCambioEstatusPendiente();
+                    Helpers.Msg.OK("PEDIDO WEB HA SIDO TRASLADADO A CUENTAS PENDIENTES");
+                    MiModelo.ListaPedidos = _bl.ToList().Where(w => w.EstatusActual == Domain.Models.EnumEstatusActual.SinProcesar).ToList();
+                    CargarListaItemBinding();
+                }
             }
         }
         //

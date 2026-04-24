@@ -150,10 +150,10 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU.vistas
             L_EMP_UND.Text = _controlador.GetDescEmpUnd;
             //
             PB_IMAGEN.Image = Properties.Resources.bt_imagen_2;
-            if (_controlador.GetPrdImagen != null)
-            {
-                PB_IMAGEN.Image = (System.Drawing.Image)_controlador.GetPrdImagen;
-            }
+            //if (_controlador.GetPrdImagen != null)
+            //{
+            //    PB_IMAGEN.Image = (System.Drawing.Image)_controlador.GetPrdImagen;
+            //}
             //
             L_TITULO_PRECIO_BONO.Visible = _controlador.GetMostrarPrecioConBono;
             L_PRECIO_1_BONO.Visible = _controlador.GetMostrarPrecioConBono;
@@ -200,6 +200,14 @@ namespace PosOnLine.Src.Producto.Lista.ZUFU.vistas
             L_PRECIO_1_BONO.Visible = _controlador.GetMostrarPrecioConBono;
             L_PRECIO_2_BONO.Visible = _controlador.GetMostrarPrecioConBono;
             L_PRECIO_3_BONO.Visible = _controlador.GetMostrarPrecioConBono;
+        }
+
+        private void PB_IMAGEN_DoubleClick(object sender, EventArgs e)
+        {
+            if (_controlador.GetPrdImagen != null)
+            {
+                PB_IMAGEN.Image = (System.Drawing.Image)_controlador.GetPrdImagen;
+            }
         }
     }
 }

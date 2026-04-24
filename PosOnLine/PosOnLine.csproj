@@ -375,6 +375,7 @@
     <Compile Include="OOB\MovCaja\Lista\Filtro.cs" />
     <Compile Include="OOB\MovCaja\Registrar\Detalle.cs" />
     <Compile Include="OOB\MovCaja\Registrar\Ficha.cs" />
+    <Compile Include="OOB\PedidoWeb\CapturarTraslado.cs" />
     <Compile Include="OOB\PedidoWeb\PedidoWeb.cs" />
     <Compile Include="OOB\PedidoWeb\TrasladarPisoventa.cs" />
     <Compile Include="OOB\Pedido\Guardar\Ficha.cs" />
@@ -679,6 +680,7 @@
     <Compile Include="Src\CuadreCierreRepo\vm\RepoVentaCreditoImpl.cs" />
     <Compile Include="Src\FormaPago\Domain\Models\Enumerados.cs" />
     <Compile Include="Src\IListaDe.cs" />
+    <Compile Include="Src\PedidoWeb\Domain\Models\EntidadWeb.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\Modelo.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\PedidoWeb.cs" />
     <Compile Include="Src\PedidoWeb\Domain\Models\TrasladoPisoVenta.cs" />

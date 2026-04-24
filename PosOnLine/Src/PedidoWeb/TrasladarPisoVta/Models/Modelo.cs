@@ -8,7 +8,7 @@ namespace PosOnLine.Src.PedidoWeb.TrasladarPisoVta.Models
 {
     public class Modelo
     {
-        public Domain.Models.CapturarTraslado PedidoTrasladar { get; set; }
+        public Domain.Models.CapturarTrasladoModel PedidoTrasladar { get; set; }
         //
         public Modelo()
         {

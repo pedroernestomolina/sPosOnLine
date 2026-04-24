@@ -110,6 +110,7 @@ namespace PosOnLine.Data.Prov
                             usuDescripcion = s.usuDesc,
                             codVend=s.codVend,
                             nombreVend=s.nombreVend,
+                            nroPedidoWeb = s.nroPedidoWeb,
                         };
                         return nr;
                     }).ToList();

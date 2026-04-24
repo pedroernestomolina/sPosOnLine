@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PosOnLine.Src.PedidoWeb.Domain.Models
 {
-    public enum EnumEstatusActual { SinDefinir = -1, SinProcesar = 0, Procesado };
+    public enum EnumEstatusActual { SinDefinir = -1, SinProcesar = 0, Procesado, Pendiente };
 
     public class PedidoWeb
     {
@@ -61,6 +61,10 @@ namespace PosOnLine.Src.PedidoWeb.Domain.Models
             DescSucursal = "";
             DescDeposito = "";
             IdWebCliente = 0;
+        }
+        public void setCambioEstatusPendiente()
+        {
+            EstatusActual = EnumEstatusActual.Pendiente;
         }
     }
 

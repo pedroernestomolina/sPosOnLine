@@ -29,7 +29,8 @@ namespace PosOnLine.Src.Pendiente
         private void InicializarGrid()
         {
             var f = new Font("Serif", 8, FontStyle.Bold);
-            var f1 = new Font("Serif", 10, FontStyle.Regular);
+            var f1 = new Font("Serif", 9, FontStyle.Regular);
+            var f2 = new Font("Serif", 7, FontStyle.Regular);
 
             DGV.RowHeadersVisible = false;
             DGV.AllowUserToAddRows = false;
@@ -109,6 +110,15 @@ namespace PosOnLine.Src.Pendiente
             c6.DefaultCellStyle.Font = f1;
             c6.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
+            var c7 = new DataGridViewTextBoxColumn();
+            c7.DataPropertyName = "PedidoWeb";
+            c7.HeaderText = "Nro/Ped";
+            c7.Visible = true;
+            c7.Width = 100;
+            c7.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            c7.HeaderCell.Style.Font = f;
+            c7.DefaultCellStyle.Font = f2;
+
             DGV.Columns.Add(c0);
             DGV.Columns.Add(c6);
             DGV.Columns.Add(c1);
@@ -116,6 +126,7 @@ namespace PosOnLine.Src.Pendiente
             DGV.Columns.Add(c3);
             DGV.Columns.Add(c5);
             DGV.Columns.Add(c4);
+            DGV.Columns.Add(c7);
         }
 
         private void AbrirPendienteFrm_Load(object sender, EventArgs e)

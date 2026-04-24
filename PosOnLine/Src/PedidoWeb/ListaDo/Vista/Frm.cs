@@ -124,6 +124,8 @@ namespace PosOnLine.Src.PedidoWeb.ListaDo.Vista
         private void EnviarAlCarritoVenta()
         {
             _controlador.EnviarAlCarritoVenta();
+            DGV.Refresh();
+            L_ITEMS_ENCONTRADOS.Text = "Items Encontrados: " + _controlador.Get_ItemsEncontrados.ToString();
         }
     }
 }

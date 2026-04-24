@@ -131,10 +131,10 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
             }
         }
 
-        public Models.CapturarTraslado
+        public Models.CapturarTrasladoModel
             CapturarTrasladoPisoVenta(int idPedido)
         {
-            var rt = new Models.CapturarTraslado();
+            var rt = new Models.CapturarTrasladoModel();
             //
             try
             {
@@ -144,12 +144,45 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
                     throw new Exception(r01.Mensaje);
                 }
 
+                // Validar que los datos del encabezado no sean nulos
+                if (r01.Entidad == null || r01.Entidad.Encabezado== null)
+                {
+                    throw new Exception("No se obtuvo información del encabezado del pedido");
+                }
+
+                // Mapear el encabezado del DTO al OOB
+                var re = r01.Entidad.Encabezado;
+                var encabezado = new Models.EncabezadoCapturadoModel
+                {
+                    Id = re.Id,
+                    FechaRegistro = re.FechaRegistro,
+                    NombreEntidad = re.NombreEntidad,
+                    CiRifEntidad = re.CiRifEntidad,
+                    DirEntidad = re.DirEntidad,
+                    TelefonoEntidad = re.TelefonoEntidad,
+                    IdSucursal = re.IdSucursal,
+                    IdDeposito = re.IdDeposito,
+                    DescSucursal = re.DescSucursal,
+                    DescDeposito = re.DescDeposito,
+                    IdWebCliente = re.IdWebCliente,
+                    ImporteMonRef = re.ImporteMonRef,
+                    ImporteMonLocal = re.ImporteMonLocal,
+                    TasaCambio = re.TasaCambio,
+                    TasaSistema = re.TasaSistema,
+                    CntArticulos = re.CntArticulos,
+                    CntItems = re.CntItems,
+                    PedidoNro = re.PedidoNro,
+                    EstatusAnulado = re.EstatusAnulado,
+                    EstatusProcesado = re.EstatusProcesado
+                };
+                rt.Encabezado = encabezado;
+
                 if (r01.Entidad == null || r01.Entidad.Items == null)
                 {
                     throw new Exception("No se encontraron items para trasladar.");
                 }
 
-                rt.Items = r01.Entidad.Items.Select(item => new Models.ItemsTrasladar
+                rt.Items = r01.Entidad.Items.Select(item => new Models.ItemCapturadoModel
                 {
                     idProducto = item.idProducto,
                     idDepartamento = item.idDepartamento,
@@ -173,8 +206,10 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
                     costoProm = item.costoProm,
                     pesoPrd = item.pesoPrd,
                     volumenPrd = item.volumenPrd,
-                    estatusDivisa = item.estatusDivisa,
-                    exDisponible = item.exDisponible
+                    isAdmDivisa = item.estatusDivisa.Trim().ToUpper()=="1",
+                    exDisponible = item.exDisponible,
+                    costoDivisa = item.costoDivisa,
+                    contEmpqCompra = item.contEmpqCompra
                 }).ToList();
                 //
                 return rt;
@@ -186,29 +221,69 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
         }
 
         public bool 
-            AplicarTrasladoPisoVenta(Models.AplicarTraslado aplicarTraslado)
+            AplicarTrasladoPisoVenta(Models.AplicarTrasladoModel aplicarTraslado)
         {
             try
             {
                 var aplicar = new OOB.PedidoWeb.AplicarTrasladoPisoVenta()
                 {
+                    IdPedidoWeb = aplicarTraslado.IdPedidoWeb,
+                    NroPedidoWeb = aplicarTraslado.NroPedidoWeb,
                     IdDeposito = aplicarTraslado.IdDeposito,
                     IdOperador = aplicarTraslado.IdOperador,
-                    ItemsPisoVta = aplicarTraslado.Items.Where(w => w.CntDisponibleParaTrasladar > 0).Select(s => 
+                    CiRifEntidad = aplicarTraslado.CiRifEntidad,
+                    CntRenglones = aplicarTraslado.CntRenglones,
+                    IdCliente = aplicarTraslado.IdCliente,
+                    IdSucursal = aplicarTraslado.IdSucursal,
+                    IdVendedor = aplicarTraslado.IdVendedor,
+                    ImporteFullMonRef = aplicarTraslado.ImporteFullMonRef,
+                    ImporteNetoMonLocal = aplicarTraslado.ImporteNetoMonLocal,
+                    NombreEntidad = aplicarTraslado.NombreEntidad,
+                    TasaCambioPos = aplicarTraslado.TasaCambioPos,
+                    ItemsPisoVta = aplicarTraslado.Items.Where(w => w.CntDisponibleParaTrasladar > 0).Select(s =>
                     {
+                        var _costo = 0m;
+                        var _costoUnd = 0m;
+                        var _pDivisaFull = 0m;
+
+                        if (!s.isAdmDivisa)
+                        {
+                            if (s.contEmpqCompra > 0)
+                            {
+                                _costoUnd = (s.costoDivisa / s.contEmpqCompra) * aplicarTraslado.TasaCambioPos;
+                            }
+                            _costo = (_costoUnd * s.contEmpq);
+                            _pDivisaFull = s.pDivisaFull;
+                        }
+                        else
+                        {
+                            if (s.contEmpqCompra > 0)
+                            {
+                                _costoUnd = (s.costoCompra / s.contEmpqCompra);
+                            }
+                            _costo = (_costoUnd * s.contEmpq);
+                            if (aplicarTraslado.TasaSistema > 0m)
+                            {
+                                _pDivisaFull = s.pNeto / aplicarTraslado.TasaSistema;
+                            }
+                            else 
+                            {
+                                throw new Exception("TASA SISTEMA NO DEFINADA");
+                            }
+                        }
                         var it = new OOB.PedidoWeb.ItemPisoVentaTrasladar()
                         {
                             categoriaPrd = s.categoriaPrd,
                             cntSolicitada = s.CntDisponibleParaTrasladar,
                             codigoPrd = s.codigoPrd,
                             contEmpq = s.contEmpq,
-                            costoCompra = s.costoCompra,
-                            costoProm = s.costoProm,
-                            costoPromUnd = s.costoPromUnd,
-                            costoUnd = s.costoUnd,
+                            costoCompra = _costo,
+                            costoProm = _costo,
+                            costoPromUnd = _costoUnd,
+                            costoUnd = _costoUnd,
                             decimalesPrd = s.decimalesPrd,
                             descEmpq = s.descEmpq,
-                            estatusDivisa = s.estatusDivisa,
+                            estatusDivisa = s.isAdmDivisa ? "1" : "0",
                             estatusPesado = s.estatusPesado,
                             idDepartamento = s.idDepartamento,
                             idGrupo = s.idGrupo,
@@ -216,7 +291,7 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
                             idSubGrupo = s.idSubGrupo,
                             idTasaFiscal = s.idTasaFiscal,
                             nombrePrd = s.nombrePrd,
-                            pDivisaFull = s.pDivisaFull,
+                            pDivisaFull = _pDivisaFull,
                             pesoPrd = s.pesoPrd,
                             pNeto = s.pNeto,
                             tasaFiscal = s.tasaFiscal,
@@ -236,6 +311,57 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
                 };
                 var rt = Sistema.MyData.PedidoWeb_AplicarTrasladoPisoventa(aplicar);
                 return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public string 
+            VerificarExistenciaEntidadWebEnCliente(string cadena)
+        {
+            try
+            {
+                var rt = Sistema.MyData.Cliente_GetFichaByCiRif(cadena);
+                if (rt.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rt.Mensaje);
+                }
+                return rt.Entidad;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public Models.EntidadWeb 
+            ObtenerEntidadWebSegunIdCliente(string idCliente)
+        {
+            try
+            {
+                var rt = Sistema.MyData.Cliente_GetFicha(idCliente);
+                if (rt.Result == OOB.Resultado.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(rt.Mensaje);
+                }
+                if (rt.Entidad ==null)
+                {
+                    throw new Exception("ERROR AL CARGAR CLIENTE");
+                }
+                var c = rt.Entidad;
+                return new Models.EntidadWeb()
+                {
+                    CiRifCliente = c.CiRif,
+                    CodigoCliente = c.Codigo,
+                    DirFiscalCliente = c.DireccionFiscal,
+                    IdCliente = c.Id,
+                    IsActivoCliente = c.Estatus.Trim().ToUpper() == "ACTIVO",
+                    IsActivoCredito = c.EstatusCredito.Trim().ToUpper() == "1",
+                    NombreCliente = c.Nombre,
+                    TelefonoCliente = c.Telefono,
+                };
             }
             catch (Exception e)
             {

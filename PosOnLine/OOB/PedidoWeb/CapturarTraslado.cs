@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PosOnLine.Src.PedidoWeb.Domain.Models
+namespace PosOnLine.OOB.PedidoWeb
 {
-    public class EncabezadoCapturadoModel
+    public class CapturarEncTrasladarPisoVentaOoB
     {
         public int Id { get; set; }
         public DateTime FechaRegistro { get; set; }
@@ -30,7 +30,7 @@ namespace PosOnLine.Src.PedidoWeb.Domain.Models
         public string EstatusProcesado { get; set; }
     }
 
-    public class ItemCapturadoModel
+    public class CatpurarItemTrasladarPisoVentaOoB
     {
         public string idProducto { get; set; }
         public string idDepartamento { get; set; }
@@ -54,51 +54,15 @@ namespace PosOnLine.Src.PedidoWeb.Domain.Models
         public decimal costoProm { get; set; }
         public decimal pesoPrd { get; set; }
         public decimal volumenPrd { get; set; }
-        public bool isAdmDivisa { get; set; }
+        public string estatusDivisa { get; set; }
         public decimal exDisponible { get; set; }
         public decimal costoDivisa { get; set; }
         public decimal contEmpqCompra { get; set; }
-        //
-        public bool HayDisponibilidad { get { return exDisponible >= (cntSolicitada * contEmpq); } }
-        public int CntDisponibleParaTrasladar
-        {
-            get
-            {
-                if (HayDisponibilidad)
-                {
-                    return cntSolicitada;
-                }
-                else 
-                {
-                    if (contEmpq <= 0) return 0;
-                    return (int)(exDisponible / contEmpq);
-                }
-            }
-        }
     }
 
-    public class CapturarTrasladoModel
+    public class CapturarTrasladoPisoVentaOoB
     {
-        public EncabezadoCapturadoModel Encabezado { get; set; }
-        public List<ItemCapturadoModel> Items { get; set; }
-    }
-
-    public class AplicarTrasladoModel
-    {
-        public string IdCliente { get; set; }
-        public string NombreEntidad { get; set; }
-        public string CiRifEntidad { get; set; }
-        public decimal TasaCambioPos { get; set; }
-        public int IdOperador { get; set; }
-        public string IdSucursal { get; set; }
-        public string IdDeposito { get; set; }
-        public string IdVendedor { get; set; }
-        public decimal ImporteNetoMonLocal { get; set; }
-        public decimal ImporteFullMonRef { get; set; }
-        public int CntRenglones { get; set; }
-        public int IdPedidoWeb { get; set; }
-        public int NroPedidoWeb { get; set; }
-        public decimal TasaSistema { get; set; }
-        public List<ItemCapturadoModel> Items { get; set; }
+        public CapturarEncTrasladarPisoVentaOoB Encabezado { get; set; }
+        public List<CatpurarItemTrasladarPisoVentaOoB> Items { get; set; }
     }
 }
