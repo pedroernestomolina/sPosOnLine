@@ -96,6 +96,8 @@ namespace PosOnLine.Src.PedidoWeb.MostarPedido.Vista
         private void Frm_Load(object sender, EventArgs e)
         {
             DGV.DataSource = _controlador.Get_DetallesSource;
+            L_PEDIDO_NRO.Text = "Pedido Web Nro: "+_controlador.Get_PedidoNro.ToString().Trim().PadLeft(8,'0');
+            L_ENTIDAD.Text = _controlador.Get_EntidadPedido;
         }
 
         private void BT_SALIDA_Click(object sender, EventArgs e)

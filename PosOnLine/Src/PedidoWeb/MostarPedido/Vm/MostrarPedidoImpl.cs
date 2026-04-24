@@ -10,17 +10,23 @@ namespace PosOnLine.Src.PedidoWeb.MostarPedido.Vm
     public class MostrarPedidoImpl: IMostarPedido
     {
         private int _idPedidoMostrar;
+        private int _pedidoNro;
+        private string _entidadPed;
         private BindingSource _bsDet;
         private PedidoWeb.Domain.UseCase.IUseCase _uc;
         //
         public Domain.Modelo MiModelo { get; set; }
         public object Get_DetallesSource { get { return _bsDet; } }
+        public int Get_PedidoNro { get { return _pedidoNro; } }
+        public string Get_EntidadPedido { get { return _entidadPed; } }
         //
         public MostrarPedidoImpl()
         {
             _idPedidoMostrar = -1;
             _bsDet = new BindingSource();
             _uc = new PedidoWeb.Domain.UseCase.UseCaseImpl();
+            _pedidoNro = 0;
+            _entidadPed = "";
             MiModelo = new Domain.Modelo();
         }
         //
@@ -38,6 +44,8 @@ namespace PosOnLine.Src.PedidoWeb.MostarPedido.Vm
         //
         private void Inicializa()
         {
+            _pedidoNro = 0;
+            _entidadPed="";
             MiModelo.Pedido = null;
         }
         Vista.Frm frm;
@@ -68,7 +76,13 @@ namespace PosOnLine.Src.PedidoWeb.MostarPedido.Vm
                 {
                     throw new Exception("[ ID ] PEDIDO, NO CARGADO");
                 }
-                MiModelo.Pedido = _uc.CargarPedidoWebById(_idPedidoMostrar); 
+                MiModelo.Pedido = _uc.CargarPedidoWebById(_idPedidoMostrar);
+                _pedidoNro = MiModelo.Pedido.PedidoNro;
+                _entidadPed = MiModelo.Pedido.CiRifEntidad.Trim() + Environment.NewLine +
+                    MiModelo.Pedido.NombreEntidad.Trim() + Environment.NewLine +
+                    MiModelo.Pedido.DirEntidad.Trim() + Environment.NewLine +
+                    MiModelo.Pedido.TelefonoEntidad.Trim() + Environment.NewLine +
+                    "Tasa Cambio Web: " + MiModelo.Pedido.TasaCambio.ToString("n4");
                 return true;
             }
             catch (Exception e)

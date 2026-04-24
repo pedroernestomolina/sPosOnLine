@@ -9,6 +9,8 @@ namespace PosOnLine.Src.PedidoWeb.MostarPedido.Vm
     public interface IMostarPedido
     {
         object Get_DetallesSource { get; }
+        int Get_PedidoNro { get; }
+        string Get_EntidadPedido { get; }
         //
         void setIdPedidoMostrar(int id);
         //

@@ -31,26 +31,35 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.DGV = new System.Windows.Forms.DataGridView();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.BT_SALIDA = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.L_PEDIDO_NRO = new System.Windows.Forms.Label();
+            this.L_ENTIDAD = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
+            this.panel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -93,6 +102,18 @@
             this.panel2.Size = new System.Drawing.Size(1082, 38);
             this.panel2.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(2, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1078, 34);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Visualizar: Pedido Web";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.tableLayoutPanel2);
@@ -102,17 +123,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1082, 409);
             this.panel3.TabIndex = 1;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel4.Controls.Add(this.tableLayoutPanel3);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(1, 452);
-            this.panel4.Margin = new System.Windows.Forms.Padding(1);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1082, 58);
-            this.panel4.TabIndex = 2;
             // 
             // tableLayoutPanel2
             // 
@@ -132,11 +142,11 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.tableLayoutPanel4);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(1, 1);
             this.panel5.Margin = new System.Windows.Forms.Padding(1);
             this.panel5.Name = "panel5";
-            this.panel5.Padding = new System.Windows.Forms.Padding(2);
             this.panel5.Size = new System.Drawing.Size(376, 407);
             this.panel5.TabIndex = 0;
             // 
@@ -159,6 +169,17 @@
             this.DGV.Name = "DGV";
             this.DGV.Size = new System.Drawing.Size(698, 403);
             this.DGV.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel4.Controls.Add(this.tableLayoutPanel3);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(1, 452);
+            this.panel4.Margin = new System.Windows.Forms.Padding(1);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1082, 58);
+            this.panel4.TabIndex = 2;
             // 
             // tableLayoutPanel3
             // 
@@ -205,17 +226,67 @@
             this.BT_SALIDA.UseVisualStyleBackColor = true;
             this.BT_SALIDA.Click += new System.EventHandler(this.BT_SALIDA_Click);
             // 
-            // label1
+            // tableLayoutPanel4
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(2, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1078, 34);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Visualizar: Pedido Web";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.panel8, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.panel9, 0, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 4;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.28501F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.41523F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.39803F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.39312F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(376, 407);
+            this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.L_PEDIDO_NRO);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(1, 1);
+            this.panel8.Margin = new System.Windows.Forms.Padding(1);
+            this.panel8.Name = "panel8";
+            this.panel8.Padding = new System.Windows.Forms.Padding(2);
+            this.panel8.Size = new System.Drawing.Size(374, 47);
+            this.panel8.TabIndex = 0;
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.L_ENTIDAD);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(1, 50);
+            this.panel9.Margin = new System.Windows.Forms.Padding(1);
+            this.panel9.Name = "panel9";
+            this.panel9.Padding = new System.Windows.Forms.Padding(2);
+            this.panel9.Size = new System.Drawing.Size(374, 133);
+            this.panel9.TabIndex = 1;
+            // 
+            // L_PEDIDO_NRO
+            // 
+            this.L_PEDIDO_NRO.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_PEDIDO_NRO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_PEDIDO_NRO.Location = new System.Drawing.Point(2, 2);
+            this.L_PEDIDO_NRO.Name = "L_PEDIDO_NRO";
+            this.L_PEDIDO_NRO.Size = new System.Drawing.Size(370, 43);
+            this.L_PEDIDO_NRO.TabIndex = 0;
+            this.L_PEDIDO_NRO.Text = "label2";
+            this.L_PEDIDO_NRO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // L_ENTIDAD
+            // 
+            this.L_ENTIDAD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L_ENTIDAD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L_ENTIDAD.Location = new System.Drawing.Point(2, 2);
+            this.L_ENTIDAD.Name = "L_ENTIDAD";
+            this.L_ENTIDAD.Size = new System.Drawing.Size(370, 129);
+            this.L_ENTIDAD.TabIndex = 0;
+            this.L_ENTIDAD.Text = "label3";
+            this.L_ENTIDAD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Frm
             // 
@@ -232,12 +303,16 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
+            this.panel4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -257,5 +332,10 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Button BT_SALIDA;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label L_PEDIDO_NRO;
+        private System.Windows.Forms.Label L_ENTIDAD;
     }
 }
