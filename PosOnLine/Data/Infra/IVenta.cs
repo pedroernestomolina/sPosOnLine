@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace PosOnLine.Data.Infra
 {
     public interface IVenta
@@ -25,5 +24,8 @@ namespace PosOnLine.Data.Infra
             Venta_Item_ActualizarCantidad_Aumentar(OOB.Venta.Item.ActualizarCantidad.Aumentar.Ficha ficha);
         OOB.Resultado.Ficha
             Venta_Item_ActualizarPrecio(OOB.Venta.Item.ActualizarPrecio.Ficha ficha);
+        //
+        OOB.Resultado.FichaEntidad<bool>
+            Venta_VerificarSiHayVtaEnProceso(int idOperador);
     }
 }

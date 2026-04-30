@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace PosOnLine.Data.Prov
 {
     public partial class DataPrv: IData
@@ -335,6 +334,31 @@ namespace PosOnLine.Data.Prov
             }
 
             return result;
+        }
+        //
+        public OOB.Resultado.FichaEntidad<bool> 
+            Venta_VerificarSiHayVtaEnProceso(int idOperador)
+        {
+            var result = new OOB.Resultado.FichaEntidad<bool>();
+            //
+            try
+            {
+                var r01 = MyData.Venta_VerificarVtaEnProceso(idOperador);
+                if (r01.Result == DtoLib.Enumerados.EnumResult.isError)
+                {
+                    throw new Exception(r01.Mensaje);
+                }
+                if (r01.Entidad == null)
+                    result.Entidad=false;
+                else
+                    result.Entidad = true;
+                //
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

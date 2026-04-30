@@ -13,7 +13,6 @@ namespace PosOnLine.Src.PedidoWeb.TrasladarPisoVta.Vm
         private bool _trasladoPisoVta;
         private Pos.ICliente _gCliente;
         private decimal _tasaSistema;
-
         //
         public bool TrasladoPisoVtaExitoso { get { return _trasladoPisoVta; } }
         public Models.Modelo MiModelo { get; set; }
@@ -91,7 +90,8 @@ namespace PosOnLine.Src.PedidoWeb.TrasladarPisoVta.Vm
                             {
                                 msg += " ?";
                             }
-                            _trasladar = Helpers.Msg.Autorizar(msg);
+                            if (!Helpers.Msg.Autorizar(msg))
+                                return;
                         }
 
                         var _idCliente = _uc.VerificarExistenciaEntidadWebEnCliente(_cirifEntidadWeb);
@@ -181,6 +181,11 @@ namespace PosOnLine.Src.PedidoWeb.TrasladarPisoVta.Vm
                     throw new Exception(rst.Mensaje);
                 }
                 _tasaSistema = rst.Entidad;
+
+                if (_uc.VerificarSiHayVtaEnProcesao(Sistema.PosEnUso.id))
+                {
+                    throw new Exception("HAY UNA VENTA EN PROCESO, NO PUEDO OPERAR CON ESTA VENTA EN PROCESO");
+                }
 
                 return true;
             }

@@ -368,5 +368,19 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
                 throw new Exception(e.Message);
             }
         }
+
+        public bool 
+            VerificarSiHayVtaEnProcesao(int idOperador)
+        {
+            try
+            {
+                var rt = Sistema.MyData.Venta_VerificarSiHayVtaEnProceso(idOperador);
+                return rt.Entidad;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

@@ -25,5 +25,8 @@ namespace PosOnLine.Src.PedidoWeb.Domain.UseCase
 
         Models.EntidadWeb
             ObtenerEntidadWebSegunIdCliente(string idEntidad);
+
+        bool
+            VerificarSiHayVtaEnProcesao(int idOperador);
     }
 }
